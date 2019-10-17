@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>No title | Welcome to Chumen77&#39;s Blog | Struggle 就完事了 !</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="title:标志寄存器标志寄存器部分标志寄存器详细介绍                                                                                                           需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF CF进位标志CF(Carry Flag):如果运算结果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="No title">
+<meta property="og:url" content="https://chumen77.github.io/2019/10/06/标志寄存器/index.html">
+<meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
+<meta property="og:description" content="title:标志寄存器标志寄存器部分标志寄存器详细介绍                                                                                                           需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF CF进位标志CF(Carry Flag):如果运算结果">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15704423980063.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15704627287517.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15704444932243.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15703705840520.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15703707829255.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15703770643896.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15703773573324.jpg">
+<meta property="og:updated_time" content="2019-10-17T15:27:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="No title">
+<meta name="twitter:description" content="title:标志寄存器标志寄存器部分标志寄存器详细介绍                                                                                                           需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF CF进位标志CF(Carry Flag):如果运算结果">
+<meta name="twitter:image" content="https://chumen77.github.io/2019/10/06/标志寄存器/images/15704423980063.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">chumen77</h5>
+          <a href="mailto:973059980@qq.com" title="973059980@qq.com" class="mail">973059980@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chumen77" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis"></div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title"></h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-10-06T14:01:14.000Z" itemprop="datePublished" class="page-time">
+  2019-10-06
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#title-标志寄存器"><span class="post-toc-number">1.</span> <span class="post-toc-text">title:标志寄存器</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#标志寄存器"><span class="post-toc-number"></span> <span class="post-toc-text">标志寄存器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部分标志寄存器详细介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">部分标志寄存器详细介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CF"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">CF</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PF"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">PF</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AF"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">AF</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ZF"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">ZF</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SF"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">SF</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OF"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">OF</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#练习"><span class="post-toc-number">2.</span> <span class="post-toc-text">练习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写汇编指令只影响CF位的值"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">写汇编指令只影响CF位的值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写汇编指令只影响PF位的值"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">写汇编指令只影响PF位的值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写汇编指令只影响AF位的值"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">写汇编指令只影响AF位的值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写汇编指令只影响SF位的值"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">写汇编指令只影响SF位的值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写汇编指令只影响OF位的值"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">写汇编指令只影响OF位的值</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-标志寄存器"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title"></h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-10-06 22:01:14" datetime="2019-10-06T14:01:14.000Z"  itemprop="datePublished">2019-10-06</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="title-标志寄存器"><a href="#title-标志寄存器" class="headerlink" title="title:标志寄存器"></a>title:标志寄存器</h2><h1 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h1><h2 id="部分标志寄存器详细介绍"><a href="#部分标志寄存器详细介绍" class="headerlink" title="部分标志寄存器详细介绍"></a>部分标志寄存器详细介绍</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15704423980063.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>需要先熟练记住这几个寄存器的位置和名称：<code>CF PF AF ZF SF OF</code></p>
+<h3 id="CF"><a href="#CF" class="headerlink" title="CF"></a>CF</h3><p>进位标志CF(Carry Flag):如果运算结果的<strong>最高位</strong>产生了一个进位或借位，那么，其值为1，否则其值为0。</p>
+<p>解析：在看运算结果的时候，先提前确定好参与运算的数是<strong>有无符号数</strong>和<strong>它们的数据宽度</strong>。其与PF的难辨难分，重点是看参与运算的数是否为无符号数，这个是程序员写代码的时候定义的。默认都是有符号的，这就主要看后面的PF了。</p>
+<h3 id="PF"><a href="#PF" class="headerlink" title="PF"></a>PF</h3><p>奇偶标志PF(Parity Flag)：PF标志位，根据结果中<strong>最低有效字节(最低8位)</strong>中“1”的个数来确定置1还是清0。如果“1”的个数为偶数，则PF的值为1，否则其值为0。</p>
+<p>解析：这个在很多教材中是错的，这个需要强调根据的是运算结果的最低有效字节，也就是最低8位里面1的个数。</p>
+<h3 id="AF"><a href="#AF" class="headerlink" title="AF"></a>AF</h3><p>辅助进位标志AF(Auxiliary Carry Flag)：<br>如果在“加”操作期间从低半字节（最低四位）到高半字节（高四位）有进位，或者在减法期间的低8位部分从高半字节到低半字节有借位，则将辅助标志设置为（1）。否则，如果不发生这种进位或借位，则清除标志或将其“复位”（设置为0）。<strong>—-（维基百科）</strong></p>
+<p>辅助迸位标志:算数操作結果的第三位〈从0幵始计数〉如果发生了迸位或者借位則將其置为1,否則为0,常在BCD(binary-codedecimal)算木迄算中被使用。<strong>—（百度百科）</strong></p>
+<p>解析：这个还是在很多资料上是错误的，在x86汇编上正确解释如上，也就是<strong>在D0-D7中，D3向D4位进位或者借位，才会置1。</strong>（这个当初老师讲错、百度高赞也是错的，要注意一下）。</p>
+<h3 id="ZF"><a href="#ZF" class="headerlink" title="ZF"></a>ZF</h3><p>零标志ZF(Zero Flag)：零标志ZF用来反映运算结果是否为0。如果运算结果为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位。<br>解析：引一下常用的<code>xor r8/16/32,r8/16/32</code>对寄存器清零操作。</p>
+<h3 id="SF"><a href="#SF" class="headerlink" title="SF"></a>SF</h3><p>符号标志SF(Sign Flag)：符号标志SF用来反映运算结果的符号位，它与运算结果的最高位相同。</p>
+<p>解析：还是需要确定数据宽度，看好到底哪个是最高位，然后把<strong>它换成2进制</strong>确定最高位是0还是1.<br>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AL,20</span><br><span class="line">MOV CX,8000</span><br><span class="line">ADD AX,CX</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15704627287517.jpg" alt="-w117" title>
+                </div>
+                <div class="image-caption">-w117</div>
+            </figure>
+<p>这个就是在字上操作，然后相加结果是<code>8020</code>,最高位就是<code>1000</code>，那这个SF就是1了。要注意一下这个sf标志也是看数据宽度的。</p>
+<h3 id="OF"><a href="#OF" class="headerlink" title="OF"></a>OF</h3><p>溢出标志OF(Overflow Flag)：溢出标志OF用于反映有符号数加减运算所得结果是否溢出。如果运算结果超过当前运算位数所能表示的范围，则称为溢出，OF的值被置为1，否则，OF的值被清为0。</p>
+<p>解析：这个常与CF混淆，以为他们没啥区别，但是这个才是正宗的计算机看是否溢出的标志位。</p>
+<p>CF与SF区别：</p>
+<ul>
+<li>进位标志表示<strong>无符号数</strong>运算结果是否超出范围.</li>
+<li>溢出标志表示<strong>有符号数</strong>运算结果是否超出范围.</li>
+</ul>
+<p>溢出主要是给<strong>有符号运算</strong>使用的，在有符号的运算中，有如下的规律：</p>
+<ul>
+<li>正 + 正 = 正 如果结果是负数，则说明有溢出</li>
+<li>负 + 负 = 负 如果结果是正数，则说明有溢出</li>
+<li>正 + 负 永远都不会有溢出.<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15704444932243.jpg" alt="-w315" title>
+                </div>
+                <div class="image-caption">-w315</div>
+            </figure>
+结合这个图在应为对PF的判断，非常好用。<strong>判断的时候，一定注意PF是在有符号数做运算的时候去看的，无符号直接看CF就好了。</strong></li>
+</ul>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="写汇编指令只影响CF位的值"><a href="#写汇编指令只影响CF位的值" class="headerlink" title="写汇编指令只影响CF位的值"></a>写汇编指令只影响CF位的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL,0FE</span><br><span class="line">ADD AL,10</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15703705840520.jpg" alt="-w669" title>
+                </div>
+                <div class="image-caption">-w669</div>
+            </figure>
+<h3 id="写汇编指令只影响PF位的值"><a href="#写汇编指令只影响PF位的值" class="headerlink" title="写汇编指令只影响PF位的值"></a>写汇编指令只影响PF位的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL,1</span><br><span class="line">ADD AL,2</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15703707829255.jpg" alt="-w630" title>
+                </div>
+                <div class="image-caption">-w630</div>
+            </figure>
+<h3 id="写汇编指令只影响AF位的值"><a href="#写汇编指令只影响AF位的值" class="headerlink" title="写汇编指令只影响AF位的值"></a>写汇编指令只影响AF位的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX,0F</span><br><span class="line">ADD EAX,1</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15703770643896.jpg" alt="-w588" title>
+                </div>
+                <div class="image-caption">-w588</div>
+            </figure>
+<h3 id="写汇编指令只影响SF位的值"><a href="#写汇编指令只影响SF位的值" class="headerlink" title="写汇编指令只影响SF位的值"></a>写汇编指令只影响SF位的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV CL,0F1</span><br><span class="line">ADD CL,1</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/06/标志寄存器/images/15703773573324.jpg" alt="-w716" title>
+                </div>
+                <div class="image-caption">-w716</div>
+            </figure>
+
+<h3 id="写汇编指令只影响OF位的值"><a href="#写汇编指令只影响OF位的值" class="headerlink" title="写汇编指令只影响OF位的值"></a>写汇编指令只影响OF位的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL,80</span><br><span class="line">SUB AL,10</span><br></pre></td></tr></table></figure>
+
+<p>这个需要重视下，练习的时候有点受思维限制了。没有想到用SUB来构造出，<strong>站在80的位置顺时针查10，负-正=正</strong>，来实现溢出完成只影响OF位。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-10-17T15:27:07.000Z" itemprop="dateUpdated">2019-10-17 23:27:07</time>
+</span><br>
+
+
+        
+        这里可以写作者留言,thank you for your reading.
+        
+    </div>
+    
+    <footer>
+        <a href="https://chumen77.github.io">
+            <img src="/img/avatar.jpg" alt="chumen77">
+            chumen77
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/10/06/标志寄存器/&title=Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/10/06/标志寄存器/&title=Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/10/06/标志寄存器/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/10/06/标志寄存器/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/10/06/标志寄存器/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/10/07/JCC/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[no title]</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/10/01/数据宽度与逻辑运算/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[no title]</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>chumen77 &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/10/06/标志寄存器/&title=《No title》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/10/06/标志寄存器/&title=《No title》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/10/06/标志寄存器/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《No title》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/10/06/标志寄存器/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/10/06/标志寄存器/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/2019/10/06/标志寄存器/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

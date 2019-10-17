@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>No title | Welcome to Chumen77&#39;s Blog | Struggle 就完事了 !</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="title:数据宽度与逻辑运算数据宽度与逻辑运算数据宽度数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。 对数据宽度的理解和有无符号数4位宽度表示4位宽度表示：假设计算机只能存储4位2进制数：    0000 0001 0010 0011 0100 0101 0110 0111 1000 1001">
+<meta property="og:type" content="article">
+<meta property="og:title" content="No title">
+<meta property="og:url" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/index.html">
+<meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
+<meta property="og:description" content="title:数据宽度与逻辑运算数据宽度与逻辑运算数据宽度数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。 对数据宽度的理解和有无符号数4位宽度表示4位宽度表示：假设计算机只能存储4位2进制数：    0000 0001 0010 0011 0100 0101 0110 0111 1000 1001">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699374653790.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699387217727.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699389940266.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699391219590.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699395390213.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699396122732.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699397540402.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699398562544.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15700250078922.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15701063449646.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15701064241084.jpg">
+<meta property="og:updated_time" content="2019-10-09T13:02:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="No title">
+<meta name="twitter:description" content="title:数据宽度与逻辑运算数据宽度与逻辑运算数据宽度数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。 对数据宽度的理解和有无符号数4位宽度表示4位宽度表示：假设计算机只能存储4位2进制数：    0000 0001 0010 0011 0100 0101 0110 0111 1000 1001">
+<meta name="twitter:image" content="https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/images/15699374653790.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">chumen77</h5>
+          <a href="mailto:973059980@qq.com" title="973059980@qq.com" class="mail">973059980@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chumen77" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis"></div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title"></h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-10-01T13:08:32.000Z" itemprop="datePublished" class="page-time">
+  2019-10-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#title-数据宽度与逻辑运算"><span class="post-toc-number">1.</span> <span class="post-toc-text">title:数据宽度与逻辑运算</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据宽度与逻辑运算"><span class="post-toc-number"></span> <span class="post-toc-text">数据宽度与逻辑运算</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据宽度"><span class="post-toc-number">1.</span> <span class="post-toc-text">数据宽度</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对数据宽度的理解和有无符号数"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">对数据宽度的理解和有无符号数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4位宽度表示"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">4位宽度表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为什么在存有符号数时说开头为1的数就是负数？"><span class="post-toc-number">1.1.1.1.</span> <span class="post-toc-text">为什么在存有符号数时说开头为1的数就是负数？</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#16位宽度"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">16位宽度</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#32位宽度"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">32位宽度</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#逻辑运算"><span class="post-toc-number">2.</span> <span class="post-toc-text">逻辑运算</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二进制的逻辑运算："><span class="post-toc-number">2.1.</span> <span class="post-toc-text">二进制的逻辑运算：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#or："><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">or：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#and："><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">and：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#xor"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">xor</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#not"><span class="post-toc-number">2.1.4.</span> <span class="post-toc-text">not</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#逻辑运算的具体应用："><span class="post-toc-number">2.2.</span> <span class="post-toc-text">逻辑运算的具体应用：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#想获取某个值得第N位的值是1还是0"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">想获取某个值得第N位的值是1还是0</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#最简单的加密算法："><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">最简单的加密算法：</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-数据宽度与逻辑运算"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title"></h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-10-01 21:08:32" datetime="2019-10-01T13:08:32.000Z"  itemprop="datePublished">2019-10-01</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="title-数据宽度与逻辑运算"><a href="#title-数据宽度与逻辑运算" class="headerlink" title="title:数据宽度与逻辑运算"></a>title:数据宽度与逻辑运算</h2><h1 id="数据宽度与逻辑运算"><a href="#数据宽度与逻辑运算" class="headerlink" title="数据宽度与逻辑运算"></a>数据宽度与逻辑运算</h1><h2 id="数据宽度"><a href="#数据宽度" class="headerlink" title="数据宽度"></a>数据宽度</h2><p>数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。</p>
+<h3 id="对数据宽度的理解和有无符号数"><a href="#对数据宽度的理解和有无符号数" class="headerlink" title="对数据宽度的理解和有无符号数"></a>对数据宽度的理解和有无符号数</h3><h4 id="4位宽度表示"><a href="#4位宽度表示" class="headerlink" title="4位宽度表示"></a>4位宽度表示</h4><p>4位宽度表示：假设计算机只能存储4位2进制数：</p>
+<table>
+<thead>
+<tr>
+<th align="center">0000</th>
+<th align="center">0001</th>
+<th align="center">0010</th>
+<th align="center">0011</th>
+<th align="center">0100</th>
+<th align="center">0101</th>
+<th align="center">0110</th>
+<th align="center">0111</th>
+<th align="center">1000</th>
+<th align="center">1001</th>
+<th align="center">1010</th>
+<th align="center">1011</th>
+<th align="center">1100</th>
+<th align="center">1101</th>
+<th align="center">1110</th>
+<th align="center">1111</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">A</td>
+<td align="center">B</td>
+<td align="center">C</td>
+<td align="center">D</td>
+<td align="center">E</td>
+<td align="center">F</td>
+</tr>
+<tr>
+<td align="center"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699374653790.jpg" alt="-w303" title>
+                </div>
+                <div class="image-caption">-w303</div>
+            </figure></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">存无符号数时：<code>0 1 2 3 4 5 6 7 8 9 A B C D E F</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">存有符号数时：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">正数：<code>0 1 2 3 4 5 6 7</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">负数：<code>-1 -2 -3 -4 -5 -6 -7 -8</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">其中对应关系：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>-1</th>
+<th>-2</th>
+<th>-3</th>
+<th>-4</th>
+<th>-5</th>
+<th>-6</th>
+<th>-7</th>
+<th>-8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>F</td>
+<td>E</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>9</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<p>无符号数时：从0到F逆时针依次增大。</p>
+<p>有符号数时：含义从圆中间劈开，正数负数各一半，在F处为最大负数，0处为最小的正数。</p>
+<h5 id="为什么在存有符号数时说开头为1的数就是负数？"><a href="#为什么在存有符号数时说开头为1的数就是负数？" class="headerlink" title="为什么在存有符号数时说开头为1的数就是负数？"></a>为什么在存有符号数时说开头为1的数就是负数？</h5><p>我们只看二进制：</p>
+<p>| 0  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |<br>| — | — | — | — | — | — | — | — | —  |<br>| 0000 | 0001 | 0010 | 0011 | 0100 | 0101 | 0110 | 0111 |</p>
+<table>
+<thead>
+<tr>
+<th>-1</th>
+<th>-2</th>
+<th>-3</th>
+<th>-4</th>
+<th>-5</th>
+<th>-6</th>
+<th>-7</th>
+<th>-8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1111</td>
+<td>1110</td>
+<td>1101</td>
+<td>1100</td>
+<td>1011</td>
+<td>1010</td>
+<td>1001</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>很明显就可以看出，当二进制开头为1的时候对应存的数值就是负数了。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>举例：对1011的理解</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1011在我们当做是有符号时就是-5，无符号就是B。<strong>这个完全看我们如何去定义。</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#### 8位宽度：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8位宽度表示：假设计算机只能存储8位2进制数。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699387217727.jpg" alt="-w315" title>
+                </div>
+                <div class="image-caption">-w315</div>
+            </figure></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>无符号数：0 1 2 3 4 ……FF</p>
+<p>有符号数：<br>正数：0 1 2 3 4 5 6 7 …7F<br>负数： </p>
+<table>
+<thead>
+<tr>
+<th>-1</th>
+<th>-2</th>
+<th>-3</th>
+<th>-4</th>
+<th>-5</th>
+<th>-6</th>
+<th>-7</th>
+<th>-8</th>
+<th>….</th>
+<th>-128</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FF</td>
+<td>FE</td>
+<td>FD</td>
+<td>FC</td>
+<td>FB</td>
+<td>FA</td>
+<td>F9</td>
+<td>F8</td>
+<td>….</td>
+<td>80</td>
+</tr>
+</tbody></table>
+<h4 id="16位宽度"><a href="#16位宽度" class="headerlink" title="16位宽度"></a>16位宽度</h4><p>16位宽度表示：假设计算机只能存储16位2进制数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699389940266.jpg" alt="-w317" title>
+                </div>
+                <div class="image-caption">-w317</div>
+            </figure>
+<p>无符号数：0 1 2 3 4 ……FFFF</p>
+<p>有符号数：<br>正数：0 1 2 3 4 5 6 7 …7FFF<br>负数： </p>
+<table>
+<thead>
+<tr>
+<th>-1</th>
+<th>-2</th>
+<th>-3</th>
+<th>-4</th>
+<th>-5</th>
+<th>-6</th>
+<th>-7</th>
+<th>-8</th>
+<th>….</th>
+<th>-128</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FFFF</td>
+<td>FFFE</td>
+<td>FFFD</td>
+<td>FFFC</td>
+<td>FFFB</td>
+<td>FFFA</td>
+<td>FFF9</td>
+<td>FFF8</td>
+<td>….</td>
+<td>8000</td>
+</tr>
+</tbody></table>
+<h4 id="32位宽度"><a href="#32位宽度" class="headerlink" title="32位宽度"></a>32位宽度</h4><p>32位宽度表示：假设计算机只能存储32位2进制数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699391219590.jpg" alt="-w378" title>
+                </div>
+                <div class="image-caption">-w378</div>
+            </figure>
+<p>无符号数：0 1 2 3 4 ……FFFFFFFF</p>
+<p>有符号数：<br>正数：0 1 2 3 4 5 6 7 …7FFFFFFF<br>负数： </p>
+<table>
+<thead>
+<tr>
+<th>-1</th>
+<th>-2</th>
+<th>-3</th>
+<th>-4</th>
+<th>-5</th>
+<th>-6</th>
+<th>-7</th>
+<th>-8</th>
+<th>….</th>
+<th>-128</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FFFFFFFF</td>
+<td>FFFFFFFE</td>
+<td>FFFFFFFD</td>
+<td>FFFFFFFC</td>
+<td>FFFFFFFB</td>
+<td>FFFFFFFA</td>
+<td>FFFFFFF9</td>
+<td>FFFFFFF8</td>
+<td>….</td>
+<td>80000000</td>
+</tr>
+<tr>
+<td>### 几个本质问题</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1：计算机除了0和1什么也不认识。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2：如果存的数据超过数据长度限制，超过的会直接抛弃。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3：有符号数和无符号数是我们自己用的时候定义的，定义是什么就是什么。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>### 几个重要的计量单位：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BYTE  字节  8BIT</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>WORD  字   16BIT 2字节</p>
+<p>DWORD 双字 32BIT 4字节</p>
+<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2><h3 id="二进制的逻辑运算："><a href="#二进制的逻辑运算：" class="headerlink" title="二进制的逻辑运算："></a>二进制的逻辑运算：</h3><h4 id="or："><a href="#or：" class="headerlink" title="or："></a>or：</h4><p>或(or |)  只要有一个为1就是1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699395390213.jpg" alt="-w915" title>
+                </div>
+                <div class="image-caption">-w915</div>
+            </figure>
+<h4 id="and："><a href="#and：" class="headerlink" title="and："></a>and：</h4><p>与(and &amp;)两个都为1才是1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699396122732.jpg" alt="-w871" title>
+                </div>
+                <div class="image-caption">-w871</div>
+            </figure>
+<h4 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h4><p>异或（xor) 不一样为1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699397540402.jpg" alt="-w928" title>
+                </div>
+                <div class="image-caption">-w928</div>
+            </figure>
+<p>ps：错位了。。。</p>
+<h4 id="not"><a href="#not" class="headerlink" title="not"></a>not</h4><p>非(not !) 1是0 0是1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15699398562544.jpg" alt="-w255" title>
+                </div>
+                <div class="image-caption">-w255</div>
+            </figure>
+
+<h3 id="逻辑运算的具体应用："><a href="#逻辑运算的具体应用：" class="headerlink" title="逻辑运算的具体应用："></a>逻辑运算的具体应用：</h3><h4 id="想获取某个值得第N位的值是1还是0"><a href="#想获取某个值得第N位的值是1还是0" class="headerlink" title="想获取某个值得第N位的值是1还是0"></a>想获取某个值得第N位的值是1还是0</h4><p>如：8F<br>        <img src="/2019/10/01/数据宽度与逻辑运算/images/15700250078922.jpg" alt="-w135"><br><strong>方法</strong>：想看下第四位是0还是1，就写个第四个位为1其他都为0的数，然后进行一个与运算，如果出来结果是1.那就证明第四位就是1。</p>
+<h4 id="最简单的加密算法："><a href="#最简单的加密算法：" class="headerlink" title="最简单的加密算法："></a>最简单的加密算法：</h4><p>如：<br>要加密的数据：2015<br>密钥：54<br>因为密钥是两位的，所以要对2015分为<code>20</code>和<code>15</code>。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15701063449646.jpg" alt="-w279" title>
+                </div>
+                <div class="image-caption">-w279</div>
+            </figure>
+<p>进行一次xor运算，出来就是加密后的值：<code>74</code> <code>41</code><br>当用他俩再进行一次xor运算：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/01/数据宽度与逻辑运算/images/15701064241084.jpg" alt="-w253" title>
+                </div>
+                <div class="image-caption">-w253</div>
+            </figure>
+<p>就又变成了2015。这就完成了加密解密。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-10-09T13:02:50.000Z" itemprop="dateUpdated">2019-10-09 21:02:50</time>
+</span><br>
+
+
+        
+        这里可以写作者留言,thank you for your reading.
+        
+    </div>
+    
+    <footer>
+        <a href="https://chumen77.github.io">
+            <img src="/img/avatar.jpg" alt="chumen77">
+            chumen77
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/&title=Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/&title=Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/10/06/标志寄存器/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[no title]</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/09/28/进制学习/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[no title]</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>chumen77 &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/&title=《No title》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/&title=《No title》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《No title》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/2019/10/01/数据宽度与逻辑运算/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
