@@ -29,6 +29,7 @@
 <meta property="og:description" content="C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。 裸函数什么是裸函数？12void __declspec(naked) Function()  &amp;#123;.....&amp;#125;  在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715025630158.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715066318478.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715038333622.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715038140613.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715042971030.jpg">
@@ -39,7 +40,7 @@
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715051301041.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715051770389.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715052426371.jpg">
-<meta property="og:updated_time" content="2019-10-19T17:35:46.000Z">
+<meta property="og:updated_time" content="2019-10-19T17:37:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言与反汇编学习（二）">
 <meta name="twitter:description" content="C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。 裸函数什么是裸函数？12void __declspec(naked) Function()  &amp;#123;.....&amp;#125;  在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数">
@@ -243,30 +244,15 @@
             </figure>
 <p>这些函数调用结束后就会调用main 函数，根据main 函数调用的特征，将3个参数压入栈内作为函数的参数。<br>所以在winmain停下后，可以一直单步调试，遇到call的时候，注意前方是不是有3个参数被压入栈了，是的话这个可以基本判断它call的就是main函数直接步过进去即可，但是这个也不是一定的，结合智能od的注释，注释有win内核函数调用就不要进入函数就可以了。</p>
 <h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><p>常见的几种约定：</p>
-<table>
-<thead>
-<tr>
-<th>调用约定</th>
-<th>参数压栈顺序</th>
-<th>平衡堆栈</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>__cdecl</td>
-<td>从右至左入栈</td>
-<td>调用者清理栈</td>
-</tr>
-<tr>
-<td>__stdcall</td>
-<td>从右至左入栈</td>
-<td>自身清理堆栈</td>
-</tr>
-<tr>
-<td>__fastcall</td>
-<td>ECX/EDX传送</td>
-<td>自身清理堆栈</td>
-</tr>
-</tbody></table>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/19/C语言与反汇编学习（二）/images/15715066318478.jpg" alt="-w355" title>
+                </div>
+                <div class="image-caption">-w355</div>
+            </figure>
+
+
 <h3 id="cdecl"><a href="#cdecl" class="headerlink" title="cdecl"></a>cdecl</h3><p>使用VC++ (关闭优化选项)编译代码生成cdecl.exe文件后，使用OllyDbg调试:函数的参数1、2以逆序方式压人栈，<br>调用Plus(函数( 401014)后，使用ADD ESP,8命令整理栈。调用者main()函数直接清理其压入栈的函数参数，这样的方式即是cdecl。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -367,7 +353,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-19T17:35:46.000Z" itemprop="dateUpdated">2019-10-20 01:35:46</time>
+    Last updated: <time datetime="2019-10-19T17:37:35.000Z" itemprop="dateUpdated">2019-10-20 01:37:35</time>
 </span><br>
 
 
