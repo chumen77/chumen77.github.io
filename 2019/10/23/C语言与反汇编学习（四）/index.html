@@ -36,13 +36,15 @@
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719214461732.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719216273356.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719219621907.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719249677324.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719249899962.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719223446828.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719224472672.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719225611187.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719226993158.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719228667624.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719229837839.jpg">
-<meta property="og:updated_time" content="2019-10-24T13:47:39.000Z">
+<meta property="og:updated_time" content="2019-10-24T13:50:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言与反汇编学习（四）">
 <meta name="twitter:description" content="C语言与反汇编学习（四）前言本次主要学习以下内容  内存图 全局变量、局部变量 函数参数的分析 分支语句:if if...else... if..else if..else if....else``分支语句的嵌套使用的正向与逆向分析  内存图">
@@ -325,10 +327,22 @@
             </figure>
 <p>同样安装一定的顺序：</p>
 <p>1：分析参数：<code>[ebp+8] : X</code>        <code>[ebp+0Ch] :Y</code><br>2：分析局部变量   <code>[ebp-4] = eax = [004225c4]</code><br>3：分析全局变量       <code>[004225c4] G</code><br>4：功能分析:比较X与Y的大小，如果X&lt;=Y那么执行</p>
-<p>004010E6   mov         eax,dword ptr [ebp+0Ch]<br>004010E9   add         eax,dword ptr [ebp-4]<br>004010EC   mov         [004225c4],eax//G = Y<br>如果X&gt;Y 那么执行                        </p>
-<p>004010D8   mov         edx,dword ptr [ebp+8]<br>004010DB   add         edx,dword ptr [ebp-4]<br>004010DE   mov         dword ptr [004225c4],edx<br>004010E4   jmp         004010f1    //G = X                                </p>
-<p>5：返回值分析   无</p>
-<p><strong>练习：</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719249677324.jpg" alt="-w427" title>
+                </div>
+                <div class="image-caption">-w427</div>
+            </figure>
+<p>如果X&gt;Y 那么执行</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719249899962.jpg" alt="-w435" title>
+                </div>
+                <div class="image-caption">-w435</div>
+            </figure>
+<p>5：返回值分析   无<br><strong>练习：</strong></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -408,7 +422,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-24T13:47:39.000Z" itemprop="dateUpdated">2019-10-24 21:47:39</time>
+    Last updated: <time datetime="2019-10-24T13:50:09.000Z" itemprop="dateUpdated">2019-10-24 21:50:09</time>
 </span><br>
 
 
