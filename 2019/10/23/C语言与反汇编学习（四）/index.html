@@ -36,7 +36,13 @@
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719214461732.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719216273356.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719219621907.jpg">
-<meta property="og:updated_time" content="2019-10-24T13:42:56.000Z">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719223446828.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719224472672.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719225611187.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719226993158.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719228667624.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/10/23/C语言与反汇编学习（四）/images/15719229837839.jpg">
+<meta property="og:updated_time" content="2019-10-24T13:47:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言与反汇编学习（四）">
 <meta name="twitter:description" content="C语言与反汇编学习（四）前言本次主要学习以下内容  内存图 全局变量、局部变量 函数参数的分析 分支语句:if if...else... if..else if..else if....else``分支语句的嵌套使用的正向与逆向分析  内存图">
@@ -173,7 +179,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C语言与反汇编学习（四）"><span class="post-toc-number">1.</span> <span class="post-toc-text">C语言与反汇编学习（四）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存图"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">内存图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全局变量、局部变量"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">全局变量、局部变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全局变量的特点"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">全局变量的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#局部变量的特点"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">局部变量的特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数参数的分析"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">函数参数的分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支语句"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">分支语句</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正向代码练习"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">正向代码练习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#感悟"><span class="post-toc-number">1.5.1.1.</span> <span class="post-toc-text">感悟</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#逆向分析"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">逆向分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IF语句逆向分析"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">IF语句逆向分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IF…ELSE…语句逆向分析"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">IF…ELSE…语句逆向分析</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C语言与反汇编学习（四）"><span class="post-toc-number">1.</span> <span class="post-toc-text">C语言与反汇编学习（四）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存图"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">内存图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全局变量、局部变量"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">全局变量、局部变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全局变量的特点"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">全局变量的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#局部变量的特点"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">局部变量的特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数参数的分析"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">函数参数的分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支语句"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">分支语句</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正向代码练习"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">正向代码练习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#感悟"><span class="post-toc-number">1.5.1.1.</span> <span class="post-toc-text">感悟</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#逆向分析"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">逆向分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IF语句逆向分析"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">IF语句逆向分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IF…ELSE…语句逆向分析"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">IF…ELSE…语句逆向分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IF…ELSE-IF…ELSE逆向分析"><span class="post-toc-number">1.5.2.3.</span> <span class="post-toc-text">IF…ELSE IF…ELSE逆向分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#感悟-1"><span class="post-toc-number">1.5.2.4.</span> <span class="post-toc-text">感悟</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -319,24 +325,82 @@
             </figure>
 <p>同样安装一定的顺序：</p>
 <p>1：分析参数：<code>[ebp+8] : X</code>        <code>[ebp+0Ch] :Y</code><br>2：分析局部变量   <code>[ebp-4] = eax = [004225c4]</code><br>3：分析全局变量       <code>[004225c4] G</code><br>4：功能分析:比较X与Y的大小，如果X&lt;=Y那么执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">004010E6   mov         eax,dword ptr [ebp+0Ch]</span><br><span class="line">004010E9   add         eax,dword ptr [ebp-4]</span><br><span class="line">004010EC   mov         [004225c4],eax//G = Y</span><br></pre></td></tr></table></figure>
-
-<p>如果X&gt;Y 那么执行                        </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">004010D8   mov         edx,dword ptr [ebp+8]</span><br><span class="line">004010DB   add         edx,dword ptr [ebp-4]</span><br><span class="line">004010DE   mov         dword ptr [004225c4],edx</span><br><span class="line">004010E4   jmp         004010f1    //G = X</span><br><span class="line">```									</span><br><span class="line">					</span><br><span class="line"></span><br><span class="line">5：返回值分析   无</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**练习：**</span><br><span class="line">![-w382](/images/15719223446828.jpg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1. 分析参数：`[ebp+8] : X	`		`[ebp+0Ch] :Y`</span><br><span class="line">2. 分析局部变量   `[ebp-4]：eax:[004225c4]:a` `[ebp-8]:b:2`</span><br><span class="line">3. 分析全局变量	   `mov         eax,[004225c4]` </span><br><span class="line">4. 功能分析:(省略，直接以c语言代码表示)</span><br><span class="line">5. 返回值分析   无</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**还原成c函数：**</span><br></pre></td></tr></table></figure>
-
-<p>int m=1;<br>void Funcation(int x,int y)<br>{<br>    int a,b;<br>    a=m;<br>    b=2;<br>    if (x&gt;=y)<br>    {<br>        b=b+1;<br>        if (x&lt;y)<br>        {<br>            m=b;<br>        }else m=a+b;<br>    }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">![](/images/15719224472672.jpg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### IF...ELSE IF...ELSE逆向分析</span><br><span class="line">![-w307](/images/15719225611187.jpg)</span><br><span class="line">特征识别:首先会有一个jxx指令用于向下跳转，且跳转的目的else if中有jmp指令。else if的跳转目的else中有jmp指令，且else码的结尾没有jmp指令，**所有jmp的目标地址一致**。根据以上特征，把jxx指令取反，即可还原if...else if....else语句的代码。</span><br><span class="line">**如果某个分支没有条件判断，则为else部分**。</span><br><span class="line">汇编代码：</span><br><span class="line">![-w334](/images/15719226993158.jpg)</span><br><span class="line">	函数内部功能分析：							</span><br><span class="line">	1、分析参数：`[ebp+8]    X						[ebp+0Ch]  Y						[ebp+10h]  Z`												</span><br><span class="line">	2、分析局部变量	`[ebp-4] = A = 0						[ebp-8] = B = 1						[ebp-0Ch] = C = 2`								</span><br><span class="line">	3、分析全局变量		无													</span><br><span class="line">	4、功能分析</span><br></pre></td></tr></table></figure>
-
-<p>if(x&gt;y)<br>        {<br>            A = B+1;<br>        }<br>        else if(x&gt;z)<br>        {<br>            A = C+1;<br>        }<br>        else if(x&gt;z)<br>        {<br>            A = B+C<br>        }<br>        else<br>        {<br>            A = B+C+1;<br>        }<br>        return A;                </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">练习：</span><br><span class="line">![-w305](/images/15719228667624.jpg)</span><br><span class="line">1、分析参数：`[ebp+8]    X						[ebp+0Ch]  Y						[ebp+10h]  Z`												</span><br><span class="line">	2、分析局部变量	`[ebp-4] = A						[ebp-8] = B						[ebp-0Ch] = C `								</span><br><span class="line">	3、分析全局变量		无			</span><br><span class="line">	4.返回值分析 a+1</span><br><span class="line">	还原成C函数：</span><br></pre></td></tr></table></figure>
-
-<p>int Funcation(int x,int y,int z)<br>{<br>    int a=0;<br>    int b=1;<br>    int c=2;<br>    if (x&lt;=y)<br>    {<br>        a=b-1;<br>    }<br>    else if (y&gt;=z)<br>    {<br>        a=c+1;<br>    }<br>    else if (x&gt;z)<br>    {<br>        a=b+c;<br>    }<br>    else a=b+c-1;<br>    return a+1;<br>}</p>
-<pre><code>{% image /images/15719229837839.jpg '' '' %}
+<p>004010E6   mov         eax,dword ptr [ebp+0Ch]<br>004010E9   add         eax,dword ptr [ebp-4]<br>004010EC   mov         [004225c4],eax//G = Y<br>如果X&gt;Y 那么执行                        </p>
+<p>004010D8   mov         edx,dword ptr [ebp+8]<br>004010DB   add         edx,dword ptr [ebp-4]<br>004010DE   mov         dword ptr [004225c4],edx<br>004010E4   jmp         004010f1    //G = X                                </p>
+<p>5：返回值分析   无</p>
+<p><strong>练习：</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719223446828.jpg" alt="-w382" title>
+                </div>
+                <div class="image-caption">-w382</div>
+            </figure>
 
 
+<ol>
+<li>分析参数：<code>[ebp+8] : X</code>        <code>[ebp+0Ch] :Y</code></li>
+<li>分析局部变量   <code>[ebp-4]：eax:[004225c4]:a</code> <code>[ebp-8]:b:2</code></li>
+<li>分析全局变量       <code>mov         eax,[004225c4]</code> </li>
+<li>功能分析:(省略，直接以c语言代码表示)</li>
+<li>返回值分析   无</li>
+</ol>
+<p><strong>还原成c函数：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int m=1;</span><br><span class="line">void Funcation(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">	int a,b;</span><br><span class="line">	a=m;</span><br><span class="line">	b=2;</span><br><span class="line">	if (x&gt;=y)</span><br><span class="line">	&#123;</span><br><span class="line">		b=b+1;</span><br><span class="line">		if (x&lt;y)</span><br><span class="line">		&#123;</span><br><span class="line">			m=b;</span><br><span class="line">		&#125;else m=a+b;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-#### 感悟
-每个分支类型都有自己的特征点，记清楚这个后，分析起来会容易很多。</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719224472672.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+
+<h4 id="IF…ELSE-IF…ELSE逆向分析"><a href="#IF…ELSE-IF…ELSE逆向分析" class="headerlink" title="IF…ELSE IF…ELSE逆向分析"></a>IF…ELSE IF…ELSE逆向分析</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719225611187.jpg" alt="-w307" title>
+                </div>
+                <div class="image-caption">-w307</div>
+            </figure>
+<p>特征识别:首先会有一个jxx指令用于向下跳转，且跳转的目的else if中有jmp指令。else if的跳转目的else中有jmp指令，且else码的结尾没有jmp指令，<strong>所有jmp的目标地址一致</strong>。根据以上特征，把jxx指令取反，即可还原if…else if….else语句的代码。<br><strong>如果某个分支没有条件判断，则为else部分</strong>。<br>汇编代码：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719226993158.jpg" alt="-w334" title>
+                </div>
+                <div class="image-caption">-w334</div>
+            </figure>
+<pre><code>函数内部功能分析：                            
+1、分析参数：`[ebp+8]    X                        [ebp+0Ch]  Y                        [ebp+10h]  Z`                                                
+2、分析局部变量    `[ebp-4] = A = 0                        [ebp-8] = B = 1                        [ebp-0Ch] = C = 2`                                
+3、分析全局变量        无                                                    
+4、功能分析        </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">if(x&gt;y)						</span><br><span class="line">		&#123;						</span><br><span class="line">		    A = B+1;						</span><br><span class="line">		&#125;						</span><br><span class="line">		else if(x&gt;z)						</span><br><span class="line">		&#123;						</span><br><span class="line">		    A = C+1;						</span><br><span class="line">		&#125;						</span><br><span class="line">		else if(x&gt;z)						</span><br><span class="line">		&#123;						</span><br><span class="line">		    A = B+C						</span><br><span class="line">		&#125;						</span><br><span class="line">		else						</span><br><span class="line">		&#123;						</span><br><span class="line">		    A = B+C+1;						</span><br><span class="line">		&#125;						</span><br><span class="line">		return A;</span><br></pre></td></tr></table></figure>
+
+<p>练习：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719228667624.jpg" alt="-w305" title>
+                </div>
+                <div class="image-caption">-w305</div>
+            </figure>
+<p>1、分析参数：<code>[ebp+8]    X                        [ebp+0Ch]  Y                        [ebp+10h]  Z</code><br>    2、分析局部变量    <code>[ebp-4] = A                        [ebp-8] = B                        [ebp-0Ch] = C</code><br>    3、分析全局变量        无<br>    4.返回值分析 a+1<br>    还原成C函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int Funcation(int x,int y,int z)</span><br><span class="line">&#123;</span><br><span class="line">	int a=0;</span><br><span class="line">	int b=1;</span><br><span class="line">	int c=2;</span><br><span class="line">	if (x&lt;=y)</span><br><span class="line">	&#123;</span><br><span class="line">		a=b-1;</span><br><span class="line">	&#125;</span><br><span class="line">	else if (y&gt;=z)</span><br><span class="line">	&#123;</span><br><span class="line">		a=c+1;</span><br><span class="line">	&#125;</span><br><span class="line">	else if (x&gt;z)</span><br><span class="line">	&#123;</span><br><span class="line">		a=b+c;</span><br><span class="line">	&#125;</span><br><span class="line">	else a=b+c-1;</span><br><span class="line">	return a+1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/10/23/C语言与反汇编学习（四）/images/15719229837839.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+
+
+<h4 id="感悟-1"><a href="#感悟-1" class="headerlink" title="感悟"></a>感悟</h4><p>每个分支类型都有自己的特征点，记清楚这个后，分析起来会容易很多。</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -344,7 +408,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-24T13:42:56.000Z" itemprop="dateUpdated">2019-10-24 21:42:56</time>
+    Last updated: <time datetime="2019-10-24T13:47:39.000Z" itemprop="dateUpdated">2019-10-24 21:47:39</time>
 </span><br>
 
 
