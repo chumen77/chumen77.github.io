@@ -72,7 +72,22 @@
 <meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733137433462.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733137975116.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733139966832.jpg">
-<meta property="og:updated_time" content="2019-11-09T15:47:38.000Z">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733878960896.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733879199369.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733881777919.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733882559724.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733887654757.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733887851687.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733888354402.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733891570437.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733897127019.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733897938110.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733900988974.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733910805939.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733910639998.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733911418603.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/09/Xctfre_新手区wp/images/15733913704154.jpg">
+<meta property="og:updated_time" content="2019-11-10T13:18:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xctf_RE新手区WP">
 <meta name="twitter:description" content="Xctf_RE新手区WP前言学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。 re1第一步，先查壳：                                                                                              -w625              （查壳">
@@ -209,7 +224,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Xctf-RE新手区WP"><span class="post-toc-number">1.</span> <span class="post-toc-text">Xctf_RE新手区WP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#re1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">re1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#game"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">game</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一种"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">第一种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打开IDA进行静态分析"><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text">打开IDA进行静态分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IDA-Patch"><span class="post-toc-number">1.3.1.2.</span> <span class="post-toc-text">IDA Patch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#验证"><span class="post-toc-number">1.3.1.3.</span> <span class="post-toc-text">验证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第二种"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">第二种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IDA寻找输出flag函数的函数地址"><span class="post-toc-number">1.3.2.1.</span> <span class="post-toc-text">IDA寻找输出flag函数的函数地址</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OD动态调试"><span class="post-toc-number">1.3.2.2.</span> <span class="post-toc-text">OD动态调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第三种"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">第三种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OD静态分析"><span class="post-toc-number">1.3.3.1.</span> <span class="post-toc-text">OD静态分析</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hello-CTF"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Hello, CTF</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#open-source"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">open-source</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#simple-unpack"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">simple-unpack</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#logmein"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">logmein</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#insanity"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">insanity</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#no-strings-attached"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">no-strings-attached</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#csaw2013reversing2"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">csaw2013reversing2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#getit"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">getit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#python-trade"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">python-trade</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#maze"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">maze</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Xctf-RE新手区WP"><span class="post-toc-number">1.</span> <span class="post-toc-text">Xctf_RE新手区WP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#re1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">re1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#game"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">game</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一种"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">第一种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打开IDA进行静态分析"><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text">打开IDA进行静态分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IDA-Patch"><span class="post-toc-number">1.3.1.2.</span> <span class="post-toc-text">IDA Patch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#验证"><span class="post-toc-number">1.3.1.3.</span> <span class="post-toc-text">验证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第二种"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">第二种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IDA寻找输出flag函数的函数地址"><span class="post-toc-number">1.3.2.1.</span> <span class="post-toc-text">IDA寻找输出flag函数的函数地址</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OD动态调试"><span class="post-toc-number">1.3.2.2.</span> <span class="post-toc-text">OD动态调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第三种"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">第三种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OD静态分析"><span class="post-toc-number">1.3.3.1.</span> <span class="post-toc-text">OD静态分析</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hello-CTF"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Hello, CTF</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#先查壳"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">先查壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行程序"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">运行程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">IDA静态分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#open-source"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">open-source</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#simple-unpack"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">simple-unpack</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分析"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脱壳"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">脱壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析-1"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">IDA静态分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#logmein"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">logmein</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#insanity"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">insanity</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#no-strings-attached"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">no-strings-attached</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#csaw2013reversing2"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">csaw2013reversing2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#getit"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">getit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#python-trade"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">python-trade</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#maze"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">maze</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -591,7 +606,134 @@
                 <div class="image-caption">-w734</div>
             </figure>
 <p>运行就拿到了flag。</p>
-<h2 id="Hello-CTF"><a href="#Hello-CTF" class="headerlink" title="Hello, CTF"></a>Hello, CTF</h2><h2 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h2><h2 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h2><h2 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h2><h2 id="insanity"><a href="#insanity" class="headerlink" title="insanity"></a>insanity</h2><h2 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h2><h2 id="csaw2013reversing2"><a href="#csaw2013reversing2" class="headerlink" title="csaw2013reversing2"></a>csaw2013reversing2</h2><h2 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h2><h2 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h2><h2 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h2>
+<h2 id="Hello-CTF"><a href="#Hello-CTF" class="headerlink" title="Hello, CTF"></a>Hello, CTF</h2><p>根据题目描述：菜鸡发现Flag似乎并不一定是明文比较的<br>肯定是进行了某种加密。</p>
+<h3 id="先查壳"><a href="#先查壳" class="headerlink" title="先查壳"></a>先查壳</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733878960896.jpg" alt="-w544" title>
+                </div>
+                <div class="image-caption">-w544</div>
+            </figure>
+<p>无壳，32位c++程序</p>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733879199369.jpg" alt="-w431" title>
+                </div>
+                <div class="image-caption">-w431</div>
+            </figure>
+<p>输入正确的serial，会提示正确。</p>
+<h3 id="IDA静态分析"><a href="#IDA静态分析" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733881777919.jpg" alt="-w602" title>
+                </div>
+                <div class="image-caption">-w602</div>
+            </figure>
+<p>进入main函数，F5大法查看伪代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733882559724.jpg" alt="-w511" title>
+                </div>
+                <div class="image-caption">-w511</div>
+            </figure>
+<p>发现是v10数组与v13数组逐对比后，如果相同就会输出正确的字眼。前面有对用户输入的v9进行一些处理，处理完后会放入v10中。下面具体分析一下如何处理就可以了，主要在sprintf函数和strcat函数。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733887654757.jpg" alt="-w379" title>
+                </div>
+                <div class="image-caption">-w379</div>
+            </figure>
+<p>点击进去看到</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733887851687.jpg" alt="-w555" title>
+                </div>
+                <div class="image-caption">-w555</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733888354402.jpg" alt="-w632" title>
+                </div>
+                <div class="image-caption">-w632</div>
+            </figure>
+<p>那就很清楚了，就是把v4字符串也就是刚刚输入的字符串进行格式化位16进制的整数输出到v8中，然后用strcat函数把处理后的v8放入v10。（此处原来的v10是空的，所以连接v10和v8，实际相当于把v8放入v10）</p>
+<p>接下来就是v10与v13进行对比，v13是刚刚复制过来的<code>437261636b4d654a757374466f7246756e</code>，那就可以看出来咱们直接把这个进行16进制转回去就可以了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733891570437.jpg" alt="-w526" title>
+                </div>
+                <div class="image-caption">-w526</div>
+            </figure>
+
+<h2 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h2><p>这道题是拿到了一段c源码，打开发现关键处：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733897127019.jpg" alt="-w1023" title>
+                </div>
+                <div class="image-caption">-w1023</div>
+            </figure>
+<p>可以看出来把<code>first second strlen(argv[3])</code>搞清楚是什么就可以了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733897938110.jpg" alt="-w590" title>
+                </div>
+                <div class="image-caption">-w590</div>
+            </figure>
+<p>很简单可以看出这3个是什么值，下面直接放解密代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    unsigned int hash = 0xcafe * 31337 + (25 % 17) * 11 + strlen(&quot;h4cky0u&quot;) - 1615810207;</span><br><span class="line">    printf(&quot;Get your key: &quot;);</span><br><span class="line">    printf(&quot;%x\n&quot;, hash);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733900988974.jpg" alt="-w603" title>
+                </div>
+                <div class="image-caption">-w603</div>
+            </figure>
+
+<h2 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这个看题目就是知道加了壳。且是个二进制文件，丢进edb看一下。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733910805939.jpg" alt="-w685" title>
+                </div>
+                <div class="image-caption">-w685</div>
+            </figure>
+
+<p>单步调试走一会，在寄存器窗口看到：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733910639998.jpg" alt="-w1019" title>
+                </div>
+                <div class="image-caption">-w1019</div>
+            </figure>
+<p>这很明显是加了UPX壳。</p>
+<h3 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733911418603.jpg" alt="-w733" title>
+                </div>
+                <div class="image-caption">-w733</div>
+            </figure>
+<p>这里就用<code>upx -d</code>直接一键脱壳。以后可以练习手动脱upx壳。<br>脱壳完成后用IDA进行分析：</p>
+<h3 id="IDA静态分析-1"><a href="#IDA静态分析-1" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733913704154.jpg" alt="-w617" title>
+                </div>
+                <div class="image-caption">-w617</div>
+            </figure>
+<p>打开直接出现了flag，这个题就考个识别壳和upx脱壳了。</p>
+<h2 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h2><h2 id="insanity"><a href="#insanity" class="headerlink" title="insanity"></a>insanity</h2><h2 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h2><h2 id="csaw2013reversing2"><a href="#csaw2013reversing2" class="headerlink" title="csaw2013reversing2"></a>csaw2013reversing2</h2><h2 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h2><h2 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h2><h2 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h2>
         </div>
 
         <blockquote class="post-copyright">
@@ -599,7 +741,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-11-09T15:47:38.000Z" itemprop="dateUpdated">2019-11-09 23:47:38</time>
+    Last updated: <time datetime="2019-11-10T13:18:21.000Z" itemprop="dateUpdated">2019-11-10 21:18:21</time>
 </span><br>
 
 
