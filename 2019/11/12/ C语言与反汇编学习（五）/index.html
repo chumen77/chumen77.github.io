@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>C语言与反汇编学习（五） | Welcome to Chumen77&#39;s Blog | Struggle 就完事了 !</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="C语言与反汇编学习（五）前言主要是记录一下，在学习过程中认为容易忘记且重要的东西，方便以后忘了再来学习一下。集中于结构体部分以及结构体对齐的知识。 结构体的使用练习1、定义一个结构体Gamer用来存储一个游戏中的角色的信息，包括血值、等级、坐标等信息    。要求：    (1) 具体包含哪些信息自由设计    (2) 但这些包含的类型中，必须要有一个成员是结构体类型。    2、定义一个函数，用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言与反汇编学习（五）">
+<meta property="og:url" content="https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/index.html">
+<meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
+<meta property="og:description" content="C语言与反汇编学习（五）前言主要是记录一下，在学习过程中认为容易忘记且重要的东西，方便以后忘了再来学习一下。集中于结构体部分以及结构体对齐的知识。 结构体的使用练习1、定义一个结构体Gamer用来存储一个游戏中的角色的信息，包括血值、等级、坐标等信息    。要求：    (1) 具体包含哪些信息自由设计    (2) 但这些包含的类型中，必须要有一个成员是结构体类型。    2、定义一个函数，用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735626712023.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735626990588.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735627321430.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735627463362.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735632219948.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735634186981.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735635119907.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735636051365.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735636961393.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735637638057.jpg">
+<meta property="og:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735639114324.jpg">
+<meta property="og:updated_time" content="2019-11-12T13:40:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C语言与反汇编学习（五）">
+<meta name="twitter:description" content="C语言与反汇编学习（五）前言主要是记录一下，在学习过程中认为容易忘记且重要的东西，方便以后忘了再来学习一下。集中于结构体部分以及结构体对齐的知识。 结构体的使用练习1、定义一个结构体Gamer用来存储一个游戏中的角色的信息，包括血值、等级、坐标等信息    。要求：    (1) 具体包含哪些信息自由设计    (2) 但这些包含的类型中，必须要有一个成员是结构体类型。    2、定义一个函数，用">
+<meta name="twitter:image" content="https://chumen77.github.io/2019/11/12/%20C语言与反汇编学习（五）/images/15735626712023.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">chumen77</h5>
+          <a href="mailto:973059980@qq.com" title="973059980@qq.com" class="mail">973059980@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chumen77" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">C语言与反汇编学习（五）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">C语言与反汇编学习（五）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-11-12T12:18:49.000Z" itemprop="datePublished" class="page-time">
+  2019-11-12
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C语言与反汇编学习（五）"><span class="post-toc-number">1.</span> <span class="post-toc-text">C语言与反汇编学习（五）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结构体的使用练习"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">结构体的使用练习</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sizeof的使用"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">sizeof的使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本类型的sizeof"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">基本类型的sizeof</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数组类型的sizeof"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">数组类型的sizeof</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结构体（内存）对齐"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">结构体（内存）对齐</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么要有内存对齐？"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">为什么要有内存对齐？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pragma-pack的基本用法"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">pragma pack的基本用法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对齐原则："><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">对齐原则：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例分析一："><span class="post-toc-number">1.4.3.1.</span> <span class="post-toc-text">案例分析一：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例二分析："><span class="post-toc-number">1.4.3.2.</span> <span class="post-toc-text">案例二分析：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例三分析："><span class="post-toc-number">1.4.3.3.</span> <span class="post-toc-text">案例三分析：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例四分析："><span class="post-toc-number">1.4.3.4.</span> <span class="post-toc-text">案例四分析：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例五分析："><span class="post-toc-number">1.4.3.5.</span> <span class="post-toc-text">案例五分析：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例六分析："><span class="post-toc-number">1.4.3.6.</span> <span class="post-toc-text">案例六分析：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例七分析："><span class="post-toc-number">1.4.3.7.</span> <span class="post-toc-text">案例七分析：</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post- C语言与反汇编学习（五）"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">C语言与反汇编学习（五）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-11-12 20:18:49" datetime="2019-11-12T12:18:49.000Z"  itemprop="datePublished">2019-11-12</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="C语言与反汇编学习（五）"><a href="#C语言与反汇编学习（五）" class="headerlink" title="C语言与反汇编学习（五）"></a>C语言与反汇编学习（五）</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>主要是记录一下，在学习过程中认为容易忘记且重要的东西，方便以后忘了再来学习一下。<strong>集中于结构体部分以及结构体对齐的知识。</strong></p>
+<h2 id="结构体的使用练习"><a href="#结构体的使用练习" class="headerlink" title="结构体的使用练习"></a>结构体的使用练习</h2><p>1、定义一个结构体Gamer用来存储一个游戏中的角色的信息，包括血值、等级、坐标等信息    。<br>要求：<br>    (1) 具体包含哪些信息自由设计<br>    (2) 但这些包含的类型中，必须要有一个成员是结构体类型。<br>    2、定义一个函数，用来给这个结构体变量赋值.<br>3、定义一个函数，用来显示这个结构体变量的所有成员信息.                                    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">struct point</span><br><span class="line">&#123;</span><br><span class="line">    int x;</span><br><span class="line">    int y;</span><br><span class="line">    int z;</span><br><span class="line">&#125;;</span><br><span class="line">struct Gamer</span><br><span class="line">&#123;</span><br><span class="line">    char name[20];</span><br><span class="line">    int level;</span><br><span class="line">    float HP;</span><br><span class="line">    point a;</span><br><span class="line">&#125;No1;</span><br><span class="line">void Function()</span><br><span class="line">&#123;</span><br><span class="line">    char a[]=&quot;xiaozhi&quot;;</span><br><span class="line">    for (int i = 0; i &lt;strlen(a) ; ++i) &#123;</span><br><span class="line">        No1.name[i]=a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    No1.level = 99;</span><br><span class="line">    No1.HP = 99.9;</span><br><span class="line">    No1.a.x=6;</span><br><span class="line">    No1.a.y=5;</span><br><span class="line">    No1.a.z=9;</span><br><span class="line">&#125;</span><br><span class="line">void Display()</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;name:%s level:%d HP:%f point:%d %d %d &quot;,No1.name,No1.level,No1.HP,No1.a.x,No1.a.y,No1.a.z);</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">    Function();</span><br><span class="line">    Display();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sizeof的使用"><a href="#sizeof的使用" class="headerlink" title="sizeof的使用"></a>sizeof的使用</h2><h3 id="基本类型的sizeof"><a href="#基本类型的sizeof" class="headerlink" title="基本类型的sizeof"></a>基本类型的sizeof</h3><p>可以使用类型，也可以使用变量<br>例子：</p>
+<p>printf(“%d\n”,sizeof(char));<br>printf(“%d\n”,sizeof(int));<br>printf(“%d\n”,sizeof(float));<br>printf(“%d\n”,sizeof(double));</p>
+<p>int x = 10;            //变量<br>printf(“%d\n”,sizeof(x));        </p>
+<h3 id="数组类型的sizeof"><a href="#数组类型的sizeof" class="headerlink" title="数组类型的sizeof"></a>数组类型的sizeof</h3><p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">char arr1[10] = &#123;0&#125;;				</span><br><span class="line">short arr2[10] = &#123;0&#125;;				</span><br><span class="line">int arr3[10] = &#123;0&#125;;				</span><br><span class="line">				</span><br><span class="line">printf(&quot;%d\n&quot;,sizeof(arr1));				//10</span><br><span class="line">printf(&quot;%d\n&quot;,sizeof(arr2));			//	20</span><br><span class="line">printf(&quot;%d\n&quot;,sizeof(arr3));			//	40</span><br><span class="line">				</span><br><span class="line">printf(&quot;%d\n&quot;,sizeof(arr1[10]));			//	1</span><br><span class="line">printf(&quot;%d\n&quot;,sizeof(arr2[10]));			//	2</span><br><span class="line">printf(&quot;%d\n&quot;,sizeof(arr3[10]));				//4</span><br></pre></td></tr></table></figure>
+
+<p>注意其中的不同。</p>
+<h2 id="结构体（内存）对齐"><a href="#结构体（内存）对齐" class="headerlink" title="结构体（内存）对齐"></a>结构体（内存）对齐</h2><h3 id="为什么要有内存对齐？"><a href="#为什么要有内存对齐？" class="headerlink" title="为什么要有内存对齐？"></a>为什么要有内存对齐？</h3><p>本质：是要效率还是空间，二选一的结果.统称是性能，还有台移植等因素，编译器对数据结构进行了内存对齐。</p>
+<h3 id="pragma-pack的基本用法"><a href="#pragma-pack的基本用法" class="headerlink" title="pragma pack的基本用法"></a>pragma pack的基本用法</h3><p>在vc6.0++中默认值是8字节对齐。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#pragma pack( n )</span><br><span class="line">结构体。</span><br><span class="line">#pragma pack(  )</span><br></pre></td></tr></table></figure>
+
+<p>该操作会改变一个结构体的字节对齐数，这是针对编译器的。<br>对齐参数：n为字节对齐数，其取值为1、2、4、8，默认是8。<br>如果这个值比结构体成员的sizeof值小，那么该成员的偏移量应该以此值为准，<strong>即是说，结构体成员的偏移量应该取二者的最小值.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pragma pack(n)			</span><br><span class="line">struct Test			</span><br><span class="line">&#123;			</span><br><span class="line">     int a ;			</span><br><span class="line">     __int64 b ;			</span><br><span class="line">     char c ;			</span><br><span class="line">&#125;;			</span><br><span class="line">#pragma pack()</span><br></pre></td></tr></table></figure>
+
+<p>以下是各种情况的内存对齐分析:<br>1:1字节对齐</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735626712023.jpg" alt="-w155" title>
+                </div>
+                <div class="image-caption">-w155</div>
+            </figure>
+<p>2:2字节对齐时：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735626990588.jpg" alt="-w266" title>
+                </div>
+                <div class="image-caption">-w266</div>
+            </figure>
+<p>3：4个字节对齐</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735627321430.jpg" alt="-w381" title>
+                </div>
+                <div class="image-caption">-w381</div>
+            </figure>
+<p>4、8个字节对齐</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735627463362.jpg" alt="-w583" title>
+                </div>
+                <div class="image-caption">-w583</div>
+            </figure>
+<h3 id="对齐原则："><a href="#对齐原则：" class="headerlink" title="对齐原则："></a>对齐原则：</h3><p>原则一：数据成员对齐规则：结构的数据成员，第一个数据成员放在offset为0的地方，以后每个数据成员存储的起始位置要从该成员大小的整数倍开始(比如int在32位机为４字节，则要从4的整数倍地址开始存储).                                    </p>
+<p>原则二：结构体的总大小，也就是sizeof的结果，必须是其内部最大成员的整数倍，不足的要补齐。<br>原则三：如果一个结构里有某些结构体成员，则结构体成员要从其内部最大元素大小的整数倍地址开始存储。                                    <strong>(struct a里存有struct b，b里有char，int，double等元素，那b应该从8的整数倍开始存储.)</strong>                                    </p>
+<p>原则四：对齐参数如果比结构体成员的sizeof值小，该成员的偏移量应该以此值为准.<br>    也就是说，结构体成员的偏移量应该取二者的最小值.                                </p>
+<p><strong>由浅入深，分析内存对齐原则后内存到底是怎么分配的</strong></p>
+<h4 id="案例分析一："><a href="#案例分析一：" class="headerlink" title="案例分析一："></a>案例分析一：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Test				</span><br><span class="line">&#123;				</span><br><span class="line">    char  a;				</span><br><span class="line">    int b ;				</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735632219948.jpg" alt="-w671" title>
+                </div>
+                <div class="image-caption">-w671</div>
+            </figure>
+<p><strong>sizeof(Test) =1+3（补齐的）+4=8(其中最大的4的整倍数)</strong></p>
+<h4 id="案例二分析："><a href="#案例二分析：" class="headerlink" title="案例二分析："></a>案例二分析：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Test					</span><br><span class="line">&#123;					</span><br><span class="line">    int a ;					</span><br><span class="line">    __int64 b ;					</span><br><span class="line">    char c ;					</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735634186981.jpg" alt="-w621" title>
+                </div>
+                <div class="image-caption">-w621</div>
+            </figure>
+<p><strong>sizeof(Test) =4+4（补齐的）+8+1+7（补齐的）=24(其中最大的8的整倍数)</strong></p>
+<h4 id="案例三分析："><a href="#案例三分析：" class="headerlink" title="案例三分析："></a>案例三分析：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct Test					</span><br><span class="line">&#123;					</span><br><span class="line">    int a ;					</span><br><span class="line">    __int64 b ;					</span><br><span class="line">    char c ;					</span><br><span class="line">    char d ;					</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735635119907.jpg" alt="-w662" title>
+                </div>
+                <div class="image-caption">-w662</div>
+            </figure>
+
+<p><strong>sizeof(Test) =4+4（补齐的）+8+1+1+6（补齐的）=24(其中最大的8的整倍数)</strong></p>
+<h4 id="案例四分析："><a href="#案例四分析：" class="headerlink" title="案例四分析："></a>案例四分析：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct S1		&#123;			char c;		double i;	&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735636051365.jpg" alt="-w530" title>
+                </div>
+                <div class="image-caption">-w530</div>
+            </figure>
+
+<p><strong>sizeof(S1) =1+7（补齐的）+8=16(其中最大的8的整倍数)</strong></p>
+<h4 id="案例五分析："><a href="#案例五分析：" class="headerlink" title="案例五分析："></a>案例五分析：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct S2		&#123;			int c1; 		char c2[10]; &#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735636961393.jpg" alt="-w547" title>
+                </div>
+                <div class="image-caption">-w547</div>
+            </figure>
+
+<p><strong>sizeof(S2) =4+10+2（补齐的）=16(其中最大的8的整倍数)</strong></p>
+<h4 id="案例六分析："><a href="#案例六分析：" class="headerlink" title="案例六分析："></a>案例六分析：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct S3		&#123;			char c1; 		S1 s;    		char c2; 		char c3; 	&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735637638057.jpg" alt="-w539" title>
+                </div>
+                <div class="image-caption">-w539</div>
+            </figure>
+
+<p><strong>sizeof(S3) =1+7+1（s中的char c）+7（补齐的）+8（s中的double）+1+1+6（补齐的）=32(其中最大的8的整倍数)</strong></p>
+<h4 id="案例七分析："><a href="#案例七分析：" class="headerlink" title="案例七分析："></a>案例七分析：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct S4		&#123;			char c1; 		S1 s;    		char c2; 		double c3; 	&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2019/11/12/ C语言与反汇编学习（五）/images/15735639114324.jpg" alt="-w558" title>
+                </div>
+                <div class="image-caption">-w558</div>
+            </figure>
+
+<p><strong>sizeof(S4) =1+7+1（s中的char c）+7（补齐的）+8（s中的double）+1+7（补齐的）+8=40(其中最大的8的整倍数)</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-11-12T13:40:56.000Z" itemprop="dateUpdated">2019-11-12 21:40:56</time>
+</span><br>
+
+
+        
+        这里可以写作者留言,thank you for your reading.
+        
+    </div>
+    
+    <footer>
+        <a href="https://chumen77.github.io">
+            <img src="/img/avatar.jpg" alt="chumen77">
+            chumen77
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/&title=《C语言与反汇编学习（五）》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/&title=《C语言与反汇编学习（五）》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言与反汇编学习（五）》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/11/09/Xctfre_新手区wp/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Xctf_RE新手区WP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>chumen77 &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/&title=《C语言与反汇编学习（五）》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/&title=《C语言与反汇编学习（五）》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言与反汇编学习（五）》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/&via=https://chumen77.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/2019/11/12/ C语言与反汇编学习（五）/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
