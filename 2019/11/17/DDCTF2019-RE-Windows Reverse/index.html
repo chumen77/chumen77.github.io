@@ -21,12 +21,12 @@
     
     
     <meta name="keywords" content>
-    <meta name="description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。 reverse1_final.exe查壳">
+    <meta name="description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip reverse1_final.exe查壳">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DDCTF2019-RE-Windows Reverse">
 <meta property="og:url" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/index.html">
 <meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
-<meta property="og:description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。 reverse1_final.exe查壳">
+<meta property="og:description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip reverse1_final.exe查壳">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739838372961.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739848952944.jpg">
@@ -42,10 +42,10 @@
 <meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739864384097.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739865575323.jpg">
 <meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739865898152.jpg">
-<meta property="og:updated_time" content="2019-11-17T10:30:51.000Z">
+<meta property="og:updated_time" content="2019-11-17T10:43:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF2019-RE-Windows Reverse">
-<meta name="twitter:description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。 reverse1_final.exe查壳">
+<meta name="twitter:description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip reverse1_final.exe查壳">
 <meta name="twitter:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739838372961.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
@@ -179,7 +179,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#DDCTF2019-RE-Windows-Reverse"><span class="post-toc-number">1.</span> <span class="post-toc-text">DDCTF2019-RE-Windows Reverse</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reverse1-final-exe"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">reverse1_final.exe</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查壳"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">查壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脱壳"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">脱壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">运行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ASLR"><span class="post-toc-number">1.2.3.1.</span> <span class="post-toc-text">ASLR</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关闭ASLR"><span class="post-toc-number">1.2.3.2.</span> <span class="post-toc-text">关闭ASLR</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#改注册表"><span class="post-toc-number">1.2.3.2.1.</span> <span class="post-toc-text">改注册表</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#软件关闭"><span class="post-toc-number">1.2.3.2.2.</span> <span class="post-toc-text">软件关闭</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#成功运行"><span class="post-toc-number">1.2.3.3.</span> <span class="post-toc-text">成功运行</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">IDA静态分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主函数"><span class="post-toc-number">1.2.4.1.</span> <span class="post-toc-text">主函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#处理函数sub-401000"><span class="post-toc-number">1.2.4.2.</span> <span class="post-toc-text">处理函数sub_401000</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OD动态分析"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">OD动态分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本解密"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">脚本解密</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#DDCTF2019-RE-Windows-Reverse"><span class="post-toc-number">1.</span> <span class="post-toc-text">DDCTF2019-RE-Windows Reverse</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reverse1-final-exe"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">reverse1_final.exe</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查壳"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">查壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脱壳"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">脱壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">运行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ASLR"><span class="post-toc-number">1.2.3.1.</span> <span class="post-toc-text">ASLR</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关闭ASLR"><span class="post-toc-number">1.2.3.2.</span> <span class="post-toc-text">关闭ASLR</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#改注册表"><span class="post-toc-number">1.2.3.2.1.</span> <span class="post-toc-text">改注册表</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#软件关闭"><span class="post-toc-number">1.2.3.2.2.</span> <span class="post-toc-text">软件关闭</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#成功运行"><span class="post-toc-number">1.2.3.3.</span> <span class="post-toc-text">成功运行</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">IDA静态分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#主函数"><span class="post-toc-number">1.2.4.1.</span> <span class="post-toc-text">主函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#处理函数sub-401000"><span class="post-toc-number">1.2.4.2.</span> <span class="post-toc-text">处理函数sub_401000</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OD动态分析"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">OD动态分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本解密"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">脚本解密</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.2.7.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -203,7 +203,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="DDCTF2019-RE-Windows-Reverse"><a href="#DDCTF2019-RE-Windows-Reverse" class="headerlink" title="DDCTF2019-RE-Windows Reverse"></a>DDCTF2019-RE-Windows Reverse</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。</p>
+            <h1 id="DDCTF2019-RE-Windows-Reverse"><a href="#DDCTF2019-RE-Windows-Reverse" class="headerlink" title="DDCTF2019-RE-Windows Reverse"></a>DDCTF2019-RE-Windows Reverse</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：<br><a href="https://github.com/chumen77/chumen77.github.io/blob/master/2019/11/17/DDCTF2019-RE-Windows%20Reverse/reverse1_final.zip" target="_blank">reverse1_final.zip</a><br><a href="https://github.com/chumen77/chumen77.github.io/blob/master/2019/11/17/DDCTF2019-RE-Windows%20Reverse/reverse2_final.exe.zip" target="_blank">reverse2_final.exe.zip</a></p>
 <h2 id="reverse1-final-exe"><a href="#reverse1-final-exe" class="headerlink" title="reverse1_final.exe"></a>reverse1_final.exe</h2><h3 id="查壳"><a href="#查壳" class="headerlink" title="查壳"></a>查壳</h3><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -326,6 +326,7 @@
                 <div class="image-caption">-w437</div>
             </figure>
 <p><strong>%是VC编译的字符串结束标志不用代入。</strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在某在题目中，静态分析加密函数有些困难的时候，往往没有动态分析来的快，感觉动静结合分析是很好的。</p>
 
         </div>
 
@@ -334,7 +335,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-11-17T10:30:51.000Z" itemprop="dateUpdated">2019-11-17 18:30:51</time>
+    Last updated: <time datetime="2019-11-17T10:43:14.000Z" itemprop="dateUpdated">2019-11-17 18:43:14</time>
 </span><br>
 
 
