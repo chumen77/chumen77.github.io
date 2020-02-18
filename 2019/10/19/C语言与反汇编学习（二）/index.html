@@ -24,27 +24,27 @@
     <meta name="description" content="C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。 裸函数什么是裸函数？12void __declspec(naked) Function()  &amp;#123;.....&amp;#125;  在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言与反汇编学习（二）">
-<meta property="og:url" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/index.html">
+<meta property="og:url" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/index.html">
 <meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
 <meta property="og:description" content="C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。 裸函数什么是裸函数？12void __declspec(naked) Function()  &amp;#123;.....&amp;#125;  在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715025630158.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715066318478.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715038333622.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715038140613.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715042971030.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715043849420.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715046760959.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715049691652.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715050273427.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715051301041.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715051770389.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715052426371.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715025630158.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715066318478.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715038333622.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715038140613.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715042971030.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715043849420.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715046760959.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715049691652.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715050273427.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715051301041.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715051770389.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715052426371.jpg">
 <meta property="og:updated_time" content="2019-10-20T15:06:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言与反汇编学习（二）">
 <meta name="twitter:description" content="C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。 裸函数什么是裸函数？12void __declspec(naked) Function()  &amp;#123;.....&amp;#125;  在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数">
-<meta name="twitter:image" content="https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/images/15715025630158.jpg">
+<meta name="twitter:image" content="http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/images/15715025630158.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
     
@@ -363,7 +363,7 @@
     </div>
     
     <footer>
-        <a href="https://chumen77.github.io">
+        <a href="http://chumen77.xyz">
             <img src="/img/avatar.jpg" alt="chumen77">
             chumen77
         </a>
@@ -383,7 +383,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -393,22 +393,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/&via=https://chumen77.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/&via=http://chumen77.xyz" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -452,15 +452,6 @@
 
     
 
-
-<section class="comments" id="comments">
-    <div id="disqus_thread"></div>
-    <script>
-    var disqus_shortname = 'true';
-    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
 
 
 
@@ -507,7 +498,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>chumen77 &copy; 2019</span>
+        <p><span>chumen77 &copy; 2019 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -525,7 +516,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -535,22 +526,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/&title=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/&via=https://chumen77.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言与反汇编学习（二）》 — Welcome to Chumen77's Blog&url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/&via=http://chumen77.xyz" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -561,7 +552,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/2019/10/19/C语言与反汇编学习（二）/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://chumen77.xyz/2019/10/19/C语言与反汇编学习（二）/" alt="微信分享二维码">
 </div>
 
 

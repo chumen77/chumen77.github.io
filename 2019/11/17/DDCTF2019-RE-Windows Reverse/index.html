@@ -24,29 +24,29 @@
     <meta name="description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip reverse1_final.exe查壳">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DDCTF2019-RE-Windows Reverse">
-<meta property="og:url" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/index.html">
+<meta property="og:url" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/index.html">
 <meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
 <meta property="og:description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip reverse1_final.exe查壳">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739838372961.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739848952944.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739850550859.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739851761277.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739858421447.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739858895484.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739860730789.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739861642584.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739862054229.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739862667897.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739863094523.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739864384097.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739865575323.jpg">
-<meta property="og:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739865898152.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739838372961.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739848952944.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739850550859.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739851761277.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739858421447.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739858895484.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739860730789.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739861642584.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739862054229.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739862667897.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739863094523.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739864384097.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739865575323.jpg">
+<meta property="og:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739865898152.jpg">
 <meta property="og:updated_time" content="2019-11-17T10:45:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF2019-RE-Windows Reverse">
 <meta name="twitter:description" content="DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip reverse1_final.exe查壳">
-<meta name="twitter:image" content="https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739838372961.jpg">
+<meta name="twitter:image" content="http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows%20Reverse/images/15739838372961.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
     
@@ -345,7 +345,7 @@
     </div>
     
     <footer>
-        <a href="https://chumen77.github.io">
+        <a href="http://chumen77.xyz">
             <img src="/img/avatar.jpg" alt="chumen77">
             chumen77
         </a>
@@ -365,7 +365,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -375,22 +375,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/&via=https://chumen77.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/&via=http://chumen77.xyz" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -410,7 +410,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/12/29/HTML 基础/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[no title]</h4>
+      </a>
+    </div>
   
 
   
@@ -427,15 +434,6 @@
 
     
 
-
-<section class="comments" id="comments">
-    <div id="disqus_thread"></div>
-    <script>
-    var disqus_shortname = 'true';
-    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
 
 
 
@@ -482,7 +480,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>chumen77 &copy; 2019</span>
+        <p><span>chumen77 &copy; 2019 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -500,7 +498,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -510,22 +508,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/&title=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/&via=https://chumen77.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DDCTF2019-RE-Windows Reverse》 — Welcome to Chumen77's Blog&url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/&via=http://chumen77.xyz" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -536,7 +534,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/2019/11/17/DDCTF2019-RE-Windows Reverse/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://chumen77.xyz/2019/11/17/DDCTF2019-RE-Windows Reverse/" alt="微信分享二维码">
 </div>
 
 

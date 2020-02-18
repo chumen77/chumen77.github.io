@@ -23,7 +23,7 @@
     <meta name="keywords" content>
     <meta property="og:type" content="website">
 <meta property="og:title" content="Welcome to Chumen77&#39;s Blog">
-<meta property="og:url" content="https://chumen77.github.io/index.html">
+<meta property="og:url" content="http://chumen77.xyz/index.html">
 <meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -153,6 +153,257 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-利用DynElf模块完成获取libc信息"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-02-15 16:54:53" datetime="2020-02-15T08:54:53.000Z"  itemprop="datePublished">2020-02-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/02/15/利用DynElf模块完成获取libc信息/">利用DynElf模块完成获取libc信息</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        利用DynElf模块完成获取libc信息前言记录一下另一种没有libc，完成漏洞利用的办法，学完后自我感觉这个办法已经比较落后了，没有libcseacher好用，也用起来比它难的多了。针对于libcseacher不能做的题，用这种办法，否则还是libcseacher好用。
+Dynelf解析加载的、动态链接的ELF⼆进制⽂件中的符号。给定⼀个可以在任意地址泄漏数据的函数，任何加载的 库中的任何...
+    
+
+        <a href="/2020/02/15/利用DynElf模块完成获取libc信息/" class="post-more waves-effect waves-button">
+            続きを読む…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-linux下clash的使用"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-02-14 23:27:09" datetime="2020-02-14T15:27:09.000Z"  itemprop="datePublished">2020-02-14</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/02/14/linux下clash的使用/">linux下clash的使用</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        linux下clash的使用前言本文只是很简单记录一下，自己如何使用clash的。因为发现终端虽说在本机上已经开了代理，但是终端执行命令下载东西的时候十分的卡，今天才了解到，原来终端的代理是另外开的。所以就开始折腾一下，linux下clash的使用（本人用了很久了clash，所以直接看这个软件了）。
+0x01执行cd &amp;&amp; mkdir clash 在用户目录下创建 clash...
+    
+
+        <a href="/2020/02/14/linux下clash的使用/" class="post-more waves-effect waves-button">
+            続きを読む…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Stack Migration题目练习"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-02-11 21:51:48" datetime="2020-02-11T13:51:48.000Z"  itemprop="datePublished">2020-02-11</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/02/11/Stack Migration题目练习/">Stack Migration题目练习</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Stack Migration题目练习前言记录几道Stack Migration的练习题。
+pwnable_simple_login查看保护和arch12345Arch:     i386-32-littleRELRO:    Partial RELROStack:    Canary foundNX:       NX enabledPIE:      No PIE (0x8048000)...
+    
+
+        <a href="/2020/02/11/Stack Migration题目练习/" class="post-more waves-effect waves-button">
+            続きを読む…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-花式栈溢出（调节栈帧）"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-02-05 16:53:11" datetime="2020-02-05T08:53:11.000Z"  itemprop="datePublished">2020-02-05</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/02/05/花式栈溢出（调节栈帧）/">花式栈溢出（栈帧的调节）</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        花式栈溢出（栈帧的调节）前言本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：
+
+加减esp值，控制栈指针
+Stack Migration来构造一个假的栈帧。
+
+这里总结了2种题型：
+加减esp，...
+    
+
+        <a href="/2020/02/05/花式栈溢出（调节栈帧）/" class="post-more waves-effect waves-button">
+            続きを読む…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-ROP练习"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-02-03 16:21:13" datetime="2020-02-03T08:21:13.000Z"  itemprop="datePublished">2020-02-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/02/03/ROP练习/">ROP题目练习</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        ROP题目练习前言最近在学习栈溢出，做了一些ROP的练习题，基本都是buuoj的题目，搜索rop字眼找的rop题。简单记录一下收获和exp。
+有libc（或者无libc可做）OGeek2019_babyrop查保护和arch32位程序，开启NX堆栈不可执行。
+ida分析可以看出其取了一个随机数，存入buf。然后进入这个函数分析，看到接收buf传来的值，放入s中。然后下面接收你传入的东西，与s...
+    
+
+        <a href="/2020/02/03/ROP练习/" class="post-more waves-effect waves-button">
+            続きを読む…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-HTML 基础"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-12-29 21:42:51" datetime="2019-12-29T13:42:51.000Z"  itemprop="datePublished">2019-12-29</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/12/29/HTML 基础/">No title</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        HTML 基础
+HTML标题：是通过 &lt;h1&gt; - &lt;h6&gt; 标签来定义的.；其会因为数字变化而显示的字体大小变化；
+HTML段落：通过标签&lt;p&gt; 来定义的.
+HTML链接：通过标签&lt;a&gt;来定义的。
+HTML图像：通过标签 &lt;img&gt; 来定义的。
+
+HTML 文本HTML 标题标题（Heading）是通过&lt;h1&gt; - &...
+    
+
+        <a href="/2019/12/29/HTML 基础/" class="post-more waves-effect waves-button">
+            続きを読む…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-DDCTF2019-RE-Windows Reverse"
@@ -328,287 +579,12 @@ re1第一步，先查壳：
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-C语言与反汇编学习（四）"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-23 22:48:14" datetime="2019-10-23T14:48:14.000Z"  itemprop="datePublished">2019-10-23</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/23/C语言与反汇编学习（四）/">C语言与反汇编学习（四）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        C语言与反汇编学习（四）前言本次主要学习以下内容
-
-内存图
-全局变量、局部变量
-函数参数的分析
-分支语句:if if...else... if..else if..else if....else``分支语句的嵌套使用的正向与逆向分析
-
-内存图
-                
-                    
-                    
-                ...
-    
-
-        <a href="/2019/10/23/C语言与反汇编学习（四）/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-C语言学习与反汇编（三）"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-20 23:45:40" datetime="2019-10-20T15:45:40.000Z"  itemprop="datePublished">2019-10-20</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/20/C语言学习与反汇编（三）/">C语言与反汇编学习（三）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        C语言与反汇编学习（三）前言本次主要学习一下C语言的数据类型与数据存储。
-数据类型
-                
-                    
-                    
-                
-                -w709
-            
-学习数据类型的三个要素1、存储数据的宽度2、存储数据的格式3、作用范围(作用域)这些都是...
-    
-
-        <a href="/2019/10/20/C语言学习与反汇编（三）/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-C语言与反汇编学习（二）"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-19 23:49:13" datetime="2019-10-19T15:49:13.000Z"  itemprop="datePublished">2019-10-19</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/19/C语言与反汇编学习（二）/">C语言与反汇编学习（二）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。
-裸函数什么是裸函数？12void __declspec(naked) Function()  &#123;.....&#125;
-
-在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这...
-    
-
-        <a href="/2019/10/19/C语言与反汇编学习（二）/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-C语言与反汇编学习（一）"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-19 10:26:17" datetime="2019-10-19T02:26:17.000Z"  itemprop="datePublished">2019-10-19</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/19/C语言与反汇编学习（一）/">C语言与反汇编学习（一）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        C语言与反汇编学习（一）前言：本课主要学习VC开发环境的简单使用，和几个函数反汇编分析。
-简单下熟悉VC6开发环境这里我直接用了编程达人的vc虚拟机，官方的vc6.0不是很好用，每次只支持调试一次，人家的可以突破这个限制。
-创建项目
-                
-                    
-                    
-                
-    ...
-    
-
-        <a href="/2019/10/19/C语言与反汇编学习（一）/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-JCC"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-07 23:09:50" datetime="2019-10-07T15:09:50.000Z"  itemprop="datePublished">2019-10-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/07/JCC/">JCC学习</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        JCC学习JCC指令集合详细__1、JE, JZ　　　　　　结果为零则跳转(相等时跳转)　　　　 　　 ZF=1
-2、JNE, JNZ　　  　　结果不为零则跳转(不相等时跳转) 　　　　   ZF=0
-3、JS　　　　　　　  结果为负则跳转　　　　　　　　　　　　    SF=1
-4、JNS 　　　　　　  结果为非负则跳转　　　　　　　　　　　   SF=0
-5、JP, JPE　　　　...
-    
-
-        <a href="/2019/10/07/JCC/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-标志寄存器"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-06 22:01:14" datetime="2019-10-06T14:01:14.000Z"  itemprop="datePublished">2019-10-06</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/06/标志寄存器/">标志寄存器</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        标志寄存器部分标志寄存器详细介绍
-                
-                    
-                    
-                
-                
-            
-需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF
-CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个...
-    
-
-        <a href="/2019/10/06/标志寄存器/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </div>
 </nav>
 
@@ -636,7 +612,7 @@ CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个...
         </p>
     </div>
     <div class="bottom">
-        <p><span>chumen77 &copy; 2019</span>
+        <p><span>chumen77 &copy; 2019 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -654,7 +630,7 @@ CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个...
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chumen77.github.io/&title=Welcome to Chumen77's Blog&pic=https://chumen77.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/&title=Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -664,22 +640,22 @@ CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个...
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chumen77.github.io/&title=Welcome to Chumen77's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/&title=Welcome to Chumen77's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chumen77.github.io/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Welcome to Chumen77's Blog&url=https://chumen77.github.io/&via=https://chumen77.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Welcome to Chumen77's Blog&url=http://chumen77.xyz/&via=http://chumen77.xyz" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chumen77.github.io/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -690,7 +666,7 @@ CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个...
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://chumen77.github.io/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://chumen77.xyz/" alt="微信分享二维码">
 </div>
 
 
