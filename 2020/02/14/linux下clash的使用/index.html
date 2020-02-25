@@ -30,9 +30,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://chumen77.xyz/2020/02/14/linux下clash的使用/images/15816946080116.jpg">
 <meta property="og:image" content="http://chumen77.xyz/2020/02/14/linux下clash的使用/images/15816952499188.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2020/02/14/linux下clash的使用/images/15816953014396.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2020/02/14/linux下clash的使用/images/15816954013538.jpg">
-<meta property="og:updated_time" content="2020-02-18T01:22:36.000Z">
+<meta property="og:image" content="file:///Volumes/data/chumenblog/source/images/15816953014396.jpg">
+<meta property="og:image" content="file:///Volumes/data/chumenblog/source/images/15816954013538.jpg">
+<meta property="og:updated_time" content="2020-02-18T13:36:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下clash的使用">
 <meta name="twitter:description" content="linux下clash的使用前言本文只是很简单记录一下，自己如何使用clash的。因为发现终端虽说在本机上已经开了代理，但是终端执行命令下载东西的时候十分的卡，今天才了解到，原来终端的代理是另外开的。所以就开始折腾一下，linux下clash的使用（本人用了很久了clash，所以直接看这个软件了）。 0x01执行cd &amp;amp;&amp;amp; mkdir clash 在用户目录下创建 clash 文件">
@@ -130,7 +130,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -195,42 +195,11 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="linux下clash的使用"><a href="#linux下clash的使用" class="headerlink" title="linux下clash的使用"></a>linux下clash的使用</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文只是很简单记录一下，自己如何使用clash的。因为发现终端虽说在本机上已经开了代理，但是终端执行命令下载东西的时候十分的卡，今天才了解到，原来终端的代理是另外开的。所以就开始折腾一下，linux下clash的使用（本人用了很久了clash，所以直接看这个软件了）。</p>
 <h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>执行<code>cd &amp;&amp; mkdir clash</code> 在用户目录下创建 clash 文件夹。<br>下载适合的 Clash 二进制文件并解压重命名为 clash,一般个人的64位电脑下载 clash-linux-amd64.tar.gz 即可。<br>地址：<a href="https://github.com/Dreamacro/clash/releases" target="_blank" rel="noopener">https://github.com/Dreamacro/clash/releases</a></p>
-<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>在终端cd到Clash二进制文件所在的目录,把Clash 配置文件给移进去。配置文件的名称要是config.yaml</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2020/02/14/linux下clash的使用/images/15816946080116.jpg" alt="-w286" title>
-                </div>
-                <div class="image-caption">-w286</div>
-            </figure>
-
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>在终端cd到Clash二进制文件所在的目录,把Clash 配置文件给移进去。配置文件的名称要是config.yaml<br><img src="/2020/02/14/linux下clash的使用/images/15816946080116.jpg" alt="-w286"></p>
 <p>我是直接创建了这个文件，并写入的自己的配置，因为mac本机一直用这个软件，然后在配置文件找到主使用那个，直接复制那个自己使用代理网站加载下来的配置给config.yaml。</p>
-<h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><p><code>chmod +x ./clash</code>加执行权限<br>执行 ./clash -d . 即可启动 Clash，同时启动 HTTP 代理和 Socks5 代理。<br>然后进入这个<a href="http://clash.razord.top/" target="_blank" rel="noopener">http://clash.razord.top/</a> 链接可以对代理进行个简单管理</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2020/02/14/linux下clash的使用/images/15816952499188.jpg" alt="-w794" title>
-                </div>
-                <div class="image-caption">-w794</div>
-            </figure>
-<h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><p>打开系统设置，选择网络，点击网络代理右边的 ⚙ 按钮，选择手动，填写 HTTP 和 HTTPS 代理为 127.0.0.1:7890，填写 Socks 主机为 127.0.0.1:7891，即可启用系统代理。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2020/02/14/linux下clash的使用/images/15816953014396.jpg" alt="-w409" title>
-                </div>
-                <div class="image-caption">-w409</div>
-            </figure>
-
-<h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><p>终端开启代理<br><code>export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891</code><br>执行这个命令即可。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2020/02/14/linux下clash的使用/images/15816954013538.jpg" alt="-w495" title>
-                </div>
-                <div class="image-caption">-w495</div>
-            </figure>
-<p>出现这个就是代理成功了，然后就会发现终端下载东西的神速。</p>
+<h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><p><code>chmod +x ./clash</code>加执行权限<br>执行 ./clash -d . 即可启动 Clash，同时启动 HTTP 代理和 Socks5 代理。<br>然后进入这个<a href="http://clash.razord.top/" target="_blank" rel="noopener">http://clash.razord.top/</a> 链接可以对代理进行个简单管理<br><img src="/2020/02/14/linux下clash的使用/images/15816952499188.jpg" alt="-w794"></p>
+<h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><p>打开系统设置，选择网络，点击网络代理右边的 ⚙ 按钮，选择手动，填写 HTTP 和 HTTPS 代理为 127.0.0.1:7890，填写 Socks 主机为 127.0.0.1:7891，即可启用系统代理。<br><img src="file:///Volumes/data/chumenblog/source/images/15816953014396.jpg" alt="-w409"></p>
+<h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><p>终端开启代理<br><code>export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891</code><br>执行这个命令即可。<br><img src="file:///Volumes/data/chumenblog/source/images/15816954013538.jpg" alt="-w495"><br>出现这个就是代理成功了，然后就会发现终端下载东西的神速。</p>
 
         </div>
 
@@ -239,12 +208,10 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-02-18T01:22:36.000Z" itemprop="dateUpdated">2020-02-18 09:22:36</time>
+    Last updated: <time datetime="2020-02-18T13:36:12.000Z" itemprop="dateUpdated">2020-02-18 21:36:12</time>
 </span><br>
 
 
-        
-        这里可以写作者留言,thank you for your reading.
         
     </div>
     
@@ -380,12 +347,14 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
         <p><span>chumen77 &copy; 2019 - 2020</span>
             <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">true</a><br>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
             </span>
