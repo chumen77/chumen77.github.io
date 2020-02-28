@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>SQL注入基础学习 ~ Welcome to Chumen77&#39;s Blog</title>
+  <title>SQL注入基础学习 ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Welcome to Chumen77's Blog</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -73,14 +73,6 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
-          </li>
-        
-          
-          
-          
-          
-          <li class="nav-item">
             <a class="nav-link" href="/tags/">标签</a>
           </li>
         
@@ -94,12 +86,6 @@
         
           
           
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/links/">友链</a>
-          </li>
-        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -192,14 +178,12 @@
 </ol>
 <h3 id="union知识小记"><a href="#union知识小记" class="headerlink" title="union知识小记"></a>union知识小记</h3><p>union在集合两个select查询语句时，一定要注意<strong>两个查询出来的结果,列数（columns）要相等才会出来结果。</strong><br>例如：<br><img src="/2019/09/01/SQL基础学习/images/15673411551995.jpg" srcset="/img/loading.gif" alt><br><code>SELECT * from news union SELECT 1,2;</code><br><img src="/2019/09/01/SQL基础学习/images/15673412010749.jpg" srcset="/img/loading.gif" alt><br>报错，换成<code>SELECT * from news union SELECT 1,2,3;</code><br><img src="/2019/09/01/SQL基础学习/images/15673412472041.jpg" srcset="/img/loading.gif" alt></p>
 <h3 id="order-by-知识小记"><a href="#order-by-知识小记" class="headerlink" title="order by 知识小记"></a>order by 知识小记</h3><p><code>order by</code>是按照一定规则来进行排序的语句。我们为什么能够通过<code>order by</code>排序，来排出来列名有多少个呢？我们来测试一下：<br><img src="/2019/09/01/SQL基础学习/images/15673428181899.jpg" srcset="/img/loading.gif" alt></p>
-<p><code>SELECT * from test ORDER BY 1;</code><br>当我们在测试到<code>SELECT * from test ORDER BY 5;</code><br><img src="/2019/09/01/SQL基础学习/images/15673428766361.jpg" srcset="/img/loading.gif" alt><br>发现出了异常。<br>我们换个3列的表：<img src="/2019/09/01/SQL基础学习/images/15673429298587.jpg" srcset="/img/loading.gif" alt><br><code>SELECT * from news
-ORDER BY 3;</code>显示是正常的<br><code>SELECT * from news
-ORDER BY 4;</code><img src="/2019/09/01/SQL基础学习/images/15673429733420.jpg" srcset="/img/loading.gif" alt><br>所以可以<strong>发现我们在<code>order by</code>后加数字可以来测出来一个表的列名个数。</strong></p>
+<p><code>SELECT * from test ORDER BY 1;</code><br>当我们在测试到<code>SELECT * from test ORDER BY 5;</code><br><img src="/2019/09/01/SQL基础学习/images/15673428766361.jpg" srcset="/img/loading.gif" alt><br>发现出了异常。<br>我们换个3列的表：<img src="/2019/09/01/SQL基础学习/images/15673429298587.jpg" srcset="/img/loading.gif" alt><br>`SELECT * from news<br>ORDER BY 3;`显示是正常的<br>`SELECT * from news<br>ORDER BY 4;`<img src="/2019/09/01/SQL基础学习/images/15673429733420.jpg" srcset="/img/loading.gif" alt><br>所以可以<strong>发现我们在<code>order by</code>后加数字可以来测出来一个表的列名个数。</strong></p>
 <h3 id="显示联合查询出现的结果"><a href="#显示联合查询出现的结果" class="headerlink" title="显示联合查询出现的结果"></a>显示联合查询出现的结果</h3><p>显示我们自定义查询的结果，该怎么实现呢。<br>先在靶场测试：<code>SELECT * FROM news WHERE id = 2 union select 1,2,3 from test</code><img src="/2019/09/01/SQL基础学习/images/15673503130693.jpg" srcset="/img/loading.gif" alt></p>
 <p>明显网页是不给显示的。相同语句在数据库：<br><img src="/2019/09/01/SQL基础学习/images/15673494870032.jpg" srcset="/img/loading.gif" alt><br>不给显示是因为服务器端php代码进行了处理，只可以显示出一条结果。那如果把第一个查询结果给无法显示，是不是就可以显示我们联合查询的结果呢。先在数据库测试下SQL语句：<code>SELECT * FROM news WHERE id = -1</code><img src="/2019/09/01/SQL基础学习/images/15673498250797.jpg" srcset="/img/loading.gif" alt="-w430"><br>发现是不显示东西的。继续测试:<code>SELECT * FROM news WHERE id = -1 union select 1,2,3 from test;</code><br><img src="/2019/09/01/SQL基础学习/images/15673498938620.jpg" srcset="/img/loading.gif" alt><br>接着我们拿到靶场测试：<img src="/2019/09/01/SQL基础学习/images/15673503981645.jpg" srcset="/img/loading.gif" alt></p>
 <p>达到我们的目的了。看这个页面显示的效果<code>2 3</code>，反向思维考虑把<code>2 3</code>改成我们的列名是不是就可以出数据了，<strong>但是我们如何知道表里的列名呢？</strong></p>
 <h3 id="exists（）函数小记"><a href="#exists（）函数小记" class="headerlink" title="exists（）函数小记"></a>exists（）函数小记</h3><p><code>exists()</code>是验证某个语句是否存在结果，是个bool函数，存在显示<code>1</code>反之是<code>0</code>。<br><code>SELECT * FROM news WHERE id=1 and exists(select * from test);</code>在数据库进行测试:<img src="/2019/09/01/SQL基础学习/images/15673529496971.jpg" srcset="/img/loading.gif" alt><br><code>SELECT * FROM news WHERE id=1 and exists(select * from aa);</code><br><img src="/2019/09/01/SQL基础学习/images/15673532051506.jpg" srcset="/img/loading.gif" alt><br>发现在用这个函数查<strong>不存在的表</strong>的时候语句是没法进行的，然后我们可以通过这个语句来推出表名和列名，不过十分麻烦，<strong>可以通过burpsuit来跑</strong>。还有意外收获，可以看出数据库的名字<img src="/2019/09/01/SQL基础学习/images/15673536538274.jpg" srcset="/img/loading.gif" alt><br>pentest就是数据库的名字了。</p>
-<h2 id="数据类型（搜索型）"><a href="#数据类型（搜索型）" class="headerlink" title="数据类型（搜索型）"></a>数据类型（搜索型）</h2><h3 id="的作用"><a href="#的作用" class="headerlink" title="%的作用"></a><code>%</code>的作用</h3><p><code>%</code>在mysql中表示通配符。在SQL语句中:<br><code>******* like &#39;%a&#39;</code>，就是搜索返回以字母<code>a</code>结尾的所有信息，同理<code>a%``%a%</code>,分别就是 搜索返回以字母<code>a</code>开头的所有信息和搜索返回包含字母<code>a</code>的所有信息。</p>
+<h2 id="数据类型（搜索型）"><a href="#数据类型（搜索型）" class="headerlink" title="数据类型（搜索型）"></a>数据类型（搜索型）</h2><h3 id="的作用"><a href="#的作用" class="headerlink" title="%的作用"></a><code>%</code>的作用</h3><p><code>%</code>在mysql中表示通配符。在SQL语句中:<br><code>******* like &#39;%a&#39;</code>，就是搜索返回以字母<code>a</code>结尾的所有信息，同理<code>a%</code>%a%``,分别就是 搜索返回以字母<code>a</code>开头的所有信息和搜索返回包含字母<code>a</code>的所有信息。</p>
 <h3 id="如何注入"><a href="#如何注入" class="headerlink" title="如何注入"></a>如何注入</h3><p>咱们先看下php源代码:<code>$sql_search = &quot;SELECT * FROM {$t_name} WHERE {$c_name} like &#39;%{$c_value}%&#39;&quot;; //search</code><br>很明显提前闭合<code>&#39;%</code>跟省略后面的<code>%&#39;</code>就可以了，所以<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; --+&amp;submit=submit</code><br><img src="/2019/09/01/SQL基础学习/images/15679129656049.jpg" srcset="/img/loading.gif" alt="-w804"></p>
 <p>然后我们正常走步骤，利用<code>order by</code>来确定下多少列：<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; order by 3--+&amp;submit=submit</code><img src="/2019/09/01/SQL基础学习/images/15679138962766.jpg" srcset="/img/loading.gif" alt="-w840"><br>继续<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; order by 4--+&amp;submit=submit</code><br><img src="/2019/09/01/SQL基础学习/images/15679139214321.jpg" srcset="/img/loading.gif" alt="-w1022"><br>可以确定是3列了。</p>
 <p>然后开始确定表名，这次用刚刚学的exist()来测试，并且练习一下burp来跑表名和列名：<br>先正常构造payload：<code>http://127.0.0.1/DoraBox/sql_injection/sql_search.php?content=d%&#39; and exists(select * from news)--+&amp;submit=submit</code><br><img src="/2019/09/01/SQL基础学习/images/15679141526795.jpg" srcset="/img/loading.gif" alt="-w843"><br>确定news表名存在，然后开始用burp跑其他的：<br><img src="/2019/09/01/SQL基础学习/images/15679142504637.jpg" srcset="/img/loading.gif" alt="-w555"><br><img src="/2019/09/01/SQL基础学习/images/15679143681990.jpg" srcset="/img/loading.gif" alt="-w837"><br>我们是跑表名，所以在<code>news</code>加上变量。这个步骤需要先点<img src="/2019/09/01/SQL基础学习/images/15679145034217.jpg" srcset="/img/loading.gif" alt="-w371"><br>然后<br><img src="/2019/09/01/SQL基础学习/images/15679144276086.jpg" srcset="/img/loading.gif" alt="-w364"><br><img src="/2019/09/01/SQL基础学习/images/15679145997135.jpg" srcset="/img/loading.gif" alt="-w531"><br>在“添加“按钮旁的位置开始填入测试的表名，这个我是手动填的，可以进行导入字典。<img src="/2019/09/01/SQL基础学习/images/15679146928775.jpg" srcset="/img/loading.gif" alt="-w1260"><br><img src="/2019/09/01/SQL基础学习/images/15679147050548.jpg" srcset="/img/loading.gif" alt="-w778"><br>然后我们开始看结果<img src="/2019/09/01/SQL基础学习/images/15679147687971.jpg" srcset="/img/loading.gif" alt="-w666"><br><code>Render</code>下面显示正常就证明是存在的。<br><img src="/2019/09/01/SQL基础学习/images/15679148321357.jpg" srcset="/img/loading.gif" alt="-w963"><br>这个是不存在。最终用这个办法可以跑出表名<code>test、account</code>。同样办法跑列名：<br><img src="/2019/09/01/SQL基础学习/images/15679152029822.jpg" srcset="/img/loading.gif" alt="-w665"></p>
@@ -214,6 +198,13 @@ ORDER BY 4;</code><img src="/2019/09/01/SQL基础学习/images/15673429733420.jp
           <div>
             <p>
             
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/SQL">SQL</a>
+                
+              </span>
             
             </p>
             
@@ -305,19 +296,6 @@ ORDER BY 4;</code><img src="/2019/09/01/SQL基础学习/images/15673429733420.jp
   <!-- 备案信息 -->
   <a href="http://beian.miit.gov.cn/" target="_blank"
      rel="nofollow noopener">豫ICP备20003962号</a>
-  
-    <a
-      href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=20003962"
-      rel="nofollow noopener"
-      class="police-beian"
-      target="_blank"
-    >
-      <span class="police-beian-sep">&nbsp;|&nbsp;</span>
-      
-        <img src="/img/police_beian.png" srcset="/img/loading.gif" />
-      
-      <span>京公网安备12345678号</span>
-    </a>
   
 
 

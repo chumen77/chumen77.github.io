@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>Vscode的简单调教 ~ Welcome to Chumen77&#39;s Blog</title>
+  <title>Vscode的简单调教 ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Welcome to Chumen77's Blog</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -73,14 +73,6 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
-          </li>
-        
-          
-          
-          
-          
-          <li class="nav-item">
             <a class="nav-link" href="/tags/">标签</a>
           </li>
         
@@ -94,12 +86,6 @@
         
           
           
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/links/">友链</a>
-          </li>
-        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -135,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    705 字
+                    698 字
                   </span>&nbsp;
                 
 
@@ -182,15 +168,8 @@
 <h2 id="配置编译环境"><a href="#配置编译环境" class="headerlink" title="配置编译环境"></a>配置编译环境</h2><p>这里我只用到c/c++和Python就只记录这个了。<br><img src="/2019/11/15/Vs code的简单调教/images/15737878495576.jpg" srcset="/img/loading.gif" alt="-w449"><br>输入C/C++<br><img src="/2019/11/15/Vs code的简单调教/images/15737879247492.jpg" srcset="/img/loading.gif" alt="-w676"><br>在这里进行点个install。<br>PYthon也是同样的操作。</p>
 <h2 id="让代码跑起来"><a href="#让代码跑起来" class="headerlink" title="让代码跑起来"></a>让代码跑起来</h2><p>在应用商店里搜索<strong>Code Runner</strong>。<br><img src="/2019/11/15/Vs code的简单调教/images/15737881342794.jpg" srcset="/img/loading.gif" alt="-w653"><br>这个是个神器，有了它就可以在vscode直接运行各种代码。<br>安装好后把vscode关闭，然后重新打开。</p>
 <h3 id="新建个C-C-文件："><a href="#新建个C-C-文件：" class="headerlink" title="新建个C/C++文件："></a>新建个C/C++文件：</h3><p><img src="/2019/11/15/Vs code的简单调教/images/15737885382202.jpg" srcset="/img/loading.gif" alt="-w677"><br>然后右键<br><img src="/2019/11/15/Vs code的简单调教/images/15737886009237.jpg" srcset="/img/loading.gif" alt="-w287"><br>是可以运行代码的。<br>在右上角：<br><img src="/2019/11/15/Vs code的简单调教/images/15737886490345.jpg" srcset="/img/loading.gif" alt="-w305"><br>这个小三角也可以运行代码。看下效果：<br><img src="/2019/11/15/Vs code的简单调教/images/15737886695093.jpg" srcset="/img/loading.gif" alt="-w1007"></p>
-<h3 id="更改为终端输出"><a href="#更改为终端输出" class="headerlink" title="更改为终端输出"></a>更改为终端输出</h3><p>我们改一下代码：</p>
-<pre><code>#include &lt;iostream&gt;
-
-int main() {
-    int a;
-    scanf(&quot;%d&quot;,&amp;a);
-    printf(&quot;hello world!&quot;);
-
-}</code></pre><p>在这样直接运行后发现：<img src="/2019/11/15/Vs code的简单调教/images/15737890616864.jpg" srcset="/img/loading.gif" alt="-w1070"><br>卡在运行过程且我们无法输入：<br><img src="/2019/11/15/Vs code的简单调教/images/15737891086923.jpg" srcset="/img/loading.gif" alt="-w290"><br>这个解决办法就是<strong>更改为终端输出就可以了</strong>。<br><img src="/2019/11/15/Vs code的简单调教/images/15737891942172.jpg" srcset="/img/loading.gif" alt="-w479"><br>点击配置扩展信息。下滑找到：<br><img src="/2019/11/15/Vs code的简单调教/images/15737893476953.jpg" srcset="/img/loading.gif" alt="-w559"><br>然后打个勾就可以了。<br>运行：<br><img src="/2019/11/15/Vs code的简单调教/images/15737894451238.jpg" srcset="/img/loading.gif" alt="-w677"><br>发现成功了，然后看下其原理就是帮你对终端进行了<br><code>cd &quot;/Volumes/data/c:c++/&quot; &amp;&amp; g++ test.cpp -o test &amp;&amp; &quot;/Volumes/data/c:c++/&quot;test</code>这个命令的执行，发现其是用gcc进行了编译，mac是自带clang的，clang的优点挺多的，<strong>且支持语法错误的检测，</strong>然后就想着去改下让其用clang++来编译。</p>
+<h3 id="更改为终端输出"><a href="#更改为终端输出" class="headerlink" title="更改为终端输出"></a>更改为终端输出</h3><p>我们改一下代码：<br>    #include <iostream><br><br>    int main() {<br>        int a;<br>        scanf(“%d”,&amp;a);<br>        printf(“hello world!”);<br><br>    }</iostream></p>
+<p>在这样直接运行后发现：<img src="/2019/11/15/Vs code的简单调教/images/15737890616864.jpg" srcset="/img/loading.gif" alt="-w1070"><br>卡在运行过程且我们无法输入：<br><img src="/2019/11/15/Vs code的简单调教/images/15737891086923.jpg" srcset="/img/loading.gif" alt="-w290"><br>这个解决办法就是<strong>更改为终端输出就可以了</strong>。<br><img src="/2019/11/15/Vs code的简单调教/images/15737891942172.jpg" srcset="/img/loading.gif" alt="-w479"><br>点击配置扩展信息。下滑找到：<br><img src="/2019/11/15/Vs code的简单调教/images/15737893476953.jpg" srcset="/img/loading.gif" alt="-w559"><br>然后打个勾就可以了。<br>运行：<br><img src="/2019/11/15/Vs code的简单调教/images/15737894451238.jpg" srcset="/img/loading.gif" alt="-w677"><br>发现成功了，然后看下其原理就是帮你对终端进行了<br><code>cd &quot;/Volumes/data/c:c++/&quot; &amp;&amp; g++ test.cpp -o test &amp;&amp; &quot;/Volumes/data/c:c++/&quot;test</code>这个命令的执行，发现其是用gcc进行了编译，mac是自带clang的，clang的优点挺多的，<strong>且支持语法错误的检测，</strong>然后就想着去改下让其用clang++来编译。</p>
 <h3 id="自定义运行逻辑"><a href="#自定义运行逻辑" class="headerlink" title="自定义运行逻辑"></a>自定义运行逻辑</h3><p><img src="/2019/11/15/Vs code的简单调教/images/15737891942172.jpg" srcset="/img/loading.gif" alt="-w479"><br>还是进入这个配置里面：<br><img src="/2019/11/15/Vs code的简单调教/images/15737897368419.jpg" srcset="/img/loading.gif" alt="-w411"><br>在settings.json中编辑:</p>
 <pre><code>&quot;code-runner.executorMap&quot; : {
        &quot;java&quot;: &quot;cd $dir &amp;&amp; javac $fileName &amp;&amp; java $fileNameWithoutExt&quot;,
@@ -210,6 +189,13 @@ int main() {
           <div>
             <p>
             
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/vscode">vscode</a>
+                
+              </span>
             
             </p>
             
@@ -301,19 +287,6 @@ int main() {
   <!-- 备案信息 -->
   <a href="http://beian.miit.gov.cn/" target="_blank"
      rel="nofollow noopener">豫ICP备20003962号</a>
-  
-    <a
-      href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=20003962"
-      rel="nofollow noopener"
-      class="police-beian"
-      target="_blank"
-    >
-      <span class="police-beian-sep">&nbsp;|&nbsp;</span>
-      
-        <img src="/img/police_beian.png" srcset="/img/loading.gif" />
-      
-      <span>京公网安备12345678号</span>
-    </a>
   
 
 

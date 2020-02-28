@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>XSS知识简单学习 ~ Welcome to Chumen77&#39;s Blog</title>
+  <title>XSS知识简单学习 ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Welcome to Chumen77's Blog</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -73,14 +73,6 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
-          </li>
-        
-          
-          
-          
-          
-          <li class="nav-item">
             <a class="nav-link" href="/tags/">标签</a>
           </li>
         
@@ -94,12 +86,6 @@
         
           
           
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/links/">友链</a>
-          </li>
-        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -135,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    956 字
+                    952 字
                   </span>&nbsp;
                 
 
@@ -177,16 +163,14 @@
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
             <h1 id="XSS知识简单学习"><a href="#XSS知识简单学习" class="headerlink" title="XSS知识简单学习"></a>XSS知识简单学习</h1><h2 id="一-Xss简介"><a href="#一-Xss简介" class="headerlink" title="一:Xss简介"></a>一:Xss简介</h2><p>XSS攻击全称<strong>跨站脚本攻击</strong>，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中比如这些代码包括HTML代码和客户端脚本。攻击者利用XSS漏洞旁路掉访问控制——例如同源策略(same origin policy)。这种类型的漏洞由于被黑客用来编写危害性更大的网络钓鱼(Phishing)攻击而变得广为人知。对于跨站脚本攻击，黑客界共识是：跨站脚本攻击是新型的“缓冲区溢出攻击“，而JavaScript是新型的“ShellCode”。</p>
-<p>##二：ajax简介<br>ajax其实就是异步JavaScript和xml，其最大优势在于可以实现异步访问。<br>为什么要用AJAX，首先它够隐秘，也就是所谓的“无刷新”，其次，它能更有效地迅速处理各种复杂多变的数据。其可以实现异步更新和跨域。</p>
+<h2 id="二：ajax简介"><a href="#二：ajax简介" class="headerlink" title="二：ajax简介"></a>二：ajax简介</h2><p>ajax其实就是异步JavaScript和xml，其最大优势在于可以实现异步访问。<br>为什么要用AJAX，首先它够隐秘，也就是所谓的“无刷新”，其次，它能更有效地迅速处理各种复杂多变的数据。其可以实现异步更新和跨域。</p>
 <h2 id="三：xss漏洞分类"><a href="#三：xss漏洞分类" class="headerlink" title="三：xss漏洞分类"></a>三：xss漏洞分类</h2><h3 id="存储XSS"><a href="#存储XSS" class="headerlink" title="存储XSS"></a>存储XSS</h3><p>存储XSS,会把攻击者的数据存储在服务器端，攻击行为将伴随着攻击数据一直存在。也就是提交JS攻击代码存储到数据库然后再输出。</p>
 <p>用户输入的地方最容易滋生XSS，譬如留言、评论等表单，一个的留言本，因为没有对用户输入的变量作出合适的过滤，导致一个XSS的产生。留言率先传递给管理员，当作javascript劫持，我们就可以利用管理员的权限做任何事情。当内容通过审核，发布到网站，此时所有的web浏览用户都有可能受到XSS，我们能获得更多的会话劫持。 </p>
 <h3 id="反射型XSS攻击"><a href="#反射型XSS攻击" class="headerlink" title="反射型XSS攻击"></a>反射型XSS攻击</h3><p>反射型XSS攻击也是非持久型XSS攻击，其是一次性的，仅对当次的页面访问产生影响。非持久型XSS攻击要求用户访问一个被攻击者篡改后的链接，用户访问该链接时，被植入的攻击脚本被用户游览器执行，从而达到攻击目的，其是经过服务器的。</p>
 <p>其需要黑客进行诱骗使用户访问这个带有xss攻击的链接后，便被JavaScript劫持，收到攻击。</p>
 <h3 id="Dom-xss"><a href="#Dom-xss" class="headerlink" title="Dom-xss"></a>Dom-xss</h3><p>通过URL传入参数所触发，<strong>其不与服务器进行通信</strong>，但是我们的js攻击代码可以被执行，这是需要分析页面源码然后进行利用，是存在客户端页面的脚本自身中。</p>
-<h2 id="四：X-XSS-Protection"><a href="#四：X-XSS-Protection" class="headerlink" title="四：X-XSS-Protection"></a>四：X-XSS-Protection</h2><p>是浏览器对xxs防护的一个策略，这个可以通过抓包软件，修改头来进行绕过。<br>筒単一句活:<br><code>header(&quot;X-XSS-Protection: 0&quot;);告泝浏览器禁用XSS保枦
-header(&quot;X-XSS-Protection: 1&quot;);告泝浏览器幵宕XSS保枦</code></p>
-<h2 id="五：CRLF响应头注入"><a href="#五：CRLF响应头注入" class="headerlink" title="五：CRLF响应头注入"></a>五：CRLF响应头注入</h2><p><code>Location: http://****%0d%0aX-XSS-Protection: 0</code><br>就是相当于<br><code>Location: http://****
-XSS-Protection: 0</code><br>这就是一个注入，又添加了一个响应头。<br>但是这种漏洞在php版本&gt;5.1时候是不行的，因为其不允许在HTTP头中出现两个属性。<br>应用场景：</p>
+<h2 id="四：X-XSS-Protection"><a href="#四：X-XSS-Protection" class="headerlink" title="四：X-XSS-Protection"></a>四：X-XSS-Protection</h2><p>是浏览器对xxs防护的一个策略，这个可以通过抓包软件，修改头来进行绕过。<br>筒単一句活:<br>`header(“X-XSS-Protection: 0”);告泝浏览器禁用XSS保枦<br>header(“X-XSS-Protection: 1”);告泝浏览器幵宕XSS保枦`</p>
+<h2 id="五：CRLF响应头注入"><a href="#五：CRLF响应头注入" class="headerlink" title="五：CRLF响应头注入"></a>五：CRLF响应头注入</h2><p><code>Location: http://****%0d%0aX-XSS-Protection: 0</code><br>就是相当于<br>`Location: http://****<br>XSS-Protection: 0`<br>这就是一个注入，又添加了一个响应头。<br>但是这种漏洞在php版本&gt;5.1时候是不行的，因为其不允许在HTTP头中出现两个属性。<br>应用场景：</p>
 <ul>
 <li>php&lt;5.1</li>
 <li>碰到了服务器开启xss拦截</li>
@@ -201,6 +185,13 @@ XSS-Protection: 0</code><br>这就是一个注入，又添加了一个响应头�
           <div>
             <p>
             
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/XSS">XSS</a>
+                
+              </span>
             
             </p>
             
@@ -292,19 +283,6 @@ XSS-Protection: 0</code><br>这就是一个注入，又添加了一个响应头�
   <!-- 备案信息 -->
   <a href="http://beian.miit.gov.cn/" target="_blank"
      rel="nofollow noopener">豫ICP备20003962号</a>
-  
-    <a
-      href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=20003962"
-      rel="nofollow noopener"
-      class="police-beian"
-      target="_blank"
-    >
-      <span class="police-beian-sep">&nbsp;|&nbsp;</span>
-      
-        <img src="/img/police_beian.png" srcset="/img/loading.gif" />
-      
-      <span>京公网安备12345678号</span>
-    </a>
   
 
 

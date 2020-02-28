@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>花式栈溢出（栈帧的调节） ~ Welcome to Chumen77&#39;s Blog</title>
+  <title>花式栈溢出（栈帧的调节） ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Welcome to Chumen77's Blog</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -73,14 +73,6 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
-          </li>
-        
-          
-          
-          
-          
-          <li class="nav-item">
             <a class="nav-link" href="/tags/">标签</a>
           </li>
         
@@ -94,12 +86,6 @@
         
           
           
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/links/">友链</a>
-          </li>
-        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -240,8 +226,7 @@ io.interactive()</code></pre><h3 id="X-CTF-Quals-2016-b0verfl0w"><a href="#X-CTF
   fflush(stdout);
   return 1;
 }</code></pre><p>代码很简单，但是可以发现可以溢出的字节只有50-0x20-4=14个字节可控，所以是很难写出rop链来获取咱们目的的。然后就可以考虑控制栈指针的攻击思路，就是先把shellcode摆在栈上，然后控制eip到达这里就可以了。但是由于程序本身会开启 ASLR 保护，所以我们很难直接知道 shellcode 的地址。但是栈上相对偏移是固定的，所以我们可以利用栈溢出对 esp 进行操作，使其指向 shellcode 处，并且直接控制程序跳转至 esp 处。</p>
-<p>找一下控制esp的gadget</p>
-<pre><code>0x08048504 : jmp esp</code></pre><p>然后怎么控制eip到shellcode上呢，因为没有nx保护，我们可以写一段指令来控制偏移：</p>
+<p>找一下控制esp的gadget<br>    0x08048504 : jmp esp<br>然后怎么控制eip到shellcode上呢，因为没有nx保护，我们可以写一段指令来控制偏移：</p>
 <pre><code>sub esp,0x28
 jmp esp</code></pre><h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><pre><code>from pwn import *
 #io = process(&#39;./b0verfl0w&#39;)
@@ -360,6 +345,17 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
             <p>
             
             
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>
+                
+                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
+                
+                  <a class="hover-with-bg" href="/tags/Stack%20Migration">Stack Migration</a>
+                
+              </span>
+            
             </p>
             
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
@@ -450,19 +446,6 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
   <!-- 备案信息 -->
   <a href="http://beian.miit.gov.cn/" target="_blank"
      rel="nofollow noopener">豫ICP备20003962号</a>
-  
-    <a
-      href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=20003962"
-      rel="nofollow noopener"
-      class="police-beian"
-      target="_blank"
-    >
-      <span class="police-beian-sep">&nbsp;|&nbsp;</span>
-      
-        <img src="/img/police_beian.png" srcset="/img/loading.gif" />
-      
-      <span>京公网安备12345678号</span>
-    </a>
   
 
 

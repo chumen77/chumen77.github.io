@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>JCC学习 ~ Welcome to Chumen77&#39;s Blog</title>
+  <title>JCC学习 ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Welcome to Chumen77's Blog</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -73,14 +73,6 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
-          </li>
-        
-          
-          
-          
-          
-          <li class="nav-item">
             <a class="nav-link" href="/tags/">标签</a>
           </li>
         
@@ -94,12 +86,6 @@
         
           
           
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/links/">友链</a>
-          </li>
-        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
@@ -201,8 +187,7 @@ MOV CL,1
 CMP AL,CL
 JE 0X0040102B</code></pre><h4 id="2、JNE-JNZ-结果不为零则跳转-不相等时跳转-ZF-0"><a href="#2、JNE-JNZ-结果不为零则跳转-不相等时跳转-ZF-0" class="headerlink" title="2、JNE, JNZ 结果不为零则跳转(不相等时跳转) ZF=0"></a>2、JNE, JNZ 结果不为零则跳转(不相等时跳转) ZF=0</h4><pre><code>MOV AL,1
 TEST AL,AL
-JNZ 0X00401006</code></pre><p>####3、 JS 结果为负则跳转 SF=1</p>
-<pre><code>MOV AL,1
+JNZ 0X00401006</code></pre><h4 id="3、-JS-结果为负则跳转-SF-1"><a href="#3、-JS-结果为负则跳转-SF-1" class="headerlink" title="3、 JS 结果为负则跳转 SF=1"></a>3、 JS 结果为负则跳转 SF=1</h4><pre><code>MOV AL,1
 MOV CL,2
 CMP AL,CL</code></pre><h4 id="4、-JNS-结果为非负则跳转-SF-0"><a href="#4、-JNS-结果为非负则跳转-SF-0" class="headerlink" title="4、 JNS 结果为非负则跳转 SF=0"></a>4、 JNS 结果为非负则跳转 SF=0</h4><pre><code>XOR EAX,EAX
 JNS 0X0040102F</code></pre><h4 id="5、-JP-JPE-结果中1的个数为偶数则跳转-PF-1"><a href="#5、-JP-JPE-结果中1的个数为偶数则跳转-PF-1" class="headerlink" title="5、 JP, JPE 结果中1的个数为偶数则跳转 PF=1"></a>5、 JP, JPE 结果中1的个数为偶数则跳转 PF=1</h4><pre><code>MOV AL,2
@@ -221,11 +206,7 @@ CMP AX,CX
 JB 0X0040103E</code></pre><h4 id="10、-JNB-JAE-大于等于则跳转-无符号数-CF-0"><a href="#10、-JNB-JAE-大于等于则跳转-无符号数-CF-0" class="headerlink" title="10、 JNB, JAE 大于等于则跳转 (无符号数) CF=0"></a>10、 JNB, JAE 大于等于则跳转 (无符号数) CF=0</h4><pre><code>MOV AX,80
 MOV CX,90
 CMP CX,AX
-JB 0X00401044</code></pre><h4 id="11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1"><a href="#11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1" class="headerlink" title="11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1"></a>11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1</h4><p>一种直接跟练习9一样直接构造让CF=1或者让跟练习1让ZF=0就可以了。</p>
-<pre><code>MOV AL,1
-MOV CL,1
-CMP AL,CL
-JE 0X0040102B</code></pre><p>或者</p>
+JB 0X00401044</code></pre><h4 id="11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1"><a href="#11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1" class="headerlink" title="11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1"></a>11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1</h4><p>一种直接跟练习9一样直接构造让CF=1或者让跟练习1让ZF=0就可以了。<br>    MOV AL,1<br>    MOV CL,1<br>    CMP AL,CL<br>    JE 0X0040102B<br>或者</p>
 <pre><code>MOV AX,80
 MOV CX,90
 CMP AX,CX
@@ -250,7 +231,9 @@ JGE 0X0040108B</code></pre><p>这个就是对立15练习，想利用ZF等于1这
 <h4 id="16、-JNLE-JG-大于则跳转-有符号数-ZF-0-and-SF-OF"><a href="#16、-JNLE-JG-大于则跳转-有符号数-ZF-0-and-SF-OF" class="headerlink" title="16、 JNLE, JG 大于则跳转(有符号数) ZF=0 and SF=OF"></a>16、 JNLE, JG 大于则跳转(有符号数) ZF=0 and SF=OF</h4><pre><code>MOV AX,1
 MOV CX,FF
 CMP AX,CX
-JG  0x004010A6</code></pre><pre><code>MOV AL,1
+JG  0x004010A6
+
+MOV AL,1
 MOV CL,0FF
 CMP AL,CL
 JG  0x004010A6</code></pre><p>解析：</p>
@@ -263,6 +246,13 @@ JG  0x004010A6</code></pre><p>解析：</p>
           <div>
             <p>
             
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>
+                
+              </span>
             
             </p>
             
@@ -354,19 +344,6 @@ JG  0x004010A6</code></pre><p>解析：</p>
   <!-- 备案信息 -->
   <a href="http://beian.miit.gov.cn/" target="_blank"
      rel="nofollow noopener">豫ICP备20003962号</a>
-  
-    <a
-      href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=20003962"
-      rel="nofollow noopener"
-      class="police-beian"
-      target="_blank"
-    >
-      <span class="police-beian-sep">&nbsp;|&nbsp;</span>
-      
-        <img src="/img/police_beian.png" srcset="/img/loading.gif" />
-      
-      <span>京公网安备12345678号</span>
-    </a>
   
 
 
