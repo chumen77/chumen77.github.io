@@ -1,1085 +1,548 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
+
+
+
+
 <head><meta name="generator" content="Hexo 3.9.0">
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>Xctf_RE新手区WP ~ Welcome to Chumen77&#39;s Blog</title>
 
-    
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
 
-    
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>Xctf_RE新手区WP | Welcome to Chumen77&#39;s Blog | Struggle 就完事了 !</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content>
-    <meta name="description" content="Xctf_RE新手区WP前言学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。 re1第一步，先查壳：                                                                                              -w625              （查壳">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Xctf_RE新手区WP">
-<meta property="og:url" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/index.html">
-<meta property="og:site_name" content="Welcome to Chumen77&#39;s Blog">
-<meta property="og:description" content="Xctf_RE新手区WP前言学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。 re1第一步，先查壳：                                                                                              -w625              （查壳">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15732702605654.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733071101333.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733074111357.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733075097915.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733072667813.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733077161080.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733079095740.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733079517175.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733079675395.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733082372049.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733085847753.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733087052533.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733088311433.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733088160599.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733091045568.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733092783647.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733094560784.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733094810614.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733096364506.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733100087904.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733100975029.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733101571151.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733107484458.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733107946575.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733103617647.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733108996551.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733109139764.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733116649387.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733116800264.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733118131519.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733122639383.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733124212188.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733124483702.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733126763356.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733126850272.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733127939834.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733127636852.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733133763253.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733132918043.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733134257814.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733137173061.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733137433462.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733137975116.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733139966832.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733878960896.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733879199369.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733881777919.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733882559724.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733887654757.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733887851687.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733888354402.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733891570437.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733897127019.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733897938110.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733900988974.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733910805939.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733910639998.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733911418603.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15733913704154.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741646328276.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741650120350.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741650432513.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741657131708.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741666120370.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741662400799.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741669073968.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741673443772.jpg">
-<meta property="og:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15741680757822.jpg">
-<meta property="og:updated_time" content="2019-11-19T15:16:18.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xctf_RE新手区WP">
-<meta name="twitter:description" content="Xctf_RE新手区WP前言学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。 re1第一步，先查壳：                                                                                              -w625              （查壳">
-<meta name="twitter:image" content="http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/images/15732702605654.jpg">
-    
-        <link rel="alternate" type="application/atom+xml" title="Welcome to Chumen77&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
 
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">chumen77</h5>
-          <a href="mailto:973059980@qq.com" title="973059980@qq.com" class="mail">973059980@qq.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Welcome to Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                Tags
-              </a>
-            </li>
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                Categories
-              </a>
-            </li>
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/chumen77" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="http://www.weibo.com/" target="_blank" >
-                <i class="icon icon-lg icon-weibo"></i>
-                Weibo
-              </a>
-            </li>
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Xctf_RE新手区WP</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">Xctf_RE新手区WP</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2019-11-09T03:22:03.000Z" itemprop="datePublished" class="page-time">
-  2019-11-09
-</time>
-
-
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Xctf-RE新手区WP"><span class="post-toc-number">1.</span> <span class="post-toc-text">Xctf_RE新手区WP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#re1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">re1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#game"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">game</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一种"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">第一种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打开IDA进行静态分析"><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text">打开IDA进行静态分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IDA-Patch"><span class="post-toc-number">1.3.1.2.</span> <span class="post-toc-text">IDA Patch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#验证"><span class="post-toc-number">1.3.1.3.</span> <span class="post-toc-text">验证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第二种"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">第二种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IDA寻找输出flag函数的函数地址"><span class="post-toc-number">1.3.2.1.</span> <span class="post-toc-text">IDA寻找输出flag函数的函数地址</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OD动态调试"><span class="post-toc-number">1.3.2.2.</span> <span class="post-toc-text">OD动态调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第三种"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">第三种</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OD静态分析"><span class="post-toc-number">1.3.3.1.</span> <span class="post-toc-text">OD静态分析</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hello-CTF"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Hello, CTF</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#先查壳"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">先查壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行程序"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">运行程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">IDA静态分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#open-source"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">open-source</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#simple-unpack"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">simple-unpack</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分析"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脱壳"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">脱壳</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析-1"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">IDA静态分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#logmein"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">logmein</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA静态分析-2"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">IDA静态分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#v8与关键加密分析"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">v8与关键加密分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本解密"><span class="post-toc-number">1.7.3.</span> <span class="post-toc-text">脚本解密</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对于大小端序的知识补充"><span class="post-toc-number">1.7.4.</span> <span class="post-toc-text">对于大小端序的知识补充</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#insanity"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">insanity</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#no-strings-attached"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">no-strings-attached</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#csaw2013reversing2"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">csaw2013reversing2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#getit"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">getit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#python-trade"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">python-trade</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#maze"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">maze</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-Xctfre_新手区wp"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Xctf_RE新手区WP</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2019-11-09 11:22:03" datetime="2019-11-09T03:22:03.000Z"  itemprop="datePublished">2019-11-09</time>
-
-            
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Xctf-RE新手区WP"><a href="#Xctf-RE新手区WP" class="headerlink" title="Xctf_RE新手区WP"></a>Xctf_RE新手区WP</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。</p>
-<h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>第一步，先查壳：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15732702605654.jpg" alt="-w625" title>
-                </div>
-                <div class="image-caption">-w625</div>
-            </figure>
-<p>（查壳很重要，可以先确认是否有壳还可以知道程序是什么语言编写的）</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733071101333.jpg" alt="-w656" title>
-                </div>
-                <div class="image-caption">-w656</div>
-            </figure>
-<p>看下程序是干嘛的，也就是你输入flag然后程序出个判断是否正确。<strong>估计就是个明文对比</strong>，直接od打开：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733074111357.jpg" alt="-w911" title>
-                </div>
-                <div class="image-caption">-w911</div>
-            </figure>
-<p>断在了re模块。直接搜索字符串<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733075097915.jpg" alt="-w673" title>
-                </div>
-                <div class="image-caption">-w673</div>
-            </figure></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733072667813.jpg" alt="-w801" title>
-                </div>
-                <div class="image-caption">-w801</div>
-            </figure>
-<p>拿到flag</p>
-<h2 id="game"><a href="#game" class="headerlink" title="game"></a>game</h2><p>还是先查壳：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733077161080.jpg" alt="-w519" title>
-                </div>
-                <div class="image-caption">-w519</div>
-            </figure>
-<p>无壳<br>这道题有多种做法，下面展示三种：</p>
-<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p><strong>这个做法主要是判断程序逻辑，然后改关键跳转的汇编代码，进行爆破破解。</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733079095740.jpg" alt="-w678" title>
-                </div>
-                <div class="image-caption">-w678</div>
-            </figure>
-<p>先看下程序是做什么的：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733079517175.jpg" alt="-w545" title>
-                </div>
-                <div class="image-caption">-w545</div>
-            </figure>
-<p>先输入个1</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733079675395.jpg" alt="-w507" title>
-                </div>
-                <div class="image-caption">-w507</div>
-            </figure>
-<p>发现图案中第1，2，8行图形发生了变化。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733082372049.jpg" alt="-w659" title>
-                </div>
-                <div class="image-caption">-w659</div>
-            </figure>
-<p>接着输入2，然后第3，4，8行图形发生了变化。感觉没什么规律，大概猜一下，应该是这8行的线条全部连通就可以完成这个游戏。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733085847753.jpg" alt="-w607" title>
-                </div>
-                <div class="image-caption">-w607</div>
-            </figure>
-
-<h4 id="打开IDA进行静态分析"><a href="#打开IDA进行静态分析" class="headerlink" title="打开IDA进行静态分析"></a>打开IDA进行静态分析</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733087052533.jpg" alt="-w489" title>
-                </div>
-                <div class="image-caption">-w489</div>
-            </figure>
-<p>发现一堆函数难以找到主函数，按<code>shift+F12</code>查看字符串</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733088311433.jpg" alt="-w909" title>
-                </div>
-                <div class="image-caption">-w909</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733088160599.jpg" alt="-w865" title>
-                </div>
-                <div class="image-caption">-w865</div>
-            </figure>
-<p>点击这个，查看一下这个字符串的交叉引用，然后可以双击跳转到main函数，看整个程序的逻辑。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733091045568.jpg" alt="-w746" title>
-                </div>
-                <div class="image-caption">-w746</div>
-            </figure>
-
-<p>跳转好后按F5查看伪代码：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733092783647.jpg" alt="-w471" title>
-                </div>
-                <div class="image-caption">-w471</div>
-            </figure>
-<p>在下方发现了一个判断语句，满足后会调用sub_45Ab4这个函数。双击进入看看这个函数做了什么：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733094560784.jpg" alt="-w465" title>
-                </div>
-                <div class="image-caption">-w465</div>
-            </figure>
-<p>发现会出现这个字符串，然后：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733094810614.jpg" alt="-w387" title>
-                </div>
-                <div class="image-caption">-w387</div>
-            </figure>
-<p>还经过一堆数据和异或后返回一个字符串。那这个应该就是返回flag了。<strong>那就是想办法让程序调用<code>sub_45Ab4</code>这个函数就可以了。</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733096364506.jpg" alt="-w307" title>
-                </div>
-                <div class="image-caption">-w307</div>
-            </figure>
-<p>再看一下这个if语句里面正好是对一个容量为8的数组进行判断，对应刚刚程序中的8行，正好对应当8行直线全部连接（也可以认为是图案全变）就会调用输出flag的函数。</p>
-<p>那现在需要做的就很明确的，直接改程序流程，IDA的patch是可以做到的，结合刚刚我们输入1的时候回让1，2，8行进行改变，那我们就在这几处做改变就可以了。</p>
-<h4 id="IDA-Patch"><a href="#IDA-Patch" class="headerlink" title="IDA Patch"></a>IDA Patch</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733100087904.jpg" alt="-w423" title>
-                </div>
-                <div class="image-caption">-w423</div>
-            </figure>
-<p>看主函数的流程图模式，专门找这个跳转指令JNZ，数一下8个就是刚刚的8个判断了。对应刚刚的想法我们在</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733100975029.jpg" alt="-w394" title>
-                </div>
-                <div class="image-caption">-w394</div>
-            </figure>
-<p>这几处的汇编代码进行patch：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733101571151.jpg" alt="-w504" title>
-                </div>
-                <div class="image-caption">-w504</div>
-            </figure>
-<p><strong>把JNZ改成正好相反的JZ</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733107484458.jpg" alt="-w460" title>
-                </div>
-                <div class="image-caption">-w460</div>
-            </figure>
-
-<p>修改好后查看下生成的伪代码</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733107946575.jpg" alt="-w375" title>
-                </div>
-                <div class="image-caption">-w375</div>
-            </figure>
-<p>达到了我们想要的结果。<br>然后我们需要把这些打patch的地方保存下来，让其成效：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733103617647.jpg" alt="-w1324" title>
-                </div>
-                <div class="image-caption">-w1324</div>
-            </figure>
-<p>点击ok即可，可以为了安全选择一下做个bak备份。</p>
-<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733108996551.jpg" alt="-w564" title>
-                </div>
-                <div class="image-caption">-w564</div>
-            </figure>
-<p>输入1</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733109139764.jpg" alt="-w661" title>
-                </div>
-                <div class="image-caption">-w661</div>
-            </figure>
-<p>拿到了flag。</p>
-<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p>这种主要是在IDA中静态分析后知道了，在程序调用输出flag函数后flag就打印出来了。就可以想办法在动态调试中直接调用这个函数就可以了。重在IDA和OD搭配使用了。</p>
-<h4 id="IDA寻找输出flag函数的函数地址"><a href="#IDA寻找输出flag函数的函数地址" class="headerlink" title="IDA寻找输出flag函数的函数地址"></a>IDA寻找输出flag函数的函数地址</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733116649387.jpg" alt="-w829" title>
-                </div>
-                <div class="image-caption">-w829</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733116800264.jpg" alt="-w702" title>
-                </div>
-                <div class="image-caption">-w702</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733118131519.jpg" alt="-w688" title>
-                </div>
-                <div class="image-caption">-w688</div>
-            </figure>
-<p>记住这个0045E940 地址。下面OD直接想办法执行到该地址</p>
-<h4 id="OD动态调试"><a href="#OD动态调试" class="headerlink" title="OD动态调试"></a>OD动态调试</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733122639383.jpg" alt="-w498" title>
-                </div>
-                <div class="image-caption">-w498</div>
-            </figure>
-<p>发现基地址是010F<br>在OD中搜索字符串，找一下我们应该在哪个地方找一个合适的可以控制的代码段。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733124212188.jpg" alt="-w692" title>
-                </div>
-                <div class="image-caption">-w692</div>
-            </figure>
-<p>发现了输入n的语句地址。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733124483702.jpg" alt="-w695" title>
-                </div>
-                <div class="image-caption">-w695</div>
-            </figure>
-<p>设置一个断点，运行程序。F9让程序运行到这里断下来。按空格修改下汇编代码<code>jmp 0x010FE490</code></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733126763356.jpg" alt="-w688" title>
-                </div>
-                <div class="image-caption">-w688</div>
-            </figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733126850272.jpg" alt="-w205" title>
-                </div>
-                <div class="image-caption">-w205</div>
-            </figure>
-<p>这时候的EIP，然后单步执行</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733127939834.jpg" alt="-w869" title>
-                </div>
-                <div class="image-caption">-w869</div>
-            </figure>
-<p>过来了，到了调用输出flag的函数。然后接下来会有很多循环和字符处理的操作，直接可以按CTRL+F8按键让OD自动执行。让把这个函数处理完，就会出现flag字符串。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733127636852.jpg" alt="-w674" title>
-                </div>
-                <div class="image-caption">-w674</div>
-            </figure>
-
-
-<p>这种修改EIP是重点和找到合适可控制代码段是重点，我们还可以<br>在找到一个可以控制代码后，在搜索字符串中找到</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733133763253.jpg" alt="-w637" title>
-                </div>
-                <div class="image-caption">-w637</div>
-            </figure>
-<p>单击过去，然后在这个函数的开头设置为新的EIP</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733132918043.jpg" alt="-w622" title>
-                </div>
-                <div class="image-caption">-w622</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733134257814.jpg" alt="-w208" title>
-                </div>
-                <div class="image-caption">-w208</div>
-            </figure>
-<p>然后按一下F8就来到了这个函数里面了。再进行刚刚的操作就可以了。</p>
-<h3 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h3><p>这个就是我们找到了关键函数，分析以后是可以把这个函数是写出来的，然后根据伪代码写出原来的程序就可以了。</p>
-<h4 id="OD静态分析"><a href="#OD静态分析" class="headerlink" title="OD静态分析"></a>OD静态分析</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733137173061.jpg" alt="-w682" title>
-                </div>
-                <div class="image-caption">-w682</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733137433462.jpg" alt="-w521" title>
-                </div>
-                <div class="image-caption">-w521</div>
-            </figure>
-<p>调用其函数。双击进入F5生成伪代码：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733137975116.jpg" alt="-w555" title>
-                </div>
-                <div class="image-caption">-w555</div>
-            </figure>
-<p>（只是截取一部分）分析可以得知是分成了2个字符数组，一个V2到V58，一个V59到V115，都是56的长度，然后下面就是两个异或操作了。直接改成C代码，因为还不会写Python。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">int main() &#123;</span><br><span class="line">        int i;</span><br><span class="line">        char arr1[]=&#123;123,32,18,98,119,108,65,41,124,80,125,38,124,111,74,49,83,108,94,108,84,6,96,83,44,121,104,110,32,95,117,101,99,123,127,119,96,48,107,71,92,29,81,107,90,85,64,12,43,76,86,13,114,1,117,126,0&#125;;</span><br><span class="line">        char arr2[]=&#123;18,64,98,5,2,4,6,3,6,48,49,65,32,12,48,65,31,78,62,32,49,32,1,57,96,3,21,9,4,62,3,5,4,1,2,3,44,65,78,32,16,97,54,16,44,52,32,64,89,45,32,65,15,34,18,16,0&#125;;</span><br><span class="line">        for ( i = 0; i &lt; 56; ++i )</span><br><span class="line">        &#123;</span><br><span class="line">            arr1[i] ^= arr2[i];</span><br><span class="line">            arr1[i] ^= 0x13u;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%s&quot;,arr1);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733139966832.jpg" alt="-w734" title>
-                </div>
-                <div class="image-caption">-w734</div>
-            </figure>
-<p>运行就拿到了flag。</p>
-<h2 id="Hello-CTF"><a href="#Hello-CTF" class="headerlink" title="Hello, CTF"></a>Hello, CTF</h2><p>根据题目描述：菜鸡发现Flag似乎并不一定是明文比较的<br>肯定是进行了某种加密。</p>
-<h3 id="先查壳"><a href="#先查壳" class="headerlink" title="先查壳"></a>先查壳</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733878960896.jpg" alt="-w544" title>
-                </div>
-                <div class="image-caption">-w544</div>
-            </figure>
-<p>无壳，32位c++程序</p>
-<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733879199369.jpg" alt="-w431" title>
-                </div>
-                <div class="image-caption">-w431</div>
-            </figure>
-<p>输入正确的serial，会提示正确。</p>
-<h3 id="IDA静态分析"><a href="#IDA静态分析" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733881777919.jpg" alt="-w602" title>
-                </div>
-                <div class="image-caption">-w602</div>
-            </figure>
-<p>进入main函数，F5大法查看伪代码</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733882559724.jpg" alt="-w511" title>
-                </div>
-                <div class="image-caption">-w511</div>
-            </figure>
-<p>发现是v10数组与v13数组逐对比后，如果相同就会输出正确的字眼。前面有对用户输入的v9进行一些处理，处理完后会放入v10中。下面具体分析一下如何处理就可以了，主要在sprintf函数和strcat函数。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733887654757.jpg" alt="-w379" title>
-                </div>
-                <div class="image-caption">-w379</div>
-            </figure>
-<p>点击进去看到</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733887851687.jpg" alt="-w555" title>
-                </div>
-                <div class="image-caption">-w555</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733888354402.jpg" alt="-w632" title>
-                </div>
-                <div class="image-caption">-w632</div>
-            </figure>
-<p>那就很清楚了，就是把v4字符串也就是刚刚输入的字符串进行格式化位16进制的整数输出到v8中，然后用strcat函数把处理后的v8放入v10。（此处原来的v10是空的，所以连接v10和v8，实际相当于把v8放入v10）</p>
-<p>接下来就是v10与v13进行对比，v13是刚刚复制过来的<code>437261636b4d654a757374466f7246756e</code>，那就可以看出来咱们直接把这个进行16进制转回去就可以了。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733891570437.jpg" alt="-w526" title>
-                </div>
-                <div class="image-caption">-w526</div>
-            </figure>
-
-<h2 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h2><p>这道题是拿到了一段c源码，打开发现关键处：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733897127019.jpg" alt="-w1023" title>
-                </div>
-                <div class="image-caption">-w1023</div>
-            </figure>
-<p>可以看出来把<code>first second strlen(argv[3])</code>搞清楚是什么就可以了。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733897938110.jpg" alt="-w590" title>
-                </div>
-                <div class="image-caption">-w590</div>
-            </figure>
-<p>很简单可以看出这3个是什么值，下面直接放解密代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    unsigned int hash = 0xcafe * 31337 + (25 % 17) * 11 + strlen(&quot;h4cky0u&quot;) - 1615810207;</span><br><span class="line">    printf(&quot;Get your key: &quot;);</span><br><span class="line">    printf(&quot;%x\n&quot;, hash);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>拿到flag：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733900988974.jpg" alt="-w603" title>
-                </div>
-                <div class="image-caption">-w603</div>
-            </figure>
-
-<h2 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这个看题目就是知道加了壳。且是个二进制文件，丢进edb看一下。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733910805939.jpg" alt="-w685" title>
-                </div>
-                <div class="image-caption">-w685</div>
-            </figure>
-
-<p>单步调试走一会，在寄存器窗口看到：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733910639998.jpg" alt="-w1019" title>
-                </div>
-                <div class="image-caption">-w1019</div>
-            </figure>
-<p>这很明显是加了UPX壳。</p>
-<h3 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733911418603.jpg" alt="-w733" title>
-                </div>
-                <div class="image-caption">-w733</div>
-            </figure>
-<p>这里就用<code>upx -d</code>直接一键脱壳。以后可以练习手动脱upx壳。<br>脱壳完成后用IDA进行分析：</p>
-<h3 id="IDA静态分析-1"><a href="#IDA静态分析-1" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15733913704154.jpg" alt="-w617" title>
-                </div>
-                <div class="image-caption">-w617</div>
-            </figure>
-<p>打开直接出现了flag，这个题就考个识别壳和upx脱壳了。</p>
-<h2 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741646328276.jpg" alt="-w569" title>
-                </div>
-                <div class="image-caption">-w569</div>
-            </figure>
-<p>先查看一下，无壳，elf 64位应用。</p>
-<h3 id="IDA静态分析-2"><a href="#IDA静态分析-2" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741650120350.jpg" alt="-w442" title>
-                </div>
-                <div class="image-caption">-w442</div>
-            </figure>
-<p>点击此处出现了：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741650432513.jpg" alt="-w493" title>
-                </div>
-                <div class="image-caption">-w493</div>
-            </figure>
-<p>确认关键代码段。开始对这个循环进行分析，需要对v8 v7 v9重点分析。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741657131708.jpg" alt="-w1026" title>
-                </div>
-                <div class="image-caption">-w1026</div>
-            </figure>
-<p>这里面难点就在如何对v8的理解。</p>
-<h3 id="v8与关键加密分析"><a href="#v8与关键加密分析" class="headerlink" title="v8与关键加密分析"></a>v8与关键加密分析</h3><p>v8是一个_int64也就是long long类型的数值，其存入内存需要变成16进制的数值存入。<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741666120370.jpg" alt="-w496" title>
-                </div>
-                <div class="image-caption">-w496</div>
-            </figure><br>刚刚我们注意到这个x86框架x64的程序，其在内存是用小端序存入的，也就是地址高位放数值高位，地址低位放地址低位。那么其放好就是<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741662400799.jpg" alt="-w226" title>
-                </div>
-                <div class="image-caption">-w226</div>
-            </figure><br>正好是反过来的。<br>然后分析一下加密代码，这主要就是指针知识了：<br><code>v4 = (unsigned int)(char)(*((_BYTE *)&amp;v8 + i % v7) ^ v9[i]);</code><br>这里的（char）是给long long强制转型，然后为了后面的以2位16进制数也就是一个字节，来读取数值。<code>i % v7</code>其是就是控制i = 0—6正好把这个v8给正确读取完。然后一位位取完v8后开始跟v9异或。</p>
-<h3 id="脚本解密"><a href="#脚本解密" class="headerlink" title="脚本解密"></a>脚本解密</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">int main() &#123;</span><br><span class="line">    int v6;</span><br><span class="line">    char v7[]=&quot;harambe&quot;;</span><br><span class="line">    v6 = 7;</span><br><span class="line">    char v8[18];</span><br><span class="line">    strcpy(v8, &quot;:\&quot;AL_RT^L*.?+6/46&quot;);</span><br><span class="line">    char s[18];</span><br><span class="line">    int i;</span><br><span class="line">    for ( i = 0; i &lt; strlen(v8); ++i) &#123;</span><br><span class="line">        s[i] =v7[i%v6]^v8[i];</span><br><span class="line">    &#125;</span><br><span class="line">    for (int j = 0; j &lt; strlen(v8); ++j) &#123;</span><br><span class="line">        printf(&quot;%c&quot;,s[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741669073968.jpg" alt="-w402" title>
-                </div>
-                <div class="image-caption">-w402</div>
-            </figure>
-<h3 id="对于大小端序的知识补充"><a href="#对于大小端序的知识补充" class="headerlink" title="对于大小端序的知识补充"></a>对于大小端序的知识补充</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741673443772.jpg" alt="-w718" title>
-                </div>
-                <div class="image-caption">-w718</div>
-            </figure>
-<p>数据类型为字节型( BYTE)时，其长度为1个字节,保存这样的数据时，无论采用大端序还是小端序，字节顺序都是一样的。<strong>但是数据长度为2个字节以上(含2个字节)时，采用不同字节序保存它们形成的存储顺序是不同的。采用大端序存储数据时，内存地址低位存储数据的高位，内存地址高位存储数据的低位，这是一种最直观的字节存储顺序;采用小端序存储数据时,地址高位存储数据的高位，地址低位存储数据的低位，这是一种逆序存储方式，保存的字节顺序被倒转，它是最符合人类思维的字节序。</strong></p>
-<p><strong>强调</strong>：只有数据长度在2个字节以上时，即数据为多字节数据时，选用大端序还是小端序会导致数据的存储顺序不同。字符串“abcde” 被保存在一个字符 ( Char )数组str中,字符数组在内存中是连续的，此时向字符数组存放数据，无论采用大端序还是小端序，存储顺序都相同。</p>
-<h2 id="insanity"><a href="#insanity" class="headerlink" title="insanity"></a>insanity</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2019/11/09/Xctfre_新手区wp/images/15741680757822.jpg" alt="-w764" title>
-                </div>
-                <div class="image-caption">-w764</div>
-            </figure>
-<p>这个没什么好说的，主函数点击一下他要打印的字符串就可以看到了flag，当然shift + f12也是可以看到。</p>
-<h2 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h2><h2 id="csaw2013reversing2"><a href="#csaw2013reversing2" class="headerlink" title="csaw2013reversing2"></a>csaw2013reversing2</h2><h2 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h2><h2 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h2><h2 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h2>
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    Last updated: <time datetime="2019-11-19T15:16:18.000Z" itemprop="dateUpdated">2019-11-19 23:16:18</time>
-</span><br>
-
-
-        
-    </div>
-    
-    <footer>
-        <a href="http://chumen77.xyz">
-            <img src="/img/avatar.jpg" alt="chumen77">
-            chumen77
-        </a>
-    </footer>
-</blockquote>
-
-        
-
-
-        <div class="post-footer">
-            
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/&title=《Xctf_RE新手区WP》 — Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/&title=《Xctf_RE新手区WP》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xctf_RE新手区WP》 — Welcome to Chumen77's Blog&url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/&via=http://chumen77.xyz" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/11/12/C语言与反汇编学习（五）/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">C语言与反汇编学习（五）</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2019/10/23/C语言与反汇编学习（四）/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">C语言与反汇编学习（四）</h4>
-      </a>
-    </div>
-  
 </nav>
 
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 十一月 9日 2019, 11:22 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.6k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      9 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="Xctf-RE新手区WP"><a href="#Xctf-RE新手区WP" class="headerlink" title="Xctf_RE新手区WP"></a>Xctf_RE新手区WP</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。</p>
+<h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>第一步，先查壳：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15732702605654.jpg" srcset="/img/loading.gif" alt="-w625"><br>（查壳很重要，可以先确认是否有壳还可以知道程序是什么语言编写的）<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733071101333.jpg" srcset="/img/loading.gif" alt="-w656"><br>看下程序是干嘛的，也就是你输入flag然后程序出个判断是否正确。<strong>估计就是个明文对比</strong>，直接od打开：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733074111357.jpg" srcset="/img/loading.gif" alt="-w911"><br>断在了re模块。直接搜索字符串<img src="/2019/11/09/Xctfre_新手区wp/images/15733075097915.jpg" srcset="/img/loading.gif" alt="-w673"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733072667813.jpg" srcset="/img/loading.gif" alt="-w801"><br>拿到flag</p>
+<h2 id="game"><a href="#game" class="headerlink" title="game"></a>game</h2><p>还是先查壳：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733077161080.jpg" srcset="/img/loading.gif" alt="-w519"><br>无壳<br>这道题有多种做法，下面展示三种：</p>
+<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p><strong>这个做法主要是判断程序逻辑，然后改关键跳转的汇编代码，进行爆破破解。</strong><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733079095740.jpg" srcset="/img/loading.gif" alt="-w678"><br>先看下程序是做什么的：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733079517175.jpg" srcset="/img/loading.gif" alt="-w545"><br>先输入个1<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733079675395.jpg" srcset="/img/loading.gif" alt="-w507"><br>发现图案中第1，2，8行图形发生了变化。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733082372049.jpg" srcset="/img/loading.gif" alt="-w659"><br>接着输入2，然后第3，4，8行图形发生了变化。感觉没什么规律，大概猜一下，应该是这8行的线条全部连通就可以完成这个游戏。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733085847753.jpg" srcset="/img/loading.gif" alt="-w607"></p>
+<h4 id="打开IDA进行静态分析"><a href="#打开IDA进行静态分析" class="headerlink" title="打开IDA进行静态分析"></a>打开IDA进行静态分析</h4><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733087052533.jpg" srcset="/img/loading.gif" alt="-w489"><br>发现一堆函数难以找到主函数，按<code>shift+F12</code>查看字符串<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733088311433.jpg" srcset="/img/loading.gif" alt="-w909"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733088160599.jpg" srcset="/img/loading.gif" alt="-w865"><br>点击这个，查看一下这个字符串的交叉引用，然后可以双击跳转到main函数，看整个程序的逻辑。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733091045568.jpg" srcset="/img/loading.gif" alt="-w746"></p>
+<p>跳转好后按F5查看伪代码：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733092783647.jpg" srcset="/img/loading.gif" alt="-w471"><br>在下方发现了一个判断语句，满足后会调用sub_45Ab4这个函数。双击进入看看这个函数做了什么：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733094560784.jpg" srcset="/img/loading.gif" alt="-w465"><br>发现会出现这个字符串，然后：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733094810614.jpg" srcset="/img/loading.gif" alt="-w387"><br>还经过一堆数据和异或后返回一个字符串。那这个应该就是返回flag了。<strong>那就是想办法让程序调用<code>sub_45Ab4</code>这个函数就可以了。</strong><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733096364506.jpg" srcset="/img/loading.gif" alt="-w307"><br>再看一下这个if语句里面正好是对一个容量为8的数组进行判断，对应刚刚程序中的8行，正好对应当8行直线全部连接（也可以认为是图案全变）就会调用输出flag的函数。</p>
+<p>那现在需要做的就很明确的，直接改程序流程，IDA的patch是可以做到的，结合刚刚我们输入1的时候回让1，2，8行进行改变，那我们就在这几处做改变就可以了。</p>
+<h4 id="IDA-Patch"><a href="#IDA-Patch" class="headerlink" title="IDA Patch"></a>IDA Patch</h4><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733100087904.jpg" srcset="/img/loading.gif" alt="-w423"><br>看主函数的流程图模式，专门找这个跳转指令JNZ，数一下8个就是刚刚的8个判断了。对应刚刚的想法我们在<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733100975029.jpg" srcset="/img/loading.gif" alt="-w394"><br>这几处的汇编代码进行patch：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733101571151.jpg" srcset="/img/loading.gif" alt="-w504"><br><strong>把JNZ改成正好相反的JZ</strong><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733107484458.jpg" srcset="/img/loading.gif" alt="-w460"></p>
+<p>修改好后查看下生成的伪代码<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733107946575.jpg" srcset="/img/loading.gif" alt="-w375"><br>达到了我们想要的结果。<br>然后我们需要把这些打patch的地方保存下来，让其成效：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733103617647.jpg" srcset="/img/loading.gif" alt="-w1324"><br>点击ok即可，可以为了安全选择一下做个bak备份。</p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733108996551.jpg" srcset="/img/loading.gif" alt="-w564"><br>输入1<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733109139764.jpg" srcset="/img/loading.gif" alt="-w661"><br>拿到了flag。</p>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p>这种主要是在IDA中静态分析后知道了，在程序调用输出flag函数后flag就打印出来了。就可以想办法在动态调试中直接调用这个函数就可以了。重在IDA和OD搭配使用了。</p>
+<h4 id="IDA寻找输出flag函数的函数地址"><a href="#IDA寻找输出flag函数的函数地址" class="headerlink" title="IDA寻找输出flag函数的函数地址"></a>IDA寻找输出flag函数的函数地址</h4><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733116649387.jpg" srcset="/img/loading.gif" alt="-w829"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733116800264.jpg" srcset="/img/loading.gif" alt="-w702"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733118131519.jpg" srcset="/img/loading.gif" alt="-w688"><br>记住这个0045E940 地址。下面OD直接想办法执行到该地址</p>
+<h4 id="OD动态调试"><a href="#OD动态调试" class="headerlink" title="OD动态调试"></a>OD动态调试</h4><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733122639383.jpg" srcset="/img/loading.gif" alt="-w498"><br>发现基地址是010F<br>在OD中搜索字符串，找一下我们应该在哪个地方找一个合适的可以控制的代码段。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733124212188.jpg" srcset="/img/loading.gif" alt="-w692"><br>发现了输入n的语句地址。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733124483702.jpg" srcset="/img/loading.gif" alt="-w695"><br>设置一个断点，运行程序。F9让程序运行到这里断下来。按空格修改下汇编代码<code>jmp 0x010FE490</code><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733126763356.jpg" srcset="/img/loading.gif" alt="-w688"></p>
+<p><img src="/2019/11/09/Xctfre_新手区wp/images/15733126850272.jpg" srcset="/img/loading.gif" alt="-w205"><br>这时候的EIP，然后单步执行<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733127939834.jpg" srcset="/img/loading.gif" alt="-w869"><br>过来了，到了调用输出flag的函数。然后接下来会有很多循环和字符处理的操作，直接可以按CTRL+F8按键让OD自动执行。让把这个函数处理完，就会出现flag字符串。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733127636852.jpg" srcset="/img/loading.gif" alt="-w674"></p>
+<p>这种修改EIP是重点和找到合适可控制代码段是重点，我们还可以<br>在找到一个可以控制代码后，在搜索字符串中找到<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733133763253.jpg" srcset="/img/loading.gif" alt="-w637"><br>单击过去，然后在这个函数的开头设置为新的EIP<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733132918043.jpg" srcset="/img/loading.gif" alt="-w622"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733134257814.jpg" srcset="/img/loading.gif" alt="-w208"><br>然后按一下F8就来到了这个函数里面了。再进行刚刚的操作就可以了。</p>
+<h3 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h3><p>这个就是我们找到了关键函数，分析以后是可以把这个函数是写出来的，然后根据伪代码写出原来的程序就可以了。</p>
+<h4 id="OD静态分析"><a href="#OD静态分析" class="headerlink" title="OD静态分析"></a>OD静态分析</h4><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733137173061.jpg" srcset="/img/loading.gif" alt="-w682"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733137433462.jpg" srcset="/img/loading.gif" alt="-w521"><br>调用其函数。双击进入F5生成伪代码：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733137975116.jpg" srcset="/img/loading.gif" alt="-w555"><br>（只是截取一部分）分析可以得知是分成了2个字符数组，一个V2到V58，一个V59到V115，都是56的长度，然后下面就是两个异或操作了。直接改成C代码，因为还不会写Python。</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string.h&gt;
+int main() {
+        int i;
+        char arr1[]={123,32,18,98,119,108,65,41,124,80,125,38,124,111,74,49,83,108,94,108,84,6,96,83,44,121,104,110,32,95,117,101,99,123,127,119,96,48,107,71,92,29,81,107,90,85,64,12,43,76,86,13,114,1,117,126,0};
+        char arr2[]={18,64,98,5,2,4,6,3,6,48,49,65,32,12,48,65,31,78,62,32,49,32,1,57,96,3,21,9,4,62,3,5,4,1,2,3,44,65,78,32,16,97,54,16,44,52,32,64,89,45,32,65,15,34,18,16,0};
+        for ( i = 0; i &lt; 56; ++i )
+        {
+            arr1[i] ^= arr2[i];
+            arr1[i] ^= 0x13u;
+        }
+        printf(&quot;%s&quot;,arr1);
+    return 0;
+}</code></pre><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733139966832.jpg" srcset="/img/loading.gif" alt="-w734"><br>运行就拿到了flag。</p>
+<h2 id="Hello-CTF"><a href="#Hello-CTF" class="headerlink" title="Hello, CTF"></a>Hello, CTF</h2><p>根据题目描述：菜鸡发现Flag似乎并不一定是明文比较的<br>肯定是进行了某种加密。</p>
+<h3 id="先查壳"><a href="#先查壳" class="headerlink" title="先查壳"></a>先查壳</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733878960896.jpg" srcset="/img/loading.gif" alt="-w544"><br>无壳，32位c++程序</p>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733879199369.jpg" srcset="/img/loading.gif" alt="-w431"><br>输入正确的serial，会提示正确。</p>
+<h3 id="IDA静态分析"><a href="#IDA静态分析" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733881777919.jpg" srcset="/img/loading.gif" alt="-w602"><br>进入main函数，F5大法查看伪代码<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733882559724.jpg" srcset="/img/loading.gif" alt="-w511"><br>发现是v10数组与v13数组逐对比后，如果相同就会输出正确的字眼。前面有对用户输入的v9进行一些处理，处理完后会放入v10中。下面具体分析一下如何处理就可以了，主要在sprintf函数和strcat函数。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733887654757.jpg" srcset="/img/loading.gif" alt="-w379"><br>点击进去看到<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733887851687.jpg" srcset="/img/loading.gif" alt="-w555"><br><img src="/2019/11/09/Xctfre_新手区wp/images/15733888354402.jpg" srcset="/img/loading.gif" alt="-w632"><br>那就很清楚了，就是把v4字符串也就是刚刚输入的字符串进行格式化位16进制的整数输出到v8中，然后用strcat函数把处理后的v8放入v10。（此处原来的v10是空的，所以连接v10和v8，实际相当于把v8放入v10）</p>
+<p>接下来就是v10与v13进行对比，v13是刚刚复制过来的<code>437261636b4d654a757374466f7246756e</code>，那就可以看出来咱们直接把这个进行16进制转回去就可以了。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733891570437.jpg" srcset="/img/loading.gif" alt="-w526"></p>
+<h2 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h2><p>这道题是拿到了一段c源码，打开发现关键处：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733897127019.jpg" srcset="/img/loading.gif" alt="-w1023"><br>可以看出来把<code>first second strlen(argv[3])</code>搞清楚是什么就可以了。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733897938110.jpg" srcset="/img/loading.gif" alt="-w590"><br>很简单可以看出这3个是什么值，下面直接放解密代码：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;iostream&gt;
+int main(int argc, char *argv[]) {
+    unsigned int hash = 0xcafe * 31337 + (25 % 17) * 11 + strlen(&quot;h4cky0u&quot;) - 1615810207;
+    printf(&quot;Get your key: &quot;);
+    printf(&quot;%x\n&quot;, hash);
+    return 0;
+}</code></pre><p>拿到flag：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733900988974.jpg" srcset="/img/loading.gif" alt="-w603"></p>
+<h2 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这个看题目就是知道加了壳。且是个二进制文件，丢进edb看一下。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733910805939.jpg" srcset="/img/loading.gif" alt="-w685"></p>
+<p>单步调试走一会，在寄存器窗口看到：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15733910639998.jpg" srcset="/img/loading.gif" alt="-w1019"><br>这很明显是加了UPX壳。</p>
+<h3 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733911418603.jpg" srcset="/img/loading.gif" alt="-w733"><br>这里就用<code>upx -d</code>直接一键脱壳。以后可以练习手动脱upx壳。<br>脱壳完成后用IDA进行分析：</p>
+<h3 id="IDA静态分析-1"><a href="#IDA静态分析-1" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15733913704154.jpg" srcset="/img/loading.gif" alt="-w617"><br>打开直接出现了flag，这个题就考个识别壳和upx脱壳了。</p>
+<h2 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h2><p><img src="/2019/11/09/Xctfre_新手区wp/images/15741646328276.jpg" srcset="/img/loading.gif" alt="-w569"><br>先查看一下，无壳，elf 64位应用。</p>
+<h3 id="IDA静态分析-2"><a href="#IDA静态分析-2" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15741650120350.jpg" srcset="/img/loading.gif" alt="-w442"><br>点击此处出现了：<br><img src="/2019/11/09/Xctfre_新手区wp/images/15741650432513.jpg" srcset="/img/loading.gif" alt="-w493"><br>确认关键代码段。开始对这个循环进行分析，需要对v8 v7 v9重点分析。<br><img src="/2019/11/09/Xctfre_新手区wp/images/15741657131708.jpg" srcset="/img/loading.gif" alt="-w1026"><br>这里面难点就在如何对v8的理解。</p>
+<h3 id="v8与关键加密分析"><a href="#v8与关键加密分析" class="headerlink" title="v8与关键加密分析"></a>v8与关键加密分析</h3><p>v8是一个_int64也就是long long类型的数值，其存入内存需要变成16进制的数值存入。<img src="/2019/11/09/Xctfre_新手区wp/images/15741666120370.jpg" srcset="/img/loading.gif" alt="-w496"><br>刚刚我们注意到这个x86框架x64的程序，其在内存是用小端序存入的，也就是地址高位放数值高位，地址低位放地址低位。那么其放好就是<img src="/2019/11/09/Xctfre_新手区wp/images/15741662400799.jpg" srcset="/img/loading.gif" alt="-w226"><br>正好是反过来的。<br>然后分析一下加密代码，这主要就是指针知识了：<br><code>v4 = (unsigned int)(char)(*((_BYTE *)&amp;v8 + i % v7) ^ v9[i]);</code><br>这里的（char）是给long long强制转型，然后为了后面的以2位16进制数也就是一个字节，来读取数值。<code>i % v7</code>其是就是控制i = 0—6正好把这个v8给正确读取完。然后一位位取完v8后开始跟v9异或。</p>
+<h3 id="脚本解密"><a href="#脚本解密" class="headerlink" title="脚本解密"></a>脚本解密</h3><pre><code>#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main() {
+    int v6;
+    char v7[]=&quot;harambe&quot;;
+    v6 = 7;
+    char v8[18];
+    strcpy(v8, &quot;:\&quot;AL_RT^L*.?+6/46&quot;);
+    char s[18];
+    int i;
+    for ( i = 0; i &lt; strlen(v8); ++i) {
+        s[i] =v7[i%v6]^v8[i];
+    }
+    for (int j = 0; j &lt; strlen(v8); ++j) {
+        printf(&quot;%c&quot;,s[j]);
+    }
+    return 0;
+}</code></pre><p><img src="/2019/11/09/Xctfre_新手区wp/images/15741669073968.jpg" srcset="/img/loading.gif" alt="-w402"></p>
+<h3 id="对于大小端序的知识补充"><a href="#对于大小端序的知识补充" class="headerlink" title="对于大小端序的知识补充"></a>对于大小端序的知识补充</h3><p><img src="/2019/11/09/Xctfre_新手区wp/images/15741673443772.jpg" srcset="/img/loading.gif" alt="-w718"><br>数据类型为字节型( BYTE)时，其长度为1个字节,保存这样的数据时，无论采用大端序还是小端序，字节顺序都是一样的。<strong>但是数据长度为2个字节以上(含2个字节)时，采用不同字节序保存它们形成的存储顺序是不同的。采用大端序存储数据时，内存地址低位存储数据的高位，内存地址高位存储数据的低位，这是一种最直观的字节存储顺序;采用小端序存储数据时,地址高位存储数据的高位，地址低位存储数据的低位，这是一种逆序存储方式，保存的字节顺序被倒转，它是最符合人类思维的字节序。</strong></p>
+<p><strong>强调</strong>：只有数据长度在2个字节以上时，即数据为多字节数据时，选用大端序还是小端序会导致数据的存储顺序不同。字符串“abcde” 被保存在一个字符 ( Char )数组str中,字符数组在内存中是连续的，此时向字符数组存放数据，无论采用大端序还是小端序，存储顺序都相同。</p>
+<h2 id="insanity"><a href="#insanity" class="headerlink" title="insanity"></a>insanity</h2><p><img src="/2019/11/09/Xctfre_新手区wp/images/15741680757822.jpg" srcset="/img/loading.gif" alt="-w764"><br>这个没什么好说的，主函数点击一下他要打印的字符串就可以看到了flag，当然shift + f12也是可以看到。</p>
+<h2 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h2><h2 id="csaw2013reversing2"><a href="#csaw2013reversing2" class="headerlink" title="csaw2013reversing2"></a>csaw2013reversing2</h2><h2 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h2><h2 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h2><h2 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h2>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
+  
+  <br>
+
 
 
     
+  <!-- 备案信息 -->
+  <a href="http://beian.miit.gov.cn/" target="_blank"
+     rel="nofollow noopener">豫ICP备20003962号</a>
+  
+    <a
+      href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=20003962"
+      rel="nofollow noopener"
+      class="police-beian"
+      target="_blank"
+    >
+      <span class="police-beian-sep">&nbsp;|&nbsp;</span>
+      
+        <img src="/img/police_beian.png" srcset="/img/loading.gif" />
+      
+      <span>京公网安备12345678号</span>
+    </a>
+  
 
 
 
+    <!-- cnzz Analytics icon -->
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>chumen77 &copy; 2019 - 2020</span>
-            <span>
-                
-                <a href="http://www.miitbeian.gov.cn/" target="_blank">豫ICP备20003962号</a><br>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
+  </div>
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/&title=《Xctf_RE新手区WP》 — Welcome to Chumen77's Blog&pic=http://chumen77.xyz/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/&title=《Xctf_RE新手区WP》 — Welcome to Chumen77's Blog&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Xctf_RE新手区WP》 — Welcome to Chumen77's Blog&url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/&via=http://chumen77.xyz" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://chumen77.xyz/2019/11/09/Xctfre_新手区wp/" alt="微信分享二维码">
-</div>
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
 
 
 
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
 
 
 
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
 
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
 
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Xctf_RE新手区WP&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
     });
-})();
-</script>
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
 
 
 
