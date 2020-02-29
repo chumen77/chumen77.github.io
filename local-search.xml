@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>安恒抗疫赛</title>
+    <link href="/2020/02/29/%E5%AE%89%E6%81%92%E6%8A%97%E7%96%AB%E8%B5%9B/"/>
+    <url>/2020/02/29/%E5%AE%89%E6%81%92%E6%8A%97%E7%96%AB%E8%B5%9B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="安恒抗疫赛"><a href="#安恒抗疫赛" class="headerlink" title="安恒抗疫赛"></a>安恒抗疫赛</h1><p>很简单的比赛，题也不多，记录一下做的2道简单的Re。</p><h2 id="re1-pyc"><a href="#re1-pyc" class="headerlink" title="re1_pyc"></a>re1_pyc</h2><p>拿到的是一个pyc文件。直接拿到网站上反编译一下：</p><pre><code class="python">#!/usr/bin/env python# encoding: utf-8import base64import stringdef caser(flag):    enc1 = &#39;&#39;    for i in flag:        enc1 += chr(ord(i) - 5)    return enc1def rail(flag):    p1 = &#39;&#39;    p2 = &#39;&#39;    p3 = &#39;&#39;    enc2 = &#39;&#39;    for i in range(len(flag)):        j = i % 3        if j == 0:            p1 += flag[i]            continue        if j == 1:            p2 += flag[i]            continue        p3 += flag[i]    enc2 = p1 + p2 + p3    return enc2def rep(flag):    table1 = &#39;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM&#39;    table2 = &#39;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&#39;    table = string.maketrans(table1, table2)    return flag.translate(table, &#39;=&#39;)while True:    flag = raw_input(&#39;please input flag to check:&#39;)    if rep(base64.b64encode(rail(caser(flag)))) == &#39;ywjCytmRxI9CycWZngD2ncTDkZqYlJrGmhHCxISUnfWSlgfDlJi&#39;:        print &#39;Success!you got it!&#39;        break        continue    print &#39;try a gain&#39;</code></pre><p>逻辑挺简单的，直接拿着这个代码改下：</p><pre><code class="python">#!/usr/bin/env python# encoding: utf-8import base64import stringdef caser(flag):    enc1 = &#39;&#39;    for i in flag:        enc1 += chr(ord(i) + 5)    return enc1def rail(flag):    p1 = &#39;&#39;    p2 = &#39;&#39;    p3 = &#39;&#39;    enc2 = &#39;&#39;    j = 0    x = 25    for i in range(x):        j = i + 13        z = j + 13        p3 += flag[i] + flag[j]         if z &gt;= 38 :            break        p3 += flag[z]    enc2 = p1 + p2 + p3    return enc2def rep(flag):    table1 = &#39;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM&#39;    table2 = &#39;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&#39;    table = string.maketrans(table1, table2)    return flag.translate(table, &#39;=&#39;)key = &#39;ywjCytmRxI9CycWZngD2ncTDkZqYlJrGmhHCxISUnfWSlgfDlJi&#39;flag = rail(caser(base64.b64decode(rep(key) + &#39;=&#39;)))print(flag)</code></pre><h2 id="maze1"><a href="#maze1" class="headerlink" title="maze1"></a>maze1</h2><p>一个简单的maze问题，不过是c++写的，ida反编译看起来有点难读。</p><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p><img src="http://q5j29gptn.bkt.clouddn.com/uPic/03LBOC.png" srcset="/img/loading.gif" alt><br>从这里确定下地图，后面的2就是终点。去内存中取出来地图：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/x7t4PS.png" srcset="/img/loading.gif" alt><br>去ida继续分析：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/S2wojN.png" srcset="/img/loading.gif" alt><br>发现你输入的字符串需要等于10，如果不是直接就失败，长度等于10才继续判断。awsd还是这几个字符控制方向。再联系一下前面的地图，终点是2，只能走10步，猜一波dddddsssss。<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/3qNEI0.png" srcset="/img/loading.gif" alt><br>就是这个，flag就是去md5加密一下出来的字符串。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>WP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>记录i春秋新春公益赛的两个题</title>
     <link href="/2020/02/25/%E8%AE%B0%E5%BD%95i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E5%85%AC%E7%9B%8A%E8%B5%9B%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%A2%98/"/>
     <url>/2020/02/25/%E8%AE%B0%E5%BD%95i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E5%85%AC%E7%9B%8A%E8%B5%9B%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%A2%98/</url>

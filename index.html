@@ -135,6 +135,63 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/29/安恒抗疫赛/">
+        <p class="h4 index-header">安恒抗疫赛</p>
+      </a>
+
+      <a href="/2020/02/29/安恒抗疫赛/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安恒抗疫赛很简单的比赛，题也不多，记录一下做的2道简单的Re。
+re1_pyc拿到的是一个pyc文件。直接拿到网站上反编译一下：
+#!/usr/bin/env python
+# encoding: utf-8
+import base64
+import string
+def caser(flag):
+    enc1 = &#39;&#39;
+    for i in flag:
+        enc1 += chr(ord(i) - 5)
+
+    return enc1
+def rail(flag):
+    p1 = &#39;&#39;
+    p2 = &#39;&#39;
+    p3 = &#39;&#39;
+    enc2 = &#39;&#39;
+    for i in range(len(flag)):
+        j = i % 3
+        if j == 0:
+            p1 += flag[i]
+            continue
+        if j == 1:
+            p2 += flag[i]
+  </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WP">WP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/02/25/记录i春秋新春公益赛的两个题/">
         <p class="h4 index-header">记录i春秋新春公益赛的两个题</p>
       </a>
@@ -513,45 +570,6 @@ ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/Re">Re</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/15/Vs code的简单调教/">
-        <p class="h4 index-header">Vscode的简单调教</p>
-      </a>
-
-      <a href="/2019/11/15/Vs code的简单调教/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Vscode的简单调教前言VScode是比较适合自己使用的，因为非常的简洁且不臃肿，拓展性还好。并且自己常写代码是就是为了输入输出实现某些功能，基本用不到调试功能。但碍于难以配置各种环境，一直没有用上，失败了很多次。现在又学着整了一下，现在已经吃上了vscode的香。写个博客，记录一下，也可以分析下经验。
-正常设置
-在这里点击完设置以后，会出现：在这里可以设置vscode的各种地方，就如图中一样，需要自己探索一下，然后设置成自己想要的结果。
-配置编译环境这里我只用到c/c++和Python就只记录这个了。输入C/C++在这里进行点个install。PYthon也是同样的操作。
-让代码跑起来在应用商店里搜索Code Runner。这个是个神器，有了它就可以在vscode直接运行各种代码。安装好后把vscode关闭，然后重新打开。
-新建个C/C++文件：然后右键是可以运行代码的。在右上角：这个小三角也可以运行代码。看下效果：
-更改为终端输出我们改一下代码：    #include     int main() {        int a;        scanf(“%d”,&amp;a</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-15&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/vscode">vscode</a>&nbsp;
           
         
       </div>

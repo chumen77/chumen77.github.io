@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://chumen77.xyz/"/>
-  <updated>2020-02-28T07:55:29.000Z</updated>
+  <updated>2020-02-29T05:26:42.000Z</updated>
   <id>http://chumen77.xyz/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安恒抗疫赛</title>
+    <link href="http://chumen77.xyz/2020/02/29/%E5%AE%89%E6%81%92%E6%8A%97%E7%96%AB%E8%B5%9B/"/>
+    <id>http://chumen77.xyz/2020/02/29/安恒抗疫赛/</id>
+    <published>2020-02-29T04:12:59.000Z</published>
+    <updated>2020-02-29T05:26:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安恒抗疫赛"><a href="#安恒抗疫赛" class="headerlink" title="安恒抗疫赛"></a>安恒抗疫赛</h1><p>很简单的比赛，题也不多，记录一下做的2道简单的Re。</p><h2 id="re1-pyc"><a href="#re1-pyc" class="headerlink" title="re1_pyc"></a>re1_pyc</h2><p>拿到的是一个pyc文件。直接拿到网站上反编译一下：</p><pre><code class="python">#!/usr/bin/env python# encoding: utf-8import base64import stringdef caser(flag):    enc1 = &#39;&#39;    for i in flag:        enc1 += chr(ord(i) - 5)    return enc1def rail(flag):    p1 = &#39;&#39;    p2 = &#39;&#39;    p3 = &#39;&#39;    enc2 = &#39;&#39;    for i in range(len(flag)):        j = i % 3        if j == 0:            p1 += flag[i]            continue        if j == 1:            p2 += flag[i]            continue        p3 += flag[i]    enc2 = p1 + p2 + p3    return enc2def rep(flag):    table1 = &#39;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM&#39;    table2 = &#39;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&#39;    table = string.maketrans(table1, table2)    return flag.translate(table, &#39;=&#39;)while True:    flag = raw_input(&#39;please input flag to check:&#39;)    if rep(base64.b64encode(rail(caser(flag)))) == &#39;ywjCytmRxI9CycWZngD2ncTDkZqYlJrGmhHCxISUnfWSlgfDlJi&#39;:        print &#39;Success!you got it!&#39;        break        continue    print &#39;try a gain&#39;</code></pre><p>逻辑挺简单的，直接拿着这个代码改下：</p><pre><code class="python">#!/usr/bin/env python# encoding: utf-8import base64import stringdef caser(flag):    enc1 = &#39;&#39;    for i in flag:        enc1 += chr(ord(i) + 5)    return enc1def rail(flag):    p1 = &#39;&#39;    p2 = &#39;&#39;    p3 = &#39;&#39;    enc2 = &#39;&#39;    j = 0    x = 25    for i in range(x):        j = i + 13        z = j + 13        p3 += flag[i] + flag[j]         if z &gt;= 38 :            break        p3 += flag[z]    enc2 = p1 + p2 + p3    return enc2def rep(flag):    table1 = &#39;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM&#39;    table2 = &#39;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&#39;    table = string.maketrans(table1, table2)    return flag.translate(table, &#39;=&#39;)key = &#39;ywjCytmRxI9CycWZngD2ncTDkZqYlJrGmhHCxISUnfWSlgfDlJi&#39;flag = rail(caser(base64.b64decode(rep(key) + &#39;=&#39;)))print(flag)</code></pre><h2 id="maze1"><a href="#maze1" class="headerlink" title="maze1"></a>maze1</h2><p>一个简单的maze问题，不过是c++写的，ida反编译看起来有点难读。</p><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p><img src="http://q5j29gptn.bkt.clouddn.com/uPic/03LBOC.png" srcset="/img/loading.gif" alt><br>从这里确定下地图，后面的2就是终点。去内存中取出来地图：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/x7t4PS.png" srcset="/img/loading.gif" alt><br>去ida继续分析：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/S2wojN.png" srcset="/img/loading.gif" alt><br>发现你输入的字符串需要等于10，如果不是直接就失败，长度等于10才继续判断。awsd还是这几个字符控制方向。再联系一下前面的地图，终点是2，只能走10步，猜一波dddddsssss。<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/3qNEI0.png" srcset="/img/loading.gif" alt><br>就是这个，flag就是去md5加密一下出来的字符串。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安恒抗疫赛&quot;&gt;&lt;a href=&quot;#安恒抗疫赛&quot; class=&quot;headerlink&quot; title=&quot;安恒抗疫赛&quot;&gt;&lt;/a&gt;安恒抗疫赛&lt;/h1&gt;&lt;p&gt;很简单的比赛，题也不多，记录一下做的2道简单的Re。&lt;/p&gt;
+&lt;h2 id=&quot;re1-pyc&quot;&gt;&lt;a href=&quot;#
+      
+    
+    </summary>
+    
+    
+      <category term="WP" scheme="http://chumen77.xyz/tags/WP/"/>
+    
+  </entry>
   
   <entry>
     <title>记录i春秋新春公益赛的两个题</title>
@@ -459,27 +483,6 @@
       
       
         &lt;h1 id=&quot;数据宽度与逻辑运算&quot;&gt;&lt;a href=&quot;#数据宽度与逻辑运算&quot; class=&quot;headerlink&quot; title=&quot;数据宽度与逻辑运算&quot;&gt;&lt;/a&gt;数据宽度与逻辑运算&lt;/h1&gt;&lt;h2 id=&quot;数据宽度&quot;&gt;&lt;a href=&quot;#数据宽度&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>进制学习</title>
-    <link href="http://chumen77.xyz/2019/09/28/%E8%BF%9B%E5%88%B6%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://chumen77.xyz/2019/09/28/进制学习/</id>
-    <published>2019-09-28T03:52:16.000Z</published>
-    <updated>2019-10-17T16:01:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="进制学习"><a href="#进制学习" class="headerlink" title="进制学习"></a>进制学习</h1><h2 id="进制的定义"><a href="#进制的定义" class="headerlink" title="进制的定义"></a>进制的定义</h2><p>十进制的定义:由十个符号组成，分别是<code>0 1 2 3 4 5 6 7 8 9</code>逢十进一。</p><p>九进制的定义:由九个符号组成，分别是<code>0 1 2 3 4 5 6 7 8</code>逢九进一。</p><p>十六进制的定义:由十六个符号组成，分别是<code>0 1 2 3 4 5 6 7 8 9 A B C D E F</code></p><h2 id="进制的本质"><a href="#进制的本质" class="headerlink" title="进制的本质"></a>进制的本质</h2><p>例如十进制：<code>0 1 2 3 4 5 6 7 8 9</code> 其就是由10个<strong>符号</strong>组成。如果定义其为<code>9 1 5 2 4 7 6 3 8 0</code>,或者换成<img src="/2019/09/28/进制学习/images/15696440221558.jpg" srcset="/img/loading.gif" alt="-w315">,如果用上面的符号进行加密与解密，让不懂进制本质的人解密有很大的阻碍。</p><h2 id="二进制与十六进制的映射关系"><a href="#二进制与十六进制的映射关系" class="headerlink" title="二进制与十六进制的映射关系"></a>二进制与十六进制的映射关系</h2><p><img src="/2019/09/28/进制学习/images/15698464290376.jpg" srcset="/img/loading.gif" alt="-w911"><br>这个需要背会。</p><h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="正常认知的进制："><a href="#正常认知的进制：" class="headerlink" title="正常认知的进制："></a>正常认知的进制：</h3><h4 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a>二进制</h4><p>从0写到100</p><p><img src="/2019/09/28/进制学习/images/15713236407261.jpg" srcset="/img/loading.gif" alt="-w900"></p><h4 id="七进制"><a href="#七进制" class="headerlink" title="七进制"></a>七进制</h4><p>编制7进制加法表，乘法表，并计算下面的结果：<strong>23456+54356=？5621-654=？234*65=？</strong><br><img src="/2019/09/28/进制学习/images/15713237049873.jpg" srcset="/img/loading.gif" alt="-w608"><br>7进制加法表：<br><img src="/2019/09/28/进制学习/images/15713237825325.jpg" srcset="/img/loading.gif" alt="-w541"><br>7进制乘法表：<br><img src="/2019/09/28/进制学习/images/15713238136767.jpg" srcset="/img/loading.gif" alt="-w537"><br>粗略计算过程：<br><img src="/2019/09/28/进制学习/images/15713245566592.jpg" srcset="/img/loading.gif" alt="-w275"><br>本质就是直接查表了。</p><h4 id="十六进制："><a href="#十六进制：" class="headerlink" title="十六进制："></a>十六进制：</h4><p>编制16进制加法表，乘法表，并计算下面的结果：2D4E6+CF3A6=？5FD1-E5A=？2CA*A5=？<br><img src="/2019/09/28/进制学习/images/15713241502952.jpg" srcset="/img/loading.gif" alt="-w1387"><br>16进制加法：<br><img src="/2019/09/28/进制学习/images/15713241702367.jpg" srcset="/img/loading.gif" alt="-w1337"><br>16进制乘法表：<br><img src="/2019/09/28/进制学习/images/15713241834458.jpg" srcset="/img/loading.gif" alt="-w1330"><br>粗略计算过程：<br><img src="/2019/09/28/进制学习/images/15713245906184.jpg" srcset="/img/loading.gif" alt="-w238"></p><p>都是查表。</p><h3 id="面向本质的非认知进制："><a href="#面向本质的非认知进制：" class="headerlink" title="面向本质的非认知进制："></a>面向本质的非认知进制：</h3><h4 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h4><p><strong>9进制定义：由9个符号组成，分别是：2、9、1、7、6、5、4、8、3，逢9进1</strong></p><p><strong>计算：123 + 234 = ?</strong></p><p>先画个进制表：<br><img src="/2019/09/28/进制学习/images/15699252652163.jpg" srcset="/img/loading.gif" alt="-w489"><br>然后计算：<br><img src="/2019/09/28/进制学习/images/15699253052200.jpg" srcset="/img/loading.gif" alt="-w154"></p><p><strong>解题过程:</strong><br>1)最后一位3+4中的4是第6个数，所以3+4 可以看成从3向后数6个为95，取最后一个5且有一个进位<br>2)最后第二位2+3中的2是第0个数，所以2+3相当3，有一个进位，需要再向后查一个是92，取最后一位2且进1位<br>3)第一位1+2中的2是第0个数，所以1+2相当于1，有一个进位，要再向后查一个，再查一位是7，所以最后是725</p><h4 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h4><p><strong>10进制定义：由10个符号组成，分别是：!、@、$、%、^、&amp;、*、A、B、C，逢10进1</strong></p><p>计算：@$$B + %AC&amp; = ? </p><p>先画个进制表：<br><img src="/2019/09/28/进制学习/images/15699343877953.jpg" srcset="/img/loading.gif" alt="-w583"><br>然后计算：<br><img src="/2019/09/28/进制学习/images/15699344047423.jpg" srcset="/img/loading.gif" alt="-w185"></p><p><strong>解题过程：</strong><br>1)最后一位<code>B+&amp;</code>中的<code>&amp;</code>是第5个数，所以<code>B+&amp;</code>可以看成从B向后数5个为<code>@%</code>，取最后一个<code>%</code>且有一个进位<br>2)最后第二位<code>$+C</code>中的C是第9个数，所以<code>$+C</code>相当从<code>$</code>开始查9个数，前面有一个进位，需要再向后查一个是<code>@$</code>，取最后一位<code>$</code>且进1位<br>3)最后第三位<code>$+A</code>中的A是第7个数，所以<code>$+A</code>相当于从<code>$</code>开始往后查7个，有一个进位，要再向后查一个，再查一位是<code>@!</code>，所以最后是<code>!</code>且进一位<br>4)第一位的<code>@+%</code>中的@是第一个数，所以<code>@+%</code>相当于从<code>%</code>在往后查一位，因为有个进位所以再往后查一位就是<code>&amp;</code>。所以答案就是<code>&amp;!$%</code>。</p><h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>经过这次对进制的学习和练习，对进制理解更加的深刻，<strong>它们只是一堆符号</strong>，在达到某个程度后会进位罢了。在复习到c后，有时间可以学习一下写个进制加密的程序。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;进制学习&quot;&gt;&lt;a href=&quot;#进制学习&quot; class=&quot;headerlink&quot; title=&quot;进制学习&quot;&gt;&lt;/a&gt;进制学习&lt;/h1&gt;&lt;h2 id=&quot;进制的定义&quot;&gt;&lt;a href=&quot;#进制的定义&quot; class=&quot;headerlink&quot; title=&quot;进制的定义&quot;&gt;
       
     
     </summary>
