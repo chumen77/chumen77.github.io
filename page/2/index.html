@@ -135,6 +135,92 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/12/29/HTML 基础/">
+        <p class="h4 index-header">HTML 基础</p>
+      </a>
+
+      <a href="/2019/12/29/HTML 基础/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">HTML 基础
+HTML标题：是通过 &lt;h1&gt; - &lt;h6&gt; 标签来定义的.；其会因为数字变化而显示的字体大小变化；
+HTML段落：通过标签&lt;p&gt; 来定义的.
+HTML链接：通过标签&lt;a&gt;来定义的。
+HTML图像：通过标签 &lt;img&gt; 来定义的。
+
+HTML 文本HTML 标题标题（Heading）是通过&lt;h1&gt; - &lt;h6&gt; 标签进行定义的.&lt;h1&gt; 定义最大的标题。 &lt;h6&gt;定义最小的标题。浏览器会自动地在标题的前后添加空行。
+
+标题很重要：
+不要仅仅是为了生成粗体或大号的文本而使用标题，而是==为了用户可以通过标题来快速浏览您的网页应该将 h1 用作主标题==（最重要的），其后是 h2（次重要的），再其次是 h3，以此类推。
+
+
+HTML 注释注释： 开始括号之后（左边的括号）需要紧跟一个叹号，结束括号之前（右边的括号）不需要，合理地使用注释可以对未来的代码编辑工作产生帮助。。
+&lt;!-- 这是一个注释 --&gt;
+HTML 段落浏览器会自动地在段落的前后添加空行。（</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-29&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
+        <p class="h4 index-header">DDCTF2019-RE-Windows Reverse</p>
+      </a>
+
+      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip
+reverse1_final.exe查壳可以看出是UPX壳。另外：
+ /Volumes/data/ctf逆向题目/2019ddctf  file reverse1_final.exe
+reverse1_final.exe: PE32 executable (console) Intel 80386, for MS Windows, UPX compressed在mac终端也可以用file命令查出。
+脱壳直接在终端UPX -d 脱了就可以了。
+运行发现直接是运行不了的，想到是不是因为脱壳后这个需要资源修复，各种操作修复后发现还是不可以。最后查询他人wp发现这个程序开启了ASLR。需要pe工具去关闭这个程序的ASLR。然后我就去查了ASLR是怎么关闭的，且其是什么东西。
+ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-17&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Re">Re</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/11/15/Vs code的简单调教/">
         <p class="h4 index-header">Vscode的简单调教</p>
       </a>
@@ -488,141 +574,6 @@ void Function(</div>
           
             <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
           
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/06/标志寄存器/">
-        <p class="h4 index-header">标志寄存器</p>
-      </a>
-
-      <a href="/2019/10/06/标志寄存器/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">标志寄存器部分标志寄存器详细介绍需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF
-CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0。
-解析：在看运算结果的时候，先提前确定好参与运算的数是有无符号数和它们的数据宽度。其与PF的难辨难分，重点是看参与运算的数是否为无符号数，这个是程序员写代码的时候定义的。默认都是有符号的，这就主要看后面的PF了。
-PF奇偶标志PF(Parity Flag)：PF标志位，根据结果中最低有效字节(最低8位)中“1”的个数来确定置1还是清0。如果“1”的个数为偶数，则PF的值为1，否则其值为0。
-解析：这个在很多教材中是错的，这个需要强调根据的是运算结果的最低有效字节，也就是最低8位里面1的个数。
-AF辅助进位标志AF(Auxiliary Carry Flag)：如果在“加”操作期间从低半字节（最低四位）到高半字节（高四位）有进位，或者在减法期间的低8位部分从高半字节到低半字节有借位，则将辅助标志设置为（1）。否则，如果不发生这种进位或借位，则清除标志或将其“复位”（设置为</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-06&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/01/数据宽度与逻辑运算/">
-        <p class="h4 index-header">数据宽度与逻辑运算</p>
-      </a>
-
-      <a href="/2019/10/01/数据宽度与逻辑运算/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">数据宽度与逻辑运算数据宽度数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。
-对数据宽度的理解和有无符号数4位宽度表示4位宽度表示：假设计算机只能存储4位2进制数：
-
-
-
-0000
-0001
-0010
-0011
-0100
-0101
-0110
-0111
-1000
-1001
-1010
-1011
-1100
-1101
-1110
-1111
-
-
-
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-A
-B
-C
-D
-E
-F
-
-
-存无符号数时：0 1 2 3 4 5 6 7 8 9 A B C D E F存有符号数时：    正数：0 1 2 3 4 5 6 7    负数：-1 -2 -3 -4 -5 -6 -7 -8    其中对应关系：
-
-
-
--1
--2
--3
--4
--5
--6
--7
--8
-
-
-
-F
-E
-D
-C
-B
-A
-9
-8
-
-
-无符号数时：从0到F逆时针依次增大。
-有符号数时：含义从圆中间劈开，正数负数各一半，在F处为最大负数，0处为最小的正数。
-为什么在存有符号数时说开头为1的数就是负数？我们只看二进制：</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-01&nbsp;&nbsp;
-        
-        
         
       </div>
     </div>

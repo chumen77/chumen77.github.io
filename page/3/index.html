@@ -135,6 +135,141 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/06/标志寄存器/">
+        <p class="h4 index-header">标志寄存器</p>
+      </a>
+
+      <a href="/2019/10/06/标志寄存器/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">标志寄存器部分标志寄存器详细介绍需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF
+CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0。
+解析：在看运算结果的时候，先提前确定好参与运算的数是有无符号数和它们的数据宽度。其与PF的难辨难分，重点是看参与运算的数是否为无符号数，这个是程序员写代码的时候定义的。默认都是有符号的，这就主要看后面的PF了。
+PF奇偶标志PF(Parity Flag)：PF标志位，根据结果中最低有效字节(最低8位)中“1”的个数来确定置1还是清0。如果“1”的个数为偶数，则PF的值为1，否则其值为0。
+解析：这个在很多教材中是错的，这个需要强调根据的是运算结果的最低有效字节，也就是最低8位里面1的个数。
+AF辅助进位标志AF(Auxiliary Carry Flag)：如果在“加”操作期间从低半字节（最低四位）到高半字节（高四位）有进位，或者在减法期间的低8位部分从高半字节到低半字节有借位，则将辅助标志设置为（1）。否则，如果不发生这种进位或借位，则清除标志或将其“复位”（设置为</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-06&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/01/数据宽度与逻辑运算/">
+        <p class="h4 index-header">数据宽度与逻辑运算</p>
+      </a>
+
+      <a href="/2019/10/01/数据宽度与逻辑运算/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">数据宽度与逻辑运算数据宽度数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。
+对数据宽度的理解和有无符号数4位宽度表示4位宽度表示：假设计算机只能存储4位2进制数：
+
+
+
+0000
+0001
+0010
+0011
+0100
+0101
+0110
+0111
+1000
+1001
+1010
+1011
+1100
+1101
+1110
+1111
+
+
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+A
+B
+C
+D
+E
+F
+
+
+存无符号数时：0 1 2 3 4 5 6 7 8 9 A B C D E F存有符号数时：    正数：0 1 2 3 4 5 6 7    负数：-1 -2 -3 -4 -5 -6 -7 -8    其中对应关系：
+
+
+
+-1
+-2
+-3
+-4
+-5
+-6
+-7
+-8
+
+
+
+F
+E
+D
+C
+B
+A
+9
+8
+
+
+无符号数时：从0到F逆时针依次增大。
+有符号数时：含义从圆中间劈开，正数负数各一半，在F处为最大负数，0处为最小的正数。
+为什么在存有符号数时说开头为1的数就是负数？我们只看二进制：</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-01&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/09/28/进制学习/">
         <p class="h4 index-header">进制学习</p>
       </a>

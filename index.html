@@ -135,6 +135,90 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+        <p class="h4 index-header">XCTF_高校战疫赛_RE-天津垓</p>
+      </a>
+
+      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">XCTF_高校战疫赛RE 天津垓_前言复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。
+初步运行发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。看来是需要输入判断。
+ida分析这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。
+v39 = &#39;Rising_Hopper!&#39;
+result = &#39;&#39;
+key = [17,8,6,10,15,20,42,59,47,3,47,4,16,72,62,0,7,16]
+tag = [0x52,0x69,0x73,0x69,0x6E,0x67,0x5f,0x48,0x6f,0x70,0x70,0x65,0x72,0x21]
+
+for i in range(len(key)):
+    x = 0
+    flag = 1
+    while flag:
+        if ~(x &am</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/RE">RE</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+        <p class="h4 index-header">linux\_ftp服务搭建踩坑记录</p>
+      </a>
+
+      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">linux_ftp服务搭建简单记录_前言简单记录一下，ftp的相关需要记录的知识跟搭建所踩的坑。
+两种服务模式
+主动模式：FTP服务器主动向客户端发起连接请求。
+被动模式：FTP服务器等待客户端发起连接请求（FTP的默认工作模式）。vsftpd服务程序ftp是Linux系统中以命令行界面的方式来管理FTP传输服务的客户端工具。我们首先手动安装这个ftp客户端工具，以便在后续实验中查看结果。vsftpd作为更加安全的文件传输的服务程序，允许用户以三种认证模式登录到FTP服务器上。
+匿名开放模式：是一种最不安全的认证模式，任何人都可以无需密码验证而直接登录到FTP服务器。
+本地用户模式：是通过Linux系统本地的账户密码信息进行认证的模式，相较于匿名开放模式更安全，而且配置起来也很简单。但是如果被黑客破解了账户的信息，就可以畅通无阻地登录FTP服务器，从而完全控制整台服务器。
+虚拟用户模式：是这三种模式中最安全的一种认证模式，它需要为FTP服务单独建立用户数据库文件，虚拟出用来进行口令验证的账户信息，而这些账户信息在服务器系统中实际上是不存在的，仅供FTP服务程序进行认证使用。这样，即使黑</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/linux">linux</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/02/29/安恒抗疫赛/">
         <p class="h4 index-header">安恒抗疫赛</p>
       </a>
@@ -484,92 +568,6 @@ ida分析可以看出其取了一个随机数，存入buf。然后进入这个�
             <a href="/tags/ROP">ROP</a>&nbsp;
           
             <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/12/29/HTML 基础/">
-        <p class="h4 index-header">HTML 基础</p>
-      </a>
-
-      <a href="/2019/12/29/HTML 基础/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">HTML 基础
-HTML标题：是通过 &lt;h1&gt; - &lt;h6&gt; 标签来定义的.；其会因为数字变化而显示的字体大小变化；
-HTML段落：通过标签&lt;p&gt; 来定义的.
-HTML链接：通过标签&lt;a&gt;来定义的。
-HTML图像：通过标签 &lt;img&gt; 来定义的。
-
-HTML 文本HTML 标题标题（Heading）是通过&lt;h1&gt; - &lt;h6&gt; 标签进行定义的.&lt;h1&gt; 定义最大的标题。 &lt;h6&gt;定义最小的标题。浏览器会自动地在标题的前后添加空行。
-
-标题很重要：
-不要仅仅是为了生成粗体或大号的文本而使用标题，而是==为了用户可以通过标题来快速浏览您的网页应该将 h1 用作主标题==（最重要的），其后是 h2（次重要的），再其次是 h3，以此类推。
-
-
-HTML 注释注释： 开始括号之后（左边的括号）需要紧跟一个叹号，结束括号之前（右边的括号）不需要，合理地使用注释可以对未来的代码编辑工作产生帮助。。
-&lt;!-- 这是一个注释 --&gt;
-HTML 段落浏览器会自动地在段落的前后添加空行。（</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-29&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
-        <p class="h4 index-header">DDCTF2019-RE-Windows Reverse</p>
-      </a>
-
-      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip
-reverse1_final.exe查壳可以看出是UPX壳。另外：
- /Volumes/data/ctf逆向题目/2019ddctf  file reverse1_final.exe
-reverse1_final.exe: PE32 executable (console) Intel 80386, for MS Windows, UPX compressed在mac终端也可以用file命令查出。
-脱壳直接在终端UPX -d 脱了就可以了。
-运行发现直接是运行不了的，想到是不是因为脱壳后这个需要资源修复，各种操作修复后发现还是不可以。最后查询他人wp发现这个程序开启了ASLR。需要pe工具去关闭这个程序的ASLR。然后我就去查了ASLR是怎么关闭的，且其是什么东西。
-ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-17&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Re">Re</a>&nbsp;
           
         
       </div>
