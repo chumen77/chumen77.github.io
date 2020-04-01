@@ -135,6 +135,177 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/14/linux下clash的使用/">
+        <p class="h4 index-header">linux下clash的使用</p>
+      </a>
+
+      <a href="/2020/02/14/linux下clash的使用/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">linux下clash的使用前言本文只是很简单记录一下，自己如何使用clash的。因为发现终端虽说在本机上已经开了代理，但是终端执行命令下载东西的时候十分的卡，今天才了解到，原来终端的代理是另外开的。所以就开始折腾一下，linux下clash的使用（本人用了很久了clash，所以直接看这个软件了）。
+0x01执行cd &amp;&amp; mkdir clash 在用户目录下创建 clash 文件夹。下载适合的 Clash 二进制文件并解压重命名为 clash,一般个人的64位电脑下载 clash-linux-amd64.tar.gz 即可。地址：https://github.com/Dreamacro/clash/releases
+0x02在终端cd到Clash二进制文件所在的目录,把Clash 配置文件给移进去。配置文件的名称要是config.yaml
+我是直接创建了这个文件，并写入的自己的配置，因为mac本机一直用这个软件，然后在配置文件找到主使用那个，直接复制那个自己使用代理网站加载下来的配置给config.yaml。
+0x03chmod +x ./clash加执行权限执行 .</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-14&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/linux">linux</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/11/Stack Migration题目练习/">
+        <p class="h4 index-header">Stack Migration题目练习</p>
+      </a>
+
+      <a href="/2020/02/11/Stack Migration题目练习/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Stack Migration题目练习前言记录几道Stack Migration的练习题。
+pwnable_simple_login查看保护和arch    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)
+32位程序，开了nx和Canary保护。
+ida分析int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int de_s; // [esp+18h] [ebp-28h]
+  char s; // [esp+1Eh] [ebp-22h]
+  unsigned int de_length; // [esp+3Ch] [ebp-4h]
+
+  memset(&amp;s, 0, 0x1Eu);
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(stdin, </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/Stack%20Migration">Stack Migration</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
+        <p class="h4 index-header">花式栈溢出（栈帧的调节）</p>
+      </a>
+
+      <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">花式栈溢出（栈帧的调节）前言本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：
+
+加减esp值，控制栈指针
+Stack Migration来构造一个假的栈帧。
+
+这里总结了2种题型：
+加减esp，把控栈指针这种题型就需要用Ropgadget找一个控制esp的gadget，然后简单修改esp值的大小，来满足我们的需求。
+Alictf_016_vss这个题目就是一个修改esp扩大栈空间，从而构造rop链获取shell的题目。
+检查保护和arch
+ida分析由于这个程序使用静态编译和strip命令剥离符号，用ida打开没有我们平时看的那么简单，很多函数已经无法识别，我们就需要自己调试，然后推测是什么函数。start函数中，call的函数是__libc_start_main, 上一行的 offset则是main函数那个箭头就是main函数了。进入main函数以后，可以经过syscall中rax的参数</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-05&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/Stack%20Migration">Stack Migration</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/03/ROP练习/">
+        <p class="h4 index-header">ROP题目练习</p>
+      </a>
+
+      <a href="/2020/02/03/ROP练习/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">ROP题目练习前言最近在学习栈溢出，做了一些ROP的练习题，基本都是buuoj的题目，搜索rop字眼找的rop题。简单记录一下收获和exp。
+有libc（或者无libc可做）OGeek2019_babyrop查保护和arch32位程序，开启NX堆栈不可执行。
+ida分析可以看出其取了一个随机数，存入buf。然后进入这个函数分析，看到接收buf传来的值，放入s中。然后下面接收你传入的东西，与s判断是否相同，不相同就会退出。然后如果不退出返回值是v5，但是这里的v5在函数中是没有经过处理的。看一下汇编：v5咱们想控制，就只能通过原来那个read函数，咱们传入的值去控制。返回值给v2，然后v2作为参数然后进入下面这个带有溢出的函数中。 观察后，可以看出咱们应该把这个返回的参数整的大一点，方便进行写ROP链。
+分析总结其中对于绕过相等判断，可以利用一下strlen函数的特性，然后直接用\x00来截断。v5这个返回参数可以控制为’\xff’,然后进入带有溢出的函数，写rop链就行了。先用puts函数泄露出__libc_start_main的地址，然后在给的libc中确认下symbols，然后拿到</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-03&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/ROP">ROP</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/12/29/HTML 基础/">
         <p class="h4 index-header">HTML 基础</p>
       </a>
@@ -379,211 +550,11 @@ int Funcation() //代码区，调用时执行
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/20/C语言学习与反汇编（三）/">
-        <p class="h4 index-header">C语言与反汇编学习（三）</p>
-      </a>
-
-      <a href="/2019/10/20/C语言学习与反汇编（三）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">C语言与反汇编学习（三）前言本次主要学习一下C语言的数据类型与数据存储。
-数据类型
-学习数据类型的三个要素1、存储数据的宽度2、存储数据的格式3、作用范围(作用域)这些都是谈起一个数据类型的基本要素。
-整数类型：char  short  int long
-
-
-char
-8BIT
-1字节
-
-
-
-short
-16BIT
-2字节
-
-
-int
-32BIT
-4字节
-
-
-long
-32BIT
-4字节
-
-
-char i = 0xFF;
-short x =0xFF;
-long y =0xFF;我们来看下在汇编其是什么样的：注意byte word dword的区别。然后我们测试一下以下代码：
-char i = 0x12345678;
-short x = 0x12345678;
-long y = 0x12345678;然后看到还是byte word dword，并且也没有报错，但是我们运行以后可以看到这就说明你写了32位的数给char i这个8位的容器，这是允许的，但是只能装下8位，就从低位开始把78放入。
-整数类型分为有符号(signed)和无符号(unsigned)两种：
-char i = 0xFF;</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-20&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/19/C语言与反汇编学习（二）/">
-        <p class="h4 index-header">C语言与反汇编学习（二）</p>
-      </a>
-
-      <a href="/2019/10/19/C语言与反汇编学习（二）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。
-裸函数什么是裸函数？void __declspec(naked) Function()  
-{.....}在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数，编译器不会为函数体生成任何代码。
-运行裸函数为什么会出错以上的裸函数运行后，因为编译器除了入口参数压栈外，然后就是call这个函数，不会给其生成任何的汇编代码，所以明显运行后其无法回到原来的主函数，然后堆栈是不平衡的。所以：
-void __declspec(naked) Function()  
-{
-    __asm ret
-}加一个ret就好了，不会再报错了。
-裸函数框架简单集合无参数无返回值的函数框架void __declspec(naked) Function()  
-{
-    __asm
-    {
-        push ebp
-        mov ebp,esp
-        sub esp,</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/19/C语言与反汇编学习（一）/">
-        <p class="h4 index-header">C语言与反汇编学习（一）</p>
-      </a>
-
-      <a href="/2019/10/19/C语言与反汇编学习（一）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">C语言与反汇编学习（一）前言：本课主要学习VC开发环境的简单使用，和几个函数反汇编分析。
-简单下熟悉VC6开发环境这里我直接用了编程达人的vc虚拟机，官方的vc6.0不是很好用，每次只支持调试一次，人家的可以突破这个限制。
-创建项目
-执行过程代码编写–&gt;生成EXE(F7)–&gt;运行(F5)–&gt;结束运行(Shift+F5)
-一些简单操作设置断点设置断点是光标放到哪行代码后按下F9即可，这也是后面很多操作的最重要的起初操作。
-调出寄存器，栈，内存窗口调出寄存器，栈，内存窗口看图，在空白处右击点击一下你需要的窗口就好了。
-进入反汇编窗口在程序运行时，且有适当断点的时候，看图
-右击程序框内的空白处，然后点击GO to Disassembly 就好了。在这里面最重要的操作就是：F10 F11分别是步过和步入。这个跟od里不一样。
-C语言的调用1、无参数，无返回值的函数调用2、有参数，无返回值的函数调用3、无参数，有返回值的函数调用4、有参数，有返回值的函数调用
-函数的反汇编分析-空函数先上c：#include &quot;stdafx.h&quot;
-void Function(</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/07/JCC/">
-        <p class="h4 index-header">JCC学习</p>
-      </a>
-
-      <a href="/2019/10/07/JCC/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">JCC学习JCC指令集合详细__1、JE, JZ　　　　　　结果为零则跳转(相等时跳转)　　　　 　　 ZF=1
-2、JNE, JNZ　　  　　结果不为零则跳转(不相等时跳转) 　　　　   ZF=0
-3、JS　　　　　　　  结果为负则跳转　　　　　　　　　　　　    SF=1
-4、JNS 　　　　　　  结果为非负则跳转　　　　　　　　　　　   SF=0
-5、JP, JPE　　　　　 结果中1的个数为偶数则跳转　　　　　　      PF=1
-6、JNP, JPO　　　　  结果中1的个数为偶数则跳转　　　　　　      PF=0
-7、JO　　　　　　　  结果溢出了则跳转　　　　　　　　　　      OF=1
-8、JNO 　　　　　　  结果没有溢出则跳转　　　　　　　　            OF=0
-9、JB, JNAE 　　　　 小于则跳转 (无符号数)　　　　　　　　　   CF=1
-10、JNB, JAE 　　　  大于等于则跳转 (无符号数)　　　　　　　   CF=0
-11、JBE, JNA  　　　 小于等于则跳转 (无符号数)　　　　　　　  CF=1</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-07&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>XCTF_高校战疫赛_RE-天津垓 ~ Chumen77&#39;s Blog</title>
+  <title>XCTF\_高校战疫赛\_RE-天津垓 ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -162,9 +162,9 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h1 id="XCTF-高校战疫赛RE-天津垓"><a href="#XCTF-高校战疫赛RE-天津垓" class="headerlink" title="XCTF_高校战疫赛RE 天津垓_"></a>XCTF_高校战疫赛<em>RE</em> 天津垓_</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。</p>
-<h2 id="初步运行"><a href="#初步运行" class="headerlink" title="初步运行"></a>初步运行</h2><p>发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/UJeTGU.png" srcset="/img/loading.gif" alt><br>看来是需要输入判断。</p>
-<h2 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h2><p><img src="http://q5j29gptn.bkt.clouddn.com/uPic/9N8fOI.png" srcset="/img/loading.gif" alt><br>这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。</p>
+            <h1 id="XCTF-高校战疫赛-RE-天津垓"><a href="#XCTF-高校战疫赛-RE-天津垓" class="headerlink" title="XCTF_高校战疫赛_RE_ 天津垓_"></a>XCTF_高校战疫赛_RE_ 天津垓_</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。</p>
+<h2 id="初步运行"><a href="#初步运行" class="headerlink" title="初步运行"></a>初步运行</h2><p>发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。<br><img src="http://qiqianyun.chumen77.xyz/uPic/UJeTGU.png" srcset="/img/loading.gif" alt><br>看来是需要输入判断。</p>
+<h2 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h2><p><img src="http://qiqianyun.chumen77.xyz/uPic/9N8fOI.png" srcset="/img/loading.gif" alt><br>这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。</p>
 <pre><code class="python">v39 = &#39;Rising_Hopper!&#39;
 result = &#39;&#39;
 key = [17,8,6,10,15,20,42,59,47,3,47,4,16,72,62,0,7,16]
@@ -181,10 +181,10 @@ for i in range(len(key)):
             x += 1
 print(result)
 #result = &#39;Caucasus@s_ability&#39;</code></pre>
-<p><img src="http://q5j29gptn.bkt.clouddn.com/uPic/KxEedJ.png" srcset="/img/loading.gif" alt><br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/q0wQpI.png" srcset="/img/loading.gif" alt><br>然后进入这个函数，发现这里根据刚刚解出来的字符串，传入后对*<em>Unk_10040164D *</em> 做了一些处理然后又返回到这堆数据。<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/bEqzBA.png" srcset="/img/loading.gif" alt><br>直接跟进去是没什么用的。所以需要动态调试，看看程序运行到这里，是怎么样的。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/KxEedJ.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/q0wQpI.png" srcset="/img/loading.gif" alt><br>然后进入这个函数，发现这里根据刚刚解出来的字符串，传入后对*<em>Unk_10040164D *</em> 做了一些处理然后又返回到这堆数据。<br><img src="http://qiqianyun.chumen77.xyz/uPic/bEqzBA.png" srcset="/img/loading.gif" alt><br>直接跟进去是没什么用的。所以需要动态调试，看看程序运行到这里，是怎么样的。</p>
 <p>然后会发现，ida动态调试直接断掉了，肯定是有反调试了。x64可以调试，但是定位关键处有点难，并且看汇编代码也让自己这个菜鸡看吐了。所以就想办法破除对ida的反调试，然后到了关键代码也就是处理以后的Unk10040164D，看看逻辑是也想办法<strong>将其改变成伪代码</strong>，这样就好分析多了。</p>
-<h3 id="patch程序"><a href="#patch程序" class="headerlink" title="patch程序"></a>patch程序</h3><p>￼<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/A43P7J.png" srcset="/img/loading.gif" alt><br>跟进入引用函数，发现是利用窗口事件来检测是否被调试器调试。并且在其中也发现了ida，这里patch程序可以用<strong>010editor</strong>，直接把ida的相关字眼改成其他的就行。但是要注意不要破坏其他的数据：<br>￼<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/o7Pjq9.png" srcset="/img/loading.gif" alt><br>我起初改成这样就不行，位位对齐，改成其他字符串就好了。</p>
-<h3 id="ida动态调试："><a href="#ida动态调试：" class="headerlink" title="ida动态调试："></a>ida动态调试：</h3><p><img src="http://q5j29gptn.bkt.clouddn.com/uPic/1biVvy.png" srcset="/img/loading.gif" alt><br>断在这里，然后进入这入Unk10040164D 函数的时候，F7进入：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/hyi1pE.png" srcset="/img/loading.gif" alt><br>发现已经有正常的汇编代码出来了（这里我的是已经修改过的），无法f5反编译，这时候可以在最初段push rbp 上面，右键新建一个函数：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/rgwAq4.png" srcset="/img/loading.gif" alt><br>整完的样子：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/V3341J.png" srcset="/img/loading.gif" alt><br>然后就可以f5反编译了，并且很清晰的就可以看出程序逻辑：<br><img src="http://q5j29gptn.bkt.clouddn.com/uPic/zuetQy.png" srcset="/img/loading.gif" alt><br>然后解密这里：</p>
+<h3 id="patch程序"><a href="#patch程序" class="headerlink" title="patch程序"></a>patch程序</h3><p>￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/A43P7J.png" srcset="/img/loading.gif" alt><br>跟进入引用函数，发现是利用窗口事件来检测是否被调试器调试。并且在其中也发现了ida，这里patch程序可以用<strong>010editor</strong>，直接把ida的相关字眼改成其他的就行。但是要注意不要破坏其他的数据：<br>￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/o7Pjq9.png" srcset="/img/loading.gif" alt><br>我起初改成这样就不行，位位对齐，改成其他字符串就好了。</p>
+<h3 id="ida动态调试："><a href="#ida动态调试：" class="headerlink" title="ida动态调试："></a>ida动态调试：</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/1biVvy.png" srcset="/img/loading.gif" alt><br>断在这里，然后进入这入Unk10040164D 函数的时候，F7进入：<br><img src="http://qiqianyun.chumen77.xyz/uPic/hyi1pE.png" srcset="/img/loading.gif" alt><br>发现已经有正常的汇编代码出来了（这里我的是已经修改过的），无法f5反编译，这时候可以在最初段push rbp 上面，右键新建一个函数：<br><img src="http://qiqianyun.chumen77.xyz/uPic/rgwAq4.png" srcset="/img/loading.gif" alt><br>整完的样子：<br><img src="http://qiqianyun.chumen77.xyz/uPic/V3341J.png" srcset="/img/loading.gif" alt><br>然后就可以f5反编译了，并且很清晰的就可以看出程序逻辑：<br><img src="http://qiqianyun.chumen77.xyz/uPic/zuetQy.png" srcset="/img/loading.gif" alt><br>然后解密这里：</p>
 <pre><code class="python">
 flag = &#39;&#39;
 key = [2007666,2125764,1909251,2027349,2421009,1653372,2047032,2184813,2302911,0x2289F9,1909251,2165130,1968300,0x223D16,2066715,2322594,1987983,0x223D16,1869885,2066715,0x2289F9,1869885,0xEB773,0xE6A90,0xE6A90,0xE6A90,728271,1869885,0x2289F9,2283228,0x223D16,2184813,2165130,2027349,1987983,0x223D16,1869885,2283228,2047032,1909251,2165130,1869885,2401326,1987983,0x223D16,2184813,885735,2184813,2165130,1987983,2460375]
@@ -365,7 +365,7 @@ print(flag)</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "XCTF_高校战疫赛_RE-天津垓&nbsp;",
+        "XCTF\_高校战疫赛\_RE-天津垓&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

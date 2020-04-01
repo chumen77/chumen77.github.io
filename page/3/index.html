@@ -135,6 +135,206 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/20/C语言学习与反汇编（三）/">
+        <p class="h4 index-header">C语言与反汇编学习（三）</p>
+      </a>
+
+      <a href="/2019/10/20/C语言学习与反汇编（三）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">C语言与反汇编学习（三）前言本次主要学习一下C语言的数据类型与数据存储。
+数据类型
+学习数据类型的三个要素1、存储数据的宽度2、存储数据的格式3、作用范围(作用域)这些都是谈起一个数据类型的基本要素。
+整数类型：char  short  int long
+
+
+char
+8BIT
+1字节
+
+
+
+short
+16BIT
+2字节
+
+
+int
+32BIT
+4字节
+
+
+long
+32BIT
+4字节
+
+
+char i = 0xFF;
+short x =0xFF;
+long y =0xFF;我们来看下在汇编其是什么样的：注意byte word dword的区别。然后我们测试一下以下代码：
+char i = 0x12345678;
+short x = 0x12345678;
+long y = 0x12345678;然后看到还是byte word dword，并且也没有报错，但是我们运行以后可以看到这就说明你写了32位的数给char i这个8位的容器，这是允许的，但是只能装下8位，就从低位开始把78放入。
+整数类型分为有符号(signed)和无符号(unsigned)两种：
+char i = 0xFF;</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-20&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/19/C语言与反汇编学习（二）/">
+        <p class="h4 index-header">C语言与反汇编学习（二）</p>
+      </a>
+
+      <a href="/2019/10/19/C语言与反汇编学习（二）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。
+裸函数什么是裸函数？void __declspec(naked) Function()  
+{.....}在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数，编译器不会为函数体生成任何代码。
+运行裸函数为什么会出错以上的裸函数运行后，因为编译器除了入口参数压栈外，然后就是call这个函数，不会给其生成任何的汇编代码，所以明显运行后其无法回到原来的主函数，然后堆栈是不平衡的。所以：
+void __declspec(naked) Function()  
+{
+    __asm ret
+}加一个ret就好了，不会再报错了。
+裸函数框架简单集合无参数无返回值的函数框架void __declspec(naked) Function()  
+{
+    __asm
+    {
+        push ebp
+        mov ebp,esp
+        sub esp,</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/19/C语言与反汇编学习（一）/">
+        <p class="h4 index-header">C语言与反汇编学习（一）</p>
+      </a>
+
+      <a href="/2019/10/19/C语言与反汇编学习（一）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">C语言与反汇编学习（一）前言：本课主要学习VC开发环境的简单使用，和几个函数反汇编分析。
+简单下熟悉VC6开发环境这里我直接用了编程达人的vc虚拟机，官方的vc6.0不是很好用，每次只支持调试一次，人家的可以突破这个限制。
+创建项目
+执行过程代码编写–&gt;生成EXE(F7)–&gt;运行(F5)–&gt;结束运行(Shift+F5)
+一些简单操作设置断点设置断点是光标放到哪行代码后按下F9即可，这也是后面很多操作的最重要的起初操作。
+调出寄存器，栈，内存窗口调出寄存器，栈，内存窗口看图，在空白处右击点击一下你需要的窗口就好了。
+进入反汇编窗口在程序运行时，且有适当断点的时候，看图
+右击程序框内的空白处，然后点击GO to Disassembly 就好了。在这里面最重要的操作就是：F10 F11分别是步过和步入。这个跟od里不一样。
+C语言的调用1、无参数，无返回值的函数调用2、有参数，无返回值的函数调用3、无参数，有返回值的函数调用4、有参数，有返回值的函数调用
+函数的反汇编分析-空函数先上c：#include &quot;stdafx.h&quot;
+void Function(</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/07/JCC/">
+        <p class="h4 index-header">JCC学习</p>
+      </a>
+
+      <a href="/2019/10/07/JCC/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">JCC学习JCC指令集合详细__1、JE, JZ　　　　　　结果为零则跳转(相等时跳转)　　　　 　　 ZF=1
+2、JNE, JNZ　　  　　结果不为零则跳转(不相等时跳转) 　　　　   ZF=0
+3、JS　　　　　　　  结果为负则跳转　　　　　　　　　　　　    SF=1
+4、JNS 　　　　　　  结果为非负则跳转　　　　　　　　　　　   SF=0
+5、JP, JPE　　　　　 结果中1的个数为偶数则跳转　　　　　　      PF=1
+6、JNP, JPO　　　　  结果中1的个数为偶数则跳转　　　　　　      PF=0
+7、JO　　　　　　　  结果溢出了则跳转　　　　　　　　　　      OF=1
+8、JNO 　　　　　　  结果没有溢出则跳转　　　　　　　　            OF=0
+9、JB, JNAE 　　　　 小于则跳转 (无符号数)　　　　　　　　　   CF=1
+10、JNB, JAE 　　　  大于等于则跳转 (无符号数)　　　　　　　   CF=0
+11、JBE, JNA  　　　 小于等于则跳转 (无符号数)　　　　　　　  CF=1</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-07&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/10/06/标志寄存器/">
         <p class="h4 index-header">标志寄存器</p>
       </a>
@@ -424,175 +624,11 @@ pwd
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/08/20/XSS挑战之旅/">
-        <p class="h4 index-header">XSS挑战之旅</p>
-      </a>
-
-      <a href="/2019/08/20/XSS挑战之旅/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">XSS挑战之旅关卡第一关payload:&lt;script&gt;alert(1)&lt;/script&gt;此题没有任何过滤，直接构造语句，在标签之间进行输出。
-第二关此题变成了&lt;input&gt;标签，看到此处后可以考虑，提前闭合掉这个标签，所以构造payload：&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;，
-或者也可以payload：&quot; onclick=alert(1)&gt;这个需要点击搜索后，再点击搜索框，属于借助js事件类型。
-第三关变成了单引号的input标签，先尝试闭合input标签这个思路。发现没有过去，去看下网页代码。发现其过滤了&lt; &gt;,这样只能通过js事件来构造弹窗。跟上题一样，不过此处是单引号，所以构造payload：&#39; onclick=&#39;alert(1)注意此处的alert(1)的前面还有个单引号，其效果就是value=&#39;&#39; onclick=&#39;alert(1)&#39;
-第四关查看网页源代码，还是跟上题差不多，不过是单引号换成了双引号。按</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-20&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/XSS">XSS</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/08/16/xss学习/">
-        <p class="h4 index-header">XSS知识简单学习</p>
-      </a>
-
-      <a href="/2019/08/16/xss学习/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">XSS知识简单学习一:Xss简介XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中比如这些代码包括HTML代码和客户端脚本。攻击者利用XSS漏洞旁路掉访问控制——例如同源策略(same origin policy)。这种类型的漏洞由于被黑客用来编写危害性更大的网络钓鱼(Phishing)攻击而变得广为人知。对于跨站脚本攻击，黑客界共识是：跨站脚本攻击是新型的“缓冲区溢出攻击“，而JavaScript是新型的“ShellCode”。
-二：ajax简介ajax其实就是异步JavaScript和xml，其最大优势在于可以实现异步访问。为什么要用AJAX，首先它够隐秘，也就是所谓的“无刷新”，其次，它能更有效地迅速处理各种复杂多变的数据。其可以实现异步更新和跨域。
-三：xss漏洞分类存储XSS存储XSS,会把攻击者的数据存储在服务器端，攻击行为将伴随着攻击数据一直存在。也就是提交JS攻击代码存储到数</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-16&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/XSS">XSS</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/04/02/简易解决python2.X与python3.x共存问题/">
-        <p class="h4 index-header">简易解决python2.X与python3.x共存问题</p>
-      </a>
-
-      <a href="/2019/04/02/简易解决python2.X与python3.x共存问题/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">简易解决python2.X与python3.x共存问题python3.x不兼容Python2.x，语法有许多不同，但很多工具还是需要2.x版本，自己又是初学者，只是跑跑别人的脚本，不会改语法冲突。。。。下面说解决办法。
-安装模块Python目前还是需要分开安装
-py -2 -m pip install xxxx
-py -3 -m pip install xxxx
-运行脚本分别用py2.x py3.x运行一个1.py的脚本：
-py -2 1.py
-py -3 1.py
-或者在1.py的文件代码头加上#! python3  #! python2看个人的情况。
-这样就直接输入：
-py 1.py
-这只是解决了简单的安装模块和运行脚本的问题。
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-04-02&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/03/30/css学习/">
-        <p class="h4 index-header">css学习</p>
-      </a>
-
-      <a href="/2019/03/30/css学习/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">CSS如何使用CSSCSS可以通过以下方式添加到HTML中:
-
-内联样式- 在HTML元素中使用”style” 属性 (不推荐使用)；
-内部样式表 -在HTML文档头部 &lt;head&gt; 区域使用&lt;style&gt;元素 来包含CSS。
-外部引用 - 使用外部 CSS 文件(==推荐使用)==
-
-内联样式应用到个别元素时，就可以使用内联样式。
-&lt;div style=&quot;color: red;width: 100px; height: 100px; background: yellow&quot;&gt;苹果&lt;/div&gt;
-内部样式表当单个文件需要特别样式时，就可以使用内部样式表。你可以在&lt;head&gt; 部分通过 &lt;style&gt;标签定义内部样式表:。也推荐这样使用便于更改全局。
-&lt;head&gt;
-&lt;style&gt;
-        div{
-            color: red;
-            width: 100px; 
-            height: 100px;
-         </div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-03-30&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/css">css</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   
