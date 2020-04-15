@@ -135,6 +135,126 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/09/27/逆向学习-滴水公开课/">
+        <p class="h4 index-header">逆向学习-滴水公开课</p>
+      </a>
+
+      <a href="/2019/09/27/逆向学习-滴水公开课/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">逆向学习-滴水公开课知识总结一、内存的读写寻址公式一: [立即数]读取内存的值:    MOV EAX,DWORD PTR DS:[0x13FFC4]
+    MOV EAX,DYVORD PTR DS:[0x13FFC8]    向内存中写入数据:    MOV DWORD PTR DS:[0x13FFC4],eax
+    MOV DWORD PTR DS:[0x13FFC8].ebx    获取内存编号:  LEA EAX,DWORD PTR DS:[0X13FFC4]
+    LEA EAX,DWORD PTR DS:[ESP+8]
+寻址公式二: [reg] reg代表寄存器可以是8个通用寄存器中的任意一个读取内存的值:MOV ECX,0x13FFD0
+MOV EAX,DWORD PTR DS:[ECX]
+向内存中写入数据:MOV EDX,0x13FFD8
+MOV DWORD PTR DS:[EDX],0x87654321
+获取内存编号:LEA EAX,DWORD PTR DS:[EDX]
+MOV EAX,DWORD PTR DS:[EDX]
+寻址公式三: [reg+立即数]读</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-27&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/09/23/安卓程序分析环境搭建/">
+        <p class="h4 index-header">安卓程序分析环境搭建</p>
+      </a>
+
+      <a href="/2019/09/23/安卓程序分析环境搭建/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">#安卓程序分析环境搭建
+Mac下安卓SDK搭建：前提是已经安装了homebrew神器：
+1：下载SDKbrew search android-sdk
+brew cask install android-sdk2：配置环境变量vim .zshrc
+export ANDROID_SDK_ROOT=&quot;/usr/local/share/android-sdk&quot;
+export PATH=&quot;${PATH}:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/platform-tools&quot;!wq退出以后，source ~/.zshrc
+pwd
+/usr/local/share/android-sdk/tools/bin
+./sdkmanager然后会出现Warning: File /Users/gjy/.android/repositories.cfg could not be loaded.继续touch /Users/gjy/.android/repositories.cfg
+3：检验是否搭建好在终端输入：andro</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-23&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/09/01/SQL基础学习/">
+        <p class="h4 index-header">SQL注入基础学习</p>
+      </a>
+
+      <a href="/2019/09/01/SQL基础学习/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SQL注入基础学习数据类型（数字型）检测是否sql语句是否执行使用and,or,xor,like测试
+** 1=1
+** 1=2其中**可以为and or xor like任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。
+
+使用符号测试
+单引号
+减号
+
+数据类型（字符型）检测是否sql语句是否执行此处跟数字型测试办法基本一样，还是使用and,or,xor,like、单引号测试。最近接触字符型的注入较少，补充一下原理：
+我们先进行正常查询：http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&amp;submit=submit当我们给接受处加&#39;：http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&#39;&amp;submit=submit语句执行后，会产生报错：然后我们想办法不让其报错，就是来省略后面那个php代码语句加的&#39;:
+
+用#来注释，但需要进行url来转变一下为%23
+用--+ --%20来</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-01&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/SQL">SQL</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/08/20/XSS挑战之旅/">
         <p class="h4 index-header">XSS挑战之旅</p>
       </a>
