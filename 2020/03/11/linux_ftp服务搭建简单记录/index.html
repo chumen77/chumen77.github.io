@@ -227,7 +227,7 @@ systemctl start vsftpd
 <h3 id="0x3"><a href="#0x3" class="headerlink" title="0x3:"></a>0x3:</h3><p>在本地用户的时候，用root也是无法连接ftp服务的。这是因为vsftpd服务程序所在的目录中默认存放着两个名为“用户名单”的文件（<code>ftpusers和user_list</code>）把ftpusers这里面的root去掉即可。</p>
 <h3 id="0x4"><a href="#0x4" class="headerlink" title="0x4:"></a>0x4:</h3><ul>
 <li>在采用本地用户模式登录FTP服务器后，默认访问的是该用户的家目录，也就是说，访问的是/home/linuxprobe目录(系统创建的用户，在home文件夹下都有对应用户名的文件夹)。而且该目录的默认所有者、所属组都是该用户自己，因此不存在写入权限不足的情况。如果读写权限没给，手动设定，给读写权限。</li>
-<li>采用非本地用户模式登录，与采用本地用户模式的区别是：采用非本地用户模式<strong>可以指定FTP文件夹</strong>。</li>
+<li>采用非本地用户模式登录，与采用本地用户模式的区别是：采用非本地用户模式<strong>可以指定FTP文件夹</strong>。<br>￼￼￼￼￼￼￼</li>
 </ul>
 
             <hr>

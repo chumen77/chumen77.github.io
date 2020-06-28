@@ -135,6 +135,248 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/12/格式化字符串漏洞小总结（上）/">
+        <p class="h4 index-header">格式化字符串漏洞小总结（上）</p>
+      </a>
+
+      <a href="/2020/03/12/格式化字符串漏洞小总结（上）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">格式化字符串漏洞小总结（上）前言记录一下，在学习这个漏洞时候的自己感觉的疑难点，和做题时候的一点小技巧，这一篇主要是记录理论。
+格式化字符串基本格式：
+%[parameter][flags][field width][.precision][length]type
+需要重点关注的pattern：
+
+parameter ：n$，获取格式化字符串中的指定参数
+field width ：输出的最小宽度
+precision ：输出的最大长度
+length，输出的长度 : hh，1-byte ； h，2-byte ； l, 4-byte ；ll,8-byte ；
+type : d/i，有符号整数
+ u，无符号整数
+ x/X，16 进制 unsigned int 。x 使用小写字母；X 使用大写字母.
+ s，输出以null 结尾字符串直到精度规定的上限；如果没有指定精度，则输出所有字节。
+ c，把 int 参数转为 unsigned char 型输出
+ p， void * 型，输出对应变量的值。printf(&quot;%p&quot;,a) 用地址的格式打印变量 a 的值，printf(&quo</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-12&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+        <p class="h4 index-header">XCTF\_高校战疫赛\_RE-天津垓</p>
+      </a>
+
+      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">XCTF_高校战疫赛_RE_ 天津垓_前言复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。
+初步运行发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。看来是需要输入判断。
+ida分析这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。
+v39 = &#39;Rising_Hopper!&#39;
+result = &#39;&#39;
+key = [17,8,6,10,15,20,42,59,47,3,47,4,16,72,62,0,7,16]
+tag = [0x52,0x69,0x73,0x69,0x6E,0x67,0x5f,0x48,0x6f,0x70,0x70,0x65,0x72,0x21]
+
+for i in range(len(key)):
+    x = 0
+    flag = 1
+    while flag:
+        if ~(x &</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/RE">RE</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/linux_ DNS搭建记录/">
+        <p class="h4 index-header">linux- DNS搭建记录</p>
+      </a>
+
+      <a href="/2020/03/11/linux_ DNS搭建记录/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">DNS全称： domain name system
+域名服务基础DNS作用及类型DNS 系统的作用 ：
+正向解析：根据主机名称（域名）查找对应的 IP 地址（最常见）
+反向解析：根据 IP 地址查找对应的主机域名（通信行业常用）
+
+DNS 系统的工作模式：
+递归查询 ：访问必须有一次一回，会返回成功或者失败。
+迭代查询 ：多次访问，多次返回，必须返回一个正确的地址。域名结构：全世界有13台根域名服务器。BIND软件服务
+
+服务名：named 
+端口号：53
+主配置文件：/etc/named.conf
+保存 DNS 解析记录的数据文件位于：/var/named/
+
+主配置文件部分参数：listen-on port 53 { 127.0.0.1; }; //要填入自己主机ip
+listen-on-v6 port 53 { ::1; }; 
+allow-query     { any; };//意思是给任何网段进行解析
+分别是: ipv4监听端口和ip地址，默认只有本地的  ipv6的监听端口和ip地址
+recursion yes;             // 递归还是迭代查询
+dnsse</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/linux">linux</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+        <p class="h4 index-header">linux\_ftp服务搭建踩坑记录</p>
+      </a>
+
+      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">linux_ftp服务搭建简单记录_前言简单记录一下，ftp的相关需要记录的知识跟搭建所踩的坑。
+两种服务模式
+主动模式：FTP服务器主动向客户端发起连接请求。
+被动模式：FTP服务器等待客户端发起连接请求（FTP的默认工作模式）。vsftpd服务程序ftp是Linux系统中以命令行界面的方式来管理FTP传输服务的客户端工具。我们首先手动安装这个ftp客户端工具，以便在后续实验中查看结果。vsftpd作为更加安全的文件传输的服务程序，允许用户以三种认证模式登录到FTP服务器上。
+匿名开放模式：是一种最不安全的认证模式，任何人都可以无需密码验证而直接登录到FTP服务器。
+本地用户模式：是通过Linux系统本地的账户密码信息进行认证的模式，相较于匿名开放模式更安全，而且配置起来也很简单。但是如果被黑客破解了账户的信息，就可以畅通无阻地登录FTP服务器，从而完全控制整台服务器。
+虚拟用户模式：是这三种模式中最安全的一种认证模式，它需要为FTP服务单独建立用户数据库文件，虚拟出用来进行口令验证的账户信息，而这些账户信息在服务器系统中实际上是不存在的，仅供FTP服务程序进行认证使用。这样，即使黑</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/linux">linux</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/29/安恒抗疫赛/">
+        <p class="h4 index-header">安恒抗疫赛</p>
+      </a>
+
+      <a href="/2020/02/29/安恒抗疫赛/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安恒抗疫赛很简单的比赛，题也不多，记录一下做的2道简单的Re。
+re1_pyc拿到的是一个pyc文件。直接拿到网站上反编译一下：
+#!/usr/bin/env python
+# encoding: utf-8
+import base64
+import string
+def caser(flag):
+    enc1 = &#39;&#39;
+    for i in flag:
+        enc1 += chr(ord(i) - 5)
+
+    return enc1
+def rail(flag):
+    p1 = &#39;&#39;
+    p2 = &#39;&#39;
+    p3 = &#39;&#39;
+    enc2 = &#39;&#39;
+    for i in range(len(flag)):
+        j = i % 3
+        if j == 0:
+            p1 += flag[i]
+            continue
+        if j == 1:
+            p2 += flag[i]
+  </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WP">WP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/02/25/记录i春秋新春公益赛的两个题/">
         <p class="h4 index-header">记录i春秋新春公益赛的两个题</p>
       </a>
@@ -253,9 +495,9 @@ d =</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
-          
             <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
           
         
       </div>
@@ -349,220 +591,11 @@ ida分析int __cdecl main(int argc, const char **argv, const char **envp)
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
-        <p class="h4 index-header">花式栈溢出（栈帧的调节）</p>
-      </a>
-
-      <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">花式栈溢出（栈帧的调节）前言本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：
-
-加减esp值，控制栈指针
-Stack Migration来构造一个假的栈帧。
-
-这里总结了2种题型：
-加减esp，把控栈指针这种题型就需要用Ropgadget找一个控制esp的gadget，然后简单修改esp值的大小，来满足我们的需求。
-Alictf_016_vss这个题目就是一个修改esp扩大栈空间，从而构造rop链获取shell的题目。
-检查保护和arch
-ida分析由于这个程序使用静态编译和strip命令剥离符号，用ida打开没有我们平时看的那么简单，很多函数已经无法识别，我们就需要自己调试，然后推测是什么函数。start函数中，call的函数是__libc_start_main, 上一行的 offset则是main函数那个箭头就是main函数了。进入main函数以后，可以经过syscall中rax的参数</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-05&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/Stack%20Migration">Stack Migration</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/02/03/ROP练习/">
-        <p class="h4 index-header">ROP题目练习</p>
-      </a>
-
-      <a href="/2020/02/03/ROP练习/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">ROP题目练习前言最近在学习栈溢出，做了一些ROP的练习题，基本都是buuoj的题目，搜索rop字眼找的rop题。简单记录一下收获和exp。
-有libc（或者无libc可做）OGeek2019_babyrop查保护和arch32位程序，开启NX堆栈不可执行。
-ida分析可以看出其取了一个随机数，存入buf。然后进入这个函数分析，看到接收buf传来的值，放入s中。然后下面接收你传入的东西，与s判断是否相同，不相同就会退出。然后如果不退出返回值是v5，但是这里的v5在函数中是没有经过处理的。看一下汇编：v5咱们想控制，就只能通过原来那个read函数，咱们传入的值去控制。返回值给v2，然后v2作为参数然后进入下面这个带有溢出的函数中。 观察后，可以看出咱们应该把这个返回的参数整的大一点，方便进行写ROP链。
-分析总结其中对于绕过相等判断，可以利用一下strlen函数的特性，然后直接用\x00来截断。v5这个返回参数可以控制为’\xff’,然后进入带有溢出的函数，写rop链就行了。先用puts函数泄露出__libc_start_main的地址，然后在给的libc中确认下symbols，然后拿到</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-03&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ROP">ROP</a>&nbsp;
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/12/29/HTML 基础/">
-        <p class="h4 index-header">HTML 基础</p>
-      </a>
-
-      <a href="/2019/12/29/HTML 基础/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">HTML 基础
-HTML标题：是通过 &lt;h1&gt; - &lt;h6&gt; 标签来定义的.；其会因为数字变化而显示的字体大小变化；
-HTML段落：通过标签&lt;p&gt; 来定义的.
-HTML链接：通过标签&lt;a&gt;来定义的。
-HTML图像：通过标签 &lt;img&gt; 来定义的。
-
-HTML 文本HTML 标题标题（Heading）是通过&lt;h1&gt; - &lt;h6&gt; 标签进行定义的.&lt;h1&gt; 定义最大的标题。 &lt;h6&gt;定义最小的标题。浏览器会自动地在标题的前后添加空行。
-
-标题很重要：
-不要仅仅是为了生成粗体或大号的文本而使用标题，而是==为了用户可以通过标题来快速浏览您的网页应该将 h1 用作主标题==（最重要的），其后是 h2（次重要的），再其次是 h3，以此类推。
-
-
-HTML 注释注释： 开始括号之后（左边的括号）需要紧跟一个叹号，结束括号之前（右边的括号）不需要，合理地使用注释可以对未来的代码编辑工作产生帮助。。
-&lt;!-- 这是一个注释 --&gt;
-HTML 段落浏览器会自动地在段落的前后添加空行。（</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-29&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
-        <p class="h4 index-header">DDCTF2019-RE-Windows Reverse</p>
-      </a>
-
-      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip
-reverse1_final.exe查壳可以看出是UPX壳。另外：
- /Volumes/data/ctf逆向题目/2019ddctf  file reverse1_final.exe
-reverse1_final.exe: PE32 executable (console) Intel 80386, for MS Windows, UPX compressed在mac终端也可以用file命令查出。
-脱壳直接在终端UPX -d 脱了就可以了。
-运行发现直接是运行不了的，想到是不是因为脱壳后这个需要资源修复，各种操作修复后发现还是不可以。最后查询他人wp发现这个程序开启了ASLR。需要pe工具去关闭这个程序的ASLR。然后我就去查了ASLR是怎么关闭的，且其是什么东西。
-ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-17&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Re">Re</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/15/Vs code的简单调教/">
-        <p class="h4 index-header">Vscode的简单调教</p>
-      </a>
-
-      <a href="/2019/11/15/Vs code的简单调教/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Vscode的简单调教前言VScode是比较适合自己使用的，因为非常的简洁且不臃肿，拓展性还好。并且自己常写代码是就是为了输入输出实现某些功能，基本用不到调试功能。但碍于难以配置各种环境，一直没有用上，失败了很多次。现在又学着整了一下，现在已经吃上了vscode的香。写个博客，记录一下，也可以分析下经验。
-正常设置
-在这里点击完设置以后，会出现：在这里可以设置vscode的各种地方，就如图中一样，需要自己探索一下，然后设置成自己想要的结果。
-配置编译环境这里我只用到c/c++和Python就只记录这个了。输入C/C++在这里进行点个install。PYthon也是同样的操作。
-让代码跑起来在应用商店里搜索Code Runner。这个是个神器，有了它就可以在vscode直接运行各种代码。安装好后把vscode关闭，然后重新打开。
-新建个C/C++文件：然后右键是可以运行代码的。在右上角：这个小三角也可以运行代码。看下效果：
-更改为终端输出我们改一下代码：    #include     int main() {        int a;        scanf(“%d”,&amp;a</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-15&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/vscode">vscode</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   
