@@ -278,8 +278,7 @@ Out[9]: &quot;q\x03\x00q\x00\x06d\xffd\x00\x00d\x01\x00l\x00\x00Z\x00\x00d\x02\x
 
 0x71 操作为JUMP_ABSOLUTE，用法举例：JUMP_ABSOLUTE 14                HEX: 710e00
 
-0x65 操作为LOAD_NAME，用法举例：LOAD_NAME 1                HEX: 650100
-0x71 操作为LOAD_NAME，</code></pre><p>所以寻找：</p>
+0x65 操作为LOAD_NAME，用法举例：LOAD_NAME 1                HEX: 650100</code></pre><p>所以寻找：</p>
 <pre><code>0 LOAD_CONST 0(0)</code></pre><p>即为寻找<code>HEX : 640000</code>这个作为混淆字段结束。<br>开头怎么寻找呢。由于看前面3个字节对应一个含义，猜测：</p>
 <pre><code>0 JUMP_ABSOLUTE       3</code></pre><p>￼￼￼￼￼￼<br>￼￼￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/UceCOc.jpg" srcset="/img/loading.gif" alt></p>
 <p>那很明显混淆字段就是：</p>
