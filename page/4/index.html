@@ -135,6 +135,122 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/23/C语言与反汇编学习（四）/">
+        <p class="h4 index-header">C语言与反汇编学习（四）</p>
+      </a>
+
+      <a href="/2019/10/23/C语言与反汇编学习（四）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">C语言与反汇编学习（四）前言本次主要学习以下内容
+
+内存图
+全局变量、局部变量
+函数参数的分析
+分支语句:if if...else... if..else if..else if....else分支语句的嵌套使用``的正向与逆向分析
+
+内存图在电脑中任何一个程序运行时，其会在内存中分成以上图中的几个区域。详细每个区是怎么样的，直接看图即可。
+全局变量、局部变量int g_n = 10; //全局变量
+int Funcation() //代码区，调用时执行
+{
+    int x = 1;//局部变量
+    int y = 3;
+    return g_n+x+y;
+    }
+}就用这个代码段来分析。
+全局变量的特点1、全局变量在程序编译完成后地址就已经确定下来了，只要程序启动，全局变量就已经存在了，启动后里面是否有值取决于声明时是否给定了初始值，如果没有，默认为0。2、全局变量的值可以被所有函数所修改，里面存储的是最后一次修改的值.3、全局变量所占内存会一直存在，知道整个进程结束.4、全局变量的反汇编识别：MOV 寄存器,byte/word/dword ptr ds:[0x123</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-23&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/10/20/C语言学习与反汇编（三）/">
+        <p class="h4 index-header">C语言与反汇编学习（三）</p>
+      </a>
+
+      <a href="/2019/10/20/C语言学习与反汇编（三）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">C语言与反汇编学习（三）前言本次主要学习一下C语言的数据类型与数据存储。
+数据类型
+学习数据类型的三个要素1、存储数据的宽度2、存储数据的格式3、作用范围(作用域)这些都是谈起一个数据类型的基本要素。
+整数类型：char  short  int long
+
+
+char
+8BIT
+1字节
+
+
+
+short
+16BIT
+2字节
+
+
+int
+32BIT
+4字节
+
+
+long
+32BIT
+4字节
+
+
+char i = 0xFF;
+short x =0xFF;
+long y =0xFF;我们来看下在汇编其是什么样的：注意byte word dword的区别。然后我们测试一下以下代码：
+char i = 0x12345678;
+short x = 0x12345678;
+long y = 0x12345678;然后看到还是byte word dword，并且也没有报错，但是我们运行以后可以看到这就说明你写了32位的数给char i这个8位的容器，这是允许的，但是只能装下8位，就从低位开始把78放入。
+整数类型分为有符号(signed)和无符号(unsigned)两种：
+char i = 0xFF;</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-20&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/10/19/C语言与反汇编学习（二）/">
         <p class="h4 index-header">C语言与反汇编学习（二）</p>
       </a>
@@ -507,88 +623,6 @@ pwd
           <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-23&nbsp;&nbsp;
         
         
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/09/01/SQL基础学习/">
-        <p class="h4 index-header">SQL注入基础学习</p>
-      </a>
-
-      <a href="/2019/09/01/SQL基础学习/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">SQL注入基础学习数据类型（数字型）检测是否sql语句是否执行使用and,or,xor,like测试
-** 1=1
-** 1=2其中**可以为and or xor like任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。
-
-使用符号测试
-单引号
-减号
-
-数据类型（字符型）检测是否sql语句是否执行此处跟数字型测试办法基本一样，还是使用and,or,xor,like、单引号测试。最近接触字符型的注入较少，补充一下原理：
-我们先进行正常查询：http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&amp;submit=submit当我们给接受处加&#39;：http://127.0.0.1/DoraBox/sql_injection/sql_string.php?title=DoraBox&#39;&amp;submit=submit语句执行后，会产生报错：然后我们想办法不让其报错，就是来省略后面那个php代码语句加的&#39;:
-
-用#来注释，但需要进行url来转变一下为%23
-用--+ --%20来</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-01&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/SQL">SQL</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/08/20/XSS挑战之旅/">
-        <p class="h4 index-header">XSS挑战之旅</p>
-      </a>
-
-      <a href="/2019/08/20/XSS挑战之旅/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">XSS挑战之旅关卡第一关payload:&lt;script&gt;alert(1)&lt;/script&gt;此题没有任何过滤，直接构造语句，在标签之间进行输出。
-第二关此题变成了&lt;input&gt;标签，看到此处后可以考虑，提前闭合掉这个标签，所以构造payload：&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;，
-或者也可以payload：&quot; onclick=alert(1)&gt;这个需要点击搜索后，再点击搜索框，属于借助js事件类型。
-第三关变成了单引号的input标签，先尝试闭合input标签这个思路。发现没有过去，去看下网页代码。发现其过滤了&lt; &gt;,这样只能通过js事件来构造弹窗。跟上题一样，不过此处是单引号，所以构造payload：&#39; onclick=&#39;alert(1)注意此处的alert(1)的前面还有个单引号，其效果就是value=&#39;&#39; onclick=&#39;alert(1)&#39;
-第四关查看网页源代码，还是跟上题差不多，不过是单引号换成了双引号。按</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-20&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/XSS">XSS</a>&nbsp;
-          
         
       </div>
     </div>
