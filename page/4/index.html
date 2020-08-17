@@ -135,6 +135,80 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/11/12/C语言与反汇编学习（五）/">
+        <p class="h4 index-header">C语言与反汇编学习（五）</p>
+      </a>
+
+      <a href="/2019/11/12/C语言与反汇编学习（五）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">C语言与反汇编学习（五）前言主要是记录一下，在学习过程中认为容易忘记且重要的东西，方便以后忘了再来学习一下。集中于结构体部分以及结构体对齐的知识。
+结构体的使用练习1、定义一个结构体Gamer用来存储一个游戏中的角色的信息，包括血值、等级、坐标等信息    。要求：    (1) 具体包含哪些信息自由设计    (2) 但这些包含的类型中，必须要有一个成员是结构体类型。    2、定义一个函数，用来给这个结构体变量赋值.3、定义一个函数，用来显示这个结构体变量的所有成员信息.    #include     #include &lt;stdio.h&gt;    #include &lt;string.h&gt;    struct point    {        int x;        int y;        int z;    };    struct Gamer    {        char name[20];        int level;        float HP;        point a;    }No1;    void Function(</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-12&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/11/09/Xctfre_新手区wp/">
+        <p class="h4 index-header">Xctf\_RE新手区WP</p>
+      </a>
+
+      <a href="/2019/11/09/Xctfre_新手区wp/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Xctf_RE新手区WP前言学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。
+re1第一步，先查壳：（查壳很重要，可以先确认是否有壳还可以知道程序是什么语言编写的）看下程序是干嘛的，也就是你输入flag然后程序出个判断是否正确。估计就是个明文对比，直接od打开：断在了re模块。直接搜索字符串拿到flag
+game还是先查壳：无壳这道题有多种做法，下面展示三种：
+第一种这个做法主要是判断程序逻辑，然后改关键跳转的汇编代码，进行爆破破解。先看下程序是做什么的：先输入个1发现图案中第1，2，8行图形发生了变化。接着输入2，然后第3，4，8行图形发生了变化。感觉没什么规律，大概猜一下，应该是这8行的线条全部连通就可以完成这个游戏。
+打开IDA进行静态分析发现一堆函数难以找到主函数，按shift+F12查看字符串点击这个，查看一下这个字符串的交叉引用，然后可以双击跳转到main函数，看整个程序的逻辑。
+跳转好后按F5查看伪代码：在下方发现了一个判断语句，满足后会调用sub_45Ab4这个函数。双击进入看看这个函数做了什么：发现会</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-09&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Re">Re</a>&nbsp;
+          
+            <a href="/tags/WP">WP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019/10/23/C语言与反汇编学习（四）/">
         <p class="h4 index-header">C语言与反汇编学习（四）</p>
       </a>
@@ -546,81 +620,6 @@ A
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-28&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/09/27/逆向学习-滴水公开课/">
-        <p class="h4 index-header">逆向学习-滴水公开课</p>
-      </a>
-
-      <a href="/2019/09/27/逆向学习-滴水公开课/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">逆向学习-滴水公开课知识总结一、内存的读写寻址公式一: [立即数]读取内存的值:    MOV EAX,DWORD PTR DS:[0x13FFC4]
-    MOV EAX,DYVORD PTR DS:[0x13FFC8]    向内存中写入数据:    MOV DWORD PTR DS:[0x13FFC4],eax
-    MOV DWORD PTR DS:[0x13FFC8].ebx    获取内存编号:  LEA EAX,DWORD PTR DS:[0X13FFC4]
-    LEA EAX,DWORD PTR DS:[ESP+8]
-寻址公式二: [reg] reg代表寄存器可以是8个通用寄存器中的任意一个读取内存的值:MOV ECX,0x13FFD0
-MOV EAX,DWORD PTR DS:[ECX]
-向内存中写入数据:MOV EDX,0x13FFD8
-MOV DWORD PTR DS:[EDX],0x87654321
-获取内存编号:LEA EAX,DWORD PTR DS:[EDX]
-MOV EAX,DWORD PTR DS:[EDX]
-寻址公式三: [reg+立即数]读</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-27&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/09/23/安卓程序分析环境搭建/">
-        <p class="h4 index-header">安卓程序分析环境搭建</p>
-      </a>
-
-      <a href="/2019/09/23/安卓程序分析环境搭建/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">#安卓程序分析环境搭建
-Mac下安卓SDK搭建：前提是已经安装了homebrew神器：
-1：下载SDKbrew search android-sdk
-brew cask install android-sdk2：配置环境变量vim .zshrc
-export ANDROID_SDK_ROOT=&quot;/usr/local/share/android-sdk&quot;
-export PATH=&quot;${PATH}:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/platform-tools&quot;!wq退出以后，source ~/.zshrc
-pwd
-/usr/local/share/android-sdk/tools/bin
-./sdkmanager然后会出现Warning: File /Users/gjy/.android/repositories.cfg could not be loaded.继续touch /Users/gjy/.android/repositories.cfg
-3：检验是否搭建好在终端输入：andro</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-23&nbsp;&nbsp;
         
         
         

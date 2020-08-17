@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>归档 ~ Chumen77&#39;s Blog</title>
+  <title>MacOS安装IDA插件keypatch ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -97,7 +97,7 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="view intro-2" id="background" false
          style="background: url('/img/default.png')no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -107,6 +107,41 @@
               
             </span>
 
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 八月 10日 2020, 5:23 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    183 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
             
           </div>
 
@@ -118,41 +153,83 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 47 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/08/20/XSS挑战之旅/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XSS挑战之旅</span>
-      <span style="float: right;">08-20</span>
-    </a>
-  
-    
-    <a href="/2019/08/16/xss学习/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XSS知识简单学习</span>
-      <span style="float: right;">08-16</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="MacOS安装IDA插件keypatch"><a href="#MacOS安装IDA插件keypatch" class="headerlink" title="MacOS安装IDA插件keypatch"></a>MacOS安装IDA插件keypatch</h1><p>macOS 安装官方介绍的安装方式不太行。网上参考后记录一下。</p>
+<h2 id="cmake"><a href="#cmake" class="headerlink" title="cmake"></a>cmake</h2><pre><code class="bash">brew install cmake</code></pre>
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><pre><code class="bash">git clone https://github.com/fjh658/keystone-engine.git
 
-              </div>
-            </div>
+cd keystone-engine
+
+git submodule update --init --recursive
+
+sudo python2 setup.py install --verbose</code></pre>
+<p>此时在安装后的最后几段代码中，找到类似：</p>
+<pre><code class="bash">/Library/Python/2.7/site-packages/keystone</code></pre>
+<p>这是本地python2.7的路径。</p>
+<h2 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h2><pre><code class="bash">cp -r /Library/Python/2.7/site-packages/keystone /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/python/lib/python2.7/lib-dynload/</code></pre>
+<pre><code class="bash">sudo  curl -L https://raw.githubusercontent.com/keystone-engine/keypatch/master/keypatch.py &gt; keypatch.py
+</code></pre>
+<p>现实拒绝的话，可以</p>
+<pre><code class="bash">vim /etc/hosts
+
+199.232.68.133 raw.githubusercontent.com
+</code></pre>
+<pre><code class="bash">cp -r ./keypatch.py /Applications/IDA\ Pro\ 7.0/ida64.app/Contents/MacOS/plugins/
+
+cp -r ./keypatch.py /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/plugins/</code></pre>
+<p>然后进入ida使用即可。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -236,6 +313,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
@@ -276,7 +358,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "MacOS安装IDA插件keypatch&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
