@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    492 字
+                    634 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      1 分钟
+                      2 分钟
                   </span>&nbsp;
                 
 
@@ -177,6 +177,21 @@
 <p>然后进行保存补丁，替换主程序即可。</p>
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/OikyWs.png" srcset="/img/loading.gif" alt></p>
 <h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><p>的确是找到了关键处，感觉整个过程还是很简单的，由于前人经验就是从登陆界面下手的，我也是直接跟随这个思路操作。在完工以后，尝试去搞一下15s哪里的验证，想点一下直接变为0s，可以点击确认，发现是的确麻烦也没有成功就放弃了。</p>
+<h2 id="半自动化打补丁"><a href="#半自动化打补丁" class="headerlink" title="半自动化打补丁"></a>半自动化打补丁</h2><p>不太会写c，用python 写了打补丁的程序，确保本机有python2的运行环境。然后把脚本放在其安装路径的bin目录下，运行即可。</p>
+<p>也可以把程序拖出来，打完补丁后替换原来的程序即可。</p>
+<pre><code class="python">#!/usr/bin/env python2.7
+import struct
+import os
+
+def WriteFile():
+    with open(&#39;PacketTracer7.exe&#39;,&#39;r&#39;) as f:
+         dt = f.read()
+    dt = dt[:0x17a5245]+&#39;\xe9\xee\x04\x00\x00\x90&#39;+dt[0x17a524b:]
+    with open(&#39;PacketTracer7.exe&#39;, &#39;w&#39;) as f:
+        f.write(dt)
+if __name__ == &#39;__main__&#39;:
+    WriteFile()</code></pre>
+<p>针对的只是7.11。</p>
 
             <hr>
           </div>
