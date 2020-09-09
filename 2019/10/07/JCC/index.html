@@ -206,7 +206,11 @@ CMP AX,CX
 JB 0X0040103E</code></pre><h4 id="10、-JNB-JAE-大于等于则跳转-无符号数-CF-0"><a href="#10、-JNB-JAE-大于等于则跳转-无符号数-CF-0" class="headerlink" title="10、 JNB, JAE 大于等于则跳转 (无符号数) CF=0"></a>10、 JNB, JAE 大于等于则跳转 (无符号数) CF=0</h4><pre><code>MOV AX,80
 MOV CX,90
 CMP CX,AX
-JB 0X00401044</code></pre><h4 id="11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1"><a href="#11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1" class="headerlink" title="11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1"></a>11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1</h4><p>一种直接跟练习9一样直接构造让CF=1或者让跟练习1让ZF=0就可以了。<br>    MOV AL,1<br>    MOV CL,1<br>    CMP AL,CL<br>    JE 0X0040102B<br>或者</p>
+JB 0X00401044</code></pre><h4 id="11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1"><a href="#11、-JBE-JNA-小于等于则跳转-无符号数-CF-1-or-ZF-1" class="headerlink" title="11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1"></a>11、 JBE, JNA 小于等于则跳转 (无符号数) CF=1 or ZF=1</h4><p>一种直接跟练习9一样直接构造让CF=1或者让跟练习1让ZF=0就可以了。</p>
+<pre><code>MOV AL,1
+MOV CL,1
+CMP AL,CL
+JE 0X0040102B</code></pre><p>或者</p>
 <pre><code>MOV AX,80
 MOV CX,90
 CMP AX,CX
@@ -341,11 +345,6 @@ JG  0x004010A6</code></pre><p>解析：</p>
 
 
     
-  <!-- 备案信息 -->
-  <a href="http://beian.miit.gov.cn/" target="_blank"
-     rel="nofollow noopener">豫ICP备20003962号</a>
-  
-
 
 
     <!-- cnzz Analytics icon -->

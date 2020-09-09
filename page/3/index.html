@@ -135,6 +135,154 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/linux_ DNS搭建记录/">
+        <p class="h4 index-header">linux- DNS搭建记录</p>
+      </a>
+
+      <a href="/2020/03/11/linux_ DNS搭建记录/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">DNS全称： domain name system
+域名服务基础DNS作用及类型DNS 系统的作用 ：
+正向解析：根据主机名称（域名）查找对应的 IP 地址（最常见）
+反向解析：根据 IP 地址查找对应的主机域名（通信行业常用）
+
+DNS 系统的工作模式：
+递归查询 ：访问必须有一次一回，会返回成功或者失败。
+迭代查询 ：多次访问，多次返回，必须返回一个正确的地址。域名结构：全世界有13台根域名服务器。BIND软件服务
+
+服务名：named 
+端口号：53
+主配置文件：/etc/named.conf
+保存 DNS 解析记录的数据文件位于：/var/named/
+
+主配置文件部分参数：listen-on port 53 { 127.0.0.1; }; //要填入自己主机ip
+listen-on-v6 port 53 { ::1; }; 
+allow-query     { any; };//意思是给任何网段进行解析
+分别是: ipv4监听端口和ip地址，默认只有本地的  ipv6的监听端口和ip地址
+recursion yes;             // 递归还是迭代查询
+dnsse</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/linux">linux</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+        <p class="h4 index-header">linux\_ftp服务搭建踩坑记录</p>
+      </a>
+
+      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">linux_ftp服务搭建简单记录_前言简单记录一下，ftp的相关需要记录的知识跟搭建所踩的坑。
+两种服务模式
+主动模式：FTP服务器主动向客户端发起连接请求。
+被动模式：FTP服务器等待客户端发起连接请求（FTP的默认工作模式）。vsftpd服务程序ftp是Linux系统中以命令行界面的方式来管理FTP传输服务的客户端工具。我们首先手动安装这个ftp客户端工具，以便在后续实验中查看结果。vsftpd作为更加安全的文件传输的服务程序，允许用户以三种认证模式登录到FTP服务器上。
+匿名开放模式：是一种最不安全的认证模式，任何人都可以无需密码验证而直接登录到FTP服务器。
+本地用户模式：是通过Linux系统本地的账户密码信息进行认证的模式，相较于匿名开放模式更安全，而且配置起来也很简单。但是如果被黑客破解了账户的信息，就可以畅通无阻地登录FTP服务器，从而完全控制整台服务器。
+虚拟用户模式：是这三种模式中最安全的一种认证模式，它需要为FTP服务单独建立用户数据库文件，虚拟出用来进行口令验证的账户信息，而这些账户信息在服务器系统中实际上是不存在的，仅供FTP服务程序进行认证使用。这样，即使黑</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/linux">linux</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/29/安恒抗疫赛/">
+        <p class="h4 index-header">安恒抗疫赛</p>
+      </a>
+
+      <a href="/2020/02/29/安恒抗疫赛/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安恒抗疫赛很简单的比赛，题也不多，记录一下做的2道简单的Re。
+re1_pyc拿到的是一个pyc文件。直接拿到网站上反编译一下：
+#!/usr/bin/env python
+# encoding: utf-8
+import base64
+import string
+def caser(flag):
+    enc1 = &#39;&#39;
+    for i in flag:
+        enc1 += chr(ord(i) - 5)
+
+    return enc1
+def rail(flag):
+    p1 = &#39;&#39;
+    p2 = &#39;&#39;
+    p3 = &#39;&#39;
+    enc2 = &#39;&#39;
+    for i in range(len(flag)):
+        j = i % 3
+        if j == 0:
+            p1 += flag[i]
+            continue
+        if j == 1:
+            p2 += flag[i]
+  </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WP">WP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/02/25/记录i春秋新春公益赛的两个题/">
         <p class="h4 index-header">记录i春秋新春公益赛的两个题</p>
       </a>
@@ -433,131 +581,6 @@ ida分析可以看出其取了一个随机数，存入buf。然后进入这个�
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/12/29/HTML 基础/">
-        <p class="h4 index-header">HTML 基础</p>
-      </a>
-
-      <a href="/2019/12/29/HTML 基础/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">HTML 基础
-HTML标题：是通过 &lt;h1&gt; - &lt;h6&gt; 标签来定义的.；其会因为数字变化而显示的字体大小变化；
-HTML段落：通过标签&lt;p&gt; 来定义的.
-HTML链接：通过标签&lt;a&gt;来定义的。
-HTML图像：通过标签 &lt;img&gt; 来定义的。
-
-HTML 文本HTML 标题标题（Heading）是通过&lt;h1&gt; - &lt;h6&gt; 标签进行定义的.&lt;h1&gt; 定义最大的标题。 &lt;h6&gt;定义最小的标题。浏览器会自动地在标题的前后添加空行。
-
-标题很重要：
-不要仅仅是为了生成粗体或大号的文本而使用标题，而是==为了用户可以通过标题来快速浏览您的网页应该将 h1 用作主标题==（最重要的），其后是 h2（次重要的），再其次是 h3，以此类推。
-
-
-HTML 注释注释： 开始括号之后（左边的括号）需要紧跟一个叹号，结束括号之前（右边的括号）不需要，合理地使用注释可以对未来的代码编辑工作产生帮助。。
-&lt;!-- 这是一个注释 --&gt;
-HTML 段落浏览器会自动地在段落的前后添加空行。（</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-29&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
-        <p class="h4 index-header">DDCTF2019-RE-Windows Reverse</p>
-      </a>
-
-      <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">DDCTF2019-RE-Windows Reverse前言在一个论坛里发现DDCTF这两道逆向题不是很难，就想着做一下练练手。因为最近做的都是比较老的题目，这个还算新一点的。题目下载：reverse1_final.zipreverse2_final.exe.zip
-reverse1_final.exe查壳可以看出是UPX壳。另外：
- /Volumes/data/ctf逆向题目/2019ddctf  file reverse1_final.exe
-reverse1_final.exe: PE32 executable (console) Intel 80386, for MS Windows, UPX compressed在mac终端也可以用file命令查出。
-脱壳直接在终端UPX -d 脱了就可以了。
-运行发现直接是运行不了的，想到是不是因为脱壳后这个需要资源修复，各种操作修复后发现还是不可以。最后查询他人wp发现这个程序开启了ASLR。需要pe工具去关闭这个程序的ASLR。然后我就去查了ASLR是怎么关闭的，且其是什么东西。
-ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-17&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Re">Re</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/15/Vs code的简单调教/">
-        <p class="h4 index-header">Vscode的简单调教</p>
-      </a>
-
-      <a href="/2019/11/15/Vs code的简单调教/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Vscode的简单调教前言VScode是比较适合自己使用的，因为非常的简洁且不臃肿，拓展性还好。并且自己常写代码是就是为了输入输出实现某些功能，基本用不到调试功能。但碍于难以配置各种环境，一直没有用上，失败了很多次。现在又学着整了一下，现在已经吃上了vscode的香。写个博客，记录一下，也可以分析下经验。
-正常设置
-在这里点击完设置以后，会出现：在这里可以设置vscode的各种地方，就如图中一样，需要自己探索一下，然后设置成自己想要的结果。
-配置编译环境这里我只用到c/c++和Python就只记录这个了。输入C/C++在这里进行点个install。PYthon也是同样的操作。
-让代码跑起来在应用商店里搜索Code Runner。这个是个神器，有了它就可以在vscode直接运行各种代码。安装好后把vscode关闭，然后重新打开。
-新建个C/C++文件：然后右键是可以运行代码的。在右上角：这个小三角也可以运行代码。看下效果：
-更改为终端输出我们改一下代码：    #include     int main() {        int a;        scanf(“%d”,&amp;a</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-15&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/vscode">vscode</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
@@ -637,11 +660,6 @@ ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
 
 
     
-  <!-- 备案信息 -->
-  <a href="http://beian.miit.gov.cn/" target="_blank"
-     rel="nofollow noopener">豫ICP备20003962号</a>
-  
-
 
 
     <!-- cnzz Analytics icon -->

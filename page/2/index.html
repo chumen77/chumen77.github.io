@@ -135,6 +135,147 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/04/25/DASCTF安恒月赛/">
+        <p class="h4 index-header">DASCTF安恒月赛(4th)</p>
+      </a>
+
+      <a href="/2020/04/25/DASCTF安恒月赛/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">DASCTF安恒月赛-pwn前言开赛了，有点事情没打，晚上复现了一下。
+echo-server[*] &#39;/ctf/work/ahys/echo server/test&#39;
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+程序很简单，经典栈溢出，rop利用即可。但是因为是64位的，并且是glibc2.27，发现在做的时候构造rop链总是会cursh，调试发现：发现这段汇编直接会让程序cursh，想起来ex师傅一篇文章分析过，64位程序rop到system拿shell的时候也会这样。但是很奇怪这个也出现了，索性尝试一波。解决办法：还是加个ret，让栈对其即可。
+expfrom pwn import *
+local_file  = &#39;./test&#39;
+local_libc  = &#39;/lib/x86_64-linux-g</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-25&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/rop">rop</a>&nbsp;
+          
+            <a href="/tags/uaf">uaf</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/04/25/uaf和double free/">
+        <p class="h4 index-header">uaf和double free</p>
+      </a>
+
+      <a href="/2020/04/25/uaf和double free/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">uaf和double free前言最近开始打算入门堆，简单记录几道相关的题。
+hitcontraining-uaf题目较为简单存在后门函数，利用uaf漏洞攻击即可。
+expfrom pwn import *
+local_file  = &#39;./hacknote&#39;
+local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
+remote_libc = local_libc # &#39;../libc.so.6&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = ELF(local_libc)
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27892)
+    libc = ELF(remote_libc)
+
+elf = ELF(local_file)
+libc = elf.libc
+context.log_level = &#39;debug&#39;
+context.arch = elf.arc</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-25&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/04/20/pwntools的gdb.attach/">
+        <p class="h4 index-header">pwntools的gdb.attach</p>
+      </a>
+
+      <a href="/2020/04/20/pwntools的gdb.attach/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">pwntools的gdb.attach前言最近在尝试学着更快的调试exp，很早就了解到这个gdb.attach，但是本人是ssh连上去的，根本用不了。然后尝试tmux这个神器，来实现gdb.attach。成功以后发现一个不好的点，pwntools gdb.attach上的gdb调试中，很多函数是没有符号表的，调试起来反而难度增加。自己手动gdb.attach上去。然后发现谷歌也谷歌不出来，就来折腾源码了。版本号 ：pwntools (4.0.1)
+改善因为正常本人都是
+chumen77@chumen-77:~$ gdb at pid这样来进行attach。发现用pwntools时候，它进行的命令是这样的，然后思路就来了找到相关源码，改一下就好了。
+找关键处/running in new terminal删除2行和修改一行代码（-q 改成 at）即可。
+发现已经可以了。
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-20&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/04/13/Ropemporium通关记录/">
         <p class="h4 index-header">Ropemporium 通关记录</p>
       </a>
@@ -455,154 +596,6 @@ for i in range(len(key)):
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/11/linux_ DNS搭建记录/">
-        <p class="h4 index-header">linux- DNS搭建记录</p>
-      </a>
-
-      <a href="/2020/03/11/linux_ DNS搭建记录/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">DNS全称： domain name system
-域名服务基础DNS作用及类型DNS 系统的作用 ：
-正向解析：根据主机名称（域名）查找对应的 IP 地址（最常见）
-反向解析：根据 IP 地址查找对应的主机域名（通信行业常用）
-
-DNS 系统的工作模式：
-递归查询 ：访问必须有一次一回，会返回成功或者失败。
-迭代查询 ：多次访问，多次返回，必须返回一个正确的地址。域名结构：全世界有13台根域名服务器。BIND软件服务
-
-服务名：named 
-端口号：53
-主配置文件：/etc/named.conf
-保存 DNS 解析记录的数据文件位于：/var/named/
-
-主配置文件部分参数：listen-on port 53 { 127.0.0.1; }; //要填入自己主机ip
-listen-on-v6 port 53 { ::1; }; 
-allow-query     { any; };//意思是给任何网段进行解析
-分别是: ipv4监听端口和ip地址，默认只有本地的  ipv6的监听端口和ip地址
-recursion yes;             // 递归还是迭代查询
-dnsse</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/linux">linux</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
-        <p class="h4 index-header">linux\_ftp服务搭建踩坑记录</p>
-      </a>
-
-      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">linux_ftp服务搭建简单记录_前言简单记录一下，ftp的相关需要记录的知识跟搭建所踩的坑。
-两种服务模式
-主动模式：FTP服务器主动向客户端发起连接请求。
-被动模式：FTP服务器等待客户端发起连接请求（FTP的默认工作模式）。vsftpd服务程序ftp是Linux系统中以命令行界面的方式来管理FTP传输服务的客户端工具。我们首先手动安装这个ftp客户端工具，以便在后续实验中查看结果。vsftpd作为更加安全的文件传输的服务程序，允许用户以三种认证模式登录到FTP服务器上。
-匿名开放模式：是一种最不安全的认证模式，任何人都可以无需密码验证而直接登录到FTP服务器。
-本地用户模式：是通过Linux系统本地的账户密码信息进行认证的模式，相较于匿名开放模式更安全，而且配置起来也很简单。但是如果被黑客破解了账户的信息，就可以畅通无阻地登录FTP服务器，从而完全控制整台服务器。
-虚拟用户模式：是这三种模式中最安全的一种认证模式，它需要为FTP服务单独建立用户数据库文件，虚拟出用来进行口令验证的账户信息，而这些账户信息在服务器系统中实际上是不存在的，仅供FTP服务程序进行认证使用。这样，即使黑</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/linux">linux</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/02/29/安恒抗疫赛/">
-        <p class="h4 index-header">安恒抗疫赛</p>
-      </a>
-
-      <a href="/2020/02/29/安恒抗疫赛/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">安恒抗疫赛很简单的比赛，题也不多，记录一下做的2道简单的Re。
-re1_pyc拿到的是一个pyc文件。直接拿到网站上反编译一下：
-#!/usr/bin/env python
-# encoding: utf-8
-import base64
-import string
-def caser(flag):
-    enc1 = &#39;&#39;
-    for i in flag:
-        enc1 += chr(ord(i) - 5)
-
-    return enc1
-def rail(flag):
-    p1 = &#39;&#39;
-    p2 = &#39;&#39;
-    p3 = &#39;&#39;
-    enc2 = &#39;&#39;
-    for i in range(len(flag)):
-        j = i % 3
-        if j == 0:
-            p1 += flag[i]
-            continue
-        if j == 1:
-            p2 += flag[i]
-  </div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-29&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/WP">WP</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
@@ -682,11 +675,6 @@ def rail(flag):
 
 
     
-  <!-- 备案信息 -->
-  <a href="http://beian.miit.gov.cn/" target="_blank"
-     rel="nofollow noopener">豫ICP备20003962号</a>
-  
-
 
 
     <!-- cnzz Analytics icon -->
