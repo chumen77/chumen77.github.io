@@ -135,6 +135,59 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/09/14/羊城杯2020部分wp/">
+        <p class="h4 index-header">羊城杯2020部分wp</p>
+      </a>
+
+      <a href="/2020/09/14/羊城杯2020部分wp/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">羊城杯2020部分wpreloginPython exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：
+ 在脱去以后，会有主程序，跟一个struct的文件。
+要保证主程序与struct的前面的魔法字节是相同一样的。
+重点关注前16个字节，保证相同即可。修复好pyc后，就可以进行反编译。剩下的就是逆算法，需要用到z3。
+exp#!/usr/bin/env python2.7
+from z3 import *
+&#39;&#39;&#39;
+a1 = Int(&#39;a1&#39;)
+a2 = Int(&#39;a2&#39;)
+a3 = Int(&#39;a3&#39;)
+a4 = Int(&#39;a4&#39;)
+a5 = Int(&#39;a5&#39;)
+a6 = Int(&#39;a6&#39;)
+a7 = Int(&#39;a7&#39;)
+a8 = Int(&#39;a8&#39;)
+a9 = Int(&#39;a9&#39;)
+a10 = Int(&#39;a10&#39;)
+a11 = Int(&#39;a11&#39;)
+a12 = Int(&#39;a12</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-14&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/09/07/实战去除packet tracer登陆窗口/">
         <p class="h4 index-header">实战去除packet tracer登陆窗口</p>
       </a>
@@ -565,61 +618,11 @@ Out[6]:
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/05/13/House of Force/">
-        <p class="h4 index-header">House of Force</p>
-      </a>
-
-      <a href="/2020/05/13/House of Force/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">House of Force前言基本按照这wiki上面学的，简单记录一下。
-原理
-使用条件
-能够以溢出等方式控制到 top chunk 的 size 域
-能够自由地控制堆分配尺寸的大小产生原因House Of Force 产生的原因在于 glibc 对 top chunk 的处理：进行堆分配时,如果所有空闲的块都无法满足需求,那么就会从 top chunk 中分割出相应的大小作为堆块的空间。
-
-所以当使用 top chunk 分配堆块的 size 值是由用户控制的任意值时会发生什么?答案是,可以使得 top chunk指向我们期望的任何位置,这就相当于一次任意地址写。
-// 获取当前的top chunk，并计算其对应的大小
-victim = av-&gt;top;
-size   = chunksize(victim);
-// 如果在分割之后，其大小仍然满足 chunk 的最小大小，那么就可以直接进行分割。
-if ((unsigned long) (size) &gt;= (unsigned long) (nb + MINSIZE)) 
-{
-    remainder_size = si</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-13&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/House%E7%B3%BB%E5%88%97">House系列</a>&nbsp;
-          
-            <a href="/tags/heap">heap</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

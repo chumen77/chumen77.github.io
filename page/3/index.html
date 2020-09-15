@@ -135,6 +135,51 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+        <p class="h4 index-header">XCTF\_高校战疫赛\_RE-天津垓</p>
+      </a>
+
+      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">XCTF_高校战疫赛_RE_ 天津垓_前言复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。
+初步运行发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。看来是需要输入判断。
+ida分析这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。
+v39 = &#39;Rising_Hopper!&#39;
+result = &#39;&#39;
+key = [17,8,6,10,15,20,42,59,47,3,47,4,16,72,62,0,7,16]
+tag = [0x52,0x69,0x73,0x69,0x6E,0x67,0x5f,0x48,0x6f,0x70,0x70,0x65,0x72,0x21]
+
+for i in range(len(key)):
+    x = 0
+    flag = 1
+    while flag:
+        if ~(x &</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-11&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/RE">RE</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/03/11/linux_ DNS搭建记录/">
         <p class="h4 index-header">linux- DNS搭建记录</p>
       </a>
@@ -543,49 +588,11 @@ ida分析由于这个程序使用静态编译和strip命令剥离符号，用ida
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/02/03/ROP练习/">
-        <p class="h4 index-header">ROP题目练习</p>
-      </a>
-
-      <a href="/2020/02/03/ROP练习/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">ROP题目练习前言最近在学习栈溢出，做了一些ROP的练习题，基本都是buuoj的题目，搜索rop字眼找的rop题。简单记录一下收获和exp。
-有libc（或者无libc可做）OGeek2019_babyrop查保护和arch32位程序，开启NX堆栈不可执行。
-ida分析可以看出其取了一个随机数，存入buf。然后进入这个函数分析，看到接收buf传来的值，放入s中。然后下面接收你传入的东西，与s判断是否相同，不相同就会退出。然后如果不退出返回值是v5，但是这里的v5在函数中是没有经过处理的。看一下汇编：v5咱们想控制，就只能通过原来那个read函数，咱们传入的值去控制。返回值给v2，然后v2作为参数然后进入下面这个带有溢出的函数中。 观察后，可以看出咱们应该把这个返回的参数整的大一点，方便进行写ROP链。
-分析总结其中对于绕过相等判断，可以利用一下strlen函数的特性，然后直接用\x00来截断。v5这个返回参数可以控制为’\xff’,然后进入带有溢出的函数，写rop链就行了。先用puts函数泄露出__libc_start_main的地址，然后在给的libc中确认下symbols，然后拿到</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-03&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/ROP">ROP</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   
