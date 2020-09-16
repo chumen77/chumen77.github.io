@@ -135,6 +135,64 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/06/27/DASCTF安恒月赛(6th)/">
+        <p class="h4 index-header">DASCTF安恒月赛(6th)</p>
+      </a>
+
+      <a href="/2020/06/27/DASCTF安恒月赛(6th)/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">DASCTF安恒月赛(6th)REpyCharm(pyc文件恢复)这个题基本参考https://www.52pojie.cn/thread-912103-1-1.html来做的。
+加载pyc co_codeIn [1]: import dis,marshal
+
+In [2]: f=open(&#39;1.pyc&#39;)
+
+In [3]: f.read(4)
+Out[3]: &#39;\x03\xf3\r\n&#39;
+
+In [4]: f.read(4)
+Out[4]: &#39;jv\xe7^&#39;
+
+In [5]: code = marshal.load(f)
+
+In [6]: code.co_consts
+Out[6]:
+(-1,
+ None,
+ &#39;YamaNalaZaTacaxaZaDahajaYamaIa0aNaDaUa3aYajaUawaNaWaNajaMajaUawaNWI3M2NhMGM=&#39;,
+ &#39;Are u ready?&#39;,
+ 0,
+ 32,
+ &#39;a&#39;,
+ &#39;&#39;,
+ &#39;great!waht</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-27&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/05/13/House of Force/">
         <p class="h4 index-header">House of Force</p>
       </a>
@@ -217,9 +275,9 @@ local_libc  = &#39;/lib/x86_64-linux-g</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
             <a href="/tags/rop">rop</a>&nbsp;
           
@@ -546,55 +604,6 @@ inndy_echo保护和arch[*] &#39;/media/psf/mypwn2/buuctf/inndy_echo/echo&#39;
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/03/12/格式化字符串漏洞小总结（上）/">
-        <p class="h4 index-header">格式化字符串漏洞小总结（上）</p>
-      </a>
-
-      <a href="/2020/03/12/格式化字符串漏洞小总结（上）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">格式化字符串漏洞小总结（上）前言记录一下，在学习这个漏洞时候的自己感觉的疑难点，和做题时候的一点小技巧，这一篇主要是记录理论。
-格式化字符串基本格式：
-%[parameter][flags][field width][.precision][length]type
-需要重点关注的pattern：
-
-parameter ：n$，获取格式化字符串中的指定参数
-field width ：输出的最小宽度
-precision ：输出的最大长度
-length，输出的长度 : hh，1-byte ； h，2-byte ； l, 4-byte ；ll,8-byte ；
-type : d/i，有符号整数
- u，无符号整数
- x/X，16 进制 unsigned int 。x 使用小写字母；X 使用大写字母.
- s，输出以null 结尾字符串直到精度规定的上限；如果没有指定精度，则输出所有字节。
- c，把 int 参数转为 unsigned char 型输出
- p， void * 型，输出对应变量的值。printf(&quot;%p&quot;,a) 用地址的格式打印变量 a 的值，printf(&quo</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-12&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
           
         
       </div>

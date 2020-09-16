@@ -175,9 +175,60 @@ a12 = Int(&#39;a12</div>
         
           <i class="iconfont icon-tag"></i>
           
+            <a href="/tags/re">re</a>&nbsp;
+          
             <a href="/tags/pwn">pwn</a>&nbsp;
           
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
+        <p class="h4 index-header">2020 “中能融合杯” 部分wp</p>
+      </a>
+
+      <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">工控wpICS_8就是一个算法的逆向。
+#!/usr/bin/env python2.7
+import struct
+import base64
+
+cypher_text = &#39;HgoAVxEfdCRlPytBA1JSHiVOZW4VMURPcANETw==&#39;
+iv = struct.unpack(&quot;I&quot;, &#39;x1a0&#39;)[0]
+def decode(cypher_text,iv):
+    cypher_text = base64.b64decode(cypher_text)
+    padding = 4 - len(cypher_text) % 4
+    if padding != 0:
+        cypher_text = cypher_text + &quot;\x00&quot; * padding
+
+    l = cypher_text
+    crypher = struct.unpack(&quot;I&quot;*(len(l)/4),l)
+    datas = []
+    datas += [ de</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-12&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/misc">misc</a>&nbsp;
           
         
       </div>
@@ -273,9 +324,9 @@ __int64 __fastcall leave_message(unsigned int a1)
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
@@ -322,9 +373,9 @@ b = np.array([[12094],[25270],[19330]</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
@@ -365,9 +416,9 @@ b = np.array([[12094],[25270],[19330]</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
             <a href="/tags/IOT">IOT</a>&nbsp;
           
@@ -554,64 +605,6 @@ ida分析
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/06/27/DASCTF安恒月赛(6th)/">
-        <p class="h4 index-header">DASCTF安恒月赛(6th)</p>
-      </a>
-
-      <a href="/2020/06/27/DASCTF安恒月赛(6th)/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">DASCTF安恒月赛(6th)REpyCharm(pyc文件恢复)这个题基本参考https://www.52pojie.cn/thread-912103-1-1.html来做的。
-加载pyc co_codeIn [1]: import dis,marshal
-
-In [2]: f=open(&#39;1.pyc&#39;)
-
-In [3]: f.read(4)
-Out[3]: &#39;\x03\xf3\r\n&#39;
-
-In [4]: f.read(4)
-Out[4]: &#39;jv\xe7^&#39;
-
-In [5]: code = marshal.load(f)
-
-In [6]: code.co_consts
-Out[6]:
-(-1,
- None,
- &#39;YamaNalaZaTacaxaZaDahajaYamaIa0aNaDaUa3aYajaUawaNaWaNajaMajaUawaNWI3M2NhMGM=&#39;,
- &#39;Are u ready?&#39;,
- 0,
- 32,
- &#39;a&#39;,
- &#39;&#39;,
- &#39;great!waht</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-06-27&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
           
         
       </div>

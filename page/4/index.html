@@ -135,6 +135,52 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
+        <p class="h4 index-header">花式栈溢出（栈帧的调节）</p>
+      </a>
+
+      <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">花式栈溢出（栈帧的调节）前言本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：
+
+加减esp值，控制栈指针
+Stack Migration来构造一个假的栈帧。
+
+这里总结了2种题型：
+加减esp，把控栈指针这种题型就需要用Ropgadget找一个控制esp的gadget，然后简单修改esp值的大小，来满足我们的需求。
+Alictf_016_vss这个题目就是一个修改esp扩大栈空间，从而构造rop链获取shell的题目。
+检查保护和arch
+ida分析由于这个程序使用静态编译和strip命令剥离符号，用ida打开没有我们平时看的那么简单，很多函数已经无法识别，我们就需要自己调试，然后推测是什么函数。start函数中，call的函数是__libc_start_main, 上一行的 offset则是main函数那个箭头就是main函数了。进入main函数以后，可以经过syscall中rax的参数</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-05&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
+          
+            <a href="/tags/Stack%20Migration">Stack Migration</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/02/03/ROP练习/">
         <p class="h4 index-header">ROP题目练习</p>
       </a>
@@ -513,49 +559,6 @@ void __declspec(naked) Function()
         push ebp
         mov ebp,esp
         sub esp,</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-19&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/10/19/C语言与反汇编学习（一）/">
-        <p class="h4 index-header">C语言与反汇编学习（一）</p>
-      </a>
-
-      <a href="/2019/10/19/C语言与反汇编学习（一）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">C语言与反汇编学习（一）前言：本课主要学习VC开发环境的简单使用，和几个函数反汇编分析。
-简单下熟悉VC6开发环境这里我直接用了编程达人的vc虚拟机，官方的vc6.0不是很好用，每次只支持调试一次，人家的可以突破这个限制。
-创建项目
-执行过程代码编写–&gt;生成EXE(F7)–&gt;运行(F5)–&gt;结束运行(Shift+F5)
-一些简单操作设置断点设置断点是光标放到哪行代码后按下F9即可，这也是后面很多操作的最重要的起初操作。
-调出寄存器，栈，内存窗口调出寄存器，栈，内存窗口看图，在空白处右击点击一下你需要的窗口就好了。
-进入反汇编窗口在程序运行时，且有适当断点的时候，看图
-右击程序框内的空白处，然后点击GO to Disassembly 就好了。在这里面最重要的操作就是：F10 F11分别是步过和步入。这个跟od里不一样。
-C语言的调用1、无参数，无返回值的函数调用2、有参数，无返回值的函数调用3、无参数，有返回值的函数调用4、有参数，有返回值的函数调用
-函数的反汇编分析-空函数先上c：#include &quot;stdafx.h&quot;
-void Function(</div>
         </div>
       </a>
 

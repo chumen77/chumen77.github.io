@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.1k 字
+                    2.2k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      10 分钟
+                      11 分钟
                   </span>&nbsp;
                 
 
@@ -193,7 +193,7 @@ av-&gt;top        = remainder;
 
 /* Treat space at ptr + offset as a chunk */
 #define chunk_at_offset(p, s) ((mchunkptr)(((char *) (p)) + (s)))</code></pre><p>之后这里会把 top chunk的 指针更新，接下来的堆块就会分配到这个位置，用户只要控制了这个指针就相当于实现任意地址写任意值(write-anything-anywhere)。</p>
-<h2 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h2><h3 id="让top-chunk-的指针减小来修改位于其上面-低地址-的got表中的内容"><a href="#让top-chunk-的指针减小来修改位于其上面-低地址-的got表中的内容" class="headerlink" title="让top chunk 的指针减小来修改位于其上面(低地址) 的got表中的内容"></a>让top chunk 的指针减小来修改位于其上面(低地址) 的got表中的内容</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/DKC4bL.png" srcset="/img/loading.gif" alt><br>这个核心就是来缩小top chunk 的指针，来修改位于其上面(低地址) 的某处中的内容。这里可能是heap的指针，got表。</p>
+<h2 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h2><h3 id="让top-chunk-的指针减小来修改位于其上面-低地址-的got表中的内容"><a href="#让top-chunk-的指针减小来修改位于其上面-低地址-的got表中的内容" class="headerlink" title="让top chunk 的指针减小来修改位于其上面(低地址) 的got表中的内容"></a>让top chunk 的指针减小来修改位于其上面(低地址) 的got表中的内容</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/DKC4bL.png" srcset="/img/loading.gif" alt><br>这个核心就是来缩小top chunk 的指针，来修改位于其上面(低地址) 的某处中的内容。这里可能是heap的指针，got表。<strong>通常应该都是打heap，因为heap的地址是相对的，不会收到地址随机化的影响。而打got的话，堆的地址是随机的，并无法确定申请多少size 大小的堆，可以攻击到got</strong></p>
 <p><strong>这其中有个难缠的问题就是结构体对齐问题，目前我所练习到的题遇到这个问题的都是，减去一下<code>SIZE_SZ</code>（64位是8 ，32位是4）。</strong></p>
 <h3 id="让那个top-chunk-指针增大来修改位于高地址空间的内容"><a href="#让那个top-chunk-指针增大来修改位于高地址空间的内容" class="headerlink" title="让那个top chunk 指针增大来修改位于高地址空间的内容"></a>让那个top chunk 指针增大来修改位于高地址空间的内容</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/s1Uuan.png" srcset="/img/loading.gif" alt><br>这个是较好理解的，常用修改libc上面某处的地址。</p>
 <h2 id="hitcon-training-bamboobox"><a href="#hitcon-training-bamboobox" class="headerlink" title="hitcon-training-bamboobox"></a>hitcon-training-bamboobox</h2><p>主要是修改一下，开始程序自动创建的存放2个函数指针的堆，其中hello-message用于程序开始时使用，goodbye-message 用于在程序结束时使用。</p>
