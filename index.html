@@ -135,6 +135,91 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
+        <p class="h4 index-header">mac 上ida 7.0 闪退 打不开 解决办法</p>
+      </a>
+
+      <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">mac 上ida 7.0 闪退 打不开 解决办法情景1下载以后直接不能用的。
+https://github.com/fjh658/IDA7.0_SP
+https://github.com/swfangzhang/IDA-pro-7-for-Catalina-OSX-15
+参考这个两个github的项目即可。
+情景2平时正常使用，突然因为装了冲突的插件打不开ida，直接crash。或者莫名点击ida图标就没有任何反应。进入ida.app bin 下的ida，双击执行命令行中，会显示内核错误的情况。
+ ~ cd .idapro 
+ ~/.idapro  rm -rf ida.reg
+这样就可以解决了。
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-06&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/09/28/BUUCTF刷题记录/">
+        <p class="h4 index-header">BUUCTF 刷题记录</p>
+      </a>
+
+      <a href="/2020/09/28/BUUCTF刷题记录/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">BUUCTF刷题记录GKCTF 2020 demo分析开启了沙箱，不过在main函数的最后，在while循环里做动作就不会触发到。其中add和free 函数，上来都会检测free_hook malloc_hook 是否不为0，不为0就不让进行相应的操作。
+漏洞点 if ( (nbytes &amp; 0x80000000) == 0LL &amp;&amp; nbytes &lt;= 0x120 )
+        {
+          heaplist[SHIDWORD(nbytes)] = malloc(nbytes);
+          puts(&quot;content:&quot;);
+          read(0, heaplist[SHIDWORD(nbytes)], nbytes);
+          *(heaplist[SHIDWORD(nbytes)] + nbytes) = 0;// off by null
+          ++counts;
+        }
+Add中存在OFF BY NULL。
+攻击思路
+利用off by null 构造一个</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-28&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">
         <p class="h4 index-header">ciscn 2020 华中分区赛部分wp</p>
       </a>
@@ -222,9 +307,9 @@ a12 = Int(&#39;a12</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/re">re</a>&nbsp;
-          
             <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
           
         
       </div>
@@ -371,9 +456,9 @@ __int64 __fastcall leave_message(unsigned int a1)
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/re">re</a>&nbsp;
-          
             <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
           
         
       </div>
@@ -420,9 +505,9 @@ b = np.array([[12094],[25270],[19330</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/re">re</a>&nbsp;
-          
             <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
           
         
       </div>
@@ -463,9 +548,9 @@ b = np.array([[12094],[25270],[19330</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/re">re</a>&nbsp;
-          
             <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
           
             <a href="/tags/IOT">IOT</a>&nbsp;
           
@@ -514,97 +599,6 @@ sudo  curl -L https://raw.githubusercontent.c</div>
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/07/25/DASCTF安恒月赛(7th)/">
-        <p class="h4 index-header">DASCTF安恒月赛(7th)</p>
-      </a>
-
-      <a href="/2020/07/25/DASCTF安恒月赛(7th)/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">DASCTF安恒月赛(7th)只做出个签到题，tcl。。。
-虚假的签到题简单的栈溢出，但是出题人估计是用了GCC&gt;=4.9版本，故意给这个Stack Buffer Overflow 设置难度。
-分析 0x80485fd &lt;main+104&gt;:        mov    ecx,DWORD PTR [ebp-0x4]
- 0x8048600 &lt;main+107&gt;:        leave
- 0x8048601 &lt;main+108&gt;:        lea    esp,[ecx-0x4]
- 0x8048604 &lt;main+111&gt;:        ret
-这里我们可以看到，程序在对栈的保存上，额外使用了 ecx 来保存栈上的某个值。并且调试可以发现，如果我们直接overflow了 esp，那么会造成奇怪的影响。
-试着分析一下：
-
-想要控制esp，就得控制ecx
-想要控制ecx，就得至少控制到ebp-0x4的位置
-
-由于是gets的获取输入，这个明显很容易实现。
-核心就是让：
-[ [ebp-0x4] - 0x4] = address(</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-25&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/07/10/BUUCTF暑假刷题/">
-        <p class="h4 index-header">BUUCTF暑假刷题(1)</p>
-      </a>
-
-      <a href="/2020/07/10/BUUCTF暑假刷题/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">BUUCTF暑假刷题(1)cmcc_simplerop分析静态链接。32位程序。用int 80h 这个中断调用，呼叫系统调用程序system_call().。
-然后rop 控制EAX = 0Xb = 11，EBX = &amp;(“/bin/sh”), ECX = EDX = 0，即执行了sys_execve(&quot;/bin/sh&quot;, 0, 0, 0)，即可拿到shell。
-32位系统调用表：https://blog.csdn.net/xiaominthere/article/details/17287965
-expfrom pwn import *
-import time
-local_file  = &#39;./simplerop&#39;
-local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
-remote_libc = local_libc # &#39;../libc.so.6
-context.log_level = &#39;debug&#39;
-debug = 0
-if debug:
-    io =</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-10&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
