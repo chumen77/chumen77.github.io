@@ -135,6 +135,91 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/25/记录i春秋新春公益赛的两个题/">
+        <p class="h4 index-header">记录i春秋新春公益赛的两个题</p>
+      </a>
+
+      <a href="/2020/02/25/记录i春秋新春公益赛的两个题/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">记录i春秋新春公益赛的两个题吃鸡神器这个题目是比赛时没做，因为有一段时间没做re题目了，下来看到这个题做出的人不算少，就去尝试做一做。源程序是qt写的，以前听室友说过qt的程序ida是静态分析不了的，函数调用太多了，就直接动态分析。这个题目应该是有多线程od打开直接是黑屏的，左下角显示新建了一个线程，第一次做这种题也比较没有头绪。折腾了一会发现用的x64dbg可以调试了。
+x64dbg调试一直运行程序等代码跑到0x40开头的段，进入login 的模块。找下字符串：￼在这里下个断点。因为登陆失败会跳转输出这个字符串的函数，看看能不能查看出是从哪里跳转过来的然后在密码判断那里来继续分析。看到已经跳转过来了，但是发现附近没有什么判断的地方，去根据那个从哪里跳转过来，追过去看到登陆成功调用welcome的函数，但是也没有发现什么可以利用的那里的判断不是要找的密码判断。换个思路，还是跳转到失败那里，但是在上层函数的栈中，因为存在判断登陆的用户跟密码，应该会存在我们输入的东西，寻找一下密码跟用户名。找到了，给用户名对应的地址下一个硬件断点，来看看哪里会访问这里，只要访问了基本距离要找的函数差不远了</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-25&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/WP">WP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/02/17/XCTF_pwn新手/">
+        <p class="h4 index-header">XCTF\_pwn新手</p>
+      </a>
+
+      <a href="/2020/02/17/XCTF_pwn新手/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">XCTF_pwn新手cgpwn2查保护和arch    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)
+ida分析漏洞就在这s处，gets可以无限读取，导致栈溢出。
+攻击思路
+第一个fgets获取时候，读取一个/bin/sh\x00进去，因为name的地址是固定的。
+get函数获取时候，padding + system_plt +name地址即可。
+
+expfrom pwn import *
+context.log_level = &#39;debug&#39;
+# io = process(&#39;./cgpwn2&#39;)
+io = remote(&#39;111.198.29.45&#39;,40540)
+elf = ELF(&#39;./cgpwn2&#39;)
+io.recvuntil(&#39;name\n&#39;)
+raw_input(</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-17&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/WP">WP</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/02/15/利用DynElf模块完成获取libc信息/">
         <p class="h4 index-header">利用DynElf模块完成获取libc信息</p>
       </a>
@@ -467,80 +552,6 @@ ASLRASLR通过随机放置进程关键数据区域的地址空间</div>
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/vscode">vscode</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/12/C语言与反汇编学习（五）/">
-        <p class="h4 index-header">C语言与反汇编学习（五）</p>
-      </a>
-
-      <a href="/2019/11/12/C语言与反汇编学习（五）/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">C语言与反汇编学习（五）前言主要是记录一下，在学习过程中认为容易忘记且重要的东西，方便以后忘了再来学习一下。集中于结构体部分以及结构体对齐的知识。
-结构体的使用练习1、定义一个结构体Gamer用来存储一个游戏中的角色的信息，包括血值、等级、坐标等信息    。要求：    (1) 具体包含哪些信息自由设计    (2) 但这些包含的类型中，必须要有一个成员是结构体类型。    2、定义一个函数，用来给这个结构体变量赋值.3、定义一个函数，用来显示这个结构体变量的所有成员信息.    #include     #include &lt;stdio.h&gt;    #include &lt;string.h&gt;    struct point    {        int x;        int y;        int z;    };    struct Gamer    {        char name[20];        int level;        float HP;        point a;    }No1;    void Function(</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-12&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/c%E4%B8%8E%E6%B1%87%E7%BC%96">c与汇编</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/11/09/Xctfre_新手区wp/">
-        <p class="h4 index-header">Xctf\_RE新手区WP</p>
-      </a>
-
-      <a href="/2019/11/09/Xctfre_新手区wp/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Xctf_RE新手区WP前言学c与反汇编学的有点疲倦了，且实际运用比较少，所以最近一周刷了很多的Re入门题，巩固知识且熟悉下ctf中的RE题目。
-re1第一步，先查壳：（查壳很重要，可以先确认是否有壳还可以知道程序是什么语言编写的）看下程序是干嘛的，也就是你输入flag然后程序出个判断是否正确。估计就是个明文对比，直接od打开：断在了re模块。直接搜索字符串拿到flag
-game还是先查壳：无壳这道题有多种做法，下面展示三种：
-第一种这个做法主要是判断程序逻辑，然后改关键跳转的汇编代码，进行爆破破解。先看下程序是做什么的：先输入个1发现图案中第1，2，8行图形发生了变化。接着输入2，然后第3，4，8行图形发生了变化。感觉没什么规律，大概猜一下，应该是这8行的线条全部连通就可以完成这个游戏。
-打开IDA进行静态分析发现一堆函数难以找到主函数，按shift+F12查看字符串点击这个，查看一下这个字符串的交叉引用，然后可以双击跳转到main函数，看整个程序的逻辑。
-跳转好后按F5查看伪代码：在下方发现了一个判断语句，满足后会调用sub_45Ab4这个函数。双击进入看看这个函数做了什么：发现会</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-09&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Re">Re</a>&nbsp;
-          
-            <a href="/tags/WP">WP</a>&nbsp;
           
         
       </div>

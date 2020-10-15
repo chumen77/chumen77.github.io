@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>标签 - WP ~ Chumen77&#39;s Blog</title>
+  <title>标签 - wp ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -127,37 +127,16 @@
                 
 
 <div class="list-group">
-<!--  <p class="h4">共计 4 篇文章</p>-->
+<!--  <p class="h4">共计 1 篇文章</p>-->
   <hr>
   
     
       
       <p class="h5">2020</p>
     
-    <a href="/2020/02/29/安恒抗疫赛/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">安恒抗疫赛</span>
-      <span style="float: right;">02-29</span>
-    </a>
-  
-    
-    <a href="/2020/02/25/记录i春秋新春公益赛的两个题/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">记录i春秋新春公益赛的两个题</span>
-      <span style="float: right;">02-25</span>
-    </a>
-  
-    
-    <a href="/2020/02/17/XCTF_pwn新手/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XCTF\_pwn新手</span>
-      <span style="float: right;">02-17</span>
-    </a>
-  
-    
-      
-      <p class="h5">2019</p>
-    
-    <a href="/2019/11/09/Xctfre_新手区wp/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Xctf\_RE新手区WP</span>
-      <span style="float: right;">11-09</span>
+    <a href="/2020/04/13/Ropemporium通关记录/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">Ropemporium 通关记录</span>
+      <span style="float: right;">04-13</span>
     </a>
   
 </div>
@@ -287,7 +266,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - WP&nbsp;",
+        "标签 - wp&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -376,6 +355,37 @@
           // 随机颜色
           function rand_color() {
             return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+</body>
+</html>
++ ")"
           }
           //在body添加这个标签
           $("body").append($i);

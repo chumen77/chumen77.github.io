@@ -135,6 +135,103 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/10/09/House of Spirit/">
+        <p class="h4 index-header">House of Spirit</p>
+      </a>
+
+      <a href="/2020/10/09/House of Spirit/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">House of SpiritHouse of Spirit（下面称为hos）是一个组合型漏洞的利用，是变量覆盖和堆管理机制的组合利用，关键在于能够覆盖一个堆指针变量，使其指向可控的区域，只要构造好数据，释放后系统会错误的将该区域作为堆块放到相应的fastbin里面，最后再分配出来的时候，就有可能改写我们目标区域（多为函数指针和返回地址）。
+核心条件
+有机会覆盖一个堆指针变量，使其指向目标可控的区域
+能够在目标可控位置处伪造 fastbin chunk
+
+这样将其这个堆指针释放，会放到相应的fastbin，从而达到分配指定地址的 chunk 的目的。
+fastbin fake chunk 需要绕过的检测
+fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理。
+fake chunk 地址需要对齐， MALLOC_ALIGN_MASK
+fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐。
+fake chunk 的 next chunk 的大小不能小于 2 * SIZE_SZ，同时也不</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-09&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/House%E7%B3%BB%E5%88%97">House系列</a>&nbsp;
+          
+            <a href="/tags/heap">heap</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/10/09/西湖论剑部分wp/">
+        <p class="h4 index-header">西湖论剑部分wp</p>
+      </a>
+
+      <a href="/2020/10/09/西湖论剑部分wp/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">西湖论剑部分wpmmutag分析
+给了一个栈地址
+没有show函数
+free 函数存在uaf
+add函数只能申请堆号为1-10的堆块，大小仅为0x68
+可以给栈上读一段数据
+
+char buf; // [rsp+10h] [rbp-20h]
+  if ( v3 != 3 )
+        break;
+      read(0, &amp;buf, 0x20uLL);
+      printf(&quot;Your content: %s\n&quot;, &amp;buf);
+利用这个可以泄漏栈上的数据，也可以在栈上写一定的数据。
+难点如何泄漏libc地址。
+栈上是有很多数据的，可以用choice 3进行泄漏一定的数据，但是由于\x00的截断，泄漏一个stack地址后，其后有用的libc地址没办法泄漏。
+看下其栈情况：
+可控区域0x20，如果可以填充其中无用的数据到libc地址，再利用一次 choice 3 即可完成泄漏。
+现在也已经知道了stack的地址。伪造一个0x70的堆，然后fastbin attack即可申请到这栈上的内存。然后填充，获取libc地址。接着攻击malloc</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-09&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
         <p class="h4 index-header">mac 上ida 7.0 闪退 打不开 解决办法</p>
       </a>
@@ -307,9 +404,9 @@ a12 = Int(&#39;a12</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
@@ -456,9 +553,9 @@ __int64 __fastcall leave_message(unsigned int a1)
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
           
         
       </div>
@@ -505,100 +602,9 @@ b = np.array([[12094],[25270],[19330</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
             <a href="/tags/re">re</a>&nbsp;
           
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/16/无标题/">
-        <p class="h4 index-header">安恒HWS夏令营选拔赛部分题目</p>
-      </a>
-
-      <a href="/2020/08/16/无标题/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">安恒HWS夏令营选拔赛部分题目REIOT1环境搭建参考：https://www.cnblogs.com/csnd/p/11800622.html
-注意网卡那块，要对应自己虚拟机网卡的情况。
-启动命令：qemu-system-mipsel -M malta -hda openwrt-malta-le-root.ext4 -kernel openwrt-malta-le-vmlinux.elf -nographic -append &quot;root=/dev/sda console=tty50&quot;  -net nic -net tap
-把虚拟机中要分析的maze文件取出来scp -r /path/maze username@servername:/path 
-使用ghidra进行分析  fgets(buf,0x28,_stdin);
-  len = strlen(buf);
-  uStack68 = 0x20;
-  if (*(char *)((int)&amp;uStack68 + len + 3) == &#39;\n&#39;) {
-    *(undefined *)(</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-16&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
             <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/IOT">IOT</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/10/MacOS安装IDA插件keypatch/">
-        <p class="h4 index-header">MacOS安装IDA插件keypatch</p>
-      </a>
-
-      <a href="/2020/08/10/MacOS安装IDA插件keypatch/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">MacOS安装IDA插件keypatchmacOS 安装官方介绍的安装方式不太行。网上参考后记录一下。
-cmakebrew install cmake
-gitgit clone https://github.com/fjh658/keystone-engine.git
-
-cd keystone-engine
-
-git submodule update --init --recursive
-
-sudo python2 setup.py install --verbose
-此时在安装后的最后几段代码中，找到类似：
-/Library/Python/2.7/site-packages/keystone
-这是本地python2.7的路径。
-cpcp -r /Library/Python/2.7/site-packages/keystone /Applications/IDA\ Pro\ 7.0/ida.app/Contents/MacOS/python/lib/python2.7/lib-dynload/
-sudo  curl -L https://raw.githubusercontent.c</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-10&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
           
         
       </div>

