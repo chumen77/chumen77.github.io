@@ -135,6 +135,55 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/08/20/ciscn 2020初赛部分题目/">
+        <p class="h4 index-header">ciscn 2020初赛部分题目</p>
+      </a>
+
+      <a href="/2020/08/20/ciscn 2020初赛部分题目/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">ciscn  2020初赛部分题目rez3￼看起来像是非齐次线性方程，那就是就是一个解方程:
+from numpy import *
+import numpy as np
+a = np.array([[12, 53, 6,34,58,36,1],
+            [83,85,12,73,27,96,52],
+            [78,53,24,36,86,25,46],
+            [39,78,52,9,62,37,84],
+            [23,6,14,74,48,12,83],
+            [27,85,92,42,48,15,72],
+            [4,6,3,67,0,26,68]])
+b = np.array([[20247],[40182],[36315],[36518],[26921],[39185],[16546]])
+result=[]
+x = np.linalg.solve(a, b)
+result += x.tolist()
+b = np.array([[12094],[25270],[19330</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-20&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/08/16/无标题/">
         <p class="h4 index-header">安恒HWS夏令营选拔赛部分题目</p>
       </a>
@@ -563,46 +612,6 @@ context.arch = elf.arc</div>
             <a href="/tags/pwn">pwn</a>&nbsp;
           
             <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/04/20/pwntools的gdb.attach/">
-        <p class="h4 index-header">pwntools的gdb.attach</p>
-      </a>
-
-      <a href="/2020/04/20/pwntools的gdb.attach/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">pwntools的gdb.attach前言最近在尝试学着更快的调试exp，很早就了解到这个gdb.attach，但是本人是ssh连上去的，根本用不了。然后尝试tmux这个神器，来实现gdb.attach。成功以后发现一个不好的点，pwntools gdb.attach上的gdb调试中，很多函数是没有符号表的，调试起来反而难度增加。自己手动gdb.attach上去。然后发现谷歌也谷歌不出来，就来折腾源码了。版本号 ：pwntools (4.0.1)
-改善因为正常本人都是
-chumen77@chumen-77:~$ gdb at pid这样来进行attach。发现用pwntools时候，它进行的命令是这样的，然后思路就来了找到相关源码，改一下就好了。
-找关键处/running in new terminal删除2行和修改一行代码（-q 改成 at）即可。
-发现已经可以了。
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-20&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
           
         
       </div>

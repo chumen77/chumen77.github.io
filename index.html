@@ -135,6 +135,56 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2020/10/19/N1CTF2020部分wp/">
+        <p class="h4 index-header">N1CTF2020部分wp</p>
+      </a>
+
+      <a href="/2020/10/19/N1CTF2020部分wp/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">N1CTF2020部分wpsignin调试one gadget 花了近4小时。。😭
+分析c++写的程序，存在add show del的功能，但是进入各自的函数看，看的是稀里糊涂的。个人发现的只是其按照自己的逻辑对内存块idx 1，2进行处理。
+因为功能很简单，可以直接上手调试，来确定程序是如何运作的。
+上手调试后会发现，其根据3个指针来对idx 1、2 处理。
+动调分析def add(idx,data):
+    sla(&#39;&gt;&#39;,&#39;1&#39;)
+    sla(&#39;dex&#39;,str(idx))
+    sla(&#39;ber&#39;,str(data))
+add(1,1)
+看下bss段0x2032a0的数据：
+pwndbg&gt;  x/30gx 0x0002032A0 +0x555555554000
+0x5555557572a0: 0x0000555555769e70      0x0000555555769e78
+0x5555557572b0: 0x0000555555769e78      0x0000000000000000
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-19&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/heap">heap</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2020/10/09/House of Spirit/">
         <p class="h4 index-header">House of Spirit</p>
       </a>
@@ -548,55 +598,6 @@ __int64 __fastcall leave_message(unsigned int a1)
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-24&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/20/ciscn 2020初赛部分题目/">
-        <p class="h4 index-header">ciscn 2020初赛部分题目</p>
-      </a>
-
-      <a href="/2020/08/20/ciscn 2020初赛部分题目/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">ciscn  2020初赛部分题目rez3￼看起来像是非齐次线性方程，那就是就是一个解方程:
-from numpy import *
-import numpy as np
-a = np.array([[12, 53, 6,34,58,36,1],
-            [83,85,12,73,27,96,52],
-            [78,53,24,36,86,25,46],
-            [39,78,52,9,62,37,84],
-            [23,6,14,74,48,12,83],
-            [27,85,92,42,48,15,72],
-            [4,6,3,67,0,26,68]])
-b = np.array([[20247],[40182],[36315],[36518],[26921],[39185],[16546]])
-result=[]
-x = np.linalg.solve(a, b)
-result += x.tolist()
-b = np.array([[12094],[25270],[19330</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-20&nbsp;&nbsp;
         
         
         
