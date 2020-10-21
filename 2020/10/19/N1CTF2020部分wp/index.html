@@ -121,7 +121,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1k 字
+                    1.3k 字
                   </span>&nbsp;
                 
 
@@ -129,7 +129,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      4 分钟
+                      6 分钟
                   </span>&nbsp;
                 
 
@@ -295,7 +295,21 @@ add(2,26739)
 add(2,system)
 add(2,0)
 itr()</code></pre>
-<h2 id="oflo"><a href="#oflo" class="headerlink" title="oflo"></a>oflo</h2>
+<h2 id="oflo"><a href="#oflo" class="headerlink" title="oflo"></a>oflo</h2><p>存在花指令，无法正常反编译，直接可以用ida或者gdb进行跟即可。但是不能直接打开，会被反调试ptrace检测到，可以attach上去即可。<strong>（注意是root权限下。）</strong></p>
+<p>开始程序让输入19个字符，关键代码在<code>0x400a69</code>,但是坏的机器码，gdb 下watch一下，发现有流程在根据你<strong>输入的东西</strong>处理这一块的机器码，输入正确了可以执行下去。在关键代码处，可以发现其是在处理14位的数据，但是刚开始输入的是19个，多出来的5个不知道什么用。调试会发现，其就根据前5个字节，对<code>0x400a69</code>块进行处理，一共处理了10次。可以猜到就是<code>n1ctf</code>。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/IBvReP.png" srcset="/img/loading.gif" alt></p>
+<p>这块处理完其汇编代码，就正常了。</p>
+<pre><code class="c"> for ( i = 0; i &lt;= 13; ++i )
+  {
+    if ( *(&amp;v4 + i) != ((*(char *)(i + a1) + 2) ^ *(char *)(i + a2)) )</code></pre>
+<p>进入以后可以看到关键代码。其是在于起初程序，<code>cat /proc/version</code>到的字符串取前14个在进行xor。要是绕过这里，没有相应字符串，就会出现问题。</p>
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><pre><code class="python">key = [0x35,0x2D,0x11, 0x1A,0x49,0x7D,0x11, 0x14,0x2B,0x3B,0x3E,0x3D,0x3C,0x5F]
+data = [0x4C, 0x69, 0x6E, 0x75, 0x78, 0x20, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6F, 0x6E, 0x20]
+flag = &#39;&#39;
+for i in range(len(key)):
+    flag += chr(key[i] ^ (data[i]+2))
+print(flag)</code></pre>
+
             <hr>
           </div>
           <br>
