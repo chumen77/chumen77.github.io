@@ -160,6 +160,54 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/10/27/Bytectf2020部分wp/">Bytectf2020部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/27/Bytectf2020部分wp/">
+          
+          
+            
+          
+          Bytectf2020部分wpeasyheap分析程序很简单，但是漏洞点比较隐蔽。
+此处第一次申请chunk时的size，作为后面一个偏移来写0。如果故意第一次时输入不是0～0x80的范围，其就可以实现任意地址写0。其中这个v2也可以是负数。
+攻击思路
+leak libc
+在tcache chain上写个0，用tcache attcak打free hook
+free 一个带有/bin/sh\x00
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-27 11:33" pubdate>
+              2020-10-27
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/wp/">wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/10/19/N1CTF2020部分wp/">N1CTF2020部分wp</a>
       </h1>
 
@@ -191,9 +239,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/pwn/">pwn</a>
-            
               <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
             
               <a href="/tags/heap/">heap</a>
             
@@ -475,9 +523,9 @@ from z3
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/pwn/">pwn</a>
-            
               <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
             
           </div>
         
@@ -573,57 +621,6 @@ x64db
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/08/24/强网杯2020部分题目/">强网杯2020部分题目</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/24/强网杯2020部分题目/">
-          
-          
-            
-          
-          强网杯2020 部分题目babymessage分析Arch:     amd64-64-little
- RELRO:    Partial RELRO
- Stack:    No canary found
- NX:       NX enabled
- PIE:      No PIE (0x3fe000)
-
-基本保护不算多。
-是一个伪堆题。
-漏洞点在 leave_message(v1)函数这里的v
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-24 10:34" pubdate>
-              2020-08-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
             
               <a href="/tags/re/">re</a>
             
