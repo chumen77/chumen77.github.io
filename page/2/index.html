@@ -160,6 +160,198 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">ciscn 2020 华中分区赛部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">
+          
+          
+            
+          
+          ciscn  2020 华中分区赛部分wp第一天跟6级冲突了，基本没玩，第二天做完一个题ida炸了，怎么也打不开。最近，总是关键时刻掉链子了😭。
+logic_mistake分析
+可以申请16个堆，size信息放在其chunk地址的下8个字节
+通过strdup来进行申请堆， strdup 相当于s = input() malloc(stren(s)) 
+
+edit函数
+read(0, *((voi
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-24 08:09" pubdate>
+              2020-09-24
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/14/羊城杯2020部分wp/">羊城杯2020部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/14/羊城杯2020部分wp/">
+          
+          
+            
+          
+          羊城杯2020部分wpreloginPython exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：
+ 在脱去以后，会有主程序，跟一个struct的文件。
+要保证主程序与struct的前面的魔法字节是相同一样的。
+重点关注前16个字节，保证相同即可。修复好pyc后，就可以进行反编译。剩下的就是逆算法，需要用到z3。
+exp#!/usr/bin/env python2.7
+from z3 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-14 20:56" pubdate>
+              2020-09-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">2020 “中能融合杯” 部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
+          
+          
+            
+          
+          工控wpICS_8就是一个算法的逆向。
+#!/usr/bin/env python2.7
+import struct
+import base64
+
+cypher_text = 'HgoAVxEfdCRlPytBA1JSHiVOZW4VMURPcANETw=='
+iv = struct.unpack("I", 'x1a0')[0]
+def decode(cypher_text,iv):
+    cy
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-12 17:15" pubdate>
+              2020-09-12
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/misc/">misc</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/07/实战去除packet tracer登陆窗口/">实战去除packet tracer登陆窗口</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/07/实战去除packet tracer登陆窗口/">
+          
+          
+            
+          
+          实战去除思科packet tracer登陆窗口背景专业课开设了路由交换这门课，其中要经常使用packet tracer这个软件，但是没有注册的话，每次登陆都需要等待15s，就尝试破解一下。
+目标破除等待的15s，最好直接去除掉登陆窗口。但是老师上课给我们演示过，有个吾爱破解的插件是直接破解掉登陆窗口的，就直接奔着这个目标去。
+工具
+win7 模拟器
+packet tracer 7.11
+x64db
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-07 17:11" pubdate>
+              2020-09-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/08/24/强网杯2020部分题目/">强网杯2020部分题目</a>
       </h1>
 
@@ -438,216 +630,11 @@ su
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/28/“第五空间” 智能安全大赛/">“第五空间” 智能安全大赛-twice</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/06/28/“第五空间” 智能安全大赛/">
-          
-          
-            
-          
-          “第五空间” 智能安全大赛比赛时当天有考试，就做了个签道题。
-twice查保护Arch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    Canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-
-ida分析
-程序可以给你2次的读操作，第一次读89字节，第二次读112字节
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-28 20:43" pubdate>
-              2020-06-28
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/06/27/DASCTF安恒月赛(6th)/">DASCTF安恒月赛(6th)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/06/27/DASCTF安恒月赛(6th)/">
-          
-          
-            
-          
-          DASCTF安恒月赛(6th)REpyCharm(pyc文件恢复)这个题基本参考https://www.52pojie.cn/thread-912103-1-1.html来做的。
-加载pyc co_codeIn [1]: import dis,marshal
-
-In [2]: f=open('1.pyc')
-
-In [3]: f.read(4)
-Out[3]: '\x03\xf3\r\n'
-
-In
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-06-27 22:27" pubdate>
-              2020-06-27
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/05/13/House of Force/">House of Force</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/05/13/House of Force/">
-          
-          
-            
-          
-          House of Force前言基本按照这wiki上面学的，简单记录一下。
-原理
-使用条件
-能够以溢出等方式控制到 top chunk 的 size 域
-能够自由地控制堆分配尺寸的大小产生原因House Of Force 产生的原因在于 glibc 对 top chunk 的处理：进行堆分配时,如果所有空闲的块都无法满足需求,那么就会从 top chunk 中分割出相应的大小作为堆块的空间。
-
-所
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-05-13 21:30" pubdate>
-              2020-05-13
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/House系列/">House系列</a>
-            
-              <a href="/tags/heap/">heap</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/04/25/DASCTF安恒月赛/">DASCTF安恒月赛(4th)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/04/25/DASCTF安恒月赛/">
-          
-          
-            
-          
-          DASCTF安恒月赛-pwn前言开赛了，有点事情没打，晚上复现了一下。
-echo-server[*] '/ctf/work/ahys/echo server/test'
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-  
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-04-25 21:48" pubdate>
-              2020-04-25
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/rop/">rop</a>
-            
-              <a href="/tags/uaf/">uaf</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

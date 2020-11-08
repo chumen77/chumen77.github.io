@@ -160,6 +160,199 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/02/11/Stack Migration题目练习/">Stack Migration题目练习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/02/11/Stack Migration题目练习/">
+          
+          
+            
+          
+          Stack Migration题目练习前言记录几道Stack Migration的练习题。
+pwnable_simple_login查看保护和archArch:     i386-32-little
+RELRO:    Partial RELRO
+Stack:    Canary found
+NX:       NX enabled
+PIE:      No PIE (0x8048000)
+
+32
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-02-11 21:51" pubdate>
+              2020-02-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/Stack-Migration/">Stack Migration</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/02/05/花式栈溢出（调节栈帧）/">花式栈溢出（栈帧的调节）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/02/05/花式栈溢出（调节栈帧）/">
+          
+          
+            
+          
+          花式栈溢出（栈帧的调节）前言本人刚学pwn不久，最近在学习过程中学到了各种需要栈帧调节的题目，以此记录一下。在一些栈溢出的程序中，我们会碰到一些问题，例如溢出的可控字节数太少，无法构造我们想要的rop链，程序ASLR开启后导致的栈地址不可预测等。对于这种问题，常用的思路包括：
+
+加减esp值，控制栈指针
+Stack Migration来构造一个假的栈帧。
+
+这里总结了2种题型：
+加减esp，把控栈
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-02-05 16:53" pubdate>
+              2020-02-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/学习记录/">学习记录</a>
+            
+              <a href="/tags/Stack-Migration/">Stack Migration</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/02/03/ROP练习/">ROP题目练习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/02/03/ROP练习/">
+          
+          
+            
+          
+          ROP题目练习前言最近在学习栈溢出，做了一些ROP的练习题，基本都是buuoj的题目，搜索rop字眼找的rop题。简单记录一下收获和exp。
+有libc（或者无libc可做）OGeek2019_babyrop查保护和arch32位程序，开启NX堆栈不可执行。
+ida分析可以看出其取了一个随机数，存入buf。然后进入这个函数分析，看到接收buf传来的值，放入s中。然后下面接收你传入的东西，与s判断是
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-02-03 16:21" pubdate>
+              2020-02-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/ROP/">ROP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/29/HTML 基础/">HTML 基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/29/HTML 基础/">
+          
+          
+            
+          
+          HTML 基础
+HTML标题：是通过 &lt;h1&gt; - &lt;h6&gt; 标签来定义的.；其会因为数字变化而显示的字体大小变化；
+HTML段落：通过标签&lt;p&gt; 来定义的.
+HTML链接：通过标签&lt;a&gt;来定义的。
+HTML图像：通过标签 &lt;img&gt; 来定义的。
+
+HTML 文本HTML 标题标题（Heading）是通过&lt;h1&gt; - &lt;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-29 21:42" pubdate>
+              2019-12-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/学习记录/">学习记录</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2019/11/17/DDCTF2019-RE-Windows Reverse/">DDCTF2019-RE-Windows Reverse</a>
       </h1>
 
@@ -444,187 +637,11 @@ ch
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/10/19/C语言与反汇编学习（二）/">C语言与反汇编学习（二）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/10/19/C语言与反汇编学习（二）/">
-          
-          
-            
-          
-          C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。
-裸函数什么是裸函数？void __declspec(naked) Function()  
-{.....}在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数，编译器不会为函数体生成任
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-10-19 23:49" pubdate>
-              2019-10-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/c与汇编/">c与汇编</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/10/19/C语言与反汇编学习（一）/">C语言与反汇编学习（一）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/10/19/C语言与反汇编学习（一）/">
-          
-          
-            
-          
-          C语言与反汇编学习（一）前言：本课主要学习VC开发环境的简单使用，和几个函数反汇编分析。
-简单下熟悉VC6开发环境这里我直接用了编程达人的vc虚拟机，官方的vc6.0不是很好用，每次只支持调试一次，人家的可以突破这个限制。
-创建项目
-执行过程代码编写–&gt;生成EXE(F7)–&gt;运行(F5)–&gt;结束运行(Shift+F5)
-一些简单操作设置断点设置断点是光标放到哪行代码后按下F9即可
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-10-19 10:26" pubdate>
-              2019-10-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/c与汇编/">c与汇编</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/10/07/JCC/">JCC学习</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/10/07/JCC/">
-          
-          
-            
-          
-          JCC学习JCC指令集合详细__1、JE, JZ　　　　　　结果为零则跳转(相等时跳转)　　　　 　　 ZF=1
-2、JNE, JNZ　　  　　结果不为零则跳转(不相等时跳转) 　　　　   ZF=0
-3、JS　　　　　　　  结果为负则跳转　　　　　　　　　　　　    SF=1
-4、JNS 　　　　　　  结果为非负则跳转　　　　　　　　　　　   SF=0
-5、JP, JPE　　　　　 结
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-10-07 23:09" pubdate>
-              2019-10-07
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/c与汇编/">c与汇编</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/10/06/标志寄存器/">标志寄存器</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/10/06/标志寄存器/">
-          
-          
-            
-          
-          标志寄存器部分标志寄存器详细介绍需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF
-CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0。
-解析：在看运算结果的时候，先提前确定好参与运算的数是有无符号数和它们的数据宽度。其与PF的难辨难分，重点是看参与运算的数是否为无符号数，这个是程序员写代码的时候定义的。默认都是
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-10-06 22:01" pubdate>
-              2019-10-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/c与汇编/">c与汇编</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

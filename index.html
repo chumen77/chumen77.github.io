@@ -160,6 +160,205 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/11/08/太湖杯ctf2020部分wp/">太湖杯ctf2020部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/08/太湖杯ctf2020部分wp/">
+          
+          
+            
+          
+          太湖杯ctf2020部分wpseven hero手快，拿了个三血。还是挺开心的🤣
+
+realloc size 0 制造出free效果，配合del函数，达成uaf
+利用libc 2.29的fastbin 的stash机制，完成tcache attack
+
+exp#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import time
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-08 14:19" pubdate>
+              2020-11-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/wp/">wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/04/铁人三项2020第二赛区 pwn/">铁人三项2020第二赛区 pwn</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/04/铁人三项2020第二赛区 pwn/">
+          
+          
+            
+          
+          铁人三项2020第二赛区 pwnstackstorm程序存在栈溢出可以溢出0x10的字节，考虑栈迁移。一共可以触发2次，第一次用来泄漏出栈地址，第二次用泄漏的栈地址，栈迁移，在可控的输入区，进行rop，泄漏出libc地址。然后，让其返回start开始处，清理栈进行第3次的漏洞利用，这个时候时间覆盖返回地址为one gadget即可。
+#!/usr/bin/env python
+# encoding
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-04 19:26" pubdate>
+              2020-11-04
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/wp/">wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/04/湖湘杯ctf2020部分wp/">湖湘杯ctf2020部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/04/湖湘杯ctf2020部分wp/">
+          
+          
+            
+          
+          湖湘杯ctf2020部分wpblend pwn漏洞点
+uaf （del的函数）
+fmt （show name 的函数）
+后门函数存在栈溢出
+
+思路先用fmt泄漏出来栈地址 libc地址备用，然后发现只能申请2次的chunk，已经不能进行fastbin attack，只能泄漏一下heap地址，重点研究下后门函数。
+unsigned __int64 backdoor()
+&#123;
+  _QWORD
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-04 17:40" pubdate>
+              2020-11-04
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/wp/">wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/29/Heap Exploit 2.31 相关学习/">Heap Exploit 2.31 相关学习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/29/Heap Exploit 2.31 相关学习/">
+          
+          
+            
+          
+          Heap Exploit 2.31 相关学习tcache_stashing_unlink示例代码#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;inttypes.h&gt;
+
+static uint64_t victim = 0;
+
+int main(int argc, char **argv)&#123;
+	setb
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-29 16:15" pubdate>
+              2020-10-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/学习记录/">学习记录</a>
+            
+              <a href="/tags/heap/">heap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/10/27/Bytectf2020部分wp/">Bytectf2020部分wp</a>
       </h1>
 
@@ -438,203 +637,11 @@ https://github.com/swfangzhang/IDA-pro-7-for-Catalina-OSX-15
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">ciscn 2020 华中分区赛部分wp</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">
-          
-          
-            
-          
-          ciscn  2020 华中分区赛部分wp第一天跟6级冲突了，基本没玩，第二天做完一个题ida炸了，怎么也打不开。最近，总是关键时刻掉链子了😭。
-logic_mistake分析
-可以申请16个堆，size信息放在其chunk地址的下8个字节
-通过strdup来进行申请堆， strdup 相当于s = input() malloc(stren(s)) 
-
-edit函数
-read(0, *((voi
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-09-24 08:09" pubdate>
-              2020-09-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/09/14/羊城杯2020部分wp/">羊城杯2020部分wp</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/09/14/羊城杯2020部分wp/">
-          
-          
-            
-          
-          羊城杯2020部分wpreloginPython exe的逆向。其中在修复pyc时，个人不是很熟悉，记录一下：
- 在脱去以后，会有主程序，跟一个struct的文件。
-要保证主程序与struct的前面的魔法字节是相同一样的。
-重点关注前16个字节，保证相同即可。修复好pyc后，就可以进行反编译。剩下的就是逆算法，需要用到z3。
-exp#!/usr/bin/env python2.7
-from z3 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-09-14 20:56" pubdate>
-              2020-09-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">2020 “中能融合杯” 部分wp</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/09/12/2020 “中能融合杯” 部分wp/">
-          
-          
-            
-          
-          工控wpICS_8就是一个算法的逆向。
-#!/usr/bin/env python2.7
-import struct
-import base64
-
-cypher_text = 'HgoAVxEfdCRlPytBA1JSHiVOZW4VMURPcANETw=='
-iv = struct.unpack("I", 'x1a0')[0]
-def decode(cypher_text,iv):
-    cy
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-09-12 17:15" pubdate>
-              2020-09-12
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-              <a href="/tags/misc/">misc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/09/07/实战去除packet tracer登陆窗口/">实战去除packet tracer登陆窗口</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/09/07/实战去除packet tracer登陆窗口/">
-          
-          
-            
-          
-          实战去除思科packet tracer登陆窗口背景专业课开设了路由交换这门课，其中要经常使用packet tracer这个软件，但是没有注册的话，每次登陆都需要等待15s，就尝试破解一下。
-目标破除等待的15s，最好直接去除掉登陆窗口。但是老师上课给我们演示过，有个吾爱破解的插件是直接破解掉登陆窗口的，就直接奔着这个目标去。
-工具
-win7 模拟器
-packet tracer 7.11
-x64db
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-09-07 17:11" pubdate>
-              2020-09-07
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

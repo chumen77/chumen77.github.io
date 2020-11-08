@@ -160,6 +160,182 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2019/10/19/C语言与反汇编学习（二）/">C语言与反汇编学习（二）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/10/19/C语言与反汇编学习（二）/">
+          
+          
+            
+          
+          C语言与反汇编学习（二）前言本次主要学习一下c是如何变成汇编的，查找程序入口，调用约定，和主要练习使用__declspec(naked)裸函数实现部分简单的功能和完整的逆一个简单EXE成c语言。
+裸函数什么是裸函数？void __declspec(naked) Function()  
+{.....}在代码中申明函数后，编译时，除了入口参数压栈外，然后就是call这个函数，编译器不会为函数体生成任
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-10-19 23:49" pubdate>
+              2019-10-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/c与汇编/">c与汇编</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/10/19/C语言与反汇编学习（一）/">C语言与反汇编学习（一）</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/10/19/C语言与反汇编学习（一）/">
+          
+          
+            
+          
+          C语言与反汇编学习（一）前言：本课主要学习VC开发环境的简单使用，和几个函数反汇编分析。
+简单下熟悉VC6开发环境这里我直接用了编程达人的vc虚拟机，官方的vc6.0不是很好用，每次只支持调试一次，人家的可以突破这个限制。
+创建项目
+执行过程代码编写–&gt;生成EXE(F7)–&gt;运行(F5)–&gt;结束运行(Shift+F5)
+一些简单操作设置断点设置断点是光标放到哪行代码后按下F9即可
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-10-19 10:26" pubdate>
+              2019-10-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/c与汇编/">c与汇编</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/10/07/JCC/">JCC学习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/10/07/JCC/">
+          
+          
+            
+          
+          JCC学习JCC指令集合详细__1、JE, JZ　　　　　　结果为零则跳转(相等时跳转)　　　　 　　 ZF=1
+2、JNE, JNZ　　  　　结果不为零则跳转(不相等时跳转) 　　　　   ZF=0
+3、JS　　　　　　　  结果为负则跳转　　　　　　　　　　　　    SF=1
+4、JNS 　　　　　　  结果为非负则跳转　　　　　　　　　　　   SF=0
+5、JP, JPE　　　　　 结
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-10-07 23:09" pubdate>
+              2019-10-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/c与汇编/">c与汇编</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/10/06/标志寄存器/">标志寄存器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/10/06/标志寄存器/">
+          
+          
+            
+          
+          标志寄存器部分标志寄存器详细介绍需要先熟练记住这几个寄存器的位置和名称：CF PF AF ZF SF OF
+CF进位标志CF(Carry Flag):如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0。
+解析：在看运算结果的时候，先提前确定好参与运算的数是有无符号数和它们的数据宽度。其与PF的难辨难分，重点是看参与运算的数是否为无符号数，这个是程序员写代码的时候定义的。默认都是
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-10-06 22:01" pubdate>
+              2019-10-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/c与汇编/">c与汇编</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2019/10/01/数据宽度与逻辑运算/">数据宽度与逻辑运算</a>
       </h1>
 
@@ -412,147 +588,11 @@ export PATH="$&#123;
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/08/16/xss学习/">XSS知识简单学习</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/08/16/xss学习/">
-          
-          
-            
-          
-          XSS知识简单学习一:Xss简介XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中比如这些代码包括HTML代码和客户端脚本。攻击者利用XSS漏洞旁路掉访问控制——例如同源策略(same origin p
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-08-16 16:21" pubdate>
-              2019-08-16
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/XSS/">XSS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/04/02/简易解决python2.X与python3.x共存问题/">简易解决python2.X与python3.x共存问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/04/02/简易解决python2.X与python3.x共存问题/">
-          
-          
-            
-          
-          简易解决python2.X与python3.x共存问题python3.x不兼容Python2.x，语法有许多不同，但很多工具还是需要2.x版本，自己又是初学者，只是跑跑别人的脚本，不会改语法冲突。。。。下面说解决办法。
-安装模块Python目前还是需要分开安装
-py -2 -m pip install xxxx
-
-py -3 -m pip install xxxx
-
-运行脚本分别用py2.x py
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-04-02 23:05" pubdate>
-              2019-04-02
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/杂项/">杂项</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2019/03/30/css学习/">css学习</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2019/03/30/css学习/">
-          
-          
-            
-          
-          CSS如何使用CSSCSS可以通过以下方式添加到HTML中:
-
-内联样式- 在HTML元素中使用”style” 属性 (不推荐使用)；
-内部样式表 -在HTML文档头部 &lt;head&gt; 区域使用&lt;style&gt;元素 来包含CSS。
-外部引用 - 使用外部 CSS 文件(==推荐使用)==
-
-内联样式应用到个别元素时，就可以使用内联样式。
-&lt;div style="color
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-03-30 22:48" pubdate>
-              2019-03-30
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/css/">css</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
