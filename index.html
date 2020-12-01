@@ -267,13 +267,12 @@ del函数中存在uaf的漏洞，且只对byte位的size清0，0x100的chunk不�
           第六届上海市网络安全邀请赛2020CTF部分wp签到echo "ZmxhZ3t3MzFjMG1lNX0=" | base64 -d | tr 5 6
 flag&#123;w31c0me6&#125;
 
-flag值：flag{w31c0me6}
 lgtwo漏洞点v1 = sizelist[i];
    sizelist[i] = v1 + 1;
 
 Add函数存在off by one
 攻击思路
-off
+off by one 构造chunk overl
         </a>
       </p>
 
@@ -512,11 +511,9 @@ unsigned __int64 backdoor()
           
             
           
-          glibc 2.29引入stash 机制后引起的相关漏洞学习以下示例的libc源码均为libc2.31.
+          glibc 2.29引入stash 机制后引起的相关漏洞学习本文首发于安全客：https://www.anquanke.com/post/id/222079以下示例的libc源码均为libc2.31.
 fastbin的stash机制这里分析一下对于fastbin的stash机制
- if ((unsigned long)(nb) &lt;= (unsigned long)(get_max_fast())) //size在fastbin范围内
-  &#123;
-    idx = fastbin
+ if ((unsigned long)(nb) &lt;= (unsigned long)(get_max_fast(
         </a>
       </p>
 

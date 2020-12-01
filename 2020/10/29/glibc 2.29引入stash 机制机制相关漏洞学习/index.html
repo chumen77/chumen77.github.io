@@ -160,7 +160,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      5.3k 字
     </span>
   
 
@@ -203,7 +203,7 @@
             <h1 style="display: none">glibc 2.29引入stash 机制后引起的相关漏洞学习</h1>
             
             <div class="markdown-body" id="post-body">
-              <h1 id="glibc-2-29引入stash-机制后引起的相关漏洞学习"><a href="#glibc-2-29引入stash-机制后引起的相关漏洞学习" class="headerlink" title="glibc 2.29引入stash 机制后引起的相关漏洞学习"></a>glibc 2.29引入stash 机制后引起的相关漏洞学习</h1><p>以下示例的libc源码均为libc2.31.</p>
+              <h1 id="glibc-2-29引入stash-机制后引起的相关漏洞学习"><a href="#glibc-2-29引入stash-机制后引起的相关漏洞学习" class="headerlink" title="glibc 2.29引入stash 机制后引起的相关漏洞学习"></a>glibc 2.29引入stash 机制后引起的相关漏洞学习</h1><p>本文首发于安全客：<a href="https://www.anquanke.com/post/id/222079" target="_blank" rel="noopener">https://www.anquanke.com/post/id/222079</a><br>以下示例的libc源码均为libc2.31.</p>
 <h2 id="fastbin的stash机制"><a href="#fastbin的stash机制" class="headerlink" title="fastbin的stash机制"></a>fastbin的stash机制</h2><p>这里分析一下对于fastbin的stash机制</p>
 <div class="hljs"><pre><code class="hljs c"> <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)(nb) &lt;= (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)(get_max_fast())) <span class="hljs-comment">//size在fastbin范围内</span>
   &#123;

@@ -170,7 +170,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      46
+      45
        分钟
     </span>
   
@@ -301,9 +301,6 @@ edit(<span class="hljs-number">0</span>,p64(libcbase + <span class="hljs-number"
 sla(<span class="hljs-string">"4: Enjoy scenery"</span>,<span class="hljs-string">'5'</span>)
 sla(<span class="hljs-string">'idx'</span>,<span class="hljs-string">'1'</span>)
 itr()</code></pre></div>
-
-<h3 id="flag值"><a href="#flag值" class="headerlink" title="flag值"></a>flag值</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/5JyYs3.png" srcset="/img/loading.gif" alt></p>
-<div class="hljs"><pre><code class="hljs undefined">flag&#123;443f40ee-f4de-<span class="hljs-number">40b3</span>-ab94-b7afa6f9&#125;</code></pre></div>
 
 <h2 id="把嘴闭上"><a href="#把嘴闭上" class="headerlink" title="把嘴闭上"></a>把嘴闭上</h2><p>分析程序，发现漏洞点肯定在mallopt函数上。但是不怎么熟悉，就开始谷歌这个函数相关的漏洞，审计libc源码。</p>
 <p>最终发现一个漏洞报告。<br><a href="https://www.cygwin.com/bugzilla/show_bug.cgi?id=25733" target="_blank" rel="noopener">https://www.cygwin.com/bugzilla/show_bug.cgi?id=25733</a></p>
@@ -453,9 +450,6 @@ add(<span class="hljs-number">0x418</span>,<span class="hljs-string">'/bin/sh\x0
 free()
 itr()</code></pre></div>
 
-<h3 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/bpPUlY.png" srcset="/img/loading.gif" alt></p>
-<div class="hljs"><pre><code class="hljs undefined">flag&#123;<span class="hljs-number">1</span>db37b9de003140420951bf5f77483a7&#125;</code></pre></div>
-
 <h2 id="影流之主"><a href="#影流之主" class="headerlink" title="影流之主"></a>影流之主</h2><h3 id="漏洞点-2"><a href="#漏洞点-2" class="headerlink" title="漏洞点"></a>漏洞点</h3><ul>
 <li>uaf</li>
 </ul>
@@ -544,9 +538,6 @@ free(<span class="hljs-number">0</span>)
 
 itr()</code></pre></div>
 
-<h3 id="flag-1"><a href="#flag-1" class="headerlink" title="flag"></a>flag</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/U7zeII.png" srcset="/img/loading.gif" alt></p>
-<div class="hljs"><pre><code class="hljs undefined">flag&#123;dfbe8fe7-b6f4<span class="hljs-number">-4</span>c3a-a226<span class="hljs-number">-6</span>a8b12fd683f&#125;</code></pre></div>
-
 <h2 id="babypwn"><a href="#babypwn" class="headerlink" title="babypwn"></a>babypwn</h2><h3 id="漏洞点-3"><a href="#漏洞点-3" class="headerlink" title="漏洞点"></a>漏洞点</h3><p>c++的程序代码看起来比较的乱，直接上手进行调试。<br>发现在init create init 这样的顺序执行后，程序就变得诡异起来，并没把重要的指针转移到新init来的内存块来使用，而是还是使用原来init开起来虚表指针，由于其大小是0x90的chunk，接着可以实现泄漏。</p>
 <p><img src="http://qiqianyun.chumen77.xyz/uPic/FaLGv4.png" srcset="/img/loading.gif" alt><br>如图，控制这两个指针就可以任意地址读和写。然后再次申请0x8f的堆块,set一下即可控制这2个指针。<br><img src="http://qiqianyun.chumen77.xyz/uPic/3gVHpF.png" srcset="/img/loading.gif" alt></p>
 <p>然后改写到free hook，再次create函数其会free 原来的chunk，即可触发one gadget。</p>
@@ -624,7 +615,6 @@ create()
 <span class="hljs-comment"># debug()</span>
 itr()</code></pre></div>
 
-<h3 id="flag-2"><a href="#flag-2" class="headerlink" title="flag"></a>flag</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/9UJXcK.png" srcset="/img/loading.gif" alt><br>flag{807591828e94ceb0e6c206caa5f98927}</p>
 <h2 id="garden"><a href="#garden" class="headerlink" title="garden"></a>garden</h2><h3 id="漏洞点-4"><a href="#漏洞点-4" class="headerlink" title="漏洞点"></a>漏洞点</h3><ul>
 <li>steal tree函数存在uaf</li>
 </ul>
@@ -738,9 +728,6 @@ add(<span class="hljs-number">6</span>,<span class="hljs-string">'/bin/sh\x00'</
 free(<span class="hljs-number">6</span>)
 <span class="hljs-comment"># debug()</span>
 itr()</code></pre></div>
-
-<h3 id="flag-3"><a href="#flag-3" class="headerlink" title="flag"></a>flag</h3><p><img src="http://qiqianyun.chumen77.xyz/uPic/wNb41v.png" srcset="/img/loading.gif" alt></p>
-<div class="hljs"><pre><code class="hljs undefined">flag&#123;<span class="hljs-number">49333188</span>b93b530dfaf568d0816aa0fa&#125;</code></pre></div>
 
 
             </div>
