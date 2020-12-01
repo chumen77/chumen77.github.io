@@ -160,6 +160,202 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/11/23/祥云杯2020CTF部分pwn wp/">祥云杯2020CTF部分pwn wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/23/祥云杯2020CTF部分pwn wp/">
+          
+          
+            
+          
+          祥云杯2020CTF部分pwn wp￼Beauty_Of_ChangChun漏洞点
+del函数中存在uaf的漏洞，且只对byte位的size清0，0x100的chunk不受影响
+存在后门函数
+
+利用思路开始程序就把flag读入了一个特定的内存中，并且后门函数中，只需确定flag字符串前8位字节的具体值即可拿到flag。所以可以用Tcache Stashing Unlink ，往flag 前的8位写
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-23 07:11" pubdate>
+              2020-11-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/wp/">wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/18/Unsorted_Bin_Attack再学习/">Unsorted\_Bin\_Attack再学习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/18/Unsorted_Bin_Attack再学习/">
+          
+          
+            
+          
+          Unsorted_Bin_Attack  再学习感觉自己对Unsorted_Bin_Attack掌握的不是很好，最初学习时，也没有对着源码进行学习分析。决定再总结和学习一下。
+基本来源和知识来源
+当一个较大的 chunk 被分割成两半后，如果剩下的部分大于 MINSIZE，就会被放到 unsorted bin 中。
+释放一个不属于 fast bin 的 chunk，并且该 chunk 不和 top
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-18 09:19" pubdate>
+              2020-11-18
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/学习记录/">学习记录</a>
+            
+              <a href="/tags/unsortedbin/">unsortedbin</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/14/第六届上海市网络安全邀请赛2020CTF部分wp/">第六届上海市网络安全邀请赛2020CTF部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/14/第六届上海市网络安全邀请赛2020CTF部分wp/">
+          
+          
+            
+          
+          第六届上海市网络安全邀请赛2020CTF部分wp签到echo "ZmxhZ3t3MzFjMG1lNX0=" | base64 -d | tr 5 6
+flag&#123;w31c0me6&#125;
+
+flag值：flag{w31c0me6}
+lgtwo漏洞点v1 = sizelist[i];
+   sizelist[i] = v1 + 1;
+
+Add函数存在off by one
+攻击思路
+off
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-14 23:18" pubdate>
+              2020-11-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/wp/">wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/11/12/Nov.刷题记录/">Nov. 刷题记录</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/12/Nov.刷题记录/">
+          
+          
+            
+          
+          Nov.刷题记录BUUCTF 红包题3Tcache Stashing Unlink Attack 练手题。
+漏洞点
+uaf
+
+利用0x400 与 0x300构造出2个0x90的smallbin，进行Tcache Stashing Unlink Attack 即可。
+exp#!/usr/bin/env python
+# encoding: utf-8
+from pwn import *
+import
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-12 20:59" pubdate>
+              2020-11-12
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/11/08/太湖杯ctf2020部分wp/">太湖杯ctf2020部分wp</a>
       </h1>
 
@@ -307,23 +503,20 @@ unsigned __int64 backdoor()
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/10/29/Heap Exploit 2.31 相关学习/">Heap Exploit 2.31 相关学习</a>
+        <a href="/2020/10/29/glibc 2.29引入stash 机制机制相关漏洞学习/">glibc 2.29引入stash 机制后引起的相关漏洞学习</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/10/29/Heap Exploit 2.31 相关学习/">
+        <a href="/2020/10/29/glibc 2.29引入stash 机制机制相关漏洞学习/">
           
           
             
           
-          Heap Exploit 2.31 相关学习tcache_stashing_unlink示例代码#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;inttypes.h&gt;
-
-static uint64_t victim = 0;
-
-int main(int argc, char **argv)&#123;
-	setb
+          glibc 2.29引入stash 机制后引起的相关漏洞学习以下示例的libc源码均为libc2.31.
+fastbin的stash机制这里分析一下对于fastbin的stash机制
+ if ((unsigned long)(nb) &lt;= (unsigned long)(get_max_fast())) //size在fastbin范围内
+  &#123;
+    idx = fastbin
         </a>
       </p>
 
@@ -343,9 +536,9 @@ int main(int argc, char **argv)&#123;
             
               <a href="/tags/pwn/">pwn</a>
             
-              <a href="/tags/学习记录/">学习记录</a>
-            
               <a href="/tags/heap/">heap</a>
+            
+              <a href="/tags/学习记录/">学习记录</a>
             
           </div>
         
@@ -443,193 +636,6 @@ free 一个带有/bin/sh\x00
               <a href="/tags/pwn/">pwn</a>
             
               <a href="/tags/heap/">heap</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/09/House of Spirit/">House of Spirit</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/09/House of Spirit/">
-          
-          
-            
-          
-          House of SpiritHouse of Spirit（下面称为hos）是一个组合型漏洞的利用，是变量覆盖和堆管理机制的组合利用，关键在于能够覆盖一个堆指针变量，使其指向可控的区域，只要构造好数据，释放后系统会错误的将该区域作为堆块放到相应的fastbin里面，最后再分配出来的时候，就有可能改写我们目标区域（多为函数指针和返回地址）。
-核心条件
-有机会覆盖一个堆指针变量，使其指向目标可控的区
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-09 11:45" pubdate>
-              2020-10-09
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/House系列/">House系列</a>
-            
-              <a href="/tags/heap/">heap</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/09/西湖论剑部分wp/">西湖论剑部分wp</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/09/西湖论剑部分wp/">
-          
-          
-            
-          
-          西湖论剑部分wpmmutag分析
-给了一个栈地址
-没有show函数
-free 函数存在uaf
-add函数只能申请堆号为1-10的堆块，大小仅为0x68
-可以给栈上读一段数据
-
-char buf; // [rsp+10h] [rbp-20h]
-
-if ( v3 != 3 )
-      break;
-    read(0, &amp;buf, 0x20uLL);
-    printf("Your c
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-09 08:23" pubdate>
-              2020-10-09
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">mac 上ida 7.0 闪退 打不开 解决办法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
-          
-          
-            
-          
-          mac 上ida 7.0 闪退 打不开 解决办法情景1下载以后直接不能用的。
-https://github.com/fjh658/IDA7.0_SP
-https://github.com/swfangzhang/IDA-pro-7-for-Catalina-OSX-15
-参考这个两个github的项目即可。
-情景2平时正常使用，突然因为装了冲突的插件打不开ida，直接crash。或者莫名点击ida
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-06 22:37" pubdate>
-              2020-10-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/杂项/">杂项</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/09/28/BUUCTF刷题记录/">BUUCTF 刷题记录</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/09/28/BUUCTF刷题记录/">
-          
-          
-            
-          
-          BUUCTF刷题记录GKCTF 2020 demo分析开启了沙箱，不过在main函数的最后，在while循环里做动作就不会触发到。其中add和free 函数，上来都会检测free_hook malloc_hook 是否不为0，不为0就不让进行相应的操作。
-漏洞点if ( (nbytes &amp; 0x80000000) == 0LL &amp;&amp; nbytes &lt;= 0x120 )
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-09-28 19:24" pubdate>
-              2020-09-28
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
             
           </div>
         

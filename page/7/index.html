@@ -160,6 +160,175 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2019/09/27/逆向学习-滴水公开课/">逆向学习-滴水公开课</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/27/逆向学习-滴水公开课/">
+          
+          
+            
+          
+          逆向学习-滴水公开课知识总结一、内存的读写寻址公式一: [立即数]读取内存的值:    MOV EAX,DWORD PTR DS:[0x13FFC4]
+    MOV EAX,DYVORD PTR DS:[0x13FFC8]    向内存中写入数据:    MOV DWORD PTR DS:[0x13FFC4],eax
+    MOV DWORD PTR DS:[0x13FFC8].ebx    
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-27 23:14" pubdate>
+              2019-09-27
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/23/安卓程序分析环境搭建/">安卓程序分析环境搭建</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/23/安卓程序分析环境搭建/">
+          
+          
+            
+          
+          #安卓程序分析环境搭建
+Mac下安卓SDK搭建：前提是已经安装了homebrew神器：
+1：下载SDKbrew search android-sdk
+brew cask install android-sdk
+
+2：配置环境变量vim .zshrc
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export PATH="$&#123;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-23 17:22" pubdate>
+              2019-09-23
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/01/SQL基础学习/">SQL注入基础学习</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/01/SQL基础学习/">
+          
+          
+            
+          
+          SQL注入基础学习数据类型（数字型）检测是否sql语句是否执行使用and,or,xor,like测试
+** 1=1
+** 1=2其中**可以为and or xor like任意一个ps：基本语句，注意真假逻辑关系，灵活进行测试。
+
+使用符号测试
+单引号
+减号
+
+数据类型（字符型）检测是否sql语句是否执行此处跟数字型测试办法基本一样，还是使用and,or,xor,like、单引号测试。最近接触字符
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-01 19:17" pubdate>
+              2019-09-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/SQL/">SQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/08/20/XSS挑战之旅/">XSS挑战之旅</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/08/20/XSS挑战之旅/">
+          
+          
+            
+          
+          XSS挑战之旅关卡第一关payload:&lt;script&gt;alert(1)&lt;/script&gt;此题没有任何过滤，直接构造语句，在标签之间进行输出。
+第二关此题变成了&lt;input&gt;标签，看到此处后可以考虑，提前闭合掉这个标签，所以构造payload：&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;，
+或者也可以payloa
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-08-20 20:29" pubdate>
+              2019-08-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/XSS/">XSS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2019/08/16/xss学习/">XSS知识简单学习</a>
       </h1>
 

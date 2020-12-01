@@ -160,6 +160,190 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/08/16/无标题/">安恒HWS夏令营选拔赛部分题目</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/16/无标题/">
+          
+          
+            
+          
+          安恒HWS夏令营选拔赛部分题目REIOT1环境搭建参考：https://www.cnblogs.com/csnd/p/11800622.html
+注意网卡那块，要对应自己虚拟机网卡的情况。
+启动命令：qemu-system-mipsel -M malta -hda openwrt-malta-le-root.ext4 -kernel openwrt-malta-le-vmlinux.elf -no
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-16 19:12" pubdate>
+              2020-08-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/re/">re</a>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/IOT/">IOT</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/08/10/MacOS安装IDA插件keypatch/">MacOS安装IDA插件keypatch</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/10/MacOS安装IDA插件keypatch/">
+          
+          
+            
+          
+          MacOS安装IDA插件keypatchmacOS 安装官方介绍的安装方式不太行。网上参考后记录一下。
+cmakebrew install cmake
+
+gitgit clone https://github.com/fjh658/keystone-engine.git
+
+cd keystone-engine
+
+git submodule update --init --recursive
+
+su
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-10 17:23" pubdate>
+              2020-08-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/杂项/">杂项</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/07/25/DASCTF安恒月赛(7th)/">DASCTF安恒月赛(7th)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/07/25/DASCTF安恒月赛(7th)/">
+          
+          
+            
+          
+          DASCTF安恒月赛(7th)只做出个签到题，tcl。。。
+虚假的签到题简单的栈溢出，但是出题人估计是用了GCC&gt;=4.9版本，故意给这个Stack Buffer Overflow 设置难度。
+分析0x80485fd &lt;main+104&gt;:        mov    ecx,DWORD PTR [ebp-0x4]
+0x8048600 &lt;main+107&gt;:     
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-25 21:50" pubdate>
+              2020-07-25
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/07/10/BUUCTF暑假刷题/">BUUCTF暑假刷题(1)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/07/10/BUUCTF暑假刷题/">
+          
+          
+            
+          
+          BUUCTF暑假刷题(1)cmcc_simplerop分析静态链接。32位程序。用int 80h 这个中断调用，呼叫系统调用程序system_call().。
+然后rop 控制EAX = 0Xb = 11，EBX = &amp;(“/bin/sh”), ECX = EDX = 0，即执行了sys_execve(&quot;/bin/sh&quot;, 0, 0, 0)，即可拿到shell。
+32位
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-10 21:16" pubdate>
+              2020-07-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/06/28/“第五空间” 智能安全大赛/">“第五空间” 智能安全大赛-twice</a>
       </h1>
 
@@ -443,198 +627,6 @@ remote_libc = local_l
               <a href="/tags/pwn/">pwn</a>
             
               <a href="/tags/杂项/">杂项</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/04/13/Ropemporium通关记录/">Ropemporium 通关记录</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/04/13/Ropemporium通关记录/">
-          
-          
-            
-          
-          Ropemporium 通关记录ret2win保护和archArch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-
-ida分析题目给了提示，32的buf却可以填充50个字节。并且接受用的是fgets，这个
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-04-13 12:32" pubdate>
-              2020-04-13
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/wp/">wp</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/04/08/linux_ Lamp搭建记录/">linux- Lamp搭建记录</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/04/08/linux_ Lamp搭建记录/">
-          
-          
-            
-          
-          Lamp搭建记录准备工作安装编译环境：yum -y install gcc*
-
-安装好后记得关闭防火墙和selinux
-准备软件包把这些安装包都放入虚拟机自定义的路径，等待使用。
-shell脚本批量解包#!/bin/bash
-/bin/ls *tar.gz &gt; ls.list
-/bin/ls *tgz &gt;&gt; ls.list
-for a in `cat ls.list`
-do
-  
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-04-08 14:24" pubdate>
-              2020-04-08
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/04/03/格式化字符串漏洞小总结（下）/">格式化字符串漏洞小总结（下）</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/04/03/格式化字符串漏洞小总结（下）/">
-          
-          
-            
-          
-          格式化字符串漏洞小总结（下）前言接着上一篇，这一篇主要记录一下对于这个漏洞的利用和ctf赛题中常见的套路和考法。
-格式化字符串在栈上劫持got
-每次 call libc 中的函数时都会去GOT表中查询来找出程序下一步要jmp的位址
-可以通过 fmt 构造写入一个目标地址，改掉 GOT 表上的地址使得call该函数时变成jmp到我们要的目标地址去例如 ：将 printf 改成 system，原本 p
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-04-03 16:59" pubdate>
-              2020-04-03
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/学习记录/">学习记录</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/03/15/格式化字符串漏洞题目练习/">格式化字符串漏洞题目练习</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/03/15/格式化字符串漏洞题目练习/">
-          
-          
-            
-          
-          格式化字符串漏洞题目练习前言整合一下最近做的格式化字符串题目的练习，把wp给写一下，方便对总结对这个漏洞的利用套路和技巧。
-inndy_echo保护和arch[*] '/media/psf/mypwn2/buuctf/inndy_echo/echo'
-    Arch:     i386-32-little
-    RELRO:    Partial RELRO
-    Stack:    No 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-03-15 14:38" pubdate>
-              2020-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/学习记录/">学习记录</a>
             
           </div>
         

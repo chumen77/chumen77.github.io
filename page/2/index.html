@@ -160,6 +160,193 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/10/09/House of Spirit/">House of Spirit</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/09/House of Spirit/">
+          
+          
+            
+          
+          House of SpiritHouse of Spirit（下面称为hos）是一个组合型漏洞的利用，是变量覆盖和堆管理机制的组合利用，关键在于能够覆盖一个堆指针变量，使其指向可控的区域，只要构造好数据，释放后系统会错误的将该区域作为堆块放到相应的fastbin里面，最后再分配出来的时候，就有可能改写我们目标区域（多为函数指针和返回地址）。
+核心条件
+有机会覆盖一个堆指针变量，使其指向目标可控的区
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-09 11:45" pubdate>
+              2020-10-09
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+              <a href="/tags/House系列/">House系列</a>
+            
+              <a href="/tags/heap/">heap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/09/西湖论剑部分wp/">西湖论剑部分wp</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/09/西湖论剑部分wp/">
+          
+          
+            
+          
+          西湖论剑部分wpmmutag分析
+给了一个栈地址
+没有show函数
+free 函数存在uaf
+add函数只能申请堆号为1-10的堆块，大小仅为0x68
+可以给栈上读一段数据
+
+char buf; // [rsp+10h] [rbp-20h]
+
+if ( v3 != 3 )
+      break;
+    read(0, &amp;buf, 0x20uLL);
+    printf("Your c
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-09 08:23" pubdate>
+              2020-10-09
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">mac 上ida 7.0 闪退 打不开 解决办法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/06/mac 上ida 7.0 闪退 打不开 解决办法/">
+          
+          
+            
+          
+          mac 上ida 7.0 闪退 打不开 解决办法情景1下载以后直接不能用的。
+https://github.com/fjh658/IDA7.0_SP
+https://github.com/swfangzhang/IDA-pro-7-for-Catalina-OSX-15
+参考这个两个github的项目即可。
+情景2平时正常使用，突然因为装了冲突的插件打不开ida，直接crash。或者莫名点击ida
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-06 22:37" pubdate>
+              2020-10-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/杂项/">杂项</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/09/28/BUUCTF刷题记录/">BUUCTF 刷题记录</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/28/BUUCTF刷题记录/">
+          
+          
+            
+          
+          BUUCTF刷题记录GKCTF 2020 demo分析开启了沙箱，不过在main函数的最后，在while循环里做动作就不会触发到。其中add和free 函数，上来都会检测free_hook malloc_hook 是否不为0，不为0就不让进行相应的操作。
+漏洞点if ( (nbytes &amp; 0x80000000) == 0LL &amp;&amp; nbytes &lt;= 0x120 )
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-28 19:24" pubdate>
+              2020-09-28
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pwn/">pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/09/24/ciscn 2020 华中分区赛部分wp/">ciscn 2020 华中分区赛部分wp</a>
       </h1>
 
@@ -437,190 +624,6 @@ a = np.array([[12, 53, 6,34,58,36,1],
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/re/">re</a>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/08/16/无标题/">安恒HWS夏令营选拔赛部分题目</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/16/无标题/">
-          
-          
-            
-          
-          安恒HWS夏令营选拔赛部分题目REIOT1环境搭建参考：https://www.cnblogs.com/csnd/p/11800622.html
-注意网卡那块，要对应自己虚拟机网卡的情况。
-启动命令：qemu-system-mipsel -M malta -hda openwrt-malta-le-root.ext4 -kernel openwrt-malta-le-vmlinux.elf -no
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-16 19:12" pubdate>
-              2020-08-16
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/re/">re</a>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-              <a href="/tags/IOT/">IOT</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/08/10/MacOS安装IDA插件keypatch/">MacOS安装IDA插件keypatch</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/10/MacOS安装IDA插件keypatch/">
-          
-          
-            
-          
-          MacOS安装IDA插件keypatchmacOS 安装官方介绍的安装方式不太行。网上参考后记录一下。
-cmakebrew install cmake
-
-gitgit clone https://github.com/fjh658/keystone-engine.git
-
-cd keystone-engine
-
-git submodule update --init --recursive
-
-su
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-10 17:23" pubdate>
-              2020-08-10
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/杂项/">杂项</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/07/25/DASCTF安恒月赛(7th)/">DASCTF安恒月赛(7th)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/07/25/DASCTF安恒月赛(7th)/">
-          
-          
-            
-          
-          DASCTF安恒月赛(7th)只做出个签到题，tcl。。。
-虚假的签到题简单的栈溢出，但是出题人估计是用了GCC&gt;=4.9版本，故意给这个Stack Buffer Overflow 设置难度。
-分析0x80485fd &lt;main+104&gt;:        mov    ecx,DWORD PTR [ebp-0x4]
-0x8048600 &lt;main+107&gt;:     
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-07-25 21:50" pubdate>
-              2020-07-25
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pwn/">pwn</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/07/10/BUUCTF暑假刷题/">BUUCTF暑假刷题(1)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/07/10/BUUCTF暑假刷题/">
-          
-          
-            
-          
-          BUUCTF暑假刷题(1)cmcc_simplerop分析静态链接。32位程序。用int 80h 这个中断调用，呼叫系统调用程序system_call().。
-然后rop 控制EAX = 0Xb = 11，EBX = &amp;(“/bin/sh”), ECX = EDX = 0，即执行了sys_execve(&quot;/bin/sh&quot;, 0, 0, 0)，即可拿到shell。
-32位
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-07-10 21:16" pubdate>
-              2020-07-10
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
             
               <a href="/tags/pwn/">pwn</a>
             
